@@ -17,6 +17,7 @@
 //    along with LeScienze500.  If not, see <http://www.gnu.org/licenses/>.
 
 
+
 #ifndef QUERYDB_H
 #define QUERYDB_H
 
