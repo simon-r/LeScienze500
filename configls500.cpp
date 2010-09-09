@@ -22,6 +22,7 @@
 #include <QDir>
 #include <QStringList>
 #include <QDebug>
+#include <QList>
 
 
 configLS500::configLS500()
@@ -54,20 +55,6 @@ void configLS500::resetToDefault()
 {
 
 }
-
-//
-//#define SPACING "\t"
-//#define ENDL "\n"
-//#define PDF_APPL "pdf_appl"
-//#define PDF_APPL_V "gv"
-//#define DB_DIR "db_dir"
-//#define DB_DIR_V "/opt/LeScienze500/LeScienze.db"
-//#define ART_PATH_1 "art_pdf_path1"
-//#define ART_PATH_1_V "/media/esterno_xfs/data/Le Scienze/Le scienze articoli 1"
-//#define ART_PATH_2 "art_pdf_path2"
-//#define ART_PATH_2_V "/media/esterno_xfs/data/Le Scienze/Le scienze articoli 2"
-//#define COPERTINE_P "copertine_path"
-//#define COPERTINE_P_V "--------"
 
 void configLS500::writeDfaultFile( QFile* file )
 {
@@ -126,7 +113,7 @@ QString configLS500::getConfigParameter( QString name )
         lineLength = file.readLine(buf, sizeof(buf)) ;
         if (lineLength != -1) {
             QString line = QString ( buf ) ;
-            QStringList list = line.split( SPACING , QString::SkipEmptyParts);
+            QStringList list = line.split( SPACING , QString::SkipEmptyParts );
             if ( list.size() == 2 )
             {
                 if (list[0] == name )
@@ -141,9 +128,87 @@ QString configLS500::getConfigParameter( QString name )
     int rs = result.size() ;
 
     result = result.remove( rs-1 , 1 ) ;
-
-//    while (1)
-//        qDebug() << result ;
     
     return result ;
+}
+
+void configLS500::getAllParameters()
+{
+    char buf[1024];
+    QString result ;
+
+    QFile file ;
+
+    parameters.clear() ;
+
+    file.setFileName( this->config_path );
+    file.open(  QIODevice::ReadOnly ) ;
+    qint64 lineLength ;
+    do{
+        lineLength = file.readLine(buf, sizeof(buf)) ;
+        if (lineLength != -1) {
+            QString line = QString ( buf ) ;
+            QStringList list = line.split( SPACING , QString::SkipEmptyParts );
+            if ( list.size() == 2 )
+            {
+                int ls = list[1].size() ;
+                list[1] = list[1].remove( ls-1 , 1 ) ;
+                parameters.insert( list[0] , list[1] ) ;
+            }
+        }
+
+    } while ( lineLength != -1 ) ;
+
+    file.close() ;
+}
+
+void configLS500::writeAllParameters()
+{
+    QFile file ;
+    file.setFileName( this->config_path );
+    file.open(  QIODevice::WriteOnly ) ;
+
+    QList<QString> keys = parameters.keys() ;
+
+    for( QList<QString>::iterator it = keys.begin() ; it < keys.end() ; it++ )
+    {
+        QString line ;
+
+        line.append( *it ) ; line.append( SPACING ) ; line.append( parameters[*it] ) ; line.append( ENDL ) ;
+        file.write( line.toAscii().data() ) ;
+    }
+
+    file.close() ;
+}
+
+
+void configLS500::open()
+{
+    getAllParameters() ;
+}
+
+void configLS500::setDBPath( QString pr )
+{
+    parameters.insert( DB_DIR , pr ) ;
+}
+
+void configLS500::setPDFPath1( QString pr )
+{
+    parameters.insert( ART_PATH_1 , pr ) ;
+}
+
+void configLS500::setPDFPath2( QString pr )
+{
+    parameters.insert( ART_PATH_2 , pr ) ;
+}
+
+void configLS500::setPDFAppl( QString pr )
+{
+    parameters.insert( PDF_APPL , pr ) ;
+}
+
+void configLS500::close()
+{
+    writeAllParameters() ;
+    parameters.clear() ;
 }

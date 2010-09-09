@@ -42,7 +42,7 @@ public:
     list<int> getAnni() ;
     list<string> getRubriche() ;
 
-    bool setDBPath(string path) { return false ; } ;
+    //bool setDBPath(string path) { return false ; } ;
 
     void setParoleChiave( QStringList pc )
     {

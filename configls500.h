@@ -49,13 +49,25 @@ public:
     QString getPDFPath2() ;
     QString getPDFAppl() ;
 
+    void open() ;
+    void setDBPath( QString pr ) ;
+    void setPDFPath1( QString pr ) ;
+    void setPDFPath2( QString pr ) ;
+    void setPDFAppl( QString pr ) ;
+    void close() ;
+
 private:
 
     QString getConfigParameter( QString name ) ;
 
+    void getAllParameters() ;
+    void writeAllParameters() ;
+
     void initConfig() ;
     void resetToDefault() ;
     void writeDfaultFile( QFile *file ) ;
+
+    QHash<QString,QString> parameters ;
 
     QString config_path ;
     QString config_dir ;

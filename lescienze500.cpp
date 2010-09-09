@@ -229,6 +229,8 @@ bool LeScienze500::ExecQuery()
 
     QueryResult q_result = db.execMainQuery() ;
     fillResultTable( q_result ) ;
+
+    return true ;
 }
 
 
