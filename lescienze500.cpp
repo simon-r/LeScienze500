@@ -403,7 +403,6 @@ void LeScienze500::fillInformazioni( QModelIndex index )
         {
             categoria.append( *it_c ) ;
             categoria.append(" <br /> ") ;
-
         }
     }
     ui->MostraCategoria->setHtml( categoria ) ;
@@ -428,7 +427,7 @@ bool LeScienze500::OpenPDF()
     file_p.append( "" ) ;
     file_p.append( this->pdf_file ) ;
 
-    qDebug() << file_p ;
+    //qDebug() << file_p ;
 
     QFile file ;
     file.setFileName( file_p );
@@ -437,7 +436,6 @@ bool LeScienze500::OpenPDF()
         command.append( pdf_appl ) ;
         command.append( " " ) ;
         command.append( "\"" ) ;
-//        file_p.replace(" ","\\ ");
 
         command.append( file_p ) ;
         command.append( "\"" ) ;
@@ -459,7 +457,6 @@ bool LeScienze500::OpenPDF()
         command.append( pdf_appl ) ;
         command.append( " " ) ;
         command.append( "\"" ) ;
-//        file_p.replace(" ","\\ ");
 
         command.append( file_p ) ;
         command.append( "\"" ) ;
