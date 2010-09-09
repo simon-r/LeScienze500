@@ -454,7 +454,7 @@ bool LeScienze500::OpenPDF()
     file_p.append( this->pdf_file ) ;
 
     file.setFileName( file_p );
-    if ( file.exists() )
+    if ( file.exists() && flag == false )
     {
         command.append( pdf_appl ) ;
         command.append( " " ) ;
