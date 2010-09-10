@@ -342,7 +342,7 @@ QueryResult QueryDB::execMainQuery()
             prevq = false ;
         }
 
-        query.append( " ( id in ( " ) ;
+        query.append( " ( articoli.id in ( " ) ;
         query.append( " select idarticolo from articoli_categorie where " ) ;
         for ( QStringList::iterator it = lista_categorie.begin() ; it < lista_categorie.end() ; it++ )
         {
