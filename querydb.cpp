@@ -235,14 +235,32 @@ QueryResult QueryDB::execMainQuery()
             query.append( "( " ) ;
             for ( QStringList::iterator it = parole_chiave.begin() ; it < parole_chiave.end() ; it++ )
             {
-                it->prepend("% ") ;
-                it->append(" %") ;
-                //            qDebug() << *it ;
+                QString first_word , word , last_word ;
 
-                query.append( "titolo like " ) ;
-                query.append( "\'" );
-                query.append( *it ) ;
-                query.append( "\' " ) ;
+                first_word.append( *it ) ; first_word.append( " %" ) ;
+                word.append("% ") ; word.append(*it) ; word.append(" %") ;
+                last_word.append("% ") ; last_word.append(*it) ;
+
+                query.append("titolo like \"") ;
+                query.append( first_word ) ;
+                query.append( "\" or " ) ;
+
+                query.append("titolo like \"") ;
+                query.append( word ) ;
+                query.append( "\" or " ) ;
+
+                query.append("titolo like \"") ;
+                query.append( last_word ) ;
+                query.append( "\" " ) ;
+
+//                it->prepend("% ") ;
+//                it->append(" %") ;
+//                //            qDebug() << *it ;
+//
+//                query.append( "titolo like " ) ;
+//                query.append( "\'" );
+//                query.append( *it ) ;
+//                query.append( "\' " ) ;
 
                 if ( it+1 != parole_chiave.end() )
                     query.append( logical ) ;
@@ -262,14 +280,33 @@ QueryResult QueryDB::execMainQuery()
             query.append( "( " ) ;
             for ( QStringList::iterator it = parole_chiave_abstract.begin() ; it < parole_chiave_abstract.end() ; it++ )
             {
-                it->prepend("% ") ;
-                it->append(" %") ;
-                //            qDebug() << *it ;
 
-                query.append( "abstract like " ) ;
-                query.append( "\'" );
-                query.append( *it ) ;
-                query.append( "\' " ) ;
+                QString first_word , word , last_word ;
+
+                first_word.append( *it ) ; first_word.append( " %" ) ;
+                word.append("% ") ; word.append(*it) ; word.append(" %") ;
+                last_word.append("% ") ; last_word.append(*it) ;
+
+                query.append("abstract like \"") ;
+                query.append( first_word ) ;
+                query.append( "\" or " ) ;
+
+                query.append("abstract like \"") ;
+                query.append( word ) ;
+                query.append( "\" or " ) ;
+
+                query.append("abstract like \"") ;
+                query.append( last_word ) ;
+                query.append( "\" " ) ;
+
+//                it->prepend("% ") ;
+//                it->append(" %") ;
+//                //            qDebug() << *it ;
+//
+//                query.append( "abstract like " ) ;
+//                query.append( "\'" );
+//                query.append( *it ) ;
+//                query.append( "\' " ) ;
 
                 if ( it+1 != parole_chiave_abstract.end() )
                     query.append( logical ) ;
