@@ -253,15 +253,6 @@ QueryResult QueryDB::execMainQuery()
                 query.append( last_word ) ;
                 query.append( "\" ) " ) ;
 
-//                it->prepend("% ") ;
-//                it->append(" %") ;
-//                //            qDebug() << *it ;
-//
-//                query.append( "titolo like " ) ;
-//                query.append( "\'" );
-//                query.append( *it ) ;
-//                query.append( "\' " ) ;
-
                 if ( it+1 != parole_chiave.end() )
                     query.append( logical ) ;
             }
@@ -298,15 +289,6 @@ QueryResult QueryDB::execMainQuery()
                 query.append("abstract like \"") ;
                 query.append( last_word ) ;
                 query.append( "\" ) " ) ;
-
-//                it->prepend("% ") ;
-//                it->append(" %") ;
-//                //            qDebug() << *it ;
-//
-//                query.append( "abstract like " ) ;
-//                query.append( "\'" );
-//                query.append( *it ) ;
-//                query.append( "\' " ) ;
 
                 if ( it+1 != parole_chiave_abstract.end() )
                     query.append( logical ) ;
