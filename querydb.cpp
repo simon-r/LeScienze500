@@ -228,7 +228,7 @@ QueryResult QueryDB::execMainQuery()
         QString logical_at = " OR " ;
         QString logical = " AND " ;
 
-        query.append( "( " ) ;
+        query.append( " ( " ) ;
 
         if ( parole_chiave.size() > 0 )
         {
@@ -241,7 +241,7 @@ QueryResult QueryDB::execMainQuery()
                 word.append("% ") ; word.append(*it) ; word.append(" %") ;
                 last_word.append("% ") ; last_word.append(*it) ;
 
-                query.append("titolo like \"") ;
+                query.append(" ( titolo like \"") ;
                 query.append( first_word ) ;
                 query.append( "\" or " ) ;
 
@@ -251,7 +251,7 @@ QueryResult QueryDB::execMainQuery()
 
                 query.append("titolo like \"") ;
                 query.append( last_word ) ;
-                query.append( "\" " ) ;
+                query.append( "\" ) " ) ;
 
 //                it->prepend("% ") ;
 //                it->append(" %") ;
@@ -265,7 +265,7 @@ QueryResult QueryDB::execMainQuery()
                 if ( it+1 != parole_chiave.end() )
                     query.append( logical ) ;
             }
-            query.append( " )" ) ;
+            query.append( " ) " ) ;
         }
         else
         {
@@ -287,7 +287,7 @@ QueryResult QueryDB::execMainQuery()
                 word.append("% ") ; word.append(*it) ; word.append(" %") ;
                 last_word.append("% ") ; last_word.append(*it) ;
 
-                query.append("abstract like \"") ;
+                query.append(" ( abstract like \"") ;
                 query.append( first_word ) ;
                 query.append( "\" or " ) ;
 
@@ -297,7 +297,7 @@ QueryResult QueryDB::execMainQuery()
 
                 query.append("abstract like \"") ;
                 query.append( last_word ) ;
-                query.append( "\" " ) ;
+                query.append( "\" ) " ) ;
 
 //                it->prepend("% ") ;
 //                it->append(" %") ;
