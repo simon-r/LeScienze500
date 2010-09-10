@@ -19,6 +19,8 @@
 
 #include "configura.h"
 #include "ui_configura.h"
+#include "configls500.h"
+#include <QFileDialog>
 
 Configura::Configura(QWidget *parent) :
     QDialog(parent),
@@ -44,7 +46,118 @@ void Configura::changeEvent(QEvent *e)
     }
 }
 
-void Configura::on_pushButton_clicked()
+void Configura::on_Cancel_clicked()
 {
     this->setVisible( false );
+}
+
+void Configura::setConfigData()
+{
+    configLS500 cfg ;
+
+    QString value ;
+
+    value = cfg.getPDFAppl() ;
+
+    if ( value == "gv" )
+    {
+        ui->SelectGV->setChecked( true ) ;
+    }
+    else if ( value == "okular" )
+    {
+        ui->SelectOkular->setChecked( true ) ;
+    }
+    else if ( value == "evice" )
+    {
+        ui->SelectEvice->setChecked( true ) ;
+    }
+    else if ( value == "acroread" )
+    {
+        ui->SelectAdobeAcrobat->setChecked( true ) ;
+    }
+    else
+    {
+        ui->SelectAnyPDFappl->setChecked( true );
+        ui->PdfApplPath->setText( value );
+    }
+
+
+    value = cfg.getPDFPath1() ;
+    ui->Path1->setText( value );
+
+    value = cfg.getPDFPath2() ;
+    ui->Path2->setText( value );
+
+    value = cfg.getDBPath() ;
+    ui->DBPath->setText( value );
+}
+
+void Configura::writeConfigData()
+{
+    configLS500 cfg ;
+
+    cfg.open();
+
+    if (ui->SelectAdobeAcrobat->isChecked())
+    {
+        cfg.setPDFAppl("acroread");
+    }
+    else if (ui->SelectEvice->isChecked())
+    {
+        cfg.setPDFAppl("evice");
+    }
+    else if (ui->SelectGV->isChecked())
+    {
+        cfg.setPDFAppl("gv");
+    }
+    else if (ui->SelectOkular->isChecked())
+    {
+        cfg.setPDFAppl("okular");
+    }
+    else
+    {
+        QString appl ;
+        appl = ui->PdfApplPath->text() ;
+        cfg.setPDFAppl( appl );
+    }
+
+    QString val ;
+    val = ui->Path1->text() ;
+    cfg.setPDFPath1(val);
+
+    val = ui->Path2->text() ;
+    cfg.setPDFPath2(val);
+
+    val = ui->DBPath->text() ;
+
+    cfg.close();
+}
+
+void Configura::on_Ok_clicked()
+{
+    writeConfigData() ;
+    this->setVisible( false );
+}
+
+void Configura::on_SearchDBPath_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Apri Data Base LeScienze.db"), "/", tr("Data Base files (*.db)"));
+    ui->DBPath->setText( fileName );
+
+}
+
+void Configura::on_SearchPDFPath1_clicked()
+{
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Apri Directory: Percorso articoli 1"), "/" ,
+                                                    QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    dir.append("/") ;
+    ui->Path1->setText( dir );
+}
+
+void Configura::on_SearchPDFPath2_clicked()
+{
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Apri Directory: Percorso articoli 2"), "/" ,
+                                                    QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    dir.append("/") ;
+    ui->Path2->setText( dir );
 }

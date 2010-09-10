@@ -541,5 +541,6 @@ void LeScienze500::on_Configura_clicked()
 
     cfg_d->setModal(true);
     cfg_d->setFocus();
+    cfg_d->setConfigData() ;
     cfg_d->show();
 }

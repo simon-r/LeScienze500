@@ -32,6 +32,9 @@ public:
     Configura(QWidget *parent = 0);
     ~Configura();
 
+    void setConfigData() ;
+    void writeConfigData() ;
+
 protected:
     void changeEvent(QEvent *e);
 
@@ -39,7 +42,11 @@ private:
     Ui::Configura *ui;
 
 private slots:
-    void on_pushButton_clicked();
+    void on_SearchPDFPath2_clicked();
+    void on_SearchPDFPath1_clicked();
+    void on_SearchDBPath_clicked();
+    void on_Ok_clicked();
+    void on_Cancel_clicked();
 };
 
 #endif // CONFIGURA_H

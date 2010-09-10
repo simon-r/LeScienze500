@@ -6,17 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>333</width>
+    <width>382</width>
     <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="locale">
+   <locale language="Italian" country="Italy"/>
+  </property>
   <widget class="QPushButton" name="Ok">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>270</x>
      <y>270</y>
      <width>99</width>
      <height>24</height>
@@ -38,7 +41,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="Cancel">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -56,12 +59,12 @@
     <rect>
      <x>10</x>
      <y>20</y>
-     <width>311</width>
+     <width>361</width>
      <height>241</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="ApplicativoPDF">
     <attribute name="title">
@@ -73,8 +76,8 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>40</y>
+       <x>30</x>
+       <y>50</y>
        <width>291</width>
        <height>151</height>
       </rect>
@@ -85,7 +88,7 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QRadioButton" name="radioButton">
+     <widget class="QRadioButton" name="SelectAdobeAcrobat">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -101,7 +104,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton_2">
+     <widget class="QRadioButton" name="SelectOkular">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -114,7 +117,7 @@
        <string>Okular</string>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton_3">
+     <widget class="QRadioButton" name="SelectGV">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -127,7 +130,7 @@
        <string>GV</string>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton_4">
+     <widget class="QRadioButton" name="SelectEvice">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -140,7 +143,7 @@
        <string>Evince</string>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton_5">
+     <widget class="QRadioButton" name="SelectAnyPDFappl">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -153,7 +156,7 @@
        <string/>
       </property>
      </widget>
-     <widget class="QLineEdit" name="PdfAppl">
+     <widget class="QLineEdit" name="PdfApplPath">
       <property name="geometry">
        <rect>
         <x>40</x>
@@ -163,7 +166,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="SelectPdfAppl">
+     <widget class="QPushButton" name="SearchPdfAppl">
       <property name="geometry">
        <rect>
         <x>240</x>
@@ -180,7 +183,7 @@
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>40</x>
        <y>20</y>
        <width>271</width>
        <height>16</height>
@@ -193,7 +196,7 @@
    </widget>
    <widget class="QWidget" name="PercorsoPDF">
     <attribute name="title">
-     <string>Percorso Pdf</string>
+     <string>Percorso Articoli</string>
     </attribute>
     <widget class="QRadioButton" name="radioButton_6">
      <property name="geometry">
@@ -206,6 +209,9 @@
      </property>
      <property name="text">
       <string> Disco rigido</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QRadioButton" name="radioButton_7">
@@ -221,7 +227,10 @@
       <string>DVD</string>
      </property>
      <property name="checked">
-      <bool>true</bool>
+      <bool>false</bool>
+     </property>
+     <property name="autoRepeat">
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QFrame" name="frame_2">
@@ -229,7 +238,7 @@
       <rect>
        <x>0</x>
        <y>60</y>
-       <width>301</width>
+       <width>351</width>
        <height>111</height>
       </rect>
      </property>
@@ -244,7 +253,7 @@
        <rect>
         <x>10</x>
         <y>40</y>
-        <width>251</width>
+        <width>291</width>
         <height>23</height>
        </rect>
       </property>
@@ -254,15 +263,15 @@
        <rect>
         <x>10</x>
         <y>70</y>
-        <width>251</width>
+        <width>291</width>
         <height>23</height>
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="SearchPDFPath1">
       <property name="geometry">
        <rect>
-        <x>260</x>
+        <x>310</x>
         <y>40</y>
         <width>31</width>
         <height>24</height>
@@ -272,10 +281,10 @@
        <string>...</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="SearchPDFPath2">
       <property name="geometry">
        <rect>
-        <x>260</x>
+        <x>310</x>
         <y>70</y>
         <width>31</width>
         <height>24</height>
@@ -312,6 +321,99 @@
       <string>Selezione la sorgente degli articoli</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QWidget" name="PercorsoDB">
+    <attribute name="title">
+     <string>Percorso Data Base</string>
+    </attribute>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>20</y>
+       <width>281</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <property name="text">
+      <string>Selezione la posizione del data base:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>40</y>
+       <width>241</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>LeScienze.db</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>311</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>341</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLineEdit" name="DBPath">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>321</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="SearchDBPath">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>50</y>
+        <width>41</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>...</string>
+      </property>
+     </widget>
+    </widget>
+    <zorder>frame_4</zorder>
+    <zorder>label_4</zorder>
+    <zorder>label_5</zorder>
+    <zorder>frame_3</zorder>
    </widget>
   </widget>
  </widget>
