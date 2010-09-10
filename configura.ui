@@ -64,7 +64,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="ApplicativoPDF">
     <attribute name="title">
@@ -215,6 +215,9 @@
      </property>
     </widget>
     <widget class="QRadioButton" name="radioButton_7">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>10</x>

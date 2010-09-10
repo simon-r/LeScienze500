@@ -508,8 +508,6 @@ void LeScienze500::on_TabellaRisultati_clicked(QModelIndex index)
     fillInformazioni( index ) ;
 }
 
-
-
 void LeScienze500::on_ApriPDF_A_clicked()
 {
     OpenPDF() ;

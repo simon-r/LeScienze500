@@ -362,7 +362,8 @@ QueryResult QueryDB::execMainQuery()
 
     query.append( " ORDER BY idrivista" ) ;
 
-    query.prepend( "SELECT titolo,idRivista,id FROM articoli WHERE " ) ;
+    //query.prepend( "SELECT titolo,idRivista,id FROM articoli WHERE " ) ;
+    query.prepend( "SELECT titolo,numero,articoli.id FROM articoli, riviste WHERE articoli.idrivista = riviste.id and " ) ;
 
     qDebug() << query  ;
 
