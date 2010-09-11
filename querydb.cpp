@@ -238,7 +238,7 @@ QueryResult QueryDB::execMainQuery()
                 QString first_word , word , last_word ;
 
                 first_word.append( *it ) ; first_word.append( " %" ) ;
-                word.append("% ") ; word.append(*it) ; word.append(" %") ;
+                word.append("% ") ; word.append(*it) ; word.append("%") ;
                 last_word.append("% ") ; last_word.append(*it) ;
 
                 query.append(" ( titolo like \"") ;
@@ -275,7 +275,7 @@ QueryResult QueryDB::execMainQuery()
                 QString first_word , word , last_word ;
 
                 first_word.append( *it ) ; first_word.append( " %" ) ;
-                word.append("% ") ; word.append(*it) ; word.append(" %") ;
+                word.append("% ") ; word.append(*it) ; word.append("%") ;
                 last_word.append("% ") ; last_word.append(*it) ;
 
                 query.append(" ( abstract like \"") ;
