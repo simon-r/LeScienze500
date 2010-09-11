@@ -67,7 +67,7 @@ void Configura::setConfigData()
     {
         ui->SelectOkular->setChecked( true ) ;
     }
-    else if ( value == "evice" )
+    else if ( value == "evince" )
     {
         ui->SelectEvice->setChecked( true ) ;
     }
@@ -104,7 +104,7 @@ void Configura::writeConfigData()
     }
     else if (ui->SelectEvice->isChecked())
     {
-        cfg.setPDFAppl("evice");
+        cfg.setPDFAppl("evince");
     }
     else if (ui->SelectGV->isChecked())
     {
