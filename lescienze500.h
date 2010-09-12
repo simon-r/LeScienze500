@@ -78,6 +78,11 @@ private slots:
     void on_FiltroAutori_textChanged(QString filtro);
     void on_Cerca_clicked();
     void on_Select_ParoleChiave_toggled(bool checked);
+
+public slots:
+
+    void on_NewConfigFile() ;
+
 };
 
 #endif // LESCIENZE500_H

@@ -129,6 +129,7 @@ void Configura::writeConfigData()
     cfg.setPDFPath2(val);
 
     val = ui->DBPath->text() ;
+    cfg.setDBPath( val );
 
     cfg.close();
 }
@@ -137,27 +138,46 @@ void Configura::on_Ok_clicked()
 {
     writeConfigData() ;
     this->setVisible( false );
+
+    emit sig_NewConfigFile() ;
 }
 
 void Configura::on_SearchDBPath_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,tr("Apri Data Base LeScienze.db"), "/", tr("Data Base files (*.db)"));
-    ui->DBPath->setText( fileName );
 
+    if ( fileName.size() > 0 )
+        ui->DBPath->setText( fileName );
 }
 
 void Configura::on_SearchPDFPath1_clicked()
 {
     QString dir = QFileDialog::getExistingDirectory(this, tr("Apri Directory: Percorso articoli 1"), "/" ,
                                                     QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-    dir.append("/") ;
-    ui->Path1->setText( dir );
+
+    if ( dir.size() > 0 )
+    {
+        dir.append("/") ;
+        ui->Path1->setText( dir );
+    }
 }
 
 void Configura::on_SearchPDFPath2_clicked()
 {
     QString dir = QFileDialog::getExistingDirectory(this, tr("Apri Directory: Percorso articoli 2"), "/" ,
                                                     QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-    dir.append("/") ;
-    ui->Path2->setText( dir );
+    if ( dir.size() > 0 )
+    {
+        dir.append("/") ;
+        ui->Path2->setText( dir );
+
+    }
+}
+
+void Configura::on_SearchPdfAppl_clicked()
+{
+    QString appl_name = QFileDialog::getOpenFileName(this,tr("Imposta un lettore PDF"), "/", tr("File Eseguibile (*)"));
+
+    if ( appl_name.size() > 0 )
+        ui->PdfApplPath->setText( appl_name );
 }

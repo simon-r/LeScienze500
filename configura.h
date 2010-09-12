@@ -42,11 +42,16 @@ private:
     Ui::Configura *ui;
 
 private slots:
+    void on_SearchPdfAppl_clicked();
     void on_SearchPDFPath2_clicked();
     void on_SearchPDFPath1_clicked();
     void on_SearchDBPath_clicked();
     void on_Ok_clicked();
     void on_Cancel_clicked();
+
+signals:
+
+    void sig_NewConfigFile() ;
 };
 
 #endif // CONFIGURA_H

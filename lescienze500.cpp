@@ -58,6 +58,11 @@ void LeScienze500::fillLists()
 {
     bool f ;
 
+    ui->ListaCategorie->clear();
+    ui->ListaAutori->clear();
+    ui->ListaRubriche->clear();
+    ui->ListaAnni->clear();
+
     f = fillListaCategorie() ;
     f = f && fillListaAutori() ;
     f = f && fillListaAnni() ;
@@ -535,10 +540,18 @@ void LeScienze500::on_CopiaASinistra_clicked()
 void LeScienze500::on_Configura_clicked()
 {
     if ( cfg_d == 0 )
+    {
         cfg_d = new Configura() ;
+        connect( cfg_d , SIGNAL(sig_NewConfigFile()) , this , SLOT(on_NewConfigFile()) ) ;
+    }
 
     cfg_d->setModal(true);
     cfg_d->setFocus();
     cfg_d->setConfigData() ;
     cfg_d->show();
 }
+
+ void LeScienze500::on_NewConfigFile()
+ {
+    fillLists() ;
+ }
