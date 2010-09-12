@@ -476,7 +476,7 @@ bool LeScienze500::OpenPDF()
     if ( flag == false )
     {
         QErrorMessage em ;
-        em.showMessage ( "Impossibile trovare il file: \n Prova a cambiare il DVD o setta le directory correttamente" ) ;
+        em.showMessage ( "Impossibile trovare il file: \n\r Prova a cambiare il DVD o setta le directory correttamente" ) ;
         em.exec() ;
     }
 
