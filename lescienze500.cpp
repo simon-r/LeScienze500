@@ -476,7 +476,13 @@ bool LeScienze500::OpenPDF()
     if ( flag == false )
     {
         QErrorMessage em ;
-        em.showMessage ( "Impossibile trovare il file: \n\r Prova a cambiare il DVD o setta le directory correttamente" ) ;
+        QString msg = "Impossibile trovare il file:    " ;
+        msg.append( "\n\r" ) ;
+        msg.append( this->pdf_file ) ;
+        msg.append( "\n\r" ) ;
+        msg.append( "Prova a cambiare il DVD o setta le directory correttamente" ) ;
+
+        em.showMessage ( msg ) ;
         em.exec() ;
     }
 
@@ -504,8 +510,6 @@ void LeScienze500::on_FiltroAutori_textChanged( QString filtro )
 {
     string fil_s = string ( filtro.toAscii().data() ) ;
 
-//    cout << fil_s ;
-//
     this->fillListaAutori( fil_s ) ;
 }
 
