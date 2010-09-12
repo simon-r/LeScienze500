@@ -473,11 +473,12 @@ bool LeScienze500::OpenPDF()
         flag = true ;
     }
 
-//    if ( flag == false )
-//    {
-//        QErrorMessage em ;
-//        em.showMessage ( "Impossibile trovare il file: \n Prova a cambiare il DVD o setta le directory correttamente" ) ;
-//    }
+    if ( flag == false )
+    {
+        QErrorMessage em ;
+        em.showMessage ( "Impossibile trovare il file: \n Prova a cambiare il DVD o setta le directory correttamente" ) ;
+        em.exec() ;
+    }
 
     return flag ;
 }
