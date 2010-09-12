@@ -556,7 +556,7 @@ void LeScienze500::on_Configura_clicked()
     cfg_d->show();
 }
 
- void LeScienze500::on_NewConfigFile()
+void LeScienze500::on_NewConfigFile()
  {
     fillLists() ;
  }
