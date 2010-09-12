@@ -229,7 +229,19 @@ bool LeScienze500::ExecQuery()
             lista_categorie.append( (*it)->text() ) ;
             qDebug() << (*it)->text() ;
         }
-        db.setListaCategorie( lista_categorie );
+        db.setListaCategorie( lista_categorie ) ;
+    }
+
+    if( db.autori_l )
+    {
+        QStringList lista_autori ;
+        QList<QListWidgetItem *> c_items = ui->ListaAutori->selectedItems() ;
+        for( QList<QListWidgetItem*>::iterator it = c_items.begin() ; it < c_items.end() ; it++ )
+        {
+            lista_autori.append( (*it)->text() ) ;
+            qDebug() << (*it)->text() ;
+        }
+        db.setListaAutori( lista_autori ); ;
     }
 
     QueryResult q_result = db.execMainQuery() ;

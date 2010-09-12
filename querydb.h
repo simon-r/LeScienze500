@@ -59,9 +59,14 @@ public:
         lista_rubriche = lr ;
     }
 
-    void setListaCategorie( QStringList lr )
+    void setListaCategorie( QStringList lc )
     {
-        lista_categorie = lr ;
+        lista_categorie = lc ;
+    }
+
+    void setListaAutori( QStringList la )
+    {
+        lista_autori = la ;
     }
 
     QueryResult execMainQuery() ;
@@ -89,6 +94,7 @@ private:
     QStringList parole_chiave_abstract ;
     QStringList lista_rubriche ;
     QStringList lista_categorie ;
+    QStringList lista_autori ;
 };
 
 #endif // QUERYDB_H

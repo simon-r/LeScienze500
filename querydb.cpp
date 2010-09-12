@@ -360,6 +360,37 @@ QueryResult QueryDB::execMainQuery()
         prevq = true ;
     }
 
+
+
+    if ( autori_l && lista_autori.size() > 0 )
+    {
+        if ( prevq )
+        {
+            query.append( logical_global ) ;
+            prevq = false ;
+        }
+
+        query.append( " ( articoli.id in ( " ) ;
+        query.append( " select idarticolo from articoli_autori where " ) ;
+
+        for ( QStringList::iterator it = lista_autori.begin() ; it < lista_autori.end() ; it++ )
+        {
+
+
+            query.append( " ( idautore in ( " ) ;
+            query.append( " select id from autori where Autore like \"" ) ;
+            query.append( *it ) ;
+            query.append( "\" ) ) " ) ;
+            if ( it < lista_autori.end() - 1 )
+            {
+                query.append( " OR " ) ;
+            }
+        }
+
+        query.append( " ) ) " ) ;
+        prevq = true ;
+    }
+
     query.append( " ORDER BY idrivista" ) ;
 
     //query.prepend( "SELECT titolo,idRivista,id FROM articoli WHERE " ) ;
