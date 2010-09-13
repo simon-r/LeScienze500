@@ -69,6 +69,11 @@ public:
         lista_autori = la ;
     }
 
+    void setListaAnni( QStringList la )
+    {
+        lista_anni = la ;
+    }
+
     QueryResult execMainQuery() ;
 
     QueryResult execQuery( QString query ) ;
@@ -95,6 +100,7 @@ private:
     QStringList lista_rubriche ;
     QStringList lista_categorie ;
     QStringList lista_autori ;
+    QStringList lista_anni ;
 };
 
 #endif // QUERYDB_H

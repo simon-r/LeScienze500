@@ -391,6 +391,19 @@ QueryResult QueryDB::execMainQuery()
         prevq = true ;
     }
 
+    if ( anno && lista_anni.size() > 0 )
+    {
+        if ( prevq )
+        {
+            query.append( logical_global ) ;
+            prevq = false ;
+        }
+
+
+
+        prevq = true ;
+    }
+
     query.append( " ORDER BY idrivista" ) ;
 
     //query.prepend( "SELECT titolo,idRivista,id FROM articoli WHERE " ) ;

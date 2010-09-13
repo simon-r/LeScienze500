@@ -234,37 +234,29 @@ bool LeScienze500::ExecQuery()
     if ( db.rubriche )
     {
         QStringList lista_rubriche ;
-        QList<QListWidgetItem *> s_items = ui->ListaRubriche->selectedItems() ;
-        for (  QList<QListWidgetItem*>::iterator it = s_items.begin() ; it < s_items.end() ; it++ )
-        {
-            lista_rubriche.append( (*it)->text() ) ;
-            qDebug() << (*it)->text() ;
-        }
+        lista_rubriche = ReadSelectedItems( ui->ListaRubriche ) ;
         db.setListaRubriche( lista_rubriche );
     }
 
     if ( db.categorie )
     {
         QStringList lista_categorie ;
-        QList<QListWidgetItem *> c_items = ui->ListaCategorie->selectedItems() ;
-        for (  QList<QListWidgetItem*>::iterator it = c_items.begin() ; it < c_items.end() ; it++ )
-        {
-            lista_categorie.append( (*it)->text() ) ;
-            qDebug() << (*it)->text() ;
-        }
+        lista_categorie = ReadSelectedItems( ui->ListaCategorie ) ;
         db.setListaCategorie( lista_categorie ) ;
     }
 
     if( db.autori_l )
     {
         QStringList lista_autori ;
-        QList<QListWidgetItem *> c_items = ui->ListaAutori->selectedItems() ;
-        for( QList<QListWidgetItem*>::iterator it = c_items.begin() ; it < c_items.end() ; it++ )
-        {
-            lista_autori.append( (*it)->text() ) ;
-            qDebug() << (*it)->text() ;
-        }
+        lista_autori = ReadSelectedItems( ui->ListaAutori ) ;
         db.setListaAutori( lista_autori ); ;
+    }
+
+    if( db.anno )
+    {
+        QStringList lista_anni ;
+        lista_anni = ReadSelectedItems( ui->ListaAnni ) ;
+        db.setListaAnni( lista_anni );
     }
 
     QueryResult q_result = db.execMainQuery() ;
@@ -273,6 +265,18 @@ bool LeScienze500::ExecQuery()
     return true ;
 }
 
+QStringList LeScienze500::ReadSelectedItems( QListWidget *ui_list )
+{
+    QStringList el_list ;
+    QList<QListWidgetItem *> c_items = ui_list->selectedItems() ;
+    for( QList<QListWidgetItem*>::iterator it = c_items.begin() ; it < c_items.end() ; it++ )
+    {
+        el_list.append(  (*it)->text() );
+        qDebug() << (*it)->text() ;
+    }
+
+    return el_list ;
+}
 
 //////////////////////////////////////////////////////////////////
 void  LeScienze500::fillResultTable( QueryResult q_res )
@@ -622,4 +626,9 @@ void LeScienze500::on_Select_ListaAutori_toggled(bool checked)
 void LeScienze500::on_Select_Rubriche_toggled(bool checked)
 {
     ui->ListaRubriche->setEnabled( checked );
+}
+
+void LeScienze500::on_Select_Anno_toggled(bool checked)
+{
+    ui->ListaAnni->setEnabled( checked );
 }

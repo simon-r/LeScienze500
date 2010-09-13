@@ -25,6 +25,9 @@
 #include <QScrollArea>
 #include <QModelIndex>
 #include <qprocess.h>
+#include <QModelIndex>
+#include <QListWidget>
+#include <QList>
 #include <qstring.h>
 #include "configura.h"
 
@@ -63,6 +66,8 @@ private:
     void clearLists() ;
     void clearResult() ;
 
+    QStringList ReadSelectedItems( QListWidget *ui_list ) ;
+
     QString pdf_file ;
 
     QueryResult q_result ;
@@ -73,6 +78,7 @@ private:
 
 private slots:
 
+    void on_Select_Anno_toggled(bool checked);
     void on_Select_Rubriche_toggled(bool checked);
     void on_Select_ListaAutori_toggled(bool checked);
     void on_Select_RicercaCategoria_toggled(bool checked);

@@ -221,19 +221,6 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label_3">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>10</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Categoria</string>
-     </property>
-    </widget>
     <widget class="QListWidget" name="ListaCategorie">
      <property name="enabled">
       <bool>false</bool>
@@ -258,12 +245,12 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>21</width>
+       <width>91</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string/>
+      <string>Categorie</string>
      </property>
     </widget>
    </widget>
@@ -285,19 +272,6 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label_4">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>10</y>
-       <width>57</width>
-       <height>15</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Autori</string>
-     </property>
-    </widget>
     <widget class="QListWidget" name="ListaAutori">
      <property name="enabled">
       <bool>false</bool>
@@ -319,12 +293,12 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>21</width>
+       <width>71</width>
        <height>21</height>
       </rect>
      </property>
      <property name="text">
-      <string/>
+      <string>Autori</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="FiltroAutori">
@@ -343,7 +317,7 @@
    </widget>
    <widget class="QFrame" name="FrameAnno">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -360,6 +334,9 @@
      <enum>QFrame::Raised</enum>
     </property>
     <widget class="QCheckBox" name="Select_Anno">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -373,6 +350,9 @@
      </property>
     </widget>
     <widget class="QListWidget" name="ListaAnni">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -385,7 +365,7 @@
       <bool>false</bool>
      </property>
      <property name="selectionMode">
-      <enum>QAbstractItemView::ExtendedSelection</enum>
+      <enum>QAbstractItemView::ContiguousSelection</enum>
      </property>
     </widget>
    </widget>
@@ -523,12 +503,12 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>57</width>
-       <height>15</height>
+       <width>161</width>
+       <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>Risultato</string>
+      <string>Risultato della ricerca</string>
      </property>
     </widget>
     <widget class="QTableWidget" name="TabellaRisultati">
@@ -670,8 +650,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>520</y>
+      <x>420</x>
+      <y>500</y>
       <width>99</width>
       <height>24</height>
      </rect>
