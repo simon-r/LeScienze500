@@ -22,6 +22,7 @@
 #include "lescienze500.h"
 #include <QDebug>
 #include "configls500.h"
+#include <QPair>
 
 QueryDB::QueryDB()
 {
@@ -375,8 +376,6 @@ QueryResult QueryDB::execMainQuery()
 
         for ( QStringList::iterator it = lista_autori.begin() ; it < lista_autori.end() ; it++ )
         {
-
-
             query.append( " ( idautore in ( " ) ;
             query.append( " select id from autori where Autore like \"" ) ;
             query.append( *it ) ;
@@ -399,7 +398,15 @@ QueryResult QueryDB::execMainQuery()
             prevq = false ;
         }
 
+        typedef QPair<int,int> yearsInterval ;
+        QList<yearsInterval> years ;
 
+        int a1 , a2 ;
+
+        for ( QStringList::iterator it = lista_anni.begin() ; it < lista_anni.end() ; it++ )
+        {
+
+        }
 
         prevq = true ;
     }
