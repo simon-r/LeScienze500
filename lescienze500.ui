@@ -235,6 +235,9 @@
      </property>
     </widget>
     <widget class="QListWidget" name="ListaCategorie">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -296,6 +299,9 @@
      </property>
     </widget>
     <widget class="QListWidget" name="ListaAutori">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -322,6 +328,9 @@
      </property>
     </widget>
     <widget class="QLineEdit" name="FiltroAutori">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -457,6 +466,9 @@
      </property>
     </widget>
     <widget class="QListWidget" name="ListaRubriche">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>10</x>

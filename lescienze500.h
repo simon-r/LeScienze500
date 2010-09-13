@@ -57,7 +57,11 @@ private:
 
     void fillResultTable( QueryResult )  ;
 
-    void fillInformazioni( QModelIndex index );
+    void fillInformazioni( QModelIndex index ) ;
+
+    void clear() ;
+    void clearLists() ;
+    void clearResult() ;
 
     QString pdf_file ;
 
@@ -69,6 +73,10 @@ private:
 
 private slots:
 
+    void on_Select_Rubriche_toggled(bool checked);
+    void on_Select_ListaAutori_toggled(bool checked);
+    void on_Select_RicercaCategoria_toggled(bool checked);
+    void on_Select_ParoleChiave_clicked(bool checked);
     void on_Configura_clicked();
     void on_CopiaASinistra_clicked();
     void on_CopiaADestra_clicked();

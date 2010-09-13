@@ -36,15 +36,15 @@
 using namespace std ;
 
 LeScienze500::LeScienze500(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::LeScienze500)
+        QMainWindow(parent),
+        ui(new Ui::LeScienze500)
 {
     ui->setupUi(this);
     cfg_d = 0 ;
-//    scrollArea = new QScrollArea;
-//    scrollArea->setWidget( this );
-//    scrollArea->setWidgetResizable(true);
-//    setCentralWidget(scrollArea);
+    //    scrollArea = new QScrollArea;
+    //    scrollArea->setWidget( this );
+    //    scrollArea->setWidgetResizable(true);
+    //    setCentralWidget(scrollArea);
 
     fillLists() ;
 }
@@ -58,10 +58,7 @@ void LeScienze500::fillLists()
 {
     bool f ;
 
-    ui->ListaCategorie->clear();
-    ui->ListaAutori->clear();
-    ui->ListaRubriche->clear();
-    ui->ListaAnni->clear();
+    clearLists() ;
 
     f = fillListaCategorie() ;
     f = f && fillListaAutori() ;
@@ -166,6 +163,32 @@ bool LeScienze500::fillListaAnni()
     }
 
     return true ;
+}
+
+void LeScienze500::clear()
+{
+    clearLists() ;
+    clearResult() ;
+}
+
+void LeScienze500::clearLists()
+{
+    ui->ListaCategorie->clear();
+    ui->ListaAutori->clear();
+    ui->ListaRubriche->clear();
+    ui->ListaAnni->clear();
+}
+
+void LeScienze500::clearResult()
+{
+    ui->TabellaRisultati->clear() ;
+    ui->MostraTitolo->clear();
+    ui->MostraAbstract->clear();
+    ui->MostraData->clear();
+    ui->MostraNumero->clear();
+    ui->MostraRubrica->clear();
+    ui->MostraCategoria->clear();
+    ui->MostraFilePDF->clear();
 }
 
 bool LeScienze500::ExecQuery()
@@ -511,6 +534,11 @@ void LeScienze500::on_Select_ParoleChiave_toggled(bool checked)
 {
         ui->ParoleChiave->setReadOnly( !checked );
         ui->ParoleChiaveAbstract->setReadOnly( !checked );
+
+        ui->ParoleChiave->setEnabled( checked );
+        ui->ParoleChiaveAbstract->setEnabled( checked );
+        ui->CopiaADestra->setEnabled( checked );
+        ui->CopiaASinistra->setEnabled( checked );
 }
 
 void LeScienze500::on_Cerca_clicked()
@@ -572,3 +600,26 @@ void LeScienze500::on_NewConfigFile()
  {
     fillLists() ;
  }
+
+
+void LeScienze500::on_Select_ParoleChiave_clicked(bool checked)
+{
+}
+
+void LeScienze500::on_Select_RicercaCategoria_toggled(bool checked)
+{
+    ui->ListaCategorie->setEnabled( checked );
+}
+
+void LeScienze500::on_Select_ListaAutori_toggled(bool checked)
+{
+    ui->ListaAutori->setEnabled( checked );
+    ui->FiltroAutori->setEnabled( checked );
+}
+
+
+
+void LeScienze500::on_Select_Rubriche_toggled(bool checked)
+{
+    ui->ListaRubriche->setEnabled( checked );
+}
