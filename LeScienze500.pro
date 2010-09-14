@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     querydb.cpp \
     queryresult.cpp \
     configls500.cpp \
-    configura.cpp
+    configura.cpp \
+    querydb_mainq.cpp
 HEADERS += lescienze500.h \
     querydb.h \
     queryresult.h \
