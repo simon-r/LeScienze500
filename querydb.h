@@ -103,5 +103,8 @@ private:
     QStringList lista_anni ;
 };
 
+bool StrIntLessThan(const QString &s1, const QString &s2) ;
+
+
 #endif // QUERYDB_H
 

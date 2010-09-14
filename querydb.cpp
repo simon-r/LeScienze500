@@ -23,6 +23,7 @@
 #include <QDebug>
 #include "configls500.h"
 #include <QPair>
+#include <QtAlgorithms>
 
 QueryDB::QueryDB()
 {
@@ -216,6 +217,11 @@ list<string> QueryDB::getRubriche()
     return lista_rubriche ;
 }
 
+bool StrIntLessThan(const QString &s1, const QString &s2)
+{
+    return s1.toInt() < s2.toInt() ;
+}
+
 QueryResult QueryDB::execMainQuery()
 {
     QString query ;
@@ -402,12 +408,9 @@ QueryResult QueryDB::execMainQuery()
 
         int a1 , a2 ;
 
-        for ( QStringList::iterator it = lista_anni.begin() ; it < lista_anni.end() ; it++ )
-        {
-            qDebug() << "lista: " << *it ;
-        }
+        qSort( lista_anni.begin() , lista_anni.end() , StrIntLessThan ) ;
 
-        for ( QStringList::iterator it = lista_anni.begin() ; it < lista_anni.end() - 1 ; it++ )
+        for ( QStringList::iterator it = lista_anni.begin() ; it < lista_anni.end() ; it++ )
         {
             qDebug() << *it ;
 
@@ -454,6 +457,9 @@ QueryResult QueryDB::execMainQuery()
                 qDebug() << "Intervallo: " << a1 << " " << a1 ;
             }
         }
+
+
+
         prevq = true ;
     }
 
