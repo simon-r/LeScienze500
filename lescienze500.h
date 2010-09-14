@@ -78,6 +78,9 @@ private:
 
 private slots:
 
+    void on_CleanRubriche_clicked();
+    void on_CleanAutori_clicked();
+    void on_CeanCategorie_clicked();
     void on_Select_Anno_toggled(bool checked);
     void on_Select_Rubriche_toggled(bool checked);
     void on_Select_ListaAutori_toggled(bool checked);

@@ -211,7 +211,7 @@
      <rect>
       <x>10</x>
       <y>150</y>
-      <width>251</width>
+      <width>261</width>
       <height>341</height>
      </rect>
     </property>
@@ -228,9 +228,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>30</y>
-       <width>231</width>
-       <height>301</height>
+       <y>40</y>
+       <width>241</width>
+       <height>291</height>
       </rect>
      </property>
      <property name="selectionMode">
@@ -253,6 +253,22 @@
       <string>Categorie</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="CleanCategorie">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>10</y>
+       <width>51</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Clean</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="FrameAutori">
     <property name="enabled">
@@ -260,7 +276,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>270</x>
       <y>150</y>
       <width>221</width>
       <height>341</height>
@@ -312,6 +328,22 @@
        <width>201</width>
        <height>23</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="CleanAutori">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>10</y>
+       <width>51</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Clean</string>
      </property>
     </widget>
    </widget>
@@ -375,10 +407,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>500</y>
-      <width>91</width>
-      <height>61</height>
+      <x>300</x>
+      <y>510</y>
+      <width>151</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -406,8 +438,8 @@
     <widget class="QRadioButton" name="OR_Button">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>30</y>
+       <x>80</x>
+       <y>10</y>
        <width>51</width>
        <height>21</height>
       </rect>
@@ -421,9 +453,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>500</y>
+      <y>490</y>
       <width>281</width>
-      <height>141</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -452,7 +484,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>30</y>
+       <y>40</y>
        <width>261</width>
        <height>101</height>
       </rect>
@@ -461,11 +493,27 @@
       <enum>QAbstractItemView::MultiSelection</enum>
      </property>
     </widget>
+    <widget class="QPushButton" name="CleanRubriche">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>10</y>
+       <width>51</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Clean</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="Cerca">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>300</x>
       <y>570</y>
       <width>261</width>
       <height>71</height>
@@ -650,8 +698,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>500</y>
+      <x>460</x>
+      <y>520</y>
       <width>99</width>
       <height>24</height>
      </rect>

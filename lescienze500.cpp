@@ -613,12 +613,14 @@ void LeScienze500::on_Select_ParoleChiave_clicked(bool checked)
 void LeScienze500::on_Select_RicercaCategoria_toggled(bool checked)
 {
     ui->ListaCategorie->setEnabled( checked );
+    ui->CleanCategorie->setEnabled( checked );
 }
 
 void LeScienze500::on_Select_ListaAutori_toggled(bool checked)
 {
     ui->ListaAutori->setEnabled( checked );
     ui->FiltroAutori->setEnabled( checked );
+    ui->CleanAutori->setEnabled( checked );
 }
 
 
@@ -626,9 +628,28 @@ void LeScienze500::on_Select_ListaAutori_toggled(bool checked)
 void LeScienze500::on_Select_Rubriche_toggled(bool checked)
 {
     ui->ListaRubriche->setEnabled( checked );
+    ui->CleanRubriche->setEnabled( checked );
 }
 
 void LeScienze500::on_Select_Anno_toggled(bool checked)
 {
     ui->ListaAnni->setEnabled( checked );
+}
+
+void LeScienze500::on_CeanCategorie_clicked()
+{
+    ui->ListaCategorie->clear() ;
+    this->fillListaCategorie() ;
+}
+
+void LeScienze500::on_CleanAutori_clicked()
+{
+    ui->ListaAutori->clear();
+    this->fillListaAutori() ;
+}
+
+void LeScienze500::on_CleanRubriche_clicked()
+{
+    ui->ListaRubriche->clear();
+    this->fillRubriche() ;
 }
