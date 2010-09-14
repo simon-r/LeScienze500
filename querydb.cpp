@@ -436,7 +436,7 @@ QueryResult QueryDB::execMainQuery()
                 }
                 yearsInterval y_int ;
                 y_int.first = a1 ;
-                y_int.second = a2 ;
+                y_int.second = a3 ;
                 years.append( y_int );
 
                 it = it_b-1 ;
@@ -454,11 +454,23 @@ QueryResult QueryDB::execMainQuery()
             }
         }
 
+        query.append( " ( articoli.idrivista in ( " ) ;
+        query.append( " select id from riviste where " ) ;
         for ( QList<yearsInterval>::iterator it = years.begin() ; it < years.end() ; it++ )
         {
-
+            query.append( " ( " ) ;
+            query.append( " anno >= " ) ;
+            query.append( QString::number( it->first ) ) ;
+            query.append( " and anno <= " ) ;
+            query.append( QString::number( it->second ) ) ;
+            query.append( " ) " ) ;
+            if ( it < years.end() - 1 )
+            {
+                query.append( " or " ) ;
+            }
         }
 
+        query.append( " ) ) " ) ;
         prevq = true ;
     }
 
