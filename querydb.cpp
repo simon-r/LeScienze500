@@ -272,7 +272,6 @@ QueryResult QueryDB::execMainQuery()
             query.append( "( " ) ;
             for ( QStringList::iterator it = parole_chiave_abstract.begin() ; it < parole_chiave_abstract.end() ; it++ )
             {
-
                 QString first_word , word , last_word ;
 
                 first_word.append( *it ) ; first_word.append( " %" ) ;
@@ -405,9 +404,56 @@ QueryResult QueryDB::execMainQuery()
 
         for ( QStringList::iterator it = lista_anni.begin() ; it < lista_anni.end() ; it++ )
         {
-
+            qDebug() << "lista: " << *it ;
         }
 
+        for ( QStringList::iterator it = lista_anni.begin() ; it < lista_anni.end() - 1 ; it++ )
+        {
+            qDebug() << *it ;
+
+            a1 = (*it).toInt() ;
+
+            if ( it+1 < lista_anni.end() )
+                a2 = (*(it+1)).toInt() ;
+            else
+                a2 = a1 ;
+
+            if ( ( a2 - a1 ) == 1  )
+            {
+                int a3 = a1 ;
+                int a4 ;
+                QStringList::iterator it_b ;
+                for ( it_b = it + 1 ; it_b < lista_anni.end() ; it_b++ )
+                {
+                    a4 = (*it_b).toInt() ;
+                    if ( a4 - a3 == 1 )
+                    {
+                        a3 = a4 ;
+                    }
+                    else
+                    {
+                        break ;
+                    }
+                }
+                yearsInterval y_int ;
+                y_int.first = a1 ;
+                y_int.second = a2 ;
+                years.append( y_int );
+
+                it = it_b-1 ;
+
+                qDebug() << "Intervallo: " << a1 << " " << a3 ;
+            }
+            else
+            {
+                yearsInterval y_int ;
+                y_int.first = a1 ;
+                y_int.second = a1 ;
+                years.append( y_int );
+
+                qDebug() << "Intervallo: " << a1 << " " << a1 ;
+            }
+        }
         prevq = true ;
     }
 
