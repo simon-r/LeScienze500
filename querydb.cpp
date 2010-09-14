@@ -217,10 +217,6 @@ list<string> QueryDB::getRubriche()
     return lista_rubriche ;
 }
 
-bool StrIntLessThan(const QString &s1, const QString &s2)
-{
-    return s1.toInt() < s2.toInt() ;
-}
 
 
 //////////////////////////////////////////////////////
