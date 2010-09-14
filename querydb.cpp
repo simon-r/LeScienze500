@@ -429,14 +429,10 @@ QueryResult QueryDB::execMainQuery()
                 for ( it_b = it + 1 ; it_b < lista_anni.end() ; it_b++ )
                 {
                     a4 = (*it_b).toInt() ;
-                    if ( a4 - a3 == 1 )
-                    {
+                    if ( a4 - a3 == 1 )                    
                         a3 = a4 ;
-                    }
                     else
-                    {
                         break ;
-                    }
                 }
                 yearsInterval y_int ;
                 y_int.first = a1 ;
@@ -458,7 +454,10 @@ QueryResult QueryDB::execMainQuery()
             }
         }
 
+        for ( QList<yearsInterval>::iterator it = years.begin() ; it < years.end() ; it++ )
+        {
 
+        }
 
         prevq = true ;
     }
