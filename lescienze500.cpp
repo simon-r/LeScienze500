@@ -634,6 +634,7 @@ void LeScienze500::on_Select_Rubriche_toggled(bool checked)
 void LeScienze500::on_Select_Anno_toggled(bool checked)
 {
     ui->ListaAnni->setEnabled( checked );
+    ui->CleanAnni->setEnabled( checked );
 }
 
 void LeScienze500::on_CleanCategorie_clicked()
@@ -657,4 +658,10 @@ void LeScienze500::on_CleanRubriche_clicked()
 
 void LeScienze500::on_CeanCategorie_clicked()
 {
+}
+
+void LeScienze500::on_CleanAnni_clicked()
+{
+    ui->ListaAnni->clear();
+    this->fillListaAnni() ;
 }

@@ -78,6 +78,7 @@ private:
 
 private slots:
 
+    void on_CleanAnni_clicked();
     void on_CleanCategorie_clicked();
     void on_CleanRubriche_clicked();
     void on_CleanAutori_clicked();
