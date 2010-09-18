@@ -43,7 +43,6 @@ public:
     ~LeScienze500();
 
     bool ExecQuery() ;
-
     bool OpenPDF() ;
 
 protected:

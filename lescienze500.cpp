@@ -32,6 +32,7 @@
 #include "configls500.h"
 #include <qapplication.h>
 #include <qprocess.h>
+#include <QRegExp>
 
 using namespace std ;
 
@@ -257,6 +258,15 @@ bool LeScienze500::ExecQuery()
         QStringList lista_anni ;
         lista_anni = ReadSelectedItems( ui->ListaAnni ) ;
         db.setListaAnni( lista_anni );
+    }
+
+    if ( db.testo )
+    {
+        QStringList lista_frasi ;
+        QString frasi = ui->ParoleChiaveTesto->text() ;
+        QRegExp reg ;
+
+        //reg = "\"[]\"" ;
     }
 
     QueryResult q_result = db.execMainQuery() ;
