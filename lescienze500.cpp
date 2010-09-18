@@ -264,9 +264,15 @@ bool LeScienze500::ExecQuery()
     {
         QStringList lista_frasi ;
         QString frasi = ui->ParoleChiaveTesto->text() ;
-        QRegExp reg ;
+        QRegExp regx( "\"[\\w'\\s]{1,}\"" ) ;
 
-        //reg = "\"[]\"" ;
+        int pos = 0;
+
+        while ((pos = regx.indexIn(frasi, pos)) != -1) {
+             lista_frasi << regx.cap(1);
+             pos += regx.matchedLength();
+         }
+
     }
 
     QueryResult q_result = db.execMainQuery() ;
