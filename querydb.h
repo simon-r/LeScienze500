@@ -54,6 +54,11 @@ public:
         parole_chiave_abstract = pc ;
     }
 
+    void setFrasiTestoEsteso( QStringList te )
+    {
+        frasi_testo_esteso = te ;
+    }
+
     void setListaRubriche( QStringList lr )
     {
         lista_rubriche = lr ;
@@ -97,6 +102,7 @@ private:
 
     QStringList parole_chiave ;
     QStringList parole_chiave_abstract ;
+    QStringList frasi_testo_esteso ;
     QStringList lista_rubriche ;
     QStringList lista_categorie ;
     QStringList lista_autori ;

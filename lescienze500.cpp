@@ -274,16 +274,18 @@ bool LeScienze500::ExecQuery()
         qDebug() << S_regx ;
 
         int pos ;
-        while ((pos = regx.indexIn(frasi, pos)) != -1) {
+        while ((pos = regx.indexIn(frasi, pos)) != -1)
+        {
              lista_frasi << regx.cap(1);
              pos += ( regx.matchedLength() - 1 ) ;
-         }
+        }
 
         for (QStringList::iterator it = lista_frasi.begin(); it < lista_frasi.end(); it++ )
         {
-            qDebug() << *it ;
+            it->remove( QRegExp("(\"|^\\s|\\s$)") ) ;
         }
 
+        db.setFrasiTestoEsteso( lista_frasi ) ;
     }
 
     QueryResult q_result = db.execMainQuery() ;
