@@ -77,6 +77,7 @@ private:
 
 private slots:
 
+    void on_Select_RicercaTesto_toggled(bool checked);
     void on_CleanAnni_clicked();
     void on_CleanCategorie_clicked();
     void on_CleanRubriche_clicked();

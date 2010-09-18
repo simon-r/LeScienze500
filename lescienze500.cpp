@@ -694,3 +694,8 @@ void LeScienze500::on_CleanAnni_clicked()
     ui->ListaAnni->clear();
     this->fillListaAnni() ;
 }
+
+void LeScienze500::on_Select_RicercaTesto_toggled(bool checked)
+{
+    ui->ParoleChiaveTesto->setEnabled( checked );
+}

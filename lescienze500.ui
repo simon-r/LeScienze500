@@ -196,6 +196,9 @@
      </property>
     </widget>
     <widget class="QLineEdit" name="ParoleChiaveTesto">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>40</x>

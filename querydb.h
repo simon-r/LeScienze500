@@ -95,6 +95,9 @@ public:
 
 private:
 
+
+   void buildQuerySegTestoEsteso( QString &query ) ;
+
     sqlite3 *db;
     sqlite3_stmt *stmt;
     int rc;

@@ -283,6 +283,17 @@ QueryResult QueryDB::execMainQuery()
         prevq = true ;
     }
 
+    if ( testo && frasi_testo_esteso.size() > 0 )
+    {
+        if ( prevq )
+        {
+            query.append( logical_global ) ;
+            prevq = false ;
+        }
+        buildQuerySegTestoEsteso( query ) ;
+        prevq = true ;
+    }
+
     query.append( " ORDER BY idrivista" ) ;
 
     //query.prepend( "SELECT titolo,idRivista,id FROM articoli WHERE " ) ;
@@ -297,3 +308,25 @@ QueryResult QueryDB::execMainQuery()
 }
 
 
+void QueryDB::buildQuerySegTestoEsteso( QString &query )
+{
+
+    QString logical_ext = " and " ;
+
+    query += " ( articoli.id in ( " ;
+    query += " select idarticolo from ricercaestesa where " ;
+    for ( QStringList::iterator it = frasi_testo_esteso.begin() ; it < frasi_testo_esteso.end() ; it++ )
+    {
+        query += " ( testoesteso like " ;
+        query += "\"%" ;
+        query += *it ;
+        query += "%\" ) " ;
+
+        if ( it < frasi_testo_esteso.end() - 1 )
+        {
+            query += logical_ext ;
+        }
+
+    }
+    query += " ) ) " ;
+}
