@@ -47,7 +47,7 @@ list<string> QueryDB::getCategorie()
 {
     list<string> lista_categorie ;
 
-    string query = "select Categoria from Categorie" ;
+    string query = "select Categoria from Categorie order by Categoria" ;
 
     rc = sqlite3_open( dbPath.toAscii().data() , &db);
     if( rc ){
