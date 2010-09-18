@@ -33,6 +33,7 @@
 #include <qapplication.h>
 #include <qprocess.h>
 #include <QRegExp>
+#include <QStringBuilder>
 
 using namespace std ;
 
@@ -264,11 +265,15 @@ bool LeScienze500::ExecQuery()
     {
         QStringList lista_frasi ;
         QString frasi = ui->ParoleChiaveTesto->text() ;
-        QString word = "[\\w;,\\.:\\[\\]{}\\+-\\*/]" ;
-        QRegExp regx( "(\"[\\w;,\\.:\\[\\]{}|\\s]+\"|[\\s][\\w]+\\s|^[\\w]+\\s|\\s[\\w]+$)" ) ;
+        QString word_char = "\\w" ;
+        QString S_regx = QString( "(\"[%1\\s]+\"|[\\s][%1]+\\s|^[%1]+\\s|\\s[%1]+$|^[%1]+$)" ).arg(word_char) ;
 
-        int pos = 0;
 
+        QRegExp regx( S_regx )  ;
+
+        qDebug() << S_regx ;
+
+        int pos ;
         while ((pos = regx.indexIn(frasi, pos)) != -1) {
              lista_frasi << regx.cap(1);
              pos += ( regx.matchedLength() - 1 ) ;
