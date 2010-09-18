@@ -265,7 +265,7 @@ bool LeScienze500::ExecQuery()
     {
         QStringList lista_frasi ;
         QString frasi = ui->ParoleChiaveTesto->text() ;
-        QString word_char = "\\w" ;
+        QString word_char = "\\w\\.:;,\\+-/\\*'`" ;
         QString S_regx = QString( "(\"[%1\\s]+\"|[\\s][%1]+\\s|^[%1]+\\s|\\s[%1]+$|^[%1]+$)" ).arg(word_char) ;
 
 
@@ -283,6 +283,7 @@ bool LeScienze500::ExecQuery()
         for (QStringList::iterator it = lista_frasi.begin(); it < lista_frasi.end(); it++ )
         {
             it->remove( QRegExp("(\"|^\\s|\\s$)") ) ;
+            qDebug() << "parola: " << *it ;
         }
 
         db.setFrasiTestoEsteso( lista_frasi ) ;
