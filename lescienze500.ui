@@ -153,7 +153,7 @@
    </widget>
    <widget class="QFrame" name="FrameRicercaEstesa">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
