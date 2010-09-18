@@ -283,7 +283,7 @@ QueryResult QueryDB::execMainQuery()
         prevq = true ;
     }
 
-    if ( testo && frasi_testo_esteso.size() > 0 )
+    if ( testo )
     {
         if ( prevq )
         {
@@ -311,22 +311,30 @@ QueryResult QueryDB::execMainQuery()
 void QueryDB::buildQuerySegTestoEsteso( QString &query )
 {
 
-    QString logical_ext = " and " ;
-
     query += " ( articoli.id in ( " ;
     query += " select idarticolo from ricercaestesa where " ;
-    for ( QStringList::iterator it = frasi_testo_esteso.begin() ; it < frasi_testo_esteso.end() ; it++ )
+
+    if ( frasi_testo_esteso.size() == 0 )
     {
-        query += " ( testoesteso like " ;
-        query += "\"%" ;
-        query += *it ;
-        query += "%\" ) " ;
+        query += " ( testoesteso like null )" ;
+    }
+    else
+    {
+        QString logical_ext = " and " ;
 
-        if ( it < frasi_testo_esteso.end() - 1 )
+        for ( QStringList::iterator it = frasi_testo_esteso.begin() ; it < frasi_testo_esteso.end() ; it++ )
         {
-            query += logical_ext ;
-        }
+            query += " ( testoesteso like " ;
+            query += "\"%" ;
+            query += *it ;
+            query += "%\" ) " ;
 
+            if ( it < frasi_testo_esteso.end() - 1 )
+            {
+                query += logical_ext ;
+            }
+
+        }
     }
     query += " ) ) " ;
 }
