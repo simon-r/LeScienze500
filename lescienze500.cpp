@@ -265,18 +265,31 @@ bool LeScienze500::ExecQuery()
     {
         QStringList lista_frasi ;
         QString frasi = ui->ParoleChiaveTesto->text() ;
+        //qDebug() << "frase: " << frasi ;
+
         QString word_char = "\\w\\.:;,\\+-/\\*'`" ;
-        QString S_regx = QString( "(\"[%1\\s]+\"|[\\s][%1]+\\s|^[%1]+\\s|\\s[%1]+$|^[%1]+$)" ).arg(word_char) ;
+        //QString word_char = "\\w" ;
+        QString S_regx = QString( "(\"[%1\\s]+\"|\\s[%1]+\\s|[%1]+\\s|^[%1]+\\s|\\s[%1]+$|[%1]+$|^[%1]+$)" ).arg(word_char) ;
+        //QString S_regx = QString( "(\\s[%1]+\\s)" ).arg(word_char) ;
 
         QRegExp regx( S_regx )  ;
 
+        if ( !regx.isValid() )
+        {
+            qDebug() << "Regex Error: " << regx.errorString() ;
+        }
+
         qDebug() << S_regx ;
 
-        int pos ;
-        while ((pos = regx.indexIn(frasi, pos)) != -1)
+        int pos = 0;
+        while ( pos >= 0 )
         {
-             lista_frasi << regx.cap(1);
-             pos += ( regx.matchedLength() - 1 ) ;
+            pos = regx.indexIn( frasi, pos ) ;
+            if ( pos > -1 )
+            {
+                lista_frasi += regx.cap(1) ;
+                pos  += regx.matchedLength() ;
+            }
         }
 
         for (QStringList::iterator it = lista_frasi.begin(); it < lista_frasi.end(); it++ )
