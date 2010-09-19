@@ -283,7 +283,7 @@ QueryResult QueryDB::execMainQuery()
         prevq = true ;
     }
 
-    if ( testo && frasi_testo_esteso.size() > 0 )
+    if ( testo )
     {
         if ( prevq )
         {
@@ -314,11 +314,11 @@ void QueryDB::buildQuerySegTestoEsteso( QString &query )
     query += " ( articoli.id in ( " ;
     query += " select idarticolo from ricercaestesa where " ;
 
-//    if ( frasi_testo_esteso.size() == 0 )
-//    {
-//        query += " ( testoesteso like null )" ;
-//    }
-//    else
+    if ( frasi_testo_esteso.size() == 0 )
+    {
+        query += " ( testoesteso like null )" ;
+    }
+    else
     {
         QString logical_ext = " and " ;
 
