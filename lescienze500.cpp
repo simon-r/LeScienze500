@@ -268,7 +268,6 @@ bool LeScienze500::ExecQuery()
         QString word_char = "\\w\\.:;,\\+-/\\*'`" ;
         QString S_regx = QString( "(\"[%1\\s]+\"|[\\s][%1]+\\s|^[%1]+\\s|\\s[%1]+$|^[%1]+$)" ).arg(word_char) ;
 
-
         QRegExp regx( S_regx )  ;
 
         qDebug() << S_regx ;
