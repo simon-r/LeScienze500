@@ -22,5 +22,15 @@ FORMS += lescienze500.ui \
     previewarticolo.ui
 LIBS += -lsqlite3
 RESOURCES += icons.qrc
-target.path = /bin
+target.path = /usr/bin
+
+desktop.path = /usr/share/applications/
+desktop.files = lescienze500.desktop
+
+icons.path = /usr/share/icons/hicolor/72x72/apps/
+icons.files = icons/lescienze.png
+
 INSTALLS += target
+INSTALLS += desktop
+INSTALLS += icons
+
