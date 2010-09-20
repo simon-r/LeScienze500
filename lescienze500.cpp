@@ -46,6 +46,8 @@ LeScienze500::LeScienze500(QWidget *parent) :
 
     cfg_d = 0 ;
     fillLists() ;
+
+    id_articolo_attuale = -1 ;
 }
 
 LeScienze500::~LeScienze500()
@@ -495,7 +497,7 @@ void LeScienze500::fillInformazioni( QModelIndex index )
 
 bool LeScienze500::ViewPreview()
 {
-    if ( this-> )
+    QString titolo ;
 }
 
 

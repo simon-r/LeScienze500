@@ -79,6 +79,8 @@ private:
     Configura *cfg_d ;
     PreviewArticolo *preview ;
 
+    int id_articolo_attuale ;
+
 private slots:
 
     void on_PreviewArticolo_clicked();
