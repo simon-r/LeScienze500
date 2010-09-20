@@ -31,6 +31,10 @@
   <property name="windowTitle">
    <string>Le Scienze 500</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/icons/icons/lescienze_20x20.xpm</normaloff>:/icons/icons/lescienze_20x20.xpm</iconset>
+  </property>
   <property name="locale">
    <locale language="Italian" country="Italy"/>
   </property>

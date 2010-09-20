@@ -44,13 +44,8 @@ LeScienze500::LeScienze500(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QIcon icon(":/icons/lescienze_20x20.xpm") ;
-    setWindowIcon( icon );
-
     cfg_d = 0 ;
     fillLists() ;
-
-
 }
 
 LeScienze500::~LeScienze500()
