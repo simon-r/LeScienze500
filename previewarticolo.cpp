@@ -24,3 +24,13 @@ void PreviewArticolo::changeEvent(QEvent *e)
         break;
     }
 }
+
+void PreviewArticolo::setHtml( QString &testo )
+{
+    ui->Testo->setHtml( testo );
+}
+
+void PreviewArticolo::on_Chiudi_clicked()
+{
+    this->setVisible( false );
+}

@@ -32,7 +32,7 @@
    <string>Le Scienze 500</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="icons.qrc">
     <normaloff>:/icons/icons/lescienze_20x20.xpm</normaloff>:/icons/icons/lescienze_20x20.xpm</iconset>
   </property>
   <property name="locale">
@@ -605,7 +605,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="TabPrincipale">
       <attribute name="title">
@@ -780,6 +780,8 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

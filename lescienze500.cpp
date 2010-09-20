@@ -45,6 +45,8 @@ LeScienze500::LeScienze500(QWidget *parent) :
     ui->setupUi(this);
 
     cfg_d = 0 ;
+    preview = 0 ;
+
     fillLists() ;
 
     id_articolo_attuale = -1 ;
@@ -392,6 +394,10 @@ void LeScienze500::fillInformazioni( QModelIndex index )
 
     this->pdf_file = qr.q_result[0][index_pdf] ;
 
+    this->id_articolo_attuale = qr.q_result[0][index_id].toInt() ;
+
+    qDebug() << "id a confronto; " << qr.q_result[0][index_id] << "  " << this->id_articolo_attuale  ;
+
     QString titolo ;
     titolo.append( "<h3><b>" ) ;
     titolo.append( qr.q_result[0][index_titolo] ) ;
@@ -497,7 +503,54 @@ void LeScienze500::fillInformazioni( QModelIndex index )
 
 bool LeScienze500::ViewPreview()
 {
-    QString titolo ;
+    if ( this->id_articolo_attuale < 0 )
+        return false ;
+
+    QueryDB db ;
+    QString query_testo , query_titolo;
+    QString id_a ;
+
+    id_a.setNum( this->id_articolo_attuale ) ;
+
+    query_testo = "select testoesteso from RicercaEstesa where idarticolo = " ;
+    query_testo += id_a ;
+
+    QueryResult qr_testo =  db.execQuery( query_testo ) ;
+
+    if ( qr_testo.q_result.size() == 0 )
+    {
+        QErrorMessage Errore_testo ;
+        Errore_testo.showMessage( QString("Testo dell'articolo non diponibile") ) ;
+        Errore_testo.exec();
+        return false ;
+    }
+
+    query_titolo = "select titolo,abstract from articoli where id = " ;
+    query_titolo += id_a ;
+
+    QueryResult qr_titolo =  db.execQuery( query_titolo ) ;
+
+    if ( preview == 0 )
+    {
+        preview = new PreviewArticolo() ;
+
+    }
+
+    QString testo ;
+
+    testo += "<h1>" ;
+    testo += qr_titolo.q_result[0][0] ;
+    testo += "</h1> <br>" ;
+    testo += qr_titolo.q_result[0][1] ;
+    testo += " <br> <br>" ;
+    testo += qr_testo.q_result[0][0] ;
+
+    preview->setHtml( testo );
+    preview->setModal( true );
+    preview->show();
+    preview->exec();
+
+    return true ;
 }
 
 
@@ -719,5 +772,11 @@ void LeScienze500::on_Select_RicercaTesto_toggled(bool checked)
 
 void LeScienze500::on_PreviewArticolo_clicked()
 {
+    ViewPreview() ;
+}
 
+void LeScienze500::on_TabellaRisultati_doubleClicked(QModelIndex index)
+{
+    fillInformazioni( index ) ;
+    OpenPDF() ;
 }

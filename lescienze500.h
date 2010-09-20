@@ -83,6 +83,7 @@ private:
 
 private slots:
 
+    void on_TabellaRisultati_doubleClicked(QModelIndex index);
     void on_PreviewArticolo_clicked();
     void on_Select_RicercaTesto_toggled(bool checked);
     void on_CleanAnni_clicked();
