@@ -493,6 +493,11 @@ void LeScienze500::fillInformazioni( QModelIndex index )
     ui->MostraCategoria->setHtml( categoria ) ;
 }
 
+bool LeScienze500::ViewPreview()
+{
+    if ( this-> )
+}
+
 
 bool LeScienze500::OpenPDF()
 {
@@ -708,4 +713,9 @@ void LeScienze500::on_CleanAnni_clicked()
 void LeScienze500::on_Select_RicercaTesto_toggled(bool checked)
 {
     ui->ParoleChiaveTesto->setEnabled( checked );
+}
+
+void LeScienze500::on_PreviewArticolo_clicked()
+{
+
 }

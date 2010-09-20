@@ -32,7 +32,7 @@
    <string>Le Scienze 500</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="icons.qrc">
     <normaloff>:/icons/icons/lescienze_20x20.xpm</normaloff>:/icons/icons/lescienze_20x20.xpm</iconset>
   </property>
   <property name="locale">
@@ -712,6 +712,19 @@
         <string>Apri Articolo in PDF</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="PreviewArticolo">
+       <property name="geometry">
+        <rect>
+         <x>310</x>
+         <y>100</y>
+         <width>161</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Preview articolo</string>
+       </property>
+      </widget>
      </widget>
     </widget>
    </widget>
@@ -767,6 +780,8 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

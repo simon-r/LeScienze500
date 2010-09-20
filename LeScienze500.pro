@@ -9,16 +9,18 @@ SOURCES += main.cpp \
     queryresult.cpp \
     configls500.cpp \
     configura.cpp \
-    querydb_mainq.cpp
+    querydb_mainq.cpp \
+    previewarticolo.cpp
 HEADERS += lescienze500.h \
     querydb.h \
     queryresult.h \
     configls500.h \
-    configura.h
+    configura.h \
+    previewarticolo.h
 FORMS += lescienze500.ui \
-    configura.ui
+    configura.ui \
+    previewarticolo.ui
 LIBS += -lsqlite3
 RESOURCES += icons.qrc
 target.path = /usr/bin
 INSTALLS += target
-

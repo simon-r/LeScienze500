@@ -30,6 +30,7 @@
 #include <QList>
 #include <qstring.h>
 #include "configura.h"
+#include "previewarticolo.h"
 
 
 namespace Ui {
@@ -44,6 +45,8 @@ public:
 
     bool ExecQuery() ;
     bool OpenPDF() ;
+
+    bool ViewPreview() ;
 
 protected:
     void changeEvent(QEvent *e);
@@ -74,9 +77,11 @@ private:
     QScrollArea* scrollArea ;
 
     Configura *cfg_d ;
+    PreviewArticolo *preview ;
 
 private slots:
 
+    void on_PreviewArticolo_clicked();
     void on_Select_RicercaTesto_toggled(bool checked);
     void on_CleanAnni_clicked();
     void on_CleanCategorie_clicked();

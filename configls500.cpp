@@ -23,6 +23,7 @@
 #include <QStringList>
 #include <QDebug>
 #include <QList>
+#include "previewarticolo.h"
 
 
 configLS500::configLS500()
