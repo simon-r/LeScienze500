@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=LeScienze500
+Name[it]=LeScienze500
+GenericName[it]=Le Scienze 500
+GenericName=Le Scienze 500
+Comment=Cerca e visualliza gli articoli di Le Scienze
+Encoding=UTF-8
+Exec=LeScienze500
+Terminal=false
+Icon=lescienze.png
+Type=Application
+Categories=Qt;Graphics;Office;Viewer;Education;
