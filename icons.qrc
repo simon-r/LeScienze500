@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/lescienze_48x200.png</file>
+        <file>icons/LeScienze_logo.png</file>
+        <file>icons/lescienze_20x20.png</file>
+        <file>icons/lescienze_20x20.xpm</file>
+    </qresource>
+</RCC>

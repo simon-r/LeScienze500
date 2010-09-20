@@ -18,3 +18,7 @@ HEADERS += lescienze500.h \
 FORMS += lescienze500.ui \
     configura.ui
 LIBS += -lsqlite3
+RESOURCES += icons.qrc
+target.path = /usr/bin
+INSTALLS += target
+

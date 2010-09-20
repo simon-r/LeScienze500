@@ -34,6 +34,7 @@
 #include <qprocess.h>
 #include <QRegExp>
 #include <QStringBuilder>
+#include <QIcon>
 
 using namespace std ;
 
@@ -42,13 +43,14 @@ LeScienze500::LeScienze500(QWidget *parent) :
         ui(new Ui::LeScienze500)
 {
     ui->setupUi(this);
-    cfg_d = 0 ;
-    //    scrollArea = new QScrollArea;
-    //    scrollArea->setWidget( this );
-    //    scrollArea->setWidgetResizable(true);
-    //    setCentralWidget(scrollArea);
 
+    QIcon icon(":/icons/lescienze_20x20.xpm") ;
+    setWindowIcon( icon );
+
+    cfg_d = 0 ;
     fillLists() ;
+
+
 }
 
 LeScienze500::~LeScienze500()
