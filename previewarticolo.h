@@ -17,6 +17,11 @@ public:
 
     void setHtml( QString &testo ) ;
 
+    void setWinTitle( QString wint )
+    {
+        this->setWindowTitle( wint );
+    }
+
 protected:
     void changeEvent(QEvent *e);
 

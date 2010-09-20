@@ -48,8 +48,6 @@ LeScienze500::LeScienze500(QWidget *parent) :
     preview = 0 ;
 
     fillLists() ;
-
-    id_articolo_attuale = -1 ;
 }
 
 LeScienze500::~LeScienze500()
@@ -394,9 +392,9 @@ void LeScienze500::fillInformazioni( QModelIndex index )
 
     this->pdf_file = qr.q_result[0][index_pdf] ;
 
-    this->id_articolo_attuale = qr.q_result[0][index_id].toInt() ;
+    this->history_id_articoli.push_front( qr.q_result[0][index_id].toInt() ) ;
 
-    qDebug() << "id a confronto; " << qr.q_result[0][index_id] << "  " << this->id_articolo_attuale  ;
+    //qDebug() << "id a confronto; " << qr.q_result[0][index_id] << "  " << this->id_articolo_attuale  ;
 
     QString titolo ;
     titolo.append( "<h3><b>" ) ;
@@ -503,14 +501,14 @@ void LeScienze500::fillInformazioni( QModelIndex index )
 
 bool LeScienze500::ViewPreview()
 {
-    if ( this->id_articolo_attuale < 0 )
+    if ( this->history_id_articoli.size() == 0 )
         return false ;
 
     QueryDB db ;
     QString query_testo , query_titolo;
     QString id_a ;
 
-    id_a.setNum( this->id_articolo_attuale ) ;
+    id_a.setNum( this->history_id_articoli.first() ) ;
 
     query_testo = "select testoesteso from RicercaEstesa where idarticolo = " ;
     query_testo += id_a ;
@@ -547,6 +545,7 @@ bool LeScienze500::ViewPreview()
 
     preview->setHtml( testo );
     preview->setModal( true );
+    preview->setWinTitle( "Preview" ) ;
     preview->show();
     preview->exec();
 

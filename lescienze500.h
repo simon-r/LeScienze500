@@ -79,7 +79,7 @@ private:
     Configura *cfg_d ;
     PreviewArticolo *preview ;
 
-    int id_articolo_attuale ;
+    QList<int> history_id_articoli ;
 
 private slots:
 
