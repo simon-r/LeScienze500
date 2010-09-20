@@ -22,5 +22,5 @@ FORMS += lescienze500.ui \
     previewarticolo.ui
 LIBS += -lsqlite3
 RESOURCES += icons.qrc
-target.path = /usr/bin
+target.path = /bin
 INSTALLS += target
