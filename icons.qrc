@@ -5,4 +5,7 @@
         <file>icons/lescienze_20x20.png</file>
         <file>icons/lescienze_20x20.xpm</file>
     </qresource>
+    <qresource prefix="/text">
+        <file>License_gpl.txt</file>
+    </qresource>
 </RCC>
