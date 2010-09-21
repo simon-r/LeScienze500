@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Configurazione</string>
   </property>
   <property name="windowIcon">
    <iconset resource="icons.qrc">
