@@ -536,11 +536,9 @@ bool LeScienze500::ViewPreview()
 
     QString testo ;
 
-    testo += "<h1>" ;
-    testo += qr_titolo.q_result[0][0] ;
-    testo += "</h1> <br>" ;
-    testo += qr_titolo.q_result[0][1] ;
-    testo += " <br> <br>" ;
+    testo = testo + "<h1>" + qr_titolo.q_result[0][0] + "</h1> <br> <HR> <br> ";
+    testo = testo + "<i>" + qr_titolo.q_result[0][1] + "</i>" ;
+    testo += " <br> <HR> <br>" ;
     testo += qr_testo.q_result[0][0] ;
 
     preview->setHtml( testo );
