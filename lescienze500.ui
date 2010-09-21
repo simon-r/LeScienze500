@@ -32,7 +32,7 @@
    <string>Le Scienze 500</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons.qrc">
+   <iconset>
     <normaloff>:/icons/icons/lescienze_20x20.xpm</normaloff>:/icons/icons/lescienze_20x20.xpm</iconset>
   </property>
   <property name="locale">
@@ -636,7 +636,7 @@
         <rect>
          <x>0</x>
          <y>170</y>
-         <width>161</width>
+         <width>141</width>
          <height>31</height>
         </rect>
        </property>
@@ -644,7 +644,7 @@
       <widget class="QTextBrowser" name="MostraNumero">
        <property name="geometry">
         <rect>
-         <x>160</x>
+         <x>140</x>
          <y>170</y>
          <width>71</width>
          <height>31</height>
@@ -662,6 +662,19 @@
        </property>
        <property name="text">
         <string>Apri Articolo in PDF</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="PreviewArticolo_2">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>170</y>
+         <width>71</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Preview</string>
        </property>
       </widget>
      </widget>
@@ -703,9 +716,9 @@
        <property name="geometry">
         <rect>
          <x>310</x>
-         <y>140</y>
+         <y>130</y>
          <width>161</width>
-         <height>51</height>
+         <height>61</height>
         </rect>
        </property>
        <property name="text">
@@ -780,8 +793,6 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

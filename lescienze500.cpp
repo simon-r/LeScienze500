@@ -777,3 +777,8 @@ void LeScienze500::on_TabellaRisultati_doubleClicked(QModelIndex index)
     fillInformazioni( index ) ;
     OpenPDF() ;
 }
+
+void LeScienze500::on_PreviewArticolo_2_clicked()
+{
+    ViewPreview() ;
+}
