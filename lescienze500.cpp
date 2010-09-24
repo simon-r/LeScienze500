@@ -214,8 +214,8 @@ bool LeScienze500::ExecQuery()
     if ( ui->Select_Rubriche->isChecked() )
         db.rubriche = true ;
 
-//    if ( ui->Select_NomeAutore->isChecked() )
-//        db.autori_n = true ;
+    //    if ( ui->Select_NomeAutore->isChecked() )
+    //        db.autori_n = true ;
 
     if ( db.p_chiave )
     {
@@ -368,9 +368,9 @@ void  LeScienze500::fillResultTable( QueryResult q_res )
 
 void LeScienze500::fillInformazioni( QModelIndex index )
 {
-//    QTableWidgetItem *item = ui->TabellaRisultati->takeItem( index.row() , 0 ) ;
-//    QString titolo = item->text();
-//    item->setText( titolo ) ;
+    //    QTableWidgetItem *item = ui->TabellaRisultati->takeItem( index.row() , 0 ) ;
+    //    QString titolo = item->text();
+    //    item->setText( titolo ) ;
 
     const int index_id = 0 ;
     const int index_rivista = 1 ;
@@ -624,6 +624,17 @@ bool LeScienze500::OpenPDF()
     return flag ;
 }
 
+bool LeScienze500::OpenBrowserCopertine()
+{
+    if ( this->b_copertine_d == 0 )
+    {
+        this->b_copertine_d = new BrowserCopertine() ;
+    }
+
+    b_copertine_d->setModal(true);
+    b_copertine_d->setFocus();
+    b_copertine_d->show();
+}
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -632,13 +643,13 @@ bool LeScienze500::OpenPDF()
 
 void LeScienze500::on_Select_ParoleChiave_toggled(bool checked)
 {
-        ui->ParoleChiave->setReadOnly( !checked );
-        ui->ParoleChiaveAbstract->setReadOnly( !checked );
+    ui->ParoleChiave->setReadOnly( !checked );
+    ui->ParoleChiaveAbstract->setReadOnly( !checked );
 
-        ui->ParoleChiave->setEnabled( checked );
-        ui->ParoleChiaveAbstract->setEnabled( checked );
-        ui->CopiaADestra->setEnabled( checked );
-        ui->CopiaASinistra->setEnabled( checked );
+    ui->ParoleChiave->setEnabled( checked );
+    ui->ParoleChiaveAbstract->setEnabled( checked );
+    ui->CopiaADestra->setEnabled( checked );
+    ui->CopiaASinistra->setEnabled( checked );
 }
 
 void LeScienze500::on_Cerca_clicked()
@@ -694,12 +705,14 @@ void LeScienze500::on_Configura_clicked()
     cfg_d->setFocus();
     cfg_d->setConfigData() ;
     cfg_d->show();
+
 }
 
+
 void LeScienze500::on_NewConfigFile()
- {
+{
     fillLists() ;
- }
+}
 
 
 void LeScienze500::on_Select_ParoleChiave_clicked(bool checked)
