@@ -543,7 +543,7 @@ bool LeScienze500::ViewPreview()
 
     preview->setHtml( testo );
     preview->setModal( true );
-    preview->setWinTitle( "Preview" ) ;
+    preview->setWinTitle( "Anteprima aticolo" ) ;
     preview->show();
     preview->exec();
 
