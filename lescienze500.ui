@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="icons.qrc">
-    <normaloff>:/icons/icons/lescienze_20x20.xpm</normaloff>:/icons/icons/lescienze_20x20.xpm</iconset>
+    <normaloff>:/icons/icons/24x24/apps/lescienze500.png</normaloff>:/icons/icons/24x24/apps/lescienze500.png</iconset>
   </property>
   <property name="locale">
    <locale language="Italian" country="Italy"/>
@@ -1285,7 +1285,20 @@
                     </font>
                    </property>
                    <property name="text">
-                    <string>Cerca</string>
+                    <string>   Cerca</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="icons.qrc">
+                     <normaloff>:/icons/icons/128x128/apps/lescienze500.png</normaloff>:/icons/icons/128x128/apps/lescienze500.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>50</width>
+                     <height>50</height>
+                    </size>
+                   </property>
+                   <property name="flat">
+                    <bool>false</bool>
                    </property>
                   </widget>
                  </item>

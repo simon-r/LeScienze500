@@ -1,11 +1,17 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>icons/lescienze_48x200.png</file>
-        <file>icons/LeScienze_logo.png</file>
-        <file>icons/lescienze_20x20.png</file>
-        <file>icons/lescienze_20x20.xpm</file>
-    </qresource>
-    <qresource prefix="/text">
-        <file>License_gpl.txt</file>
+        <file>icons/16x16/apps/ lescienze500.png
+</file>
+        <file>icons/22x22/apps/ lescienze500.png
+</file>
+        <file>icons/24x24/apps/lescienze500.png</file>
+        <file>icons/32x32/apps/lescienze500.png</file>
+        <file>icons/48x48/apps/lescienze500.png</file>
+        <file>icons/64x64/apps/lescienze500.png</file>
+        <file>icons/72x72/apps/lescienze500.png</file>
+        <file>icons/96x96/apps/lescienze500.png</file>
+        <file>icons/128x128/apps/lescienze500.png</file>
+        <file>icons/scalable/apps/lescienze500.png</file>
+        <file>icons/dialog_error.png</file>
     </qresource>
 </RCC>

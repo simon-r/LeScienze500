@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>787</width>
-    <height>669</height>
+    <width>853</width>
+    <height>512</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="icons.qrc">
+    <normaloff>:/icons/icons/24x24/apps/lescienze500.png</normaloff>:/icons/icons/24x24/apps/lescienze500.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -24,8 +28,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>788</width>
-        <height>640</height>
+        <width>839</width>
+        <height>498</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -235,6 +239,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>
