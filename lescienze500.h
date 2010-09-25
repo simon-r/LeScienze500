@@ -53,6 +53,7 @@ public:
     bool OpenBrowserCopertine();
 
     bool ShowErrorMessage( QString error_name , QString message ) ;
+    void ShowDBConnectError() ;
 
 protected:
     void changeEvent(QEvent *e);

@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/html">
         <file>html/error.html</file>
+        <file>html/db_error_msg.html</file>
     </qresource>
 </RCC>

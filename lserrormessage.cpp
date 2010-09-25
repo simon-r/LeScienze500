@@ -45,4 +45,22 @@ void LSErrorMessage::setHtmlMessage( QString error_name , QString message )
     ui->ErrorMessage->setHtml( full_message );
 }
 
+void LSErrorMessage::showDBError()
+{
+    QFile res ;
+
+    res.setFileName( ":/html/html/db_error_msg.html" );
+    res.open(QIODevice::ReadOnly) ;
+
+    QString message = res.readAll() ;
+
+    res.close();
+
+    setHtmlMessage( "Errore di connessione al database" , message ) ;
+
+    this->setModal( true );
+    this->setFocus();
+    this->show();
+}
+
 

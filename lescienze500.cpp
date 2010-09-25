@@ -70,9 +70,11 @@ void LeScienze500::fillLists()
 
     if ( !f )
     {
-        QErrorMessage Errore_db ;
-        Errore_db.showMessage( QString("Errore di accesso al database") ) ;
-        Errore_db.exec();
+//        QErrorMessage Errore_db ;
+//        Errore_db.showMessage( QString("Errore di accesso al database") ) ;
+//        Errore_db.exec();
+
+        ShowDBConnectError() ;
     }
 }
 
@@ -656,6 +658,16 @@ bool LeScienze500::ShowErrorMessage( QString error_name , QString message )
     return true ;
 }
 
+void LeScienze500::ShowDBConnectError()
+{
+    if ( this->error_message == 0 )
+    {
+        this->error_message = new LSErrorMessage() ;
+    }
+
+    this->error_message->showDBError();
+}
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -675,7 +687,6 @@ void LeScienze500::on_Select_ParoleChiave_toggled(bool checked)
 void LeScienze500::on_Cerca_clicked()
 {
     ExecQuery() ;
-    //ShowErrorMessage( "hehehehe" , "nulla di particolare" ) ;
 }
 
 void LeScienze500::on_FiltroAutori_textChanged( QString filtro )
