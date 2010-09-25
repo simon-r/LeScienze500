@@ -521,9 +521,10 @@ bool LeScienze500::ViewPreview()
 
     if ( qr_testo.q_result.size() == 0 )
     {
-        QErrorMessage Errore_testo ;
-        Errore_testo.showMessage( QString("Testo dell'articolo non diponibile") ) ;
-        Errore_testo.exec();
+        this->ShowErrorMessage("Anteprima non disponiblile","Nel database non esiste l'anteprima per questo articolo") ;
+//        QErrorMessage Errore_testo ;
+//        Errore_testo.showMessage( QString("Testo dell'articolo non diponibile") ) ;
+//        Errore_testo.exec();
         return false ;
     }
 
@@ -614,15 +615,22 @@ bool LeScienze500::OpenPDF()
 
     if ( flag == false )
     {
-        QErrorMessage em ;
+//        QErrorMessage em ;
         QString msg = "Impossibile trovare il file:    " ;
-        msg.append( "\n\r" ) ;
+        msg.append( "<br /><strong>" ) ;
         msg.append( this->pdf_file ) ;
-        msg.append( "\n\r" ) ;
+        msg.append( "<br /></strong>" ) ;
+        msg.append( "Nei percorsi predefiniti" ) ;
+        msg.append( "<br />" ) ;
         msg.append( "Prova a cambiare il DVD o setta le directory correttamente" ) ;
+        msg.append( "<br />" ) ;
+        msg.append( "Usa il bottone Configura" ) ;
 
-        em.showMessage ( msg ) ;
-        em.exec() ;
+
+//        em.showMessage ( msg ) ;
+//        em.exec() ;
+
+        this->ShowErrorMessage("Articolo non trovato",msg) ;
     }
 
     return flag ;
