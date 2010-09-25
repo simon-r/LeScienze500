@@ -63,4 +63,24 @@ void LSErrorMessage::showDBError()
     this->show();
 }
 
+void LSErrorMessage::showArticleNotFound( QString file_name )
+{
+    QFile res ;
+
+    res.setFileName( ":/html/html/article_not_found.html" );
+    res.open(QIODevice::ReadOnly) ;
+
+    QString message = res.readAll() ;
+
+    res.close();
+
+    message.replace( QRegExp("<!--pdf_file-->") , file_name ) ;
+
+    setHtmlMessage( "Articolo non trovato" , message ) ;
+
+    this->setModal( true );
+    this->setFocus();
+    this->show();
+}
+
 

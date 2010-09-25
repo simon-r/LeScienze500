@@ -16,6 +16,7 @@ public:
     void setHtmlMessage( QString error_name , QString message ) ;
 
     void showDBError() ;
+    void showArticleNotFound( QString file_name ) ;
 
 protected:
     void changeEvent(QEvent *e);

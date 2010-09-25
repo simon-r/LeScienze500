@@ -615,22 +615,19 @@ bool LeScienze500::OpenPDF()
 
     if ( flag == false )
     {
-//        QErrorMessage em ;
-        QString msg = "Impossibile trovare il file:    " ;
-        msg.append( "<br /><strong>" ) ;
-        msg.append( this->pdf_file ) ;
-        msg.append( "<br /></strong>" ) ;
-        msg.append( "Nei percorsi predefiniti" ) ;
-        msg.append( "<br />" ) ;
-        msg.append( "Prova a cambiare il DVD o setta le directory correttamente" ) ;
-        msg.append( "<br />" ) ;
-        msg.append( "Usa il bottone Configura" ) ;
+//        QString msg = "Impossibile trovare il file:    " ;
+//        msg.append( "<br /><strong>" ) ;
+//        msg.append( this->pdf_file ) ;
+//        msg.append( "<br /></strong>" ) ;
+//        msg.append( "Nei percorsi predefiniti" ) ;
+//        msg.append( "<br />" ) ;
+//        msg.append( "Prova a cambiare il DVD o setta le directory correttamente" ) ;
+//        msg.append( "<br />" ) ;
+//        msg.append( "Usa il bottone Configura" ) ;
+//
+//        this->ShowErrorMessage("Articolo non trovato",msg) ;
 
-
-//        em.showMessage ( msg ) ;
-//        em.exec() ;
-
-        this->ShowErrorMessage("Articolo non trovato",msg) ;
+        ShowArticleNotFoundError( this->pdf_file ) ;
     }
 
     return flag ;
@@ -674,6 +671,17 @@ void LeScienze500::ShowDBConnectError()
     }
 
     this->error_message->showDBError();
+}
+
+
+void LeScienze500::ShowArticleNotFoundError( QString file_name )
+{
+    if ( this->error_message == 0 )
+    {
+        this->error_message = new LSErrorMessage() ;
+    }
+
+    this->error_message->showArticleNotFound( file_name );
 }
 
 ///////////////////////////////////////////////////////////////////////
