@@ -17,6 +17,7 @@ public:
 
     void showDBError() ;
     void showArticleNotFound( QString file_name ) ;
+    void showReaderNotStarted() ;
 
 protected:
     void changeEvent(QEvent *e);

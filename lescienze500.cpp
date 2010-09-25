@@ -562,6 +562,8 @@ bool LeScienze500::OpenPDF()
     if ( this->pdf_file.isEmpty() )
         return false ;
 
+    bool process_strated = false ;
+
     configLS500 cfg ;
 
     QString file_p , pdf_appl , command ;
@@ -588,7 +590,7 @@ bool LeScienze500::OpenPDF()
         command.append( "\"" ) ;
 
         qDebug() << command ;
-        process_pdf.startDetached( command );
+        process_strated = process_pdf.startDetached( command );
         flag = true ;
     }
 
@@ -609,13 +611,18 @@ bool LeScienze500::OpenPDF()
         command.append( "\"" ) ;
 
         qDebug() << command ;
-        process_pdf.startDetached( command );
+        process_strated = process_pdf.startDetached( command );
         flag = true ;
     }
 
     if ( flag == false )
     {
         ShowArticleNotFoundError( this->pdf_file ) ;
+    }
+
+    if ( process_strated == false )
+    {
+
     }
 
     return flag ;

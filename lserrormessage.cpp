@@ -83,4 +83,7 @@ void LSErrorMessage::showArticleNotFound( QString file_name )
     this->show();
 }
 
+void LSErrorMessage::showReaderNotStarted()
+{
 
+}
