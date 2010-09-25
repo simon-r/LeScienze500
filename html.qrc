@@ -3,5 +3,6 @@
         <file>html/error.html</file>
         <file>html/db_error_msg.html</file>
         <file>html/article_not_found.html</file>
+        <file>html/reader_not_found.html</file>
     </qresource>
 </RCC>

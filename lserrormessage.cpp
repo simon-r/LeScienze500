@@ -2,6 +2,7 @@
 #include "ui_lserrormessage.h"
 #include <QFile>
 #include <QDebug>
+#include "configls500.h"
 
 LSErrorMessage::LSErrorMessage(QWidget *parent) :
     QDialog(parent),
@@ -73,8 +74,8 @@ void LSErrorMessage::showArticleNotFound( QString file_name )
     QString message = res.readAll() ;
 
     res.close();
-
-    message.replace( QRegExp("<!--pdf_file-->") , file_name ) ;
+    
+    message.replace( QRegExp("<!--file_name-->") , file_name ) ;
 
     setHtmlMessage( "Articolo non trovato" , message ) ;
 
@@ -85,5 +86,22 @@ void LSErrorMessage::showArticleNotFound( QString file_name )
 
 void LSErrorMessage::showReaderNotStarted()
 {
+    QFile res ;
 
+    res.setFileName( ":/html/html/reader_not_found.html" );
+    res.open(QIODevice::ReadOnly) ;
+
+    QString message = res.readAll() ;
+
+    res.close();
+
+    configLS500 cfg ;
+
+    message.replace( QRegExp("<!--reader-->") , cfg.getPDFAppl() ) ;
+
+    setHtmlMessage( "Impossibile avviare il lettore di documenti PDF" , message ) ;
+
+    this->setModal( true );
+    this->setFocus();
+    this->show();
 }

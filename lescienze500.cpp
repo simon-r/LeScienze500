@@ -618,11 +618,12 @@ bool LeScienze500::OpenPDF()
     if ( flag == false )
     {
         ShowArticleNotFoundError( this->pdf_file ) ;
+        return false ;
     }
 
     if ( process_strated == false )
     {
-
+        ShowReaderNotStartedError();
     }
 
     return flag ;
@@ -677,6 +678,16 @@ void LeScienze500::ShowArticleNotFoundError( QString file_name )
     }
 
     this->error_message->showArticleNotFound( file_name );
+}
+
+void LeScienze500::ShowReaderNotStartedError()
+{
+    if ( this->error_message == 0 )
+    {
+        this->error_message = new LSErrorMessage() ;
+    }
+
+    this->error_message->showReaderNotStarted();
 }
 
 ///////////////////////////////////////////////////////////////////////

@@ -55,6 +55,7 @@ public:
     bool ShowErrorMessage( QString error_name , QString message ) ;
     void ShowDBConnectError() ;
     void ShowArticleNotFoundError( QString file_name ) ;
+    void ShowReaderNotStartedError() ;
 
 protected:
     void changeEvent(QEvent *e);
