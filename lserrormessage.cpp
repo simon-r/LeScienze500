@@ -37,7 +37,7 @@ void LSErrorMessage::setHtmlMessage( QString error_name , QString message )
     QString full_message = res.readAll() ;
 
     res.close();
-    qDebug() << full_message ;
+//    qDebug() << full_message ;
 
     full_message.replace( QRegExp( "<!--nome_errore-->" ) , error_name ) ;
     full_message.replace( QRegExp( "<!--messaggio_errore-->" ) , message ) ;
