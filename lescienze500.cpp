@@ -615,18 +615,6 @@ bool LeScienze500::OpenPDF()
 
     if ( flag == false )
     {
-//        QString msg = "Impossibile trovare il file:    " ;
-//        msg.append( "<br /><strong>" ) ;
-//        msg.append( this->pdf_file ) ;
-//        msg.append( "<br /></strong>" ) ;
-//        msg.append( "Nei percorsi predefiniti" ) ;
-//        msg.append( "<br />" ) ;
-//        msg.append( "Prova a cambiare il DVD o setta le directory correttamente" ) ;
-//        msg.append( "<br />" ) ;
-//        msg.append( "Usa il bottone Configura" ) ;
-//
-//        this->ShowErrorMessage("Articolo non trovato",msg) ;
-
         ShowArticleNotFoundError( this->pdf_file ) ;
     }
 
