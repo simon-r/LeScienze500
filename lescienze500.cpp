@@ -675,7 +675,7 @@ void LeScienze500::on_Select_ParoleChiave_toggled(bool checked)
 void LeScienze500::on_Cerca_clicked()
 {
     ExecQuery() ;
-    ShowErrorMessage( "hehehehe" , "nulla di particolare" ) ;
+    //ShowErrorMessage( "hehehehe" , "nulla di particolare" ) ;
 }
 
 void LeScienze500::on_FiltroAutori_textChanged( QString filtro )

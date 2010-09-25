@@ -31,8 +31,8 @@ void LSErrorMessage::changeEvent(QEvent *e)
 void LSErrorMessage::setHtmlMessage( QString error_name , QString message )
 {
     QFile res ;
-    res.setFileName( ":html/error.html" );
-    res.open(QIODevice::ReadOnly | QIODevice::Text) ;
+    res.setFileName( ":/html/html/error.html" );
+    res.open(QIODevice::ReadOnly) ;
 
     QString full_message = res.readAll() ;
 
@@ -41,8 +41,6 @@ void LSErrorMessage::setHtmlMessage( QString error_name , QString message )
 
     full_message.replace( QRegExp( "<!--nome_errore-->" ) , error_name ) ;
     full_message.replace( QRegExp( "<!--messaggio_errore-->" ) , message ) ;
-
-
 
     ui->ErrorMessage->setHtml( full_message );
 }
