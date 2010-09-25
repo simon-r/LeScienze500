@@ -11,20 +11,24 @@ SOURCES += main.cpp \
     configura.cpp \
     querydb_mainq.cpp \
     previewarticolo.cpp \
-    browsercopertine.cpp
+    browsercopertine.cpp \
+    lserrormessage.cpp
 HEADERS += lescienze500.h \
     querydb.h \
     queryresult.h \
     configls500.h \
     configura.h \
     previewarticolo.h \
-    browsercopertine.h
+    browsercopertine.h \
+    lserrormessage.h
 FORMS += lescienze500.ui \
     configura.ui \
     previewarticolo.ui \
-    browsercopertine.ui
+    browsercopertine.ui \
+    lserrormessage.ui
 LIBS += -lsqlite3
-RESOURCES += icons.qrc
+RESOURCES += icons.qrc \
+    html.qrc
 target.path = /usr/bin
 desktop.path = /usr/share/applications/
 desktop.files = lescienze500.desktop

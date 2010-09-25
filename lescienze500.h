@@ -32,6 +32,7 @@
 #include "configura.h"
 #include "previewarticolo.h"
 #include "browsercopertine.h"
+#include "lserrormessage.h"
 
 
 namespace Ui {
@@ -50,6 +51,8 @@ public:
     bool ViewPreview() ;
 
     bool OpenBrowserCopertine();
+
+    bool ShowErrorMessage( QString error_name , QString message ) ;
 
 protected:
     void changeEvent(QEvent *e);
@@ -82,6 +85,7 @@ private:
     Configura *cfg_d ;
     PreviewArticolo *preview ;
     BrowserCopertine *b_copertine_d ;
+    LSErrorMessage *error_message ;
 
     QList<int> history_id_articoli ;
 

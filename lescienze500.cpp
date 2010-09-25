@@ -46,6 +46,8 @@ LeScienze500::LeScienze500(QWidget *parent) :
 
     cfg_d = 0 ;
     preview = 0 ;
+    error_message = 0 ;
+    b_copertine_d = 0 ;
 
     fillLists() ;
 }
@@ -634,6 +636,24 @@ bool LeScienze500::OpenBrowserCopertine()
     b_copertine_d->setModal(true);
     b_copertine_d->setFocus();
     b_copertine_d->show();
+
+    return true ;
+}
+
+bool LeScienze500::ShowErrorMessage( QString error_name , QString message )
+{
+    if ( this->error_message == 0 )
+    {
+        this->error_message = new LSErrorMessage() ;
+    }
+
+    this->error_message->setHtmlMessage( error_name , message );
+
+    this->error_message->setModal( true );
+    this->error_message->setFocus();
+    this->error_message->show();
+
+    return true ;
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -655,6 +675,7 @@ void LeScienze500::on_Select_ParoleChiave_toggled(bool checked)
 void LeScienze500::on_Cerca_clicked()
 {
     ExecQuery() ;
+    ShowErrorMessage( "hehehehe" , "nulla di particolare" ) ;
 }
 
 void LeScienze500::on_FiltroAutori_textChanged( QString filtro )
