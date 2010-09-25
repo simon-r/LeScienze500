@@ -33,11 +33,11 @@
 #define DB_DIR "db_dir"
 #define DB_DIR_V "/opt/LeScienze500/LeScienze.db"
 #define ART_PATH_1 "art_pdf_path1"
-#define ART_PATH_1_V "/media/esterno_xfs/data/Le Scienze/Le scienze articoli 1/"
+#define ART_PATH_1_V "/media/LESCIENZE/articoli/"
 #define ART_PATH_2 "art_pdf_path2"
-#define ART_PATH_2_V "/media/esterno_xfs/data/Le Scienze/Le scienze articoli 2/"
+#define ART_PATH_2_V "/media/LESCIENZE/articoli/"
 #define COPERTINE_P "copertine_path"
-#define COPERTINE_P_V "--------"
+#define COPERTINE_P_V "/opt/LeScienze500/copertine/"
 
 class configLS500
 {
