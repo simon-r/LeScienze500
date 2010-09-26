@@ -35,7 +35,7 @@ void LSErrorMessage::setHtmlMessage( QString error_name , QString message )
     res.setFileName( ":/html/html/error.html" );
     res.open(QIODevice::ReadOnly) ;
 
-    QString full_message = res.readAll() ;
+    QString full_message = QString::fromLocal8Bit ( res.readAll() ) ;
 
     res.close();
 //    qDebug() << full_message ;
@@ -53,7 +53,7 @@ void LSErrorMessage::showDBError()
     res.setFileName( ":/html/html/db_error_msg.html" );
     res.open(QIODevice::ReadOnly) ;
 
-    QString message = res.readAll() ;
+    QString message = QString::fromLocal8Bit ( res.readAll() ) ;
 
     res.close();
 
@@ -71,7 +71,7 @@ void LSErrorMessage::showArticleNotFound( QString file_name )
     res.setFileName( ":/html/html/article_not_found.html" );
     res.open(QIODevice::ReadOnly) ;
 
-    QString message = res.readAll() ;
+    QString message = QString::fromLocal8Bit ( res.readAll() ) ;
 
     res.close();
     
@@ -91,7 +91,7 @@ void LSErrorMessage::showReaderNotStarted()
     res.setFileName( ":/html/html/reader_not_found.html" );
     res.open(QIODevice::ReadOnly) ;
 
-    QString message = res.readAll() ;
+    QString message = QString::fromLocal8Bit ( res.readAll() ) ;
 
     res.close();
 

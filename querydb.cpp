@@ -254,7 +254,7 @@ QueryResult QueryDB::execQuery( QString query )
             row.clear();
             // print results for this row
             for( col=0; col<cols; col++){
-                row.append( QString( (const char*)sqlite3_column_text( stmt, col ) ) );
+                row.append( QString::fromLocal8Bit( (const char*)sqlite3_column_text( stmt, col ) ) );
                 //printf("%s = %s\n", sqlite3_column_name(stmt, col), txt ? txt : "NULL" );
                 //qDebug() << QString( (const char*)sqlite3_column_text( stmt, col ) ) ;
             }

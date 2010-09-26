@@ -152,7 +152,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="0">
-           <widget class="QListView" name="listView">
+           <widget class="QListView" name="ListaAnni">
             <property name="maximumSize">
              <size>
               <width>100</width>
