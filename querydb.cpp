@@ -202,7 +202,8 @@ QueryResult QueryDB::execQuery( QString query )
 
     cols = sqlite3_column_count(stmt);
     for( col=0; col<cols; col++){
-        q_result.appendColumnName( QString( (const char*)sqlite3_column_name( stmt, col ) ) );
+        QString name = QString::fromUtf8( (const char*)sqlite3_column_name( stmt, col ) ) ;
+        q_result.appendColumnName( name , col );
 //        qDebug() << QString( (const char*)sqlite3_column_name( stmt, col ) ) ;
     }
 

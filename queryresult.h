@@ -22,15 +22,19 @@
 
 #include<qstring.h>
 #include<qlist.h>
+#include<qstringlist.h>
+#include<qhash.h>
 
 class QueryResult {
 public:
+
+    typedef QList<QStringList>::iterator iterator ;
 
     QueryResult()
     {
     }
 
-    void appendColumnName( QString name ) ;
+    void appendColumnName( QString name , int col ) ;
     bool appendResultRow( QStringList res ) ;
 
     QList<QStringList> getResultTable()
@@ -38,7 +42,7 @@ public:
         return q_result ;
     }
 
-    QList<QString> getColumnsNames()
+    QStringList getColumnsNames()
     {
         return columns_names ;
     }
@@ -51,10 +55,29 @@ public:
         q_result.clear();
     }
 
-   QList<QString> columns_names ;
+    QString getField( QString col_name , QueryResult::iterator row )
+    {
+        int index = col_name_index.value( col_name ) ;
+        return row->value( index ) ;
+    }
+
+    QString getFirstColumnName()
+    {
+        if ( !columns_names.empty() )
+            return columns_names.first() ;
+        else
+            return QString( "" ) ;
+    }
+
+    QueryResult::iterator begin() { return q_result.begin() ; }
+    QueryResult::iterator end() { return q_result.end() ; }
+
+   QStringList columns_names ;
    QList<QStringList> q_result ;
 
    private:
+
+   QHash<QString,int> col_name_index ;
 };
 
 #endif // QUERYRESULT_H

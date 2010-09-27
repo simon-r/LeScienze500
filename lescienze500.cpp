@@ -157,11 +157,13 @@ bool LeScienze500::fillListaAnni()
     if ( lista.q_result.empty() )
         return false ;
 
-    QList<QStringList>::const_iterator it;
+    QString col_name = lista.getFirstColumnName() ;
 
-    for( it = lista.q_result.begin() ; it < lista.q_result.end() ; it++ )
+    QueryResult::iterator it;
+
+    for( it = lista.begin() ; it < lista.end() ; it++ )
     {
-        ui->ListaAnni->addItem( it->value(0) );
+        ui->ListaAnni->addItem( lista.getField( col_name , it ) );
     }
 
     return true ;

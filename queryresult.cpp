@@ -24,14 +24,14 @@
 #include<qdebug.h>
 
 
-void QueryResult::appendColumnName( QString name )
+void QueryResult::appendColumnName( QString name , int col)
 {
    this->columns_names.append(name);
+   this->col_name_index.insert( name , col ) ;
 }
 
 bool QueryResult::appendResultRow( QStringList res )
 {
-
     if ( this->columns_names.size() != res.size() )
     {
         return false ;
