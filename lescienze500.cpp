@@ -152,19 +152,16 @@ bool LeScienze500::fillRubriche()
 bool LeScienze500::fillListaAnni()
 {
     QueryDB db ;
-    list<int> lista = db.getAnni() ;
+    QueryResult lista = db.getAnni() ;
 
-    if ( lista.empty() )
+    if ( lista.q_result.empty() )
         return false ;
 
-    list<int>::const_iterator it;
+    QList<QStringList>::const_iterator it;
 
-    for( it = lista.begin() ; it != lista.end() ; it++ )
+    for( it = lista.q_result.begin() ; it < lista.q_result.end() ; it++ )
     {
-        stringstream ss;
-        ss << *it;
-        ui->ListaAnni->addItem( QString( ss.str().c_str() ) );
-        cout << *it << endl ;
+        ui->ListaAnni->addItem( it->value(0) );
     }
 
     return true ;

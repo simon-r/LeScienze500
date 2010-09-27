@@ -39,7 +39,7 @@ public:
 
     list<string> getCategorie() ;
     list<string> getAutori( string filtro = "" ) ;
-    list<int> getAnni() ;
+    QueryResult getAnni() ;
     list<string> getRubriche() ;
 
     //bool setDBPath(string path) { return false ; } ;

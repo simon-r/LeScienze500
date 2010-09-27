@@ -132,46 +132,12 @@ list<string> QueryDB::getAutori( string filtro )
     return lista_autori ;
 }
 
-list<int> QueryDB::getAnni()
+QueryResult QueryDB::getAnni()
 {
-    list<int> lista_anni ;
 
-    string query = "select anno from Riviste group by anno" ;
+    QString query = "select anno from Riviste group by anno" ;
 
-    rc = sqlite3_open( dbPath.toAscii().data() , &db);
-    if( rc ){
-        return lista_anni;
-    }
-
-    rc = sqlite3_prepare_v2( db, query.c_str() , -1, &stmt, 0);
-    if( rc ){
-        return lista_anni;
-    }
-
-    cols = sqlite3_column_count(stmt);
-    // execute the statement
-    do{
-        rc = sqlite3_step(stmt);
-        switch( rc ){
-        case SQLITE_DONE:
-            break;
-        case SQLITE_ROW:
-            // print results for this row
-            for( col=0; col<cols; col++){
-                lista_anni.push_back( sqlite3_column_int( stmt, col ) );
-                //printf("%s = %s\n", sqlite3_column_name(stmt, col), txt ? txt : "NULL" );
-            }
-            break;
-        default:
-            //fprintf(stderr, "Error: %d : %s\n",  rc, sqlite3_errmsg(db));
-            break;
-        }
-    } while( rc==SQLITE_ROW );
-    // finalize the statement to release resources
-    sqlite3_finalize(stmt);
-
-    rc = 0 ;
-    return lista_anni ;
+    return execQuery( query ) ;
 }
 
 list<string> QueryDB::getRubriche()
