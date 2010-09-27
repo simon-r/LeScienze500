@@ -20,12 +20,13 @@
 #define BROWSERCOPERTINE_H
 
 #include <QDialog>
+#include "browsercopertinebase.h"
 
 namespace Ui {
     class BrowserCopertine;
 }
 
-class BrowserCopertine : public QDialog
+class BrowserCopertine : public QDialog, BrowserCopertineBase
 {
     Q_OBJECT
 public:

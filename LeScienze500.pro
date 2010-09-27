@@ -12,7 +12,9 @@ SOURCES += main.cpp \
     querydb_mainq.cpp \
     previewarticolo.cpp \
     browsercopertine.cpp \
-    lserrormessage.cpp
+    lserrormessage.cpp \
+    browsercopertinebase.cpp \
+    querydata.cpp
 HEADERS += lescienze500.h \
     querydb.h \
     queryresult.h \
@@ -20,7 +22,9 @@ HEADERS += lescienze500.h \
     configura.h \
     previewarticolo.h \
     browsercopertine.h \
-    lserrormessage.h
+    lserrormessage.h \
+    browsercopertinebase.h \
+    querydata.h
 FORMS += lescienze500.ui \
     configura.ui \
     previewarticolo.ui \
@@ -29,18 +33,13 @@ FORMS += lescienze500.ui \
 LIBS += -lsqlite3
 RESOURCES += icons.qrc \
     html.qrc
-
 OBJECTS_DIR = tmp_files
 MOC_DIR = tmp_files
-
 target.path = /usr/bin
-
 icons.path = /usr/share/icons/hicolor/
 icons.files = icons/*
-
 desktop.path = /usr/share/applications/
 desktop.files = lescienze500.desktop
-
 INSTALLS += target
 INSTALLS += desktop
 INSTALLS += icons
