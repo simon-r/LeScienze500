@@ -61,6 +61,16 @@ public:
         return row->value( index ) ;
     }
 
+    QString getField( int col_index , QueryResult::iterator row )
+    {
+        return row->value( col_index ) ;
+    }
+
+    QString getFiled( int col_index , int row_index )
+    {
+        return this->q_result[row_index][col_index] ;
+    }
+
     QString getFirstColumnName()
     {
         if ( !columns_names.empty() )
@@ -68,6 +78,16 @@ public:
         else
             return QString( "" ) ;
     }
+
+    QStringList getColumnNames()
+    {
+        return columns_names ;
+    }
+
+    int sizeCol() { return columns_names.size() ; }
+    int sizeRow() { return q_result.size() ; }
+
+    bool empty() { return q_result.empty() ; }
 
     QueryResult::iterator begin() { return q_result.begin() ; }
     QueryResult::iterator end() { return q_result.end() ; }

@@ -36,6 +36,8 @@ public:
 protected:
     void changeEvent(QEvent *e);
 
+    void appendAnnoGUI( QString anno ) {}
+
 private:
     Ui::BrowserCopertine *ui;
 

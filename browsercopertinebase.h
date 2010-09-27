@@ -4,6 +4,8 @@
 #include "querydata.h"
 #include <QString>
 #include <QStringList>
+#include "querydb.h"
+
 
 class BrowserCopertineBase
 {
@@ -18,7 +20,11 @@ public:
     bool showMeseAnno( const QString &mese , const QString &anno ) ;
     bool showRivista( const QString &numero ) ;
 
-private:
+protected:
+
+    bool fillListaAnni() ;
+
+    virtual void appendAnnoGUI( QString anno ) = 0 ;
 
     void clear() ;
 

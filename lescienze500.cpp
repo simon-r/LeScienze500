@@ -154,7 +154,7 @@ bool LeScienze500::fillListaAnni()
     QueryDB db ;
     QueryResult lista = db.getAnni() ;
 
-    if ( lista.q_result.empty() )
+    if ( lista.empty() )
         return false ;
 
     QString col_name = lista.getFirstColumnName() ;
