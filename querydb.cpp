@@ -27,7 +27,6 @@
 
 QueryDB::QueryDB()
 {
-
     configLS500 cfg ;
 
     dbPath = cfg.getDBPath() ;
@@ -254,9 +253,7 @@ QueryResult QueryDB::execQuery( QString query )
             row.clear();
             // print results for this row
             for( col=0; col<cols; col++){
-                row.append( QString::fromLocal8Bit( (const char*)sqlite3_column_text( stmt, col ) ) );
-                //printf("%s = %s\n", sqlite3_column_name(stmt, col), txt ? txt : "NULL" );
-                //qDebug() << QString( (const char*)sqlite3_column_text( stmt, col ) ) ;
+                row.append( QString::fromUtf8( ( (const char*)sqlite3_column_text( stmt, col ) ) ) ) ;
             }
             q_result.appendResultRow( row ) ;
             break;
@@ -265,8 +262,6 @@ QueryResult QueryDB::execQuery( QString query )
             break;
         }
     }while( rc==SQLITE_ROW );
-
-
 
     // finalize the statement to release resources
     sqlite3_finalize(stmt);
