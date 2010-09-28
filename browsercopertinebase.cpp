@@ -57,7 +57,7 @@ bool BrowserCopertineBase::showAnno( const QString &anno )
 
     QString path_copertine = "/opt/LeScienze500/copertine/" ;
 
-    this->openListaRiviste( anno );
+    this->openListaRiviste( anno ) ;
     for ( QueryResult::iterator it = riviste_anno.begin() ; it < riviste_anno.end() ; it++ )
     {
         QString copertina = riviste_anno.getField( "FileCopertina" , it ) ;

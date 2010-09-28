@@ -69,15 +69,16 @@ void BrowserCopertine::openBrowser()
 void BrowserCopertine::openListaRiviste( const QString anno )
 {
     QFile res ;
-    res.open(QIODevice::ReadOnly) ;
     res.setFileName( ":/html/html/testata_lista_copertine.html" );
-    res.close();
+    res.open(QIODevice::ReadOnly) ;
 
     pagina_anno.clear();
-    pagina_anno = res.readAll() ;
+
+    pagina_anno = QString::fromUtf8( res.readAll() ) ;
     pagina_anno.replace( QRegExp("<!--anno-->") , anno ) ;
 
-
+    qDebug() << pagina_anno ;
+   res.close();
 }
 
 void BrowserCopertine::appendRivista( const QString copertina , const QString mese )
@@ -99,7 +100,7 @@ void BrowserCopertine::appendRivista( const QString copertina , const QString me
 void BrowserCopertine::closeListaCopertine()
 {
     QFile res ;
-    res.setFileName( ":/html/html/corpo_lista_copertine.html" );
+    res.setFileName( ":/html/html/fine_lista_copertine.html" );
 
     res.open(QIODevice::ReadOnly) ;
     QString fine = res.readAll() ;
