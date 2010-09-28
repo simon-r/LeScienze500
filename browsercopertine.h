@@ -21,6 +21,7 @@
 
 #include <QDialog>
 #include "browsercopertinebase.h"
+#include <QListWidgetItem>
 
 namespace Ui {
     class BrowserCopertine;
@@ -50,6 +51,9 @@ private:
     Ui::BrowserCopertine *ui;
 
     QString pagina_anno ;
+
+public slots:
+    void on_itemListaAnniSelected( QListWidgetItem* item ) ;
 
 };
 

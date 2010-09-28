@@ -26,6 +26,8 @@ BrowserCopertine::BrowserCopertine(QWidget *parent) :
         ui(new Ui::BrowserCopertine)
 {
     ui->setupUi(this);
+
+    connect( ui->ListaAnni , SIGNAL( itemClicked(QListWidgetItem*)  ) , this , SLOT( on_itemListaAnniSelected(QListWidgetItem*) ) ) ;
 }
 
 BrowserCopertine::~BrowserCopertine()
@@ -77,7 +79,7 @@ void BrowserCopertine::openListaRiviste( const QString anno )
     pagina_anno = QString::fromUtf8( res.readAll() ) ;
     pagina_anno.replace( QRegExp("<!--anno-->") , anno ) ;
 
-    qDebug() << pagina_anno ;
+   // qDebug() << pagina_anno ;
    res.close();
 }
 
@@ -112,4 +114,10 @@ void BrowserCopertine::closeListaCopertine()
     //qDebug() << pagina_anno ;
 
     ui->MostraRiviste->setHtml( pagina_anno );
+}
+
+void BrowserCopertine::on_itemListaAnniSelected( QListWidgetItem* item )
+{
+    QString anno = item->text() ;
+    this->showAnno( anno ) ;
 }

@@ -55,7 +55,7 @@ bool BrowserCopertineBase::showAnno( const QString &anno )
 
     configLS500 cfg ;
 
-    QString path_copertine = "/opt/LeScienze500/copertine/" ;
+    QString path_copertine = cfg.getCopertinePath() ;
 
     this->openListaRiviste( anno ) ;
     for ( QueryResult::iterator it = riviste_anno.begin() ; it < riviste_anno.end() ; it++ )
@@ -67,7 +67,7 @@ bool BrowserCopertineBase::showAnno( const QString &anno )
 
         QString mese = riviste_anno.getField( QString( "Mese" ) , it ) ;
 
-         qDebug() << copertina << " " << mese ;
+//         qDebug() << copertina << " " << mese ;
 
         this->appendRivista( copertina , mese ) ;
     }

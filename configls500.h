@@ -48,6 +48,7 @@ public:
     QString getPDFPath1() ;
     QString getPDFPath2() ;
     QString getPDFAppl() ;
+    QString getCopertinePath() ;
 
     void open() ;
     void setDBPath( QString pr ) ;

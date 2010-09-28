@@ -96,6 +96,11 @@ QString configLS500::getPDFPath2()
     return getConfigParameter( ART_PATH_2 ) ;
 }
 
+QString configLS500::getCopertinePath()
+{
+    return getConfigParameter( COPERTINE_P ) ;
+}
+
 QString configLS500::getPDFAppl()
 {
     return getConfigParameter( PDF_APPL ) ;
