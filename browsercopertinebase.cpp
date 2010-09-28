@@ -17,6 +17,8 @@
 //    along with LeScienze500.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "browsercopertinebase.h"
+#include <QDebug>
+#include "configls500.h"
 
 
 BrowserCopertineBase::BrowserCopertineBase()
@@ -44,16 +46,30 @@ bool BrowserCopertineBase::fillListaAnni()
 
 bool BrowserCopertineBase::showAnno( const QString &anno )
 {
-    QString query = "select FileCopertina, mese  from Riviste Where anno = " ;
+    QString query = "select FileCopertina, Mese  from Riviste Where anno = " ;
     query += anno ;
     query += " order by FileCopertina " ;
 
     QueryDB db ;
     QueryResult riviste_anno = db.execQuery( query ) ;
 
+    configLS500 cfg ;
 
+    QString path_copertine = "/opt/LeScienze500/copertine/" ;
+
+    this->openListaRiviste( anno );
     for ( QueryResult::iterator it = riviste_anno.begin() ; it < riviste_anno.end() ; it++ )
     {
+        QString copertina = riviste_anno.getField( "FileCopertina" , it ) ;
+        copertina.replace( QRegExp( "(^[\\d]{4,4}_)" ) , "" ) ;
+        copertina.replace( QRegExp( "pdf$" ) , "jpg" ) ;
+        copertina.prepend( path_copertine ) ;
 
+        QString mese = riviste_anno.getField( QString( "Mese" ) , it ) ;
+
+         qDebug() << copertina << " " << mese ;
+
+        this->appendRivista( copertina , mese ) ;
     }
+    this->closeListaCopertine();
 }

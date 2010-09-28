@@ -4,5 +4,8 @@
         <file>html/db_error_msg.html</file>
         <file>html/article_not_found.html</file>
         <file>html/reader_not_found.html</file>
+        <file>html/testata_lista_copertine.html</file>
+        <file>html/corpo_lista_copertine.html</file>
+        <file>html/fine_lista_copertine.html</file>
     </qresource>
 </RCC>

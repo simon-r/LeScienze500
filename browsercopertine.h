@@ -42,12 +42,14 @@ protected:
     void appendAnnoGUI( QString anno ) ;
     void clearListaAnni() ;
 
-    void openListaRiviste() {} ;
-    void appendRivista( QString copertina , QString mese ) {} ;
-    void closeListaCopertine() {} ;
+    void openListaRiviste( const QString anno ) ;
+    void appendRivista( const QString copertina , const QString mese ) ;
+    void closeListaCopertine() ;
 
 private:
     Ui::BrowserCopertine *ui;
+
+    QString pagina_anno ;
 
 };
 

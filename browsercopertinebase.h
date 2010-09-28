@@ -45,8 +45,8 @@ protected:
     virtual void appendAnnoGUI( QString anno ) = 0 ;
     virtual void clearListaAnni() = 0 ;
 
-    virtual void openListaRiviste() = 0 ;
-    virtual void appendRivista( QString copertina , QString mese ) = 0 ;
+    virtual void openListaRiviste( const QString anno ) = 0 ;
+    virtual void appendRivista( const QString copertina , const QString mese ) = 0 ;
     virtual void closeListaCopertine() = 0 ;
 
     void clear() ;

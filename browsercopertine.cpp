@@ -18,6 +18,8 @@
 
 #include "browsercopertine.h"
 #include "ui_browsercopertine.h"
+#include<QFile>
+#include<QDebug>
 
 BrowserCopertine::BrowserCopertine(QWidget *parent) :
         QDialog(parent),
@@ -60,4 +62,53 @@ void BrowserCopertine::openBrowser()
     this->setModal(true);
     this->setFocus();
     this->show();
+
+    showAnno( "1999" ) ;
+}
+
+void BrowserCopertine::openListaRiviste( const QString anno )
+{
+    QFile res ;
+    res.open(QIODevice::ReadOnly) ;
+    res.setFileName( ":/html/html/testata_lista_copertine.html" );
+    res.close();
+
+    pagina_anno.clear();
+    pagina_anno = res.readAll() ;
+    pagina_anno.replace( QRegExp("<!--anno-->") , anno ) ;
+
+
+}
+
+void BrowserCopertine::appendRivista( const QString copertina , const QString mese )
+{
+    QFile res ;
+    res.setFileName( ":/html/html/corpo_lista_copertine.html" );
+
+    res.open(QIODevice::ReadOnly) ;
+    QString corpo = res.readAll() ;
+    res.close();
+
+    corpo.replace( QRegExp("<!--mese-->") , mese ) ;
+    corpo.replace( QRegExp("<!--file_copertina-->") , copertina ) ;
+
+    pagina_anno.append( " " ) ;
+    pagina_anno.append( corpo ) ;
+}
+
+void BrowserCopertine::closeListaCopertine()
+{
+    QFile res ;
+    res.setFileName( ":/html/html/corpo_lista_copertine.html" );
+
+    res.open(QIODevice::ReadOnly) ;
+    QString fine = res.readAll() ;
+    res.close();
+
+    pagina_anno.append( " " ) ;
+    pagina_anno.append( fine ) ;
+
+    //qDebug() << pagina_anno ;
+
+    ui->MostraRiviste->setHtml( pagina_anno );
 }
