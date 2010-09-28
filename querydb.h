@@ -37,10 +37,10 @@ class QueryDB
 public:
     QueryDB();
 
-    list<string> getCategorie() ;
-    list<string> getAutori( string filtro = "" ) ;
+    QueryResult getCategorie() ;
+    QueryResult getAutori( QString filtro = "" ) ;
     QueryResult getAnni() ;
-    list<string> getRubriche() ;
+    QueryResult getRubriche() ;
 
     //bool setDBPath(string path) { return false ; } ;
 

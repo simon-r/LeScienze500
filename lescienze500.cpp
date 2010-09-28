@@ -93,60 +93,38 @@ void LeScienze500::changeEvent(QEvent *e)
 bool LeScienze500::fillListaCategorie()
 {
     QueryDB db ;
-    list<string> lista = db.getCategorie() ;
+    QueryResult lista = db.getCategorie() ;
 
-    if ( lista.empty() )
-        return false ;
+    return fillQListWidget( ui->ListaCategorie , lista ) ;
 
-    list<string>::const_iterator it;
-
-    for( it = lista.begin() ; it != lista.end() ; it++ )
-    {
-        ui->ListaCategorie->addItem( QString( it->c_str() ) );
-        cout << it->c_str() << endl ;
-    }
-
-    return true ;
+//    if ( lista.empty() )
+//        return false ;
+//
+//    list<string>::const_iterator it;
+//
+//    for( it = lista.begin() ; it != lista.end() ; it++ )
+//    {
+//        ui->ListaCategorie->addItem( QString( it->c_str() ) );
+//        cout << it->c_str() << endl ;
+//    }
+//
+//    return true ;
 }
 
-bool LeScienze500::fillListaAutori( string filtro )
+bool LeScienze500::fillListaAutori(  QString filtro )
 {
     QueryDB db ;
-    list<string> lista = db.getAutori( filtro ) ;
+    QueryResult lista = db.getAutori( filtro ) ;
 
-    if ( lista.empty() )
-        return false ;
-
-    list<string>::const_iterator it;
-
-    ui->ListaAutori->clear();
-
-    for( it = lista.begin() ; it != lista.end() ; it++ )
-    {
-        ui->ListaAutori->addItem( QString( it->c_str() ) );
-        cout << it->c_str() << endl ;
-    }
-
-    return true ;
+    return fillQListWidget( ui->ListaAutori , lista ) ;
 }
 
 bool LeScienze500::fillRubriche()
 {
     QueryDB db ;
-    list<string> lista = db.getRubriche() ;
+    QueryResult lista = db.getRubriche() ;
 
-    if ( lista.empty() )
-        return false ;
-
-    list<string>::const_iterator it;
-
-    for( it = lista.begin() ; it != lista.end() ; it++ )
-    {
-        ui->ListaRubriche->addItem( QString( it->c_str() ) );
-        cout << it->c_str() << endl ;
-    }
-
-    return true ;
+    return fillQListWidget( ui->ListaRubriche , lista ) ;
 }
 
 bool LeScienze500::fillListaAnni()
@@ -154,16 +132,22 @@ bool LeScienze500::fillListaAnni()
     QueryDB db ;
     QueryResult lista = db.getAnni() ;
 
-    if ( lista.empty() )
+    return fillQListWidget( ui->ListaAnni , lista ) ;
+}
+
+bool LeScienze500::fillQListWidget( QListWidget *w_list , QueryResult &r_list )
+{
+    if ( r_list.empty() )
         return false ;
 
-    QString col_name = lista.getFirstColumnName() ;
+    w_list->clear();
+    QString col_name = r_list.getFirstColumnName() ;
 
     QueryResult::iterator it;
 
-    for( it = lista.begin() ; it < lista.end() ; it++ )
+    for( it = r_list.begin() ; it < r_list.end() ; it++ )
     {
-        ui->ListaAnni->addItem( lista.getField( col_name , it ) );
+        w_list->addItem( r_list.getField( col_name , it ) );
     }
 
     return true ;
@@ -712,9 +696,9 @@ void LeScienze500::on_Cerca_clicked()
 
 void LeScienze500::on_FiltroAutori_textChanged( QString filtro )
 {
-    string fil_s = string ( filtro.toAscii().data() ) ;
+    //string fil_s = string ( filtro.toAscii().data() ) ;
 
-    this->fillListaAutori( fil_s ) ;
+    this->fillListaAutori( filtro ) ;
 }
 
 void LeScienze500::on_TabellaRisultati_clicked(QModelIndex index)

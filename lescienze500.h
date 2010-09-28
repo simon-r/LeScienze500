@@ -63,11 +63,13 @@ protected:
 private:
     Ui::LeScienze500 *ui;
     bool fillListaCategorie() ;
-    bool fillListaAutori( string filtro = "" ) ;
+    bool fillListaAutori(  QString filtro  = "" ) ;
     bool fillListaAnni() ;
     bool fillRubriche() ;
+    bool fillQListWidget( QListWidget *w_list , QueryResult &r_list ) ;
 
     void fillLists() ;
+
 
     void fillResultTable( QueryResult )  ;
 

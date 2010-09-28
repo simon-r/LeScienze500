@@ -42,144 +42,37 @@ QueryDB::QueryDB()
     rubriche = false  ;
 }
 
-list<string> QueryDB::getCategorie()
+QueryResult QueryDB::getCategorie()
 {
-    list<string> lista_categorie ;
-
-    string query = "select Categoria from Categorie order by Categoria" ;
-
-    rc = sqlite3_open( dbPath.toAscii().data() , &db);
-    if( rc ){
-        return lista_categorie;
-    }
-
-    rc = sqlite3_prepare_v2( db, query.c_str() , -1, &stmt, 0);
-    if( rc ){
-        return lista_categorie;
-    }
-
-    cols = sqlite3_column_count(stmt);
-    // execute the statement
-    do{
-        rc = sqlite3_step(stmt);
-        switch( rc ){
-        case SQLITE_DONE:
-            break;
-        case SQLITE_ROW:
-            // print results for this row
-            for( col=0; col<cols; col++){
-                lista_categorie.push_back( string( (const char*)sqlite3_column_text( stmt, col ) ) );
-                //printf("%s = %s\n", sqlite3_column_name(stmt, col), txt ? txt : "NULL" );
-            }
-            break;
-        default:
-            //fprintf(stderr, "Error: %d : %s\n",  rc, sqlite3_errmsg(db));
-            break;
-        }
-        //cout << "========================================================================" << "\n" ;
-    }while( rc==SQLITE_ROW );
-    // finalize the statement to release resources
-    sqlite3_finalize(stmt);
-
-    rc = 0 ;
-    return lista_categorie ;
+    QString query = "select Categoria from Categorie order by Categoria" ;
+    return execQuery( query ) ;
 }
 
-list<string> QueryDB::getAutori( string filtro )
+QueryResult QueryDB::getAutori( QString filtro )
 {
     list<string> lista_autori ;
 
-    string query = "select Autore from Autori where Autore like " ;
+    QString query = "select Autore from Autori where Autore like " ;
     query.append("'%");
     query.append( filtro );
     query.append("%'");
     query.append(" order by Autore");
 
-    rc = sqlite3_open( dbPath.toAscii().data() , &db);
-    if( rc ){
-        return lista_autori;
-    }
-
-    rc = sqlite3_prepare_v2( db, query.c_str() , -1, &stmt, 0);
-    if( rc ){
-        return lista_autori;
-    }
-
-    cols = sqlite3_column_count(stmt);
-    // execute the statement
-    do{
-        rc = sqlite3_step(stmt);
-        switch( rc ){
-        case SQLITE_DONE:
-            break;
-        case SQLITE_ROW:
-            // print results for this row
-            for( col=0; col<cols; col++){
-                lista_autori.push_back( string( (const char*)sqlite3_column_text( stmt, col ) ) );
-                //printf("%s = %s\n", sqlite3_column_name(stmt, col), txt ? txt : "NULL" );
-            }
-            break;
-        default:
-            //fprintf(stderr, "Error: %d : %s\n",  rc, sqlite3_errmsg(db));
-            break;
-        }
-        //cout << "========================================================================" << "\n" ;
-    }while( rc==SQLITE_ROW );
-    // finalize the statement to release resources
-    sqlite3_finalize(stmt);
-
-    rc = 0 ;
-    return lista_autori ;
+    return execQuery( query ) ;
 }
 
 QueryResult QueryDB::getAnni()
 {
-
     QString query = "select anno from Riviste group by anno" ;
 
     return execQuery( query ) ;
 }
 
-list<string> QueryDB::getRubriche()
+QueryResult QueryDB::getRubriche()
 {
-    list<string> lista_rubriche ;
+    QString query = "select rubrica from rubriche" ;
 
-    string query = "select rubrica from rubriche" ;
-
-    rc = sqlite3_open( dbPath.toAscii().data() , &db);
-    if( rc ){
-        return lista_rubriche;
-    }
-
-    rc = sqlite3_prepare_v2( db, query.c_str() , -1, &stmt, 0);
-    if( rc ){
-        return lista_rubriche;
-    }
-
-    cols = sqlite3_column_count(stmt);
-    // execute the statement
-    do{
-        rc = sqlite3_step(stmt);
-        switch( rc ){
-        case SQLITE_DONE:
-            break;
-        case SQLITE_ROW:
-            // print results for this row
-            for( col=0; col<cols; col++){
-                lista_rubriche.push_back( string( (const char*)sqlite3_column_text( stmt, col ) ) );
-                //printf("%s = %s\n", sqlite3_column_name(stmt, col), txt ? txt : "NULL" );
-            }
-            break;
-        default:
-            //fprintf(stderr, "Error: %d : %s\n",  rc, sqlite3_errmsg(db));
-            break;
-        }
-    }while( rc==SQLITE_ROW );
-    // finalize the statement to release resources
-    sqlite3_finalize(stmt);
-
-    rc = 0 ;
-    return lista_rubriche ;
+    return execQuery( query ) ;
 }
 
 
@@ -225,7 +118,6 @@ QueryResult QueryDB::execQuery( QString query )
             q_result.appendResultRow( row ) ;
             break;
         default:
-            //fprintf(stderr, "Error: %d : %s\n",  rc, sqlite3_errmsg(db));
             break;
         }
     }while( rc==SQLITE_ROW );
