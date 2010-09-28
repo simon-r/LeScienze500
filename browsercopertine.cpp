@@ -42,3 +42,22 @@ void BrowserCopertine::changeEvent(QEvent *e)
         break;
     }
 }
+
+void BrowserCopertine::appendAnnoGUI( QString anno )
+{
+    ui->ListaAnni->addItem( anno );
+}
+
+void BrowserCopertine::clearListaAnni()
+{
+    ui->ListaAnni->clear();
+}
+
+void BrowserCopertine::openBrowser()
+{
+    this->fillListaAnni() ;
+
+    this->setModal(true);
+    this->setFocus();
+    this->show();
+}

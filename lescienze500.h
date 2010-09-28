@@ -33,6 +33,7 @@
 #include "previewarticolo.h"
 #include "browsercopertine.h"
 #include "lserrormessage.h"
+#include "browsercopertinebase.h"
 
 
 namespace Ui {

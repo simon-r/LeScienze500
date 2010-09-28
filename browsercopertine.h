@@ -33,10 +33,18 @@ public:
     BrowserCopertine(QWidget *parent = 0);
     ~BrowserCopertine();
 
+    void openBrowser() ;
+
 protected:
     void changeEvent(QEvent *e);
 
-    void appendAnnoGUI( QString anno ) {}
+    // funzioni virtuali ereditate:
+    void appendAnnoGUI( QString anno ) ;
+    void clearListaAnni() ;
+
+    void openListaRiviste() {} ;
+    void appendRivista( QString copertina , QString mese ) {} ;
+    void closeListaCopertine() {} ;
 
 private:
     Ui::BrowserCopertine *ui;

@@ -113,7 +113,7 @@ QueryResult QueryDB::execQuery( QString query )
             row.clear();
             // print results for this row
             for( col=0; col<cols; col++){
-                row.append( QString::fromUtf8( ( (const char*)sqlite3_column_text( stmt, col ) ) ) ) ;
+                row.append( QString::fromUtf8( (const char*)sqlite3_column_text( stmt, col ) ) ) ;
             }
             q_result.appendResultRow( row ) ;
             break;

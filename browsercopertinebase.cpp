@@ -41,3 +41,19 @@ bool BrowserCopertineBase::fillListaAnni()
     }
     return true ;
 }
+
+bool BrowserCopertineBase::showAnno( const QString &anno )
+{
+    QString query = "select FileCopertina, mese  from Riviste Where anno = " ;
+    query += anno ;
+    query += " order by FileCopertina " ;
+
+    QueryDB db ;
+    QueryResult riviste_anno = db.execQuery( query ) ;
+
+
+    for ( QueryResult::iterator it = riviste_anno.begin() ; it < riviste_anno.end() ; it++ )
+    {
+
+    }
+}

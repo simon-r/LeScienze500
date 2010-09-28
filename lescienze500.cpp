@@ -35,6 +35,9 @@
 #include <QRegExp>
 #include <QStringBuilder>
 #include <QIcon>
+#include "browsercopertine.h"
+
+
 
 using namespace std ;
 
@@ -619,9 +622,7 @@ bool LeScienze500::OpenBrowserCopertine()
         this->b_copertine_d = new BrowserCopertine() ;
     }
 
-    b_copertine_d->setModal(true);
-    b_copertine_d->setFocus();
-    b_copertine_d->show();
+    b_copertine_d->openBrowser();
 
     return true ;
 }
@@ -691,6 +692,7 @@ void LeScienze500::on_Select_ParoleChiave_toggled(bool checked)
 
 void LeScienze500::on_Cerca_clicked()
 {
+    OpenBrowserCopertine() ;
     ExecQuery() ;
 }
 
