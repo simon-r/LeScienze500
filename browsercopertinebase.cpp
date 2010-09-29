@@ -97,5 +97,33 @@ bool BrowserCopertineBase::showRivista( const QString &numero )
 
     this->openNumeroRivista( copertina , numero , mese , anno ) ;
 
+    query = "select Id, Titolo, Abstract from articoli where idrivista = ( select id from riviste where numero = " ;
+    query += numero ;
+    query += " )" ;
+
+    QueryResult articoli = db.execQuery( query ) ;
+
+    for ( QueryResult::iterator it = articoli.begin() ; it < articoli.end() ; it++ )
+    {
+        QString id = articoli.getField( "Id" , it ) ;
+        QString abstract = articoli.getField( "Abstract" , it ) ;
+        QString titolo = articoli.getField( "Titolo" , it ) ;
+
+        query = "select Autore from autori where id  in ( select idautore from articoli_autori where idarticolo = " ;
+        query += id ;
+        query += " ) " ;
+        QueryResult qr_autori = db.execQuery( query ) ;
+
+        QString autori = "" ;
+        for ( QueryResult::iterator ita = qr_autori.begin() ; ita < qr_autori.end() ; ita++ )
+        {
+            autori += qr_autori.getField( "Autore" , ita ) ;
+            if ( ita !=  qr_autori.end() - 1 )
+                autori += "; " ;
+        }
+
+        this->appendArticolo( titolo , abstract , autori , id ) ;
+    }
+
     this->closeRivista() ;
 }

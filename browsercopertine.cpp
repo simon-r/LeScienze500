@@ -68,7 +68,7 @@ void BrowserCopertine::openBrowser()
     this->show();
 
    showAnno( "1999" ) ;
-   this->showRivista( "455" ) ;
+   this->showRivista( "470" ) ;
 }
 
 void BrowserCopertine::openListaRiviste( const QString anno )
@@ -132,7 +132,7 @@ void BrowserCopertine::openNumeroRivista( QString copertina , QString numero , Q
     res.setFileName( ":/html/html/modello_rivista.html" ) ;
     res.open(QIODevice::ReadOnly) ;
 
-    this->rivista = res.readAll() ;
+    this->rivista = QString::fromUtf8( res.readAll() ) ;
 
     res.close();
 
@@ -145,7 +145,19 @@ void BrowserCopertine::openNumeroRivista( QString copertina , QString numero , Q
 
 void BrowserCopertine::appendArticolo( QString titolo , QString abstract , QString autori , QString id )
 {
+    QFile res ;
+    res.setFileName( ":/html/html/modello_articolo.html" ) ;
+    res.open( QIODevice::ReadOnly ) ;
 
+    QString articolo = QString::fromUtf8( res.readAll() ) ;
+
+    res.close();
+
+    articolo.replace( QRegExp("<!--titolo-->") , titolo ) ;
+    articolo.replace( QRegExp("<!--autori-->") , autori ) ;
+    articolo.replace( QRegExp("<!--abstract-->") , abstract ) ;
+
+    this->rivista.replace( QRegExp( "<!--prossimo_articolo-->" ) , articolo ) ;
 }
 
 void BrowserCopertine::closeRivista()

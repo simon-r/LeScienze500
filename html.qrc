@@ -8,5 +8,6 @@
         <file>html/corpo_lista_copertine.html</file>
         <file>html/fine_lista_copertine.html</file>
         <file>html/modello_rivista.html</file>
+        <file>html/modello_articolo.html</file>
     </qresource>
 </RCC>
