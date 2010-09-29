@@ -27,6 +27,8 @@ BrowserCopertine::BrowserCopertine(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->MostraRiviste->setOpenLinks( false );
+    ui->MostraNumeroRivista->setOpenLinks( false );
     connect( ui->ListaAnni , SIGNAL( itemClicked(QListWidgetItem*)  ) , this , SLOT( on_itemListaAnniSelected(QListWidgetItem*) ) ) ;
 }
 
@@ -65,7 +67,8 @@ void BrowserCopertine::openBrowser()
     this->setFocus();
     this->show();
 
-    showAnno( "1999" ) ;
+   showAnno( "1999" ) ;
+   this->showRivista( "455" ) ;
 }
 
 void BrowserCopertine::openListaRiviste( const QString anno )
@@ -108,8 +111,8 @@ void BrowserCopertine::closeListaCopertine()
     QString fine = res.readAll() ;
     res.close();
 
-    pagina_anno.append( " " ) ;
-    pagina_anno.append( fine ) ;
+    this->pagina_anno.append( " " ) ;
+    this->pagina_anno.append( fine ) ;
 
     //qDebug() << pagina_anno ;
 
@@ -120,4 +123,33 @@ void BrowserCopertine::on_itemListaAnniSelected( QListWidgetItem* item )
 {
     QString anno = item->text() ;
     this->showAnno( anno ) ;
+}
+
+
+void BrowserCopertine::openNumeroRivista( QString copertina , QString numero , QString mese , QString anno )
+{
+    QFile res ;
+    res.setFileName( ":/html/html/modello_rivista.html" ) ;
+    res.open(QIODevice::ReadOnly) ;
+
+    this->rivista = res.readAll() ;
+
+    res.close();
+
+
+   this->rivista.replace( QRegExp( "<!--numero-->" ) , numero ) ;
+   this->rivista.replace( QRegExp( "<!--mese-->" ) , mese ) ;
+   this->rivista.replace( QRegExp( "<!--anno-->" ) , anno ) ;
+   this->rivista.replace( QRegExp( "<!--copertina-->" ) , copertina ) ;
+}
+
+void BrowserCopertine::appendArticolo( QString titolo , QString abstract , QString autori , QString id )
+{
+
+}
+
+void BrowserCopertine::closeRivista()
+{
+    qDebug() << rivista ;
+    ui->MostraNumeroRivista->setHtml( this->rivista );
 }

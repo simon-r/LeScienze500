@@ -180,7 +180,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="0">
-           <widget class="QTextBrowser" name="textBrowser"/>
+           <widget class="QTextBrowser" name="MostraNumeroRivista"/>
           </item>
          </layout>
         </widget>

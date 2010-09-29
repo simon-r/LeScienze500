@@ -49,6 +49,10 @@ protected:
     virtual void appendRivista( const QString copertina , const QString mese ) = 0 ;
     virtual void closeListaCopertine() = 0 ;
 
+    virtual void openNumeroRivista( QString copertina , QString numero , QString mese , QString anno ) = 0 ;
+    virtual void appendArticolo( QString titolo , QString abstract , QString autori , QString id ) = 0 ;
+    virtual void closeRivista() = 0 ;
+
     void clear() ;
 
 

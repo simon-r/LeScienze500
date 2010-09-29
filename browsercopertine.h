@@ -47,10 +47,15 @@ protected:
     void appendRivista( const QString copertina , const QString mese ) ;
     void closeListaCopertine() ;
 
+    void openNumeroRivista( QString copertina , QString numero , QString mese , QString anno ) ;
+    void appendArticolo( QString titolo , QString abstract , QString autori , QString id ) ;
+    void closeRivista() ;
+
 private:
     Ui::BrowserCopertine *ui;
 
     QString pagina_anno ;
+    QString rivista ;
 
 public slots:
     void on_itemListaAnniSelected( QListWidgetItem* item ) ;

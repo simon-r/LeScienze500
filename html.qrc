@@ -7,5 +7,6 @@
         <file>html/testata_lista_copertine.html</file>
         <file>html/corpo_lista_copertine.html</file>
         <file>html/fine_lista_copertine.html</file>
+        <file>html/modello_rivista.html</file>
     </qresource>
 </RCC>

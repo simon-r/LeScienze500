@@ -73,3 +73,29 @@ bool BrowserCopertineBase::showAnno( const QString &anno )
     }
     this->closeListaCopertine();
 }
+
+
+bool BrowserCopertineBase::showRivista( const QString &numero )
+{
+    QString query = "select Mese, Anno, FileCopertina from riviste where numero = " ;
+    query += numero ;
+    query += " " ;
+
+    QueryDB db ;
+    QueryResult nr_rivista = db.execQuery( query ) ;
+
+    QString mese = nr_rivista.getField( "Mese" , nr_rivista.begin() ) ;
+    QString anno = nr_rivista.getField( "Anno" , nr_rivista.begin() ) ;
+    QString copertina = nr_rivista.getField( "FileCopertina" , nr_rivista.begin() ) ;
+
+    configLS500 cfg ;
+    QString path_copertine = cfg.getCopertinePath() ;
+
+    copertina.replace( QRegExp( "(^[\\d]{4,4}_)" ) , "" ) ;
+    copertina.replace( QRegExp( "pdf$" ) , "jpg" ) ;
+    copertina.prepend( path_copertine ) ;
+
+    this->openNumeroRivista( copertina , numero , mese , anno ) ;
+
+    this->closeRivista() ;
+}
