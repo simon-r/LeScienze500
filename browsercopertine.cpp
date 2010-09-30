@@ -38,6 +38,8 @@ BrowserCopertine::~BrowserCopertine()
     delete ui ;
 }
 
+
+
 void BrowserCopertine::changeEvent(QEvent *e)
 {
     QDialog::changeEvent(e);
@@ -151,6 +153,14 @@ void BrowserCopertine::closeListaCopertine()
     //qDebug() << pagina_anno ;
 
     ui->MostraRiviste->setHtml( pagina_anno );
+}
+
+
+void BrowserCopertine::moveToMese( const QString &mese )
+{
+    QUrl url = ui->MostraRiviste->source() ;
+    url.setFragment( mese ) ;
+    ui->MostraRiviste->setSource( url );
 }
 
 void BrowserCopertine::on_itemListaAnniSelected( QListWidgetItem* item )

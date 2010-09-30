@@ -55,6 +55,8 @@ protected:
     void appendArticolo( QString titolo , QString abstract , QString autori , QString id ) ;
     void closeRivista() ;
 
+    void moveToMese( const QString &mese ) ;
+
 private:
     Ui::BrowserCopertine *ui;
 

@@ -41,9 +41,8 @@ bool BrowserCopertineBase::fillListaAnni()
 
     QString col_name = lista.getFirstColumnName() ;
 
-    QueryResult::iterator it;
-
-    for( it = lista.begin() ; it < lista.end() ; it++ )
+    this->clearListaAnni();
+    for( QueryResult::iterator it = lista.begin() ; it < lista.end() ; it++ )
     {
         this->appendAnnoGUI( lista.getField( col_name , it ) );
     }
@@ -66,7 +65,10 @@ bool BrowserCopertineBase::fillListaAnni()
      QString mese = qr_mese_anno.getField( "Mese" , qr_mese_anno.begin() ) ;
      QString anno = qr_mese_anno.getField( "Anno" , qr_mese_anno.begin() ) ;
 
-     return this->showMeseAnno( mese , anno ) ;
+     bool ret = this->showMeseAnno( mese , anno ) ;
+     this->moveToMese( mese ) ;
+
+     return ret ;
  }
 
 bool BrowserCopertineBase::showMeseAnno( const QString &mese , const QString &anno )

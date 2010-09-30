@@ -42,6 +42,8 @@ public:
     bool showRivista( const QString &numero ) ;
     bool showRivista( const QString &mese , const QString &anno ) ;
 
+    virtual void moveToMese( const QString &mese ) = 0 ;
+
 protected:
 
     bool fillListaAnni() ;
