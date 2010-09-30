@@ -32,7 +32,7 @@
    <string>Le Scienze 500</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="icons.qrc">
     <normaloff>:/icons/icons/24x24/apps/lescienze500.png</normaloff>:/icons/icons/24x24/apps/lescienze500.png</iconset>
   </property>
   <property name="locale">
@@ -210,7 +210,7 @@ dell'articolo</string>
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset>
+                  <iconset resource="crystal.qrc">
                    <normaloff>:/icons/crystal/contents-256.png</normaloff>:/icons/crystal/contents-256.png</iconset>
                  </property>
                  <property name="iconSize">
@@ -232,7 +232,7 @@ articolo.</string>
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset>
+                  <iconset resource="crystal.qrc">
                    <normaloff>:/icons/crystal/1rightarrow-256.png</normaloff>:/icons/crystal/1rightarrow-256.png</iconset>
                  </property>
                 </widget>
@@ -1359,7 +1359,7 @@ articolo.</string>
                     <string>   Cerca</string>
                    </property>
                    <property name="icon">
-                    <iconset>
+                    <iconset resource="icons.qrc">
                      <normaloff>:/icons/icons/128x128/apps/lescienze500.png</normaloff>:/icons/icons/128x128/apps/lescienze500.png</iconset>
                    </property>
                    <property name="iconSize">
@@ -1388,7 +1388,7 @@ articolo.</string>
                     </size>
                    </property>
                    <property name="text">
-                    <string>Apri Browser Copertine</string>
+                    <string>Apri Browser Riviste</string>
                    </property>
                   </widget>
                  </item>
@@ -1442,6 +1442,9 @@ articolo.</string>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="crystal.qrc"/>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>
