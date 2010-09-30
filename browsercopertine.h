@@ -55,6 +55,8 @@ protected:
     void appendArticolo( QString titolo , QString abstract , QString autori , QString id ) ;
     void closeRivista() ;
 
+    void setCurrentNumero( int nr ) ;
+
     void moveToMese( const QString &mese ) ;
 
 private:
@@ -69,6 +71,7 @@ public slots:
     void on_itemListaAnniSelected( QListWidgetItem* item ) ;
     void on_rivistaClicked( const QUrl &url ) ;
     void on_indiceArticoliClicked( const QUrl &url ) ;
+    void on_spinNuovoNumero( const QString &numero ) ;
 
 signals:
     void sig_openPDF (int id_articolo) ;

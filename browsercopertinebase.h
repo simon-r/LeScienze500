@@ -39,6 +39,8 @@ public:
     bool showAnno( const QString &anno ) ;
     bool showMeseAnno( int id_articolo ) ;
     bool showMeseAnno( const QString &mese , const QString &anno ) ;
+    bool showMeseAnno( const QString &numero ) ;
+
     bool showRivista( const QString &numero ) ;
     bool showRivista( const QString &mese , const QString &anno ) ;
 
@@ -58,6 +60,8 @@ protected:
     virtual void openNumeroRivista( QString copertina , QString numero , QString mese , QString anno ) = 0 ;
     virtual void appendArticolo( QString titolo , QString abstract , QString autori , QString id ) = 0 ;
     virtual void closeRivista() = 0 ;
+
+    virtual void setCurrentNumero( int nr ) = 0 ;
 
     void clear() ;
 };

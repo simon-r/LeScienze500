@@ -50,26 +50,48 @@ bool BrowserCopertineBase::fillListaAnni()
     return true ;
 }
 
- bool BrowserCopertineBase::showMeseAnno( int id_articolo )
- {
-     QString query = "select Mese, Anno from riviste where id in ( select idrivista from articoli where id = " ;
-     query += QString().setNum( id_articolo ) ;
-     query += " ) " ;
+bool BrowserCopertineBase::showMeseAnno( int id_articolo )
+{
+    QString query = "select Mese, Anno, Numero from riviste where id in ( select idrivista from articoli where id = " ;
+    query += QString().setNum( id_articolo ) ;
+    query += " ) " ;
 
-     QueryDB db ;
-     QueryResult qr_mese_anno = db.execQuery( query ) ;
+    QueryDB db ;
+    QueryResult qr_mese_anno = db.execQuery( query ) ;
 
-     if ( qr_mese_anno.empty() )
-         return false ;
+    if ( qr_mese_anno.empty() )
+        return false ;
 
-     QString mese = qr_mese_anno.getField( "Mese" , qr_mese_anno.begin() ) ;
-     QString anno = qr_mese_anno.getField( "Anno" , qr_mese_anno.begin() ) ;
+    QString mese = qr_mese_anno.getField( "Mese" , qr_mese_anno.begin() ) ;
+    QString anno = qr_mese_anno.getField( "Anno" , qr_mese_anno.begin() ) ;
+    QString numero = qr_mese_anno.getField( "Numero" , qr_mese_anno.begin() ) ;
 
-     bool ret = this->showMeseAnno( mese , anno ) ;
-     this->moveToMese( mese ) ;
+    bool ret = this->showMeseAnno( mese , anno ) ;
+    this->moveToMese( mese ) ;
+    this->setCurrentNumero( numero.toInt() );
 
-     return ret ;
- }
+    return ret ;
+}
+
+bool BrowserCopertineBase::showMeseAnno( const QString &numero )
+{
+    QString query = "select mese, anno from riviste where numero =  " ;
+    query += numero ;
+
+    QueryDB db ;
+    QueryResult qr_mese_anno = db.execQuery( query ) ;
+
+    if ( qr_mese_anno.empty() )
+        return false ;
+
+    QString mese = qr_mese_anno.getField( "Mese" , qr_mese_anno.begin() ) ;
+    QString anno = qr_mese_anno.getField( "Anno" , qr_mese_anno.begin() ) ;
+
+    bool ret = this->showMeseAnno( mese , anno ) ;
+    this->moveToMese( mese ) ;
+
+    return ret ;
+}
 
 bool BrowserCopertineBase::showMeseAnno( const QString &mese , const QString &anno )
 {
@@ -82,7 +104,7 @@ bool BrowserCopertineBase::showMeseAnno( const QString &mese , const QString &an
 
 bool BrowserCopertineBase::showAnno( const QString &anno )
 {
-    QString query = "select FileCopertina, Mese  from Riviste Where anno = " ;
+    QString query = "select FileCopertina, Mese, Numero from Riviste Where anno = " ;
     query += anno ;
     query += " order by FileCopertina " ;
 
@@ -106,7 +128,7 @@ bool BrowserCopertineBase::showAnno( const QString &anno )
 
         QString mese = riviste_anno.getField( QString( "Mese" ) , it ) ;
 
-//         qDebug() << copertina << " " << mese ;
+        //         qDebug() << copertina << " " << mese ;
 
         this->appendRivista( copertina , mese ) ;
     }
@@ -131,6 +153,7 @@ bool BrowserCopertineBase::showRivista( const QString &mese , const QString &ann
     QString numero = qr_numero.getField( "Numero" , qr_numero.begin() ) ;
 
     this->showRivista( numero ) ;
+    this->setCurrentNumero( numero.toInt() );
 
     return true ;
 }

@@ -29,9 +29,11 @@ BrowserCopertine::BrowserCopertine(QWidget *parent) :
 
     ui->MostraRiviste->setOpenLinks( false );
     ui->MostraNumeroRivista->setOpenLinks( false );
+
     connect( ui->ListaAnni , SIGNAL( itemClicked(QListWidgetItem*)  ) , this , SLOT( on_itemListaAnniSelected(QListWidgetItem*) ) ) ;
     connect( ui->MostraRiviste , SIGNAL( anchorClicked ( const QUrl& ) ) , this , SLOT( on_rivistaClicked( const QUrl& ) ) ) ;
     connect( ui->MostraNumeroRivista , SIGNAL( anchorClicked ( const QUrl& ) ) , this , SLOT( on_indiceArticoliClicked( const QUrl& ) ) ) ;
+    connect( ui->SelezioneNumero , SIGNAL(valueChanged (const QString&) ) ,  this , SLOT(  on_spinNuovoNumero(const QString&) ) ) ;
 }
 
 BrowserCopertine::~BrowserCopertine()
@@ -218,10 +220,20 @@ void BrowserCopertine::on_rivistaClicked( const QUrl &url )
     this->showRivista( mese , this->anno_c ) ;
 }
 
+void BrowserCopertine::setCurrentNumero( int nr )
+{
+    ui->SelezioneNumero->setValue( nr );
+}
+
 void BrowserCopertine::on_indiceArticoliClicked( const QUrl &url )
 {
     QString id ;
     id = url.toString() ;
     id.replace( QRegExp("^#PDF_") , "" ) ;
     emit sig_openPDF ( id.toInt() ) ;
+}
+
+void BrowserCopertine::on_spinNuovoNumero( const QString &numero )
+{
+    this->showMeseAnno( numero ) ;
 }
