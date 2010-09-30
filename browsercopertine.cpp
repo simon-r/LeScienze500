@@ -70,6 +70,17 @@ void BrowserCopertine::openBrowser()
 
    showAnno( "1999" ) ;
    this->showRivista( "470" ) ;
+
+   this->blankPage( BrowserCopertine::BlankAnno | BrowserCopertine::BlanckRivista );
+}
+
+void BrowserCopertine::blankPage( int bl )
+{
+    if ( bl & BrowserCopertine::BlankAnno )
+        ui->MostraRiviste->setHtml("");
+
+    if ( bl & BrowserCopertine::BlanckRivista )
+        ui->MostraNumeroRivista->setHtml("");
 }
 
 void BrowserCopertine::openListaRiviste( const QString anno )

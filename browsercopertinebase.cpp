@@ -41,6 +41,7 @@ bool BrowserCopertineBase::fillListaAnni()
     {
         this->appendAnnoGUI( lista.getField( col_name , it ) );
     }
+
     return true ;
 }
 
@@ -52,6 +53,9 @@ bool BrowserCopertineBase::showAnno( const QString &anno )
 
     QueryDB db ;
     QueryResult riviste_anno = db.execQuery( query ) ;
+
+    if ( riviste_anno.empty() )
+        return false ;
 
     configLS500 cfg ;
 
@@ -72,6 +76,8 @@ bool BrowserCopertineBase::showAnno( const QString &anno )
         this->appendRivista( copertina , mese ) ;
     }
     this->closeListaCopertine();
+
+    return true ;
 }
 
 bool BrowserCopertineBase::showRivista( const QString &mese , const QString &anno )
@@ -84,10 +90,14 @@ bool BrowserCopertineBase::showRivista( const QString &mese , const QString &ann
     QueryDB db ;
     QueryResult qr_numero = db.execQuery( query ) ;
 
+    if( qr_numero.empty() )
+        return false ;
+
     QString numero = qr_numero.getField( "Numero" , qr_numero.begin() ) ;
 
     this->showRivista( numero ) ;
 
+    return true ;
 }
 
 bool BrowserCopertineBase::showRivista( const QString &numero )
@@ -118,6 +128,9 @@ bool BrowserCopertineBase::showRivista( const QString &numero )
 
     QueryResult articoli = db.execQuery( query ) ;
 
+    if( articoli.empty() )
+        return false ;
+
     for ( QueryResult::iterator it = articoli.begin() ; it < articoli.end() ; it++ )
     {
         QString id = articoli.getField( "Id" , it ) ;
@@ -128,6 +141,8 @@ bool BrowserCopertineBase::showRivista( const QString &numero )
         query += id ;
         query += " ) " ;
         QueryResult qr_autori = db.execQuery( query ) ;
+
+
 
         QString autori = "" ;
         for ( QueryResult::iterator ita = qr_autori.begin() ; ita < qr_autori.end() ; ita++ )
@@ -141,4 +156,6 @@ bool BrowserCopertineBase::showRivista( const QString &numero )
     }
 
     this->closeRivista() ;
+
+    return true ;
 }

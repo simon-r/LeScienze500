@@ -40,6 +40,9 @@ public:
 protected:
     void changeEvent(QEvent *e);
 
+    enum Blank { BlankAnno = 1 , BlanckRivista = 2 } ;
+    void blankPage( int bl ) ;
+
     // funzioni virtuali ereditate:
     void appendAnnoGUI( QString anno ) ;
     void clearListaAnni() ;
