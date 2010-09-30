@@ -28,7 +28,7 @@ namespace Ui {
     class BrowserCopertine;
 }
 
-class BrowserCopertine : public QDialog, BrowserCopertineBase
+class BrowserCopertine : public QDialog, public BrowserCopertineBase
 {
     Q_OBJECT
 public:

@@ -25,6 +25,12 @@ BrowserCopertineBase::BrowserCopertineBase()
 {
 }
 
+void BrowserCopertineBase::openBrowserID( int id_articolo )
+{
+    this->openBrowser();
+    this->showMeseAnno( id_articolo ) ;
+}
+
 bool BrowserCopertineBase::fillListaAnni()
 {
     QueryDB db ;
@@ -43,6 +49,33 @@ bool BrowserCopertineBase::fillListaAnni()
     }
 
     return true ;
+}
+
+ bool BrowserCopertineBase::showMeseAnno( int id_articolo )
+ {
+     QString query = "select Mese, Anno from riviste where id in ( select idrivista from articoli where id = " ;
+     query += QString().setNum( id_articolo ) ;
+     query += " ) " ;
+
+     QueryDB db ;
+     QueryResult qr_mese_anno = db.execQuery( query ) ;
+
+     if ( qr_mese_anno.empty() )
+         return false ;
+
+     QString mese = qr_mese_anno.getField( "Mese" , qr_mese_anno.begin() ) ;
+     QString anno = qr_mese_anno.getField( "Anno" , qr_mese_anno.begin() ) ;
+
+     return this->showMeseAnno( mese , anno ) ;
+ }
+
+bool BrowserCopertineBase::showMeseAnno( const QString &mese , const QString &anno )
+{
+    bool ret ;
+    ret = this->showAnno( anno ) ;
+    ret = ret && this->showRivista( mese , anno ) ;
+
+    return ret ;
 }
 
 bool BrowserCopertineBase::showAnno( const QString &anno )
@@ -142,8 +175,6 @@ bool BrowserCopertineBase::showRivista( const QString &numero )
         query += " ) " ;
         QueryResult qr_autori = db.execQuery( query ) ;
 
-
-
         QString autori = "" ;
         for ( QueryResult::iterator ita = qr_autori.begin() ; ita < qr_autori.end() ; ita++ )
         {
@@ -151,7 +182,6 @@ bool BrowserCopertineBase::showRivista( const QString &numero )
             if ( ita !=  qr_autori.end() - 1 )
                 autori += "; " ;
         }
-
         this->appendArticolo( titolo , abstract , autori , id ) ;
     }
 

@@ -31,10 +31,13 @@ public:
     BrowserCopertineBase();
 
     virtual void openBrowser() = 0 ;
-    void openBrowser( QueryData &data ) ;
+    void openBrowserQD( QueryData &data ) ;
+    void openBrowserID( int id_articolo ) ;
+
     void close() ;
 
     bool showAnno( const QString &anno ) ;
+    bool showMeseAnno( int id_articolo ) ;
     bool showMeseAnno( const QString &mese , const QString &anno ) ;
     bool showRivista( const QString &numero ) ;
     bool showRivista( const QString &mese , const QString &anno ) ;
@@ -55,8 +58,6 @@ protected:
     virtual void closeRivista() = 0 ;
 
     void clear() ;
-
-
 };
 
 #endif // BROWSERCOPERTINEBASE_H

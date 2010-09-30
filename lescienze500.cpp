@@ -211,7 +211,7 @@ bool LeScienze500::ExecQuery()
     {
         QString testo = ui->ParoleChiave->text() ;
         testo = testo.replace( "*" , "%" ) ;
-        QStringList parole_c = testo.split(" " , QString::SkipEmptyParts ) ;
+        QStringList parole_c = testo.split( " " , QString::SkipEmptyParts ) ;
 
         db.setParoleChiave( parole_c ) ;
 
@@ -618,11 +618,19 @@ bool LeScienze500::OpenPDF()
 bool LeScienze500::OpenBrowserCopertine()
 {
     if ( this->b_copertine_d == 0 )
-    {
         this->b_copertine_d = new BrowserCopertine() ;
-    }
 
     b_copertine_d->openBrowser();
+
+    return true ;
+}
+
+bool LeScienze500::OpenBrowserCopertine( int id_articolo )
+{
+    if ( this->b_copertine_d == 0 )
+        this->b_copertine_d = new BrowserCopertine() ;
+
+    b_copertine_d->openBrowserID( id_articolo );
 
     return true ;
 }
@@ -692,7 +700,6 @@ void LeScienze500::on_Select_ParoleChiave_toggled(bool checked)
 
 void LeScienze500::on_Cerca_clicked()
 {
-    OpenBrowserCopertine() ;
     ExecQuery() ;
 }
 
@@ -833,4 +840,17 @@ void LeScienze500::on_TabellaRisultati_doubleClicked(QModelIndex index)
 void LeScienze500::on_PreviewArticolo_2_clicked()
 {
     ViewPreview() ;
+}
+
+void LeScienze500::on_ApriBrowserCopertine_clicked()
+{
+     OpenBrowserCopertine() ;
+}
+
+void LeScienze500::on_pushButton_clicked()
+{
+    if ( this->history_id_articoli.isEmpty() ) return ;
+
+    int id = this->history_id_articoli.front() ;
+    this->OpenBrowserCopertine( id ) ;
 }

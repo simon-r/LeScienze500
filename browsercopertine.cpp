@@ -76,11 +76,32 @@ void BrowserCopertine::openBrowser()
 
 void BrowserCopertine::blankPage( int bl )
 {
+    QFile res ;
+
     if ( bl & BrowserCopertine::BlankAnno )
-        ui->MostraRiviste->setHtml("");
+    {
+        QString blank ;
+
+        res.setFileName( ":/html/html/blank_lista_copertine.html" );
+        res.open(QIODevice::ReadOnly) ;
+        blank = QString::fromUtf8(  res.readAll() ) ;
+        res.close();
+
+        ui->MostraRiviste->setHtml( blank ) ;
+    }
+
 
     if ( bl & BrowserCopertine::BlanckRivista )
-        ui->MostraNumeroRivista->setHtml("");
+    {
+        QString blank ;
+
+        res.setFileName( ":/html/html/blank_rivista.html" );
+        res.open(QIODevice::ReadOnly) ;
+        blank = QString::fromUtf8(  res.readAll() ) ;
+        res.close();
+
+        ui->MostraNumeroRivista->setHtml( blank ) ;
+    }
 }
 
 void BrowserCopertine::openListaRiviste( const QString anno )
@@ -175,7 +196,7 @@ void BrowserCopertine::appendArticolo( QString titolo , QString abstract , QStri
 
 void BrowserCopertine::closeRivista()
 {
-    qDebug() << rivista ;
+    //qDebug() << rivista ;
     ui->MostraNumeroRivista->setHtml( this->rivista );
 }
 

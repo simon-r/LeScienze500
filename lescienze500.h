@@ -34,6 +34,7 @@
 #include "browsercopertine.h"
 #include "lserrormessage.h"
 #include "browsercopertinebase.h"
+#include "querydata.h"
 
 
 namespace Ui {
@@ -52,6 +53,7 @@ public:
     bool ViewPreview() ;
 
     bool OpenBrowserCopertine();
+    bool OpenBrowserCopertine( int id_articolo );
 
     bool ShowErrorMessage( QString error_name , QString message ) ;
     void ShowDBConnectError() ;
@@ -86,8 +88,6 @@ private:
 
     QueryResult q_result ;
 
-    QScrollArea* scrollArea ;
-
     Configura *cfg_d ;
     PreviewArticolo *preview ;
     BrowserCopertine *b_copertine_d ;
@@ -97,6 +97,8 @@ private:
 
 private slots:
 
+    void on_pushButton_clicked();
+    void on_ApriBrowserCopertine_clicked();
     void on_PreviewArticolo_2_clicked();
     void on_TabellaRisultati_doubleClicked(QModelIndex index);
     void on_PreviewArticolo_clicked();

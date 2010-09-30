@@ -32,7 +32,7 @@
    <string>Le Scienze 500</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons.qrc">
+   <iconset>
     <normaloff>:/icons/icons/24x24/apps/lescienze500.png</normaloff>:/icons/icons/24x24/apps/lescienze500.png</iconset>
   </property>
   <property name="locale">
@@ -210,7 +210,7 @@ dell'articolo</string>
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset resource="crystal.qrc">
+                  <iconset>
                    <normaloff>:/icons/crystal/contents-256.png</normaloff>:/icons/crystal/contents-256.png</iconset>
                  </property>
                  <property name="iconSize">
@@ -232,7 +232,7 @@ articolo.</string>
                   <string/>
                  </property>
                  <property name="icon">
-                  <iconset resource="crystal.qrc">
+                  <iconset>
                    <normaloff>:/icons/crystal/1rightarrow-256.png</normaloff>:/icons/crystal/1rightarrow-256.png</iconset>
                  </property>
                 </widget>
@@ -1359,7 +1359,7 @@ articolo.</string>
                     <string>   Cerca</string>
                    </property>
                    <property name="icon">
-                    <iconset resource="icons.qrc">
+                    <iconset>
                      <normaloff>:/icons/icons/128x128/apps/lescienze500.png</normaloff>:/icons/icons/128x128/apps/lescienze500.png</iconset>
                    </property>
                    <property name="iconSize">
@@ -1374,7 +1374,13 @@ articolo.</string>
                   </widget>
                  </item>
                  <item row="4" column="0" colspan="4">
-                  <widget class="QPushButton" name="pushButton_2">
+                  <widget class="QPushButton" name="ApriBrowserCopertine">
+                   <property name="minimumSize">
+                    <size>
+                     <width>230</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
@@ -1436,9 +1442,6 @@ articolo.</string>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="crystal.qrc"/>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
