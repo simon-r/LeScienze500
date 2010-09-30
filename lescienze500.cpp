@@ -644,6 +644,19 @@ bool LeScienze500::OpenBrowserCopertine()
         connect( this->b_copertine_d , SIGNAL( sig_openPDF(int) ) , this , SLOT( on_openPDF(int) ) ) ;
     }
 
+    configLS500 cfg ;
+    QString file_n = cfg.getCopertinePath() ;
+    QFile file ;
+
+    file_n.append("000.jpg") ;
+    file.setFileName( file_n );
+
+    if ( !file.exists() )
+    {
+        this->ShowErrorMessage(  QString::fromUtf8( "Errore:" ) , QString::fromUtf8( "La directory dell copertine non è configurata") ) ;
+        return false ;
+    }
+
     b_copertine_d->openBrowser();
 
     return true ;
@@ -655,6 +668,19 @@ bool LeScienze500::OpenBrowserCopertine( int id_articolo )
     {
         this->b_copertine_d = new BrowserCopertine() ;
         connect( this->b_copertine_d , SIGNAL( sig_openPDF(int) ) , this , SLOT( on_openPDF(int) ) ) ;
+    }
+
+    configLS500 cfg ;
+    QString file_n = cfg.getCopertinePath() ;
+    QFile file ;
+
+    file_n.append("000.jpg") ;
+    file.setFileName( file_n );
+
+    if ( !file.exists() )
+    {
+        this->ShowErrorMessage(  QString::fromUtf8( "Errore:" ) , QString::fromUtf8( "La directory dell copertine non è configurata") ) ;
+        return false ;
     }
 
     b_copertine_d->openBrowserID( id_articolo );
