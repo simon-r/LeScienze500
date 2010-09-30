@@ -31,6 +31,7 @@ BrowserCopertine::BrowserCopertine(QWidget *parent) :
     ui->MostraNumeroRivista->setOpenLinks( false );
     connect( ui->ListaAnni , SIGNAL( itemClicked(QListWidgetItem*)  ) , this , SLOT( on_itemListaAnniSelected(QListWidgetItem*) ) ) ;
     connect( ui->MostraRiviste , SIGNAL( anchorClicked ( const QUrl& ) ) , this , SLOT( on_rivistaClicked( const QUrl& ) ) ) ;
+    connect( ui->MostraNumeroRivista , SIGNAL( anchorClicked ( const QUrl& ) ) , this , SLOT( on_indiceArticoliClicked( const QUrl& ) ) ) ;
 }
 
 BrowserCopertine::~BrowserCopertine()
@@ -64,14 +65,12 @@ void BrowserCopertine::clearListaAnni()
 
 void BrowserCopertine::openBrowser()
 {
+    this->setWindowTitle( "Naviga nelle riviste" );
     this->fillListaAnni() ;
 
     this->setModal(true);
     this->setFocus();
     this->show();
-
-   showAnno( "1999" ) ;
-   this->showRivista( "470" ) ;
 
    this->blankPage( BrowserCopertine::BlankAnno | BrowserCopertine::BlanckRivista );
 }
@@ -180,7 +179,6 @@ void BrowserCopertine::openNumeroRivista( QString copertina , QString numero , Q
 
     res.close();
 
-
    this->rivista.replace( QRegExp( "<!--numero-->" ) , numero ) ;
    this->rivista.replace( QRegExp( "<!--mese-->" ) , mese ) ;
    this->rivista.replace( QRegExp( "<!--anno-->" ) , anno ) ;
@@ -200,6 +198,7 @@ void BrowserCopertine::appendArticolo( QString titolo , QString abstract , QStri
     articolo.replace( QRegExp("<!--titolo-->") , titolo ) ;
     articolo.replace( QRegExp("<!--autori-->") , autori ) ;
     articolo.replace( QRegExp("<!--abstract-->") , abstract ) ;
+    articolo.replace( QRegExp("<!--id-->") , id ) ;
 
     this->rivista.replace( QRegExp( "<!--prossimo_articolo-->" ) , articolo ) ;
 }
@@ -217,4 +216,12 @@ void BrowserCopertine::on_rivistaClicked( const QUrl &url )
 
     qDebug() << mese << " " << this->anno_c ;
     this->showRivista( mese , this->anno_c ) ;
+}
+
+void BrowserCopertine::on_indiceArticoliClicked( const QUrl &url )
+{
+    QString id ;
+    id = url.toString() ;
+    id.replace( QRegExp("^#PDF_") , "" ) ;
+    emit sig_openPDF ( id.toInt() ) ;
 }

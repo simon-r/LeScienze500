@@ -68,6 +68,11 @@ private:
 public slots:
     void on_itemListaAnniSelected( QListWidgetItem* item ) ;
     void on_rivistaClicked( const QUrl &url ) ;
+    void on_indiceArticoliClicked( const QUrl &url ) ;
+
+signals:
+    void sig_openPDF (int id_articolo) ;
+
 
 };
 

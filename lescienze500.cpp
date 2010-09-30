@@ -542,12 +542,9 @@ bool LeScienze500::ViewPreview()
 }
 
 
-bool LeScienze500::OpenPDF()
+bool LeScienze500::OpenPDF( QString file_pdf )
 {
     QProcess process_pdf ;
-    if ( this->pdf_file.isEmpty() )
-        return false ;
-
     bool process_strated = false ;
 
     configLS500 cfg ;
@@ -556,11 +553,11 @@ bool LeScienze500::OpenPDF()
 
     bool flag = false ;
 
-    pdf_appl = cfg.getPDFAppl();
+    pdf_appl = cfg.getPDFAppl() ;
 
     file_p.append( cfg.getPDFPath1() ) ;
     file_p.append( "" ) ;
-    file_p.append( this->pdf_file ) ;
+    file_p.append( file_pdf ) ;
 
     //qDebug() << file_p ;
 
@@ -580,11 +577,10 @@ bool LeScienze500::OpenPDF()
         flag = true ;
     }
 
-
     file_p.clear();
     file_p.append( cfg.getPDFPath2() ) ;
     file_p.append( "" ) ;
-    file_p.append( this->pdf_file ) ;
+    file_p.append( file_pdf ) ;
 
     file.setFileName( file_p );
     if ( file.exists() && flag == false )
@@ -615,10 +611,38 @@ bool LeScienze500::OpenPDF()
     return flag ;
 }
 
+bool LeScienze500::OpenPDF( int id_articolo )
+{
+    QString query = "select FilePDF from Articoli where id = " ;
+    query += QString().setNum( id_articolo ) ;
+
+    QueryDB db ;
+    QueryResult qr_pdf = db.execQuery( query ) ;
+
+    if ( qr_pdf.empty() )
+        return false ;
+
+    QString file_pdf = qr_pdf.getField( "FilePDF" , qr_pdf.begin() ) ;
+
+    return this->OpenPDF( file_pdf ) ;
+}
+
+bool LeScienze500::OpenPDF()
+{
+
+    if ( this->pdf_file.isEmpty() )
+        return false ;
+
+    return this->OpenPDF( this->pdf_file ) ;
+}
+
 bool LeScienze500::OpenBrowserCopertine()
 {
     if ( this->b_copertine_d == 0 )
+    {
         this->b_copertine_d = new BrowserCopertine() ;
+        connect( this->b_copertine_d , SIGNAL( sig_openPDF(int) ) , this , SLOT( on_openPDF(int) ) ) ;
+    }
 
     b_copertine_d->openBrowser();
 
@@ -628,7 +652,10 @@ bool LeScienze500::OpenBrowserCopertine()
 bool LeScienze500::OpenBrowserCopertine( int id_articolo )
 {
     if ( this->b_copertine_d == 0 )
+    {
         this->b_copertine_d = new BrowserCopertine() ;
+        connect( this->b_copertine_d , SIGNAL( sig_openPDF(int) ) , this , SLOT( on_openPDF(int) ) ) ;
+    }
 
     b_copertine_d->openBrowserID( id_articolo );
 
@@ -686,6 +713,11 @@ void LeScienze500::ShowReaderNotStartedError()
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
+
+void LeScienze500::on_openPDF( int id_articolo )
+{
+    this->OpenPDF( id_articolo ) ;
+}
 
 void LeScienze500::on_Select_ParoleChiave_toggled(bool checked)
 {

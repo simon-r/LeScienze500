@@ -48,12 +48,16 @@ public:
     ~LeScienze500();
 
     bool ExecQuery() ;
+
     bool OpenPDF() ;
+    bool OpenPDF( int id_articolo ) ;
+    bool OpenPDF( QString file ) ;
+
 
     bool ViewPreview() ;
 
-    bool OpenBrowserCopertine();
-    bool OpenBrowserCopertine( int id_articolo );
+    bool OpenBrowserCopertine() ;
+    bool OpenBrowserCopertine( int id_articolo ) ;
 
     bool ShowErrorMessage( QString error_name , QString message ) ;
     void ShowDBConnectError() ;
@@ -96,6 +100,8 @@ private:
     QList<int> history_id_articoli ;
 
 private slots:
+
+    void on_openPDF( int id_articolo ) ;
 
     void on_pushButton_clicked();
     void on_ApriBrowserCopertine_clicked();
