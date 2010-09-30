@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/logo">
+        <file>logo/16x16/apps/lescienze500.png</file>
+        <file>logo/72x72/apps/lescienze500.png</file>
+        <file>logo/24x24/apps/lescienze500.png</file>
+        <file>logo/48x48/apps/lescienze500.png</file>
+        <file>logo/96x96/apps/lescienze500.png</file>
+        <file>logo/36x36/apps/lescienze500.png</file>
+        <file>logo/22x22/apps/lescienze500.png</file>
+        <file>logo/32x32/apps/lescienze500.png</file>
+        <file>logo/192x192/apps/lescienze500.png</file>
+        <file>logo/256x256/apps/lescienze500.png</file>
+        <file>logo/45x45/apps/lescienze500.png</file>
+        <file>logo/64x64/apps/lescienze500.png</file>
+        <file>logo/128x128/apps/lescienze500.png</file>
+        <file>logo/512x512/apps/lescienze500.png</file>
+        <file>logo/scalable/apps/lescienze500.png</file>
+    </qresource>
+</RCC>

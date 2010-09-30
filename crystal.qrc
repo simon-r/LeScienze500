@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>crystal/1downarrow-256.png</file>
+        <file>crystal/1downarrow1-256.png</file>
+        <file>crystal/1leftarrow-256.png</file>
+        <file>crystal/1rightarrow-256.png</file>
+        <file>crystal/1uparrow-256.png</file>
+        <file>crystal/agt_action_fail-256.png</file>
+        <file>crystal/agt_action_fail1-256.png</file>
+        <file>crystal/configure-256.png</file>
+        <file>crystal/documentinfo-256.png</file>
+    </qresource>
+</RCC>

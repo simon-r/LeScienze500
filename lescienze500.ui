@@ -146,13 +146,6 @@
                  </property>
                 </widget>
                </item>
-               <item row="4" column="6">
-                <widget class="QPushButton" name="PreviewArticolo_2">
-                 <property name="text">
-                  <string>Anteprima</string>
-                 </property>
-                </widget>
-               </item>
                <item row="4" column="8">
                 <widget class="QPushButton" name="ApriPDF_A">
                  <property name="minimumSize">
@@ -211,6 +204,20 @@
                    <width>143</width>
                    <height>31</height>
                   </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="5">
+                <widget class="QPushButton" name="PreviewArticolo_2">
+                 <property name="text">
+                  <string>Anteprima</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="4">
+                <widget class="QPushButton" name="pushButton">
+                 <property name="text">
+                  <string>..</string>
                  </property>
                 </widget>
                </item>

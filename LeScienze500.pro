@@ -32,7 +32,9 @@ FORMS += lescienze500.ui \
     lserrormessage.ui
 LIBS += -lsqlite3
 RESOURCES += icons.qrc \
-    html.qrc
+    html.qrc \
+    crystal.qrc \
+    logo.qrc
 OBJECTS_DIR = tmp_files
 MOC_DIR = tmp_files
 target.path = /usr/bin
