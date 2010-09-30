@@ -42,6 +42,7 @@ private:
     Ui::Configura *ui;
 
 private slots:
+    void on_SearchCopertinePath_clicked();
     void on_SearchPdfAppl_clicked();
     void on_SearchPDFPath2_clicked();
     void on_SearchPDFPath1_clicked();

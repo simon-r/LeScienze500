@@ -23,8 +23,8 @@
 #include <QFileDialog>
 
 Configura::Configura(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Configura)
+        QDialog(parent),
+        ui(new Ui::Configura)
 {
     ui->setupUi(this);
 }
@@ -90,6 +90,9 @@ void Configura::setConfigData()
 
     value = cfg.getDBPath() ;
     ui->DBPath->setText( value );
+
+    value = cfg.getCopertinePath() ;
+    ui->CopertinePath->setText( value );
 }
 
 void Configura::writeConfigData()
@@ -130,6 +133,9 @@ void Configura::writeConfigData()
 
     val = ui->DBPath->text() ;
     cfg.setDBPath( val );
+
+    val = ui->CopertinePath->text() ;
+    cfg.setCopertinePath( val );
 
     cfg.close();
 }
@@ -180,4 +186,15 @@ void Configura::on_SearchPdfAppl_clicked()
 
     if ( appl_name.size() > 0 )
         ui->PdfApplPath->setText( appl_name );
+}
+
+void Configura::on_SearchCopertinePath_clicked()
+{
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Apri Directory: Percorso Copertine"), "/" ,
+                                                    QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    if ( dir.size() > 0 )
+    {
+        dir.append("/") ;
+        ui->CopertinePath->setText( dir );
+    }
 }
