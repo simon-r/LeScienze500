@@ -9,5 +9,6 @@
         <file>crystal/agt_action_fail1-256.png</file>
         <file>crystal/configure-256.png</file>
         <file>crystal/documentinfo-256.png</file>
+        <file>crystal/contents-256.png</file>
     </qresource>
 </RCC>
