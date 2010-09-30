@@ -30,6 +30,7 @@ BrowserCopertine::BrowserCopertine(QWidget *parent) :
     ui->MostraRiviste->setOpenLinks( false );
     ui->MostraNumeroRivista->setOpenLinks( false );
     connect( ui->ListaAnni , SIGNAL( itemClicked(QListWidgetItem*)  ) , this , SLOT( on_itemListaAnniSelected(QListWidgetItem*) ) ) ;
+    connect( ui->MostraRiviste , SIGNAL( anchorClicked ( const QUrl& ) ) , this , SLOT( on_rivistaClicked( const QUrl& ) ) ) ;
 }
 
 BrowserCopertine::~BrowserCopertine()
@@ -78,6 +79,7 @@ void BrowserCopertine::openListaRiviste( const QString anno )
     res.open(QIODevice::ReadOnly) ;
 
     pagina_anno.clear();
+    this->anno_c = anno ;
 
     pagina_anno = QString::fromUtf8( res.readAll() ) ;
     pagina_anno.replace( QRegExp("<!--anno-->") , anno ) ;
@@ -164,4 +166,13 @@ void BrowserCopertine::closeRivista()
 {
     qDebug() << rivista ;
     ui->MostraNumeroRivista->setHtml( this->rivista );
+}
+
+void BrowserCopertine::on_rivistaClicked( const QUrl &url )
+{
+    QString mese = url.toString() ;
+    mese.replace( QRegExp("#") ,"" ) ;
+
+    qDebug() << mese << " " << this->anno_c ;
+    this->showRivista( mese , this->anno_c ) ;
 }

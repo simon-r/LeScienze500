@@ -213,6 +213,11 @@ void configLS500::setPDFAppl( QString pr )
     parameters.insert( PDF_APPL , pr ) ;
 }
 
+void configLS500::setCopertinePath( QString pr )
+{
+    parameters.insert( COPERTINE_P , pr ) ;
+}
+
 void configLS500::close()
 {
     writeAllParameters() ;

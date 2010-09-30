@@ -74,6 +74,21 @@ bool BrowserCopertineBase::showAnno( const QString &anno )
     this->closeListaCopertine();
 }
 
+bool BrowserCopertineBase::showRivista( const QString &mese , const QString &anno )
+{
+    QString query = "select Numero from riviste where mese like \"" ;
+    query += mese ;
+    query += "\" and anno = " ;
+    query += anno ;
+
+    QueryDB db ;
+    QueryResult qr_numero = db.execQuery( query ) ;
+
+    QString numero = qr_numero.getField( "Numero" , qr_numero.begin() ) ;
+
+    this->showRivista( numero ) ;
+
+}
 
 bool BrowserCopertineBase::showRivista( const QString &numero )
 {

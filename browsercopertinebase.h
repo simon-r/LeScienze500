@@ -37,6 +37,7 @@ public:
     bool showAnno( const QString &anno ) ;
     bool showMeseAnno( const QString &mese , const QString &anno ) ;
     bool showRivista( const QString &numero ) ;
+    bool showRivista( const QString &mese , const QString &anno ) ;
 
 protected:
 

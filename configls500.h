@@ -55,6 +55,7 @@ public:
     void setPDFPath1( QString pr ) ;
     void setPDFPath2( QString pr ) ;
     void setPDFAppl( QString pr ) ;
+    void setCopertinePath( QString pr ) ;
     void close() ;
 
 private:

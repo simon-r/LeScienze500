@@ -22,6 +22,7 @@
 #include <QDialog>
 #include "browsercopertinebase.h"
 #include <QListWidgetItem>
+#include <QUrl>
 
 namespace Ui {
     class BrowserCopertine;
@@ -55,10 +56,13 @@ private:
     Ui::BrowserCopertine *ui;
 
     QString pagina_anno ;
+    QString anno_c ;
+
     QString rivista ;
 
 public slots:
     void on_itemListaAnniSelected( QListWidgetItem* item ) ;
+    void on_rivistaClicked( const QUrl &url ) ;
 
 };
 
