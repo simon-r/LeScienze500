@@ -45,6 +45,9 @@ protected:
 private:
     Ui::LSErrorMessage *ui;
 
+public slots:
+    void on_linkClicked( const QUrl &url ) ;
+
 signals:
     void sig_linkClicked( const QUrl &url ) ;
 };

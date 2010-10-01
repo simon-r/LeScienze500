@@ -28,6 +28,8 @@ LSErrorMessage::LSErrorMessage(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->ErrorMessage->setOpenLinks( false );
+
+    connect( ui->ErrorMessage , SIGNAL(anchorClicked(QUrl)) , this , SLOT(on_linkClicked(QUrl)) ) ;
 }
 
 LSErrorMessage::~LSErrorMessage()
@@ -145,4 +147,9 @@ void LSErrorMessage::showCopertineNotFoundError()
     this->setModal( true );
     this->setFocus();
     this->show();
+}
+
+void LSErrorMessage::on_linkClicked( const QUrl &url )
+{
+    emit sig_linkClicked( url ) ;
 }

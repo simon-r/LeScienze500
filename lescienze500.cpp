@@ -36,6 +36,7 @@
 #include <QStringBuilder>
 #include <QIcon>
 #include "browsercopertine.h"
+#include <QDesktopServices>
 
 
 
@@ -695,6 +696,7 @@ void LeScienze500::BuildErrorMessage()
     if ( this->error_message == 0 )
     {
         this->error_message = new LSErrorMessage() ;
+        connect( error_message , SIGNAL(sig_linkClicked(QUrl)) , this , SLOT(on_errorLinkClicked(QUrl))) ;
     }
 }
 
@@ -719,9 +721,24 @@ void LeScienze500::on_openPDF( int id_articolo )
 
 void LeScienze500::on_errorLinkClicked( const QUrl &url )
 {
+
     BuildConfigura() ;
 
     QString error_msg = url.toString() ;
+    QRegExp reg ;
+    reg.setPattern( "(lescienze500\\.wordpress\\.com)" );
+
+    if ( reg.indexIn( error_msg ) > -1 )
+    {
+           if ( QDesktopServices::openUrl ( url ) )
+           return ;
+    }
+
+    reg.setPattern( "(#configura_copertine)" );
+    if ( reg.exactMatch( error_msg ) )
+    {
+        this->error_message->close() ;
+    }
 
 }
 
@@ -743,8 +760,6 @@ void LeScienze500::on_Cerca_clicked()
 
 void LeScienze500::on_FiltroAutori_textChanged( QString filtro )
 {
-    //string fil_s = string ( filtro.toAscii().data() ) ;
-
     this->fillListaAutori( filtro ) ;
 }
 
