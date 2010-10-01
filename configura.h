@@ -24,10 +24,12 @@
 
 namespace Ui {
     class Configura;
+
 }
 
 class Configura : public QDialog {
     Q_OBJECT
+
 public:
     Configura(QWidget *parent = 0);
     ~Configura();
@@ -35,12 +37,15 @@ public:
     void setConfigData() ;
     void writeConfigData() ;
 
+    enum CfgTool { SetPdfReader , SetPdfPath , SetDbPath , SetCopertinePath } ;
+
+    void setCurrentTool( Configura::CfgTool cfg_tool ) ;
+
 protected:
     void changeEvent(QEvent *e);
 
 private:
     Ui::Configura *ui;
-
 private slots:
     void on_SearchCopertinePath_clicked();
     void on_SearchPdfAppl_clicked();
@@ -54,5 +59,8 @@ signals:
 
     void sig_NewConfigFile() ;
 };
+
+
+
 
 #endif // CONFIGURA_H

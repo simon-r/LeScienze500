@@ -198,3 +198,9 @@ void Configura::on_SearchCopertinePath_clicked()
         ui->CopertinePath->setText( dir );
     }
 }
+
+void Configura::setCurrentTool( Configura::CfgTool cfg_tool )
+{
+    ui->toolBox->setCurrentIndex( cfg_tool );
+}
+
