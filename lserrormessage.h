@@ -20,6 +20,7 @@
 #define LSERRORMESSAGE_H
 
 #include <QDialog>
+#include <QUrl>
 
 namespace Ui {
     class LSErrorMessage;
@@ -43,6 +44,9 @@ protected:
 
 private:
     Ui::LSErrorMessage *ui;
+
+signals:
+    void sig_linkClicked( const QUrl &url ) ;
 };
 
 #endif // LSERRORMESSAGE_H

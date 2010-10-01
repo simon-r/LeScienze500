@@ -73,10 +73,6 @@ void LeScienze500::fillLists()
 
     if ( !f )
     {
-//        QErrorMessage Errore_db ;
-//        Errore_db.showMessage( QString("Errore di accesso al database") ) ;
-//        Errore_db.exec();
-
         ShowDBConnectError() ;
     }
 }
@@ -449,6 +445,7 @@ void LeScienze500::fillInformazioni( QModelIndex index )
     QString query_rubrica = "SELECT rubrica FROM rubriche WHERE id = " ;
     query_rubrica.append( qr.q_result[0][index_rubrica] ) ;
     QueryResult qr_rubrica =  db.execQuery( query_rubrica ) ;
+
     QString rubrica ;
     for ( QList<QStringList>::iterator it_r = qr_rubrica.q_result.begin() ; it_r < qr_rubrica.q_result.end() ; it_r++ )
     {
@@ -701,6 +698,15 @@ void LeScienze500::BuildErrorMessage()
     }
 }
 
+void LeScienze500::BuildConfigura()
+{
+    if ( cfg_d == 0 )
+    {
+        cfg_d = new Configura() ;
+        connect( cfg_d , SIGNAL(sig_NewConfigFile()) , this , SLOT(on_NewConfigFile()) ) ;
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -709,6 +715,14 @@ void LeScienze500::BuildErrorMessage()
 void LeScienze500::on_openPDF( int id_articolo )
 {
     this->OpenPDF( id_articolo ) ;
+}
+
+void LeScienze500::on_errorLinkClicked( const QUrl &url )
+{
+    BuildConfigura() ;
+
+    QString error_msg = url.toString() ;
+
 }
 
 void LeScienze500::on_Select_ParoleChiave_toggled(bool checked)
@@ -765,17 +779,12 @@ void LeScienze500::on_CopiaASinistra_clicked()
 
 void LeScienze500::on_Configura_clicked()
 {
-    if ( cfg_d == 0 )
-    {
-        cfg_d = new Configura() ;
-        connect( cfg_d , SIGNAL(sig_NewConfigFile()) , this , SLOT(on_NewConfigFile()) ) ;
-    }
+    BuildConfigura() ;
 
     cfg_d->setModal(true);
     cfg_d->setFocus();
     cfg_d->setConfigData() ;
     cfg_d->show();
-
 }
 
 

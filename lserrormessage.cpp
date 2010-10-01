@@ -27,6 +27,7 @@ LSErrorMessage::LSErrorMessage(QWidget *parent) :
     ui(new Ui::LSErrorMessage)
 {
     ui->setupUi(this);
+    ui->ErrorMessage->setOpenLinks( false );
 }
 
 LSErrorMessage::~LSErrorMessage()

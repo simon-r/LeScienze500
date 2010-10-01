@@ -14,7 +14,7 @@
    <string>Configurazione</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons.qrc">
+   <iconset>
     <normaloff>:/icons/icons/24x24/apps/lescienze500.png</normaloff>:/icons/icons/24x24/apps/lescienze500.png</iconset>
   </property>
   <property name="locale">
@@ -38,7 +38,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="page">
+     <widget class="QWidget" name="lettore_pdf">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -48,7 +48,7 @@
        </rect>
       </property>
       <attribute name="icon">
-       <iconset resource="crystal.qrc">
+       <iconset>
         <normaloff>:/icons/crystal/1rightarrow-256.png</normaloff>:/icons/crystal/1rightarrow-256.png</iconset>
       </attribute>
       <attribute name="label">
@@ -174,7 +174,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_2">
+     <widget class="QWidget" name="articoli_pdf">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -184,7 +184,7 @@
        </rect>
       </property>
       <attribute name="icon">
-       <iconset resource="crystal.qrc">
+       <iconset>
         <normaloff>:/icons/crystal/1rightarrow-256.png</normaloff>:/icons/crystal/1rightarrow-256.png</iconset>
       </attribute>
       <attribute name="label">
@@ -277,7 +277,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_3">
+     <widget class="QWidget" name="percorso_db">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -287,7 +287,7 @@
        </rect>
       </property>
       <attribute name="icon">
-       <iconset resource="crystal.qrc">
+       <iconset>
         <normaloff>:/icons/crystal/1rightarrow-256.png</normaloff>:/icons/crystal/1rightarrow-256.png</iconset>
       </attribute>
       <attribute name="label">
@@ -407,7 +407,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_4">
+     <widget class="QWidget" name="percorso_copertine">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -417,7 +417,7 @@
        </rect>
       </property>
       <attribute name="icon">
-       <iconset resource="crystal.qrc">
+       <iconset>
         <normaloff>:/icons/crystal/1rightarrow-256.png</normaloff>:/icons/crystal/1rightarrow-256.png</iconset>
       </attribute>
       <attribute name="label">
@@ -536,9 +536,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="crystal.qrc"/>
-  <include location="icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -99,12 +99,14 @@ private:
     LSErrorMessage *error_message ;
 
     void BuildErrorMessage() ;
+    void BuildConfigura() ;
 
     QList<int> history_id_articoli ;
 
 private slots:
 
     void on_openPDF( int id_articolo ) ;
+    void on_errorLinkClicked( const QUrl &url ) ;
 
     void on_pushButton_clicked();
     void on_ApriBrowserCopertine_clicked();
