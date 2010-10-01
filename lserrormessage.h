@@ -36,6 +36,7 @@ public:
     void showDBError() ;
     void showArticleNotFound( QString file_name ) ;
     void showReaderNotStarted() ;
+    void showCopertineNotFoundError() ;
 
 protected:
     void changeEvent(QEvent *e);

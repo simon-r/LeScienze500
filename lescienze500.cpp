@@ -99,19 +99,6 @@ bool LeScienze500::fillListaCategorie()
     QueryResult lista = db.getCategorie() ;
 
     return fillQListWidget( ui->ListaCategorie , lista ) ;
-
-//    if ( lista.empty() )
-//        return false ;
-//
-//    list<string>::const_iterator it;
-//
-//    for( it = lista.begin() ; it != lista.end() ; it++ )
-//    {
-//        ui->ListaCategorie->addItem( QString( it->c_str() ) );
-//        cout << it->c_str() << endl ;
-//    }
-//
-//    return true ;
 }
 
 bool LeScienze500::fillListaAutori(  QString filtro )
@@ -636,32 +623,6 @@ bool LeScienze500::OpenPDF()
     return this->OpenPDF( this->pdf_file ) ;
 }
 
-bool LeScienze500::OpenBrowserCopertine()
-{
-    if ( this->b_copertine_d == 0 )
-    {
-        this->b_copertine_d = new BrowserCopertine() ;
-        connect( this->b_copertine_d , SIGNAL( sig_openPDF(int) ) , this , SLOT( on_openPDF(int) ) ) ;
-    }
-
-    configLS500 cfg ;
-    QString file_n = cfg.getCopertinePath() ;
-    QFile file ;
-
-    file_n.append("000.jpg") ;
-    file.setFileName( file_n );
-
-    if ( !file.exists() )
-    {
-        this->ShowErrorMessage(  QString::fromUtf8( "Errore:" ) , QString::fromUtf8( "La directory dell copertine non è configurata") ) ;
-        return false ;
-    }
-
-    b_copertine_d->openBrowser();
-
-    return true ;
-}
-
 bool LeScienze500::OpenBrowserCopertine( int id_articolo )
 {
     if ( this->b_copertine_d == 0 )
@@ -679,21 +640,20 @@ bool LeScienze500::OpenBrowserCopertine( int id_articolo )
 
     if ( !file.exists() )
     {
-        this->ShowErrorMessage(  QString::fromUtf8( "Errore:" ) , QString::fromUtf8( "La directory dell copertine non è configurata") ) ;
+        this->ShowCopertineNotFoundError() ;
         return false ;
     }
 
-    b_copertine_d->openBrowserID( id_articolo );
-
+    if ( id_articolo > -1 )
+        b_copertine_d->openBrowserID( id_articolo );
+    else
+        b_copertine_d->openBrowser();
     return true ;
 }
 
 bool LeScienze500::ShowErrorMessage( QString error_name , QString message )
 {
-    if ( this->error_message == 0 )
-    {
-        this->error_message = new LSErrorMessage() ;
-    }
+    BuildErrorMessage() ;
 
     this->error_message->setHtmlMessage( error_name , message );
 
@@ -706,10 +666,7 @@ bool LeScienze500::ShowErrorMessage( QString error_name , QString message )
 
 void LeScienze500::ShowDBConnectError()
 {
-    if ( this->error_message == 0 )
-    {
-        this->error_message = new LSErrorMessage() ;
-    }
+    BuildErrorMessage() ;
 
     this->error_message->showDBError();
 }
@@ -717,22 +674,31 @@ void LeScienze500::ShowDBConnectError()
 
 void LeScienze500::ShowArticleNotFoundError( QString file_name )
 {
-    if ( this->error_message == 0 )
-    {
-        this->error_message = new LSErrorMessage() ;
-    }
+    BuildErrorMessage() ;
 
     this->error_message->showArticleNotFound( file_name );
 }
 
 void LeScienze500::ShowReaderNotStartedError()
 {
+    BuildErrorMessage() ;
+
+    this->error_message->showReaderNotStarted();
+}
+
+void LeScienze500::ShowCopertineNotFoundError()
+{
+    BuildErrorMessage() ;
+
+    this->error_message->showCopertineNotFoundError();
+}
+
+void LeScienze500::BuildErrorMessage()
+{
     if ( this->error_message == 0 )
     {
         this->error_message = new LSErrorMessage() ;
     }
-
-    this->error_message->showReaderNotStarted();
 }
 
 ///////////////////////////////////////////////////////////////////////

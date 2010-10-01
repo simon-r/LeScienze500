@@ -56,13 +56,14 @@ public:
 
     bool ViewPreview() ;
 
-    bool OpenBrowserCopertine() ;
-    bool OpenBrowserCopertine( int id_articolo ) ;
+   // bool OpenBrowserCopertine() ;
+    bool OpenBrowserCopertine( int id_articolo = -1 ) ;
 
     bool ShowErrorMessage( QString error_name , QString message ) ;
     void ShowDBConnectError() ;
     void ShowArticleNotFoundError( QString file_name ) ;
     void ShowReaderNotStartedError() ;
+    void ShowCopertineNotFoundError() ;
 
 protected:
     void changeEvent(QEvent *e);
@@ -96,6 +97,8 @@ private:
     PreviewArticolo *preview ;
     BrowserCopertine *b_copertine_d ;
     LSErrorMessage *error_message ;
+
+    void BuildErrorMessage() ;
 
     QList<int> history_id_articoli ;
 

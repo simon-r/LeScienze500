@@ -123,3 +123,25 @@ void LSErrorMessage::showReaderNotStarted()
     this->setFocus();
     this->show();
 }
+
+void LSErrorMessage::showCopertineNotFoundError()
+{
+    QFile res ;
+
+    res.setFileName( ":/html/html/copertine_not_found.html" );
+    res.open(QIODevice::ReadOnly) ;
+
+    QString message = QString::fromLocal8Bit ( res.readAll() ) ;
+
+    res.close();
+
+    configLS500 cfg ;
+
+    //message.replace( QRegExp("<!--reader-->") , cfg.getPDFAppl() ) ;
+
+    setHtmlMessage( "Impossibile trovare la directory delle copertine" , message ) ;
+
+    this->setModal( true );
+    this->setFocus();
+    this->show();
+}
