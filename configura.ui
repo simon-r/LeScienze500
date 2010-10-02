@@ -43,8 +43,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>270</width>
-        <height>167</height>
+        <width>470</width>
+        <height>261</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -175,6 +175,9 @@
        </item>
        <item>
         <widget class="QFrame" name="frameSelectDirectory">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="maximumSize">
           <size>
            <width>16777215</width>
@@ -244,8 +247,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>93</width>
-        <height>160</height>
+        <width>470</width>
+        <height>261</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -374,8 +377,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>239</width>
-        <height>170</height>
+        <width>470</width>
+        <height>261</height>
        </rect>
       </property>
       <attribute name="icon">

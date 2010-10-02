@@ -48,6 +48,8 @@ private:
     Ui::Configura *ui;
 
 private slots:
+    void on_radioSelectHD_clicked(bool checked);
+    void on_radioSelectDVD_clicked(bool checked);
     void on_SearchCopertinePath_clicked();
     void on_SearchPdfAppl_clicked();
     void on_SearchPDFPath2_clicked();

@@ -204,3 +204,13 @@ void Configura::setCurrentTool( Configura::CfgTool cfg_tool )
     ui->toolBox->setCurrentIndex( cfg_tool );
 }
 
+
+void Configura::on_radioSelectDVD_clicked(bool checked)
+{
+    ui->frameSelectDirectory->setEnabled( false );
+}
+
+void Configura::on_radioSelectHD_clicked(bool checked)
+{
+     ui->frameSelectDirectory->setEnabled( true );
+}
