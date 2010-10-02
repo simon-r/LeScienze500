@@ -47,7 +47,7 @@ read dest_path
 if [ $dest_path != "\n" ] ; then
 	echo "detinazione: $dest_path"
 else
-	dest_path=$HOME/lescieneze500
+	dest_path=$HOME/lescieneze500-data
 	echo "detinazione: $dest_path"
 fi
 
