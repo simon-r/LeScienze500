@@ -21,6 +21,8 @@
 #include "ui_configura.h"
 #include "configls500.h"
 #include <QFileDialog>
+#include <QRegExp>
+#include <QDebug>
 
 Configura::Configura(QWidget *parent) :
         QDialog(parent),
@@ -93,6 +95,19 @@ void Configura::setConfigData()
 
     value = cfg.getCopertinePath() ;
     ui->CopertinePath->setText( value );
+
+    value = cfg.getDVD() ;
+    QRegExp reg( "(yes)" ) ;
+    if ( reg.indexIn( value ) > -1  )
+    {
+        ui->radioSelectDVD->setChecked( true );
+        ui->frameSelectDirectory->setEnabled( false );
+    }
+    else
+    {
+        ui->radioSelectDVD->setChecked( false );
+        ui->frameSelectDirectory->setEnabled( true );
+    }
 }
 
 void Configura::writeConfigData()
@@ -136,6 +151,15 @@ void Configura::writeConfigData()
 
     val = ui->CopertinePath->text() ;
     cfg.setCopertinePath( val );
+
+    bool dvd = ui->radioSelectDVD->isChecked() ;
+
+    if ( dvd )
+        val = "yes" ;
+    else
+        val = "no" ;
+
+    cfg.setDVD( val );
 
     cfg.close();
 }
@@ -207,10 +231,10 @@ void Configura::setCurrentTool( Configura::CfgTool cfg_tool )
 
 void Configura::on_radioSelectDVD_clicked(bool checked)
 {
-    ui->frameSelectDirectory->setEnabled( false );
+    ui->frameSelectDirectory->setEnabled( !checked );
 }
 
 void Configura::on_radioSelectHD_clicked(bool checked)
 {
-     ui->frameSelectDirectory->setEnabled( true );
+     ui->frameSelectDirectory->setEnabled( checked );
 }

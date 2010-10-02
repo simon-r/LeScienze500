@@ -37,7 +37,8 @@
 #include <QIcon>
 #include "browsercopertine.h"
 #include <QDesktopServices>
-
+#include <QDir>
+#include <QFileInfoList>
 
 
 using namespace std ;
@@ -527,12 +528,59 @@ bool LeScienze500::ViewPreview()
 }
 
 
+bool LeScienze500::OpenPDFDvd( QString file_pdf )
+{
+    QString dvd_dir = "/media/LESCIENZE/articoli/" ;
+    QString file_n ;
+
+    configLS500 cfg ;
+
+    QString pdf_appl , command ;
+    bool flag , process_strated ;
+
+    QProcess process_pdf ;
+
+    int dvd_nr = 0 ;
+    file_n += dvd_dir ;
+    file_n += file_pdf ;
+
+    QFile file ;
+    file.setFileName( file_n ) ;
+    if ( file.exists() )
+    {
+        pdf_appl = cfg.getPDFAppl() ;
+        command.append( pdf_appl ) ;
+        command.append( " " ) ;
+        command.append( "\"" ) ;
+
+        command.append( file_n ) ;
+        command.append( "\"" ) ;
+
+        qDebug() << command ;
+        process_strated = process_pdf.startDetached( command );
+        flag = true ;
+    }
+    else
+    {
+        ShowDvdNotFoundError() ;
+        process_strated = process_pdf.startDetached( tr( "eject" ) );
+    }
+
+}
+
+
 bool LeScienze500::OpenPDF( QString file_pdf )
 {
     QProcess process_pdf ;
     bool process_strated = false ;
 
     configLS500 cfg ;
+
+    QString dvd = cfg.getDVD() ;
+    QRegExp reg( "(yes)" ) ;
+    if ( reg.indexIn( dvd ) > -1  ){
+        return this->OpenPDFDvd( file_pdf ) ;
+    }
 
     QString file_p , pdf_appl , command ;
 
@@ -615,6 +663,15 @@ bool LeScienze500::OpenPDF( int id_articolo )
 bool LeScienze500::OpenPDF()
 {
 
+    QFileInfoList drives = QDir::drives() ;
+
+
+    for ( QFileInfoList::iterator it = drives.begin() ; it < drives.end() ; it++ )
+    {
+        qDebug() << it->path() ;
+    }
+
+
     if ( this->pdf_file.isEmpty() )
         return false ;
 
@@ -689,6 +746,13 @@ void LeScienze500::ShowCopertineNotFoundError()
     BuildErrorMessage() ;
 
     this->error_message->showCopertineNotFoundError();
+}
+
+void LeScienze500::ShowDvdNotFoundError()
+{
+    BuildErrorMessage() ;
+
+    this->error_message->showDvdNotFoundError();
 }
 
 void LeScienze500::BuildErrorMessage()

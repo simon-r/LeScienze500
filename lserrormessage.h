@@ -38,6 +38,8 @@ public:
     void showArticleNotFound( QString file_name ) ;
     void showReaderNotStarted() ;
     void showCopertineNotFoundError() ;
+    void showDvdNotFoundError() ;
+
 
 protected:
     void changeEvent(QEvent *e);

@@ -111,7 +111,7 @@ QString configLS500::getPDFAppl()
 
 QString configLS500::getDVD()
 {
-    QString dvd = getConfigParameter( PDF_APPL ) ;
+    QString dvd = getConfigParameter( USE_DVD ) ;
 
     if ( dvd.isEmpty() )
         return QString( USE_DVD_V ) ;

@@ -52,6 +52,7 @@ public:
     bool OpenPDF() ;
     bool OpenPDF( int id_articolo ) ;
     bool OpenPDF( QString file ) ;
+    bool OpenPDFDvd( QString file ) ;
 
 
     bool ViewPreview() ;
@@ -64,6 +65,7 @@ public:
     void ShowArticleNotFoundError( QString file_name ) ;
     void ShowReaderNotStartedError() ;
     void ShowCopertineNotFoundError() ;
+    void ShowDvdNotFoundError() ;
 
 protected:
     void changeEvent(QEvent *e);

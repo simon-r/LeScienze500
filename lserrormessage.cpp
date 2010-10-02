@@ -134,7 +134,7 @@ void LSErrorMessage::showCopertineNotFoundError()
     res.setFileName( ":/html/html/copertine_not_found.html" );
     res.open(QIODevice::ReadOnly) ;
 
-    QString message = QString::fromLocal8Bit ( res.readAll() ) ;
+    QString message = QString::fromUtf8 ( res.readAll() ) ;
 
     res.close();
 
@@ -143,6 +143,24 @@ void LSErrorMessage::showCopertineNotFoundError()
     //message.replace( QRegExp("<!--reader-->") , cfg.getPDFAppl() ) ;
 
     setHtmlMessage( "Impossibile trovare la directory delle copertine" , message ) ;
+
+    this->setModal( true );
+    this->setFocus();
+    this->show();
+}
+
+void LSErrorMessage::showDvdNotFoundError()
+{
+    QFile res ;
+
+    res.setFileName( ":/html/html/dvd_not_found.html" );
+    res.open(QIODevice::ReadOnly) ;
+
+    QString message = QString::fromUtf8 ( res.readAll() ) ;
+
+    res.close();
+
+    ui->ErrorMessage->setHtml( message );
 
     this->setModal( true );
     this->setFocus();
