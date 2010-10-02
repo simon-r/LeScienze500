@@ -38,6 +38,8 @@
 #define ART_PATH_2_V "/media/LESCIENZE/articoli/"
 #define COPERTINE_P "copertine_path"
 #define COPERTINE_P_V "/opt/LeScienze500/copertine/"
+#define USE_DVD "dvd"
+#define USE_DVD_V "no"
 
 class configLS500
 {
@@ -49,6 +51,7 @@ public:
     QString getPDFPath2() ;
     QString getPDFAppl() ;
     QString getCopertinePath() ;
+    QString getDVD() ;
 
     void open() ;
     void setDBPath( QString pr ) ;
@@ -56,6 +59,7 @@ public:
     void setPDFPath2( QString pr ) ;
     void setPDFAppl( QString pr ) ;
     void setCopertinePath( QString pr ) ;
+    void setDVD( QString pr ) ;
     void close() ;
 
 private:

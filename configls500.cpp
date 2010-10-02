@@ -65,12 +65,14 @@ void configLS500::writeDfaultFile( QFile* file )
     QString art_pdf_path1 ;
     QString art_pdf_path2 ;
     QString copertine_path ;
+    QString dvd ;
 
     db_dir.append(DB_DIR) ; db_dir.append(SPACING) ; db_dir.append(DB_DIR_V) ; db_dir.append(ENDL) ;
     pdf_appl.append(PDF_APPL) ; pdf_appl.append(SPACING) ; pdf_appl.append(PDF_APPL_V) ; pdf_appl.append(ENDL) ;
     art_pdf_path1.append(ART_PATH_1) ; art_pdf_path1.append(SPACING) ; art_pdf_path1.append(ART_PATH_1_V) ; art_pdf_path1.append(ENDL) ;
     art_pdf_path2.append(ART_PATH_2) ; art_pdf_path2.append(SPACING) ; art_pdf_path2.append(ART_PATH_2_V) ; art_pdf_path2.append(ENDL) ;
     copertine_path.append(COPERTINE_P) ; copertine_path.append(SPACING) ; copertine_path.append(COPERTINE_P_V) ; copertine_path.append(ENDL) ;
+    dvd.append(USE_DVD) ; dvd.append(SPACING) ; dvd.append(USE_DVD_V) ; dvd.append(ENDL) ;
 
     file->open(  QIODevice::ReadWrite ) ;
     file->write( db_dir.toAscii().data() ) ;
@@ -78,6 +80,7 @@ void configLS500::writeDfaultFile( QFile* file )
     file->write( art_pdf_path1.toAscii().data() ) ;
     file->write( art_pdf_path2.toAscii().data() ) ;
     file->write( copertine_path.toAscii().data() ) ;
+    file->write( dvd.toAscii().data() ) ;
     file->close();
 }
 
@@ -106,6 +109,17 @@ QString configLS500::getPDFAppl()
     return getConfigParameter( PDF_APPL ) ;
 }
 
+QString configLS500::getDVD()
+{
+    QString dvd = getConfigParameter( PDF_APPL ) ;
+
+    if ( dvd.isEmpty() )
+        return QString( USE_DVD_V ) ;
+    else
+        return dvd ;
+}
+
+
 QString configLS500::getConfigParameter( QString name )
 {
     char buf[1024];
@@ -132,6 +146,9 @@ QString configLS500::getConfigParameter( QString name )
     file.close() ;
 
     int rs = result.size() ;
+
+    if ( rs == 0 )
+        return result ;
 
     result = result.remove( rs-1 , 1 ) ;
     
@@ -216,6 +233,11 @@ void configLS500::setPDFAppl( QString pr )
 void configLS500::setCopertinePath( QString pr )
 {
     parameters.insert( COPERTINE_P , pr ) ;
+}
+
+void configLS500::setDVD( QString pr )
+{
+    parameters.insert( USE_DVD , pr ) ;
 }
 
 void configLS500::close()
