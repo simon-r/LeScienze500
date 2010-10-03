@@ -10,6 +10,16 @@ create table Categorie
 	Categoria varchar(40) not null unique
 ) ;
 
+create table Categoria_SottoCategoria
+(
+	IdCategoria integer not null,
+	IdSottoCategoria integer not null,
+	primary key ( IdCategoria , IdSottoCategoria ),
+	foreign key ( IdCategoria ) references Categorie( Id ),
+	foreign key ( IdSottoCategoria ) references Categorie( Id ),
+	constraint NonSelfReference check ( IdSottoCategoria <> IdCategoria )
+) ;
+
 create table Stato
 (
 	Id integer primary key autoincrement,
@@ -25,7 +35,8 @@ create table Commenti
 create table Valutazioni
 (
 	Id integer primary key autoincrement,
-	Valutazione integer unique
+	Valutazione integer unique,
+	constraint RangeValutazioni check ( Valutazione > 0 and Valutazione <= 5 )
 ) ;
 
 create table Categorie_Favoriti
