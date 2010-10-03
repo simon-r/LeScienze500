@@ -130,6 +130,15 @@
                <string>Informazioni Articolo</string>
               </attribute>
               <layout class="QGridLayout" name="gridLayout_9">
+               <property name="horizontalSpacing">
+                <number>-1</number>
+               </property>
+               <property name="verticalSpacing">
+                <number>0</number>
+               </property>
+               <property name="margin">
+                <number>1</number>
+               </property>
                <item row="0" column="0" colspan="12">
                 <widget class="QTextBrowser" name="MostraTitolo">
                  <property name="minimumSize">

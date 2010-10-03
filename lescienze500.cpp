@@ -494,9 +494,6 @@ bool LeScienze500::ViewPreview()
     if ( qr_testo.q_result.size() == 0 )
     {
         this->ShowErrorMessage("Anteprima non disponiblile","Nel database non esiste l'anteprima per questo articolo") ;
-//        QErrorMessage Errore_testo ;
-//        Errore_testo.showMessage( QString("Testo dell'articolo non diponibile") ) ;
-//        Errore_testo.exec();
         return false ;
     }
 
