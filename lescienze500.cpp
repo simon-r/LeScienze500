@@ -302,7 +302,7 @@ void  LeScienze500::fillResultTable( QueryResult q_res )
 
     q_result = q_res ;
 
-    int cols = q_result.columns_names.size()-1 ;
+    int cols = q_result.getColumnsCnt()-1 ;
     ui->TabellaRisultati->setColumnCount( cols );
 
     ui->TabellaRisultati->setColumnWidth( 0 , 390 );
@@ -312,24 +312,24 @@ void  LeScienze500::fillResultTable( QueryResult q_res )
     for( int i = 0 ; i < cols ; i++ )
     {
         QTableWidgetItem item ;
-        item.setText( q_result.columns_names[i] ) ;
+        item.setText( q_result.getColumnName( i ) ) ;
         ui->TabellaRisultati->setHorizontalHeaderItem( i , new QTableWidgetItem( item ) );
     }
 
-    row = q_result.q_result.size() ;
+    row = q_result.size() ;
     ui->TabellaRisultati->setRowCount( row );
 
     int r = 0 ;
     int c ;
 
-    for( QList<QStringList>::iterator it_r = q_result.q_result.begin() ; it_r < q_result.q_result.end() ; it_r++ )
+    for( QueryResult::iterator it_r = q_result.begin() ; it_r < q_result.end() ; it_r++ )
     {
         c = 0 ;
-        for( QStringList::iterator it_c = it_r->begin() ; it_c < it_r->end()-1 ; it_c++ )
+        for( QueryResult::col_iterator it_c = q_result.colBegin() ; it_c < q_result.colEnd()-1 ; it_c++ )
         {
             QTableWidgetItem item ;
             ui->TabellaRisultati->setCurrentCell( r , c );
-            item.setText( *it_c );
+            item.setText( q_result.getField( it_c , it_r ) );
             item.setFlags( item.flags() & !Qt::ItemIsEditable );
             item.setFlags( item.flags() | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled );
 

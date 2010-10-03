@@ -29,6 +29,7 @@ class QueryResult {
 public:
 
     typedef QList<QStringList>::iterator iterator ;
+    typedef QStringList::Iterator col_iterator ;
 
     QueryResult()
     {
@@ -42,9 +43,24 @@ public:
         return q_result ;
     }
 
+    int size()
+    {
+        return q_result.size() ;
+    }
+
     QStringList getColumnsNames()
     {
         return columns_names ;
+    }
+
+    QString getColumnName( int i )
+    {
+        return columns_names[i] ;
+    }
+
+    int getColumnsCnt()
+    {
+        return columns_names.size() ;
     }
 
     void printResult() ;
@@ -59,6 +75,12 @@ public:
     {
         int index = col_name_index.value( col_name ) ;
         return row->value( index ) ;
+    }
+
+    QString getField( QueryResult::col_iterator col , QueryResult::iterator row )
+    {
+        QString col_name = *col ;
+        return getField( col_name , row ) ;
     }
 
     QString getField( int col_index , QueryResult::iterator row )
@@ -92,12 +114,17 @@ public:
     QueryResult::iterator begin() { return q_result.begin() ; }
     QueryResult::iterator end() { return q_result.end() ; }
 
-   QStringList columns_names ;
-   QList<QStringList> q_result ;
+    QueryResult::col_iterator colBegin() { return columns_names.begin() ; }
+    QueryResult::col_iterator colEnd() { return columns_names.end() ; }
 
-   private:
+    QStringList columns_names ;
+    QList<QStringList> q_result ;
 
-   QHash<QString,int> col_name_index ;
+private:
+
+
+
+    QHash<QString,int> col_name_index ;
 };
 
 #endif // QUERYRESULT_H

@@ -302,7 +302,7 @@ QueryResult QueryDB::execMainQuery()
     qDebug() << query  ;
 
     QueryResult q_result = execQuery( query ) ;
-    q_result.printResult() ;
+    //q_result.printResult() ;
 
     return q_result ;
 }

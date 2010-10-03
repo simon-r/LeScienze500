@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     browsercopertine.cpp \
     lserrormessage.cpp \
     browsercopertinebase.cpp \
-    querydata.cpp
+    querydata.cpp \
+    bookmark.cpp
 HEADERS += lescienze500.h \
     querydb.h \
     queryresult.h \
@@ -24,7 +25,8 @@ HEADERS += lescienze500.h \
     browsercopertine.h \
     lserrormessage.h \
     browsercopertinebase.h \
-    querydata.h
+    querydata.h \
+    bookmark.h
 FORMS += lescienze500.ui \
     configura.ui \
     previewarticolo.ui \
