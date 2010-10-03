@@ -20,7 +20,7 @@
 
 QueryData::QueryData()
 {
-    g_logical = QueryData::QEUERY_AND ;
+    g_logical = QueryData::QUERY_AND ;
 }
 
 void QueryData::setParoleChiaveTitolo( const QString &pct )

@@ -28,7 +28,7 @@ class QueryData : public QObject
 public:
     QueryData();
 
-    enum Logical { QEUERY_AND , QUERY_OR }  ;
+    enum Logical { QUERY_AND , QUERY_OR }  ;
 
     void setParoleChiaveTitolo( const QString &pct );
 

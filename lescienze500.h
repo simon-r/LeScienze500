@@ -54,6 +54,8 @@ public:
     bool OpenPDF( QString file ) ;
     bool OpenPDFDvd( QString file ) ;
 
+    QString getDvdPath() ;
+
 
     bool ViewPreview() ;
 

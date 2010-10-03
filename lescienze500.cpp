@@ -525,9 +525,14 @@ bool LeScienze500::ViewPreview()
 }
 
 
+QString LeScienze500::getDvdPath()
+{
+    return "/media/LESCIENZE/" ;
+}
+
 bool LeScienze500::OpenPDFDvd( QString file_pdf )
 {
-    QString dvd_dir = "/media/LESCIENZE/articoli/" ;
+    QString dvd_dir = this->getDvdPath() ;
     QString file_n ;
 
     configLS500 cfg ;
@@ -539,6 +544,7 @@ bool LeScienze500::OpenPDFDvd( QString file_pdf )
 
     int dvd_nr = 0 ;
     file_n += dvd_dir ;
+    file_n += "articoli/" ;
     file_n += file_pdf ;
 
     QFile file ;
@@ -560,9 +566,12 @@ bool LeScienze500::OpenPDFDvd( QString file_pdf )
     else
     {
         ShowDvdNotFoundError() ;
-        process_strated = process_pdf.startDetached( tr( "eject" ) );
+        process_strated = process_pdf.startDetached( "eject" );
+
+        flag = false ;
     }
 
+    return flag && process_strated ;
 }
 
 
