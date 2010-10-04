@@ -357,6 +357,7 @@ void LeScienze500::fillInformazioni( QModelIndex index )
     this->pdf_file.clear();
 
     QString id_art = q_result.q_result[index.row()][2] ;
+    //QString id_art = q_result.getField( "Id" , q_result.begin() ) ;
 
     QString query = "SELECT * FROM articoli WHERE id = " ;
     query.append( id_art ) ;
@@ -491,13 +492,13 @@ bool LeScienze500::ViewPreview()
 
     QueryResult qr_testo =  db.execQuery( query_testo ) ;
 
-    if ( qr_testo.q_result.size() == 0 )
+    if ( qr_testo.size() == 0 )
     {
         this->ShowErrorMessage("Anteprima non disponiblile","Nel database non esiste l'anteprima per questo articolo") ;
         return false ;
     }
 
-    query_titolo = "select titolo,abstract from articoli where id = " ;
+    query_titolo = "select titolo, abstract from articoli where id = " ;
     query_titolo += id_a ;
 
     QueryResult qr_titolo =  db.execQuery( query_titolo ) ;

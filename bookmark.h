@@ -28,7 +28,9 @@ class Bookmark
 public:
     Bookmark();
 
-    bool buildDataBase() ;
+    bool initBookmark() ;
+
+    bool exists() ;
 
     QueryResult getFavorites() ;
     QueryResult getCategorie() ;

@@ -32,14 +32,25 @@ Bookmark::Bookmark()
 {
 }
 
-bool Bookmark::buildDataBase()
+bool Bookmark::exists()
 {
     configLS500 cfg ;
 
     QString db_path = cfg.getBookmarkPath() ;
-
     db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
-//    config_dir.append( "/.config/LeScienze500/" ) ;
+
+    QFile file ;
+    file.setFileName( db_path );
+
+    return file.exists() ;
+}
+
+bool Bookmark::initBookmark()
+{
+    configLS500 cfg ;
+
+    QString db_path = cfg.getBookmarkPath() ;
+    db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
 
     QFile file ;
     file.setFileName( db_path );

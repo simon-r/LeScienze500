@@ -88,7 +88,7 @@ public:
         return row->value( col_index ) ;
     }
 
-    QString getFiled( int col_index , int row_index )
+    QString getField( int col_index , int row_index )
     {
         return this->q_result[row_index][col_index] ;
     }

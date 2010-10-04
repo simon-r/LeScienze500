@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 {
 
     Bookmark bk ;
-    bk.buildDataBase() ;
+    bk.initBookmark() ;
 
     configLS500 cfg ;
 
