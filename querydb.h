@@ -44,20 +44,11 @@ public:
 
     //bool setDBPath(string path) { return false ; } ;
 
-    void setParoleChiave( QStringList pc )
-    {
-        parole_chiave = pc ;
-    }
+    void setParoleChiave( QStringList pc ) { parole_chiave = pc ; }
 
-    void setParoleChiaveAbstract( QStringList pc )
-    {
-        parole_chiave_abstract = pc ;
-    }
+    void setParoleChiaveAbstract( QStringList pc ) { parole_chiave_abstract = pc ; }
 
-    void setFrasiTestoEsteso( QStringList te )
-    {
-        frasi_testo_esteso = te ;
-    }
+    void setFrasiTestoEsteso( QStringList te ) { frasi_testo_esteso = te ; }
 
     void setListaRubriche( QStringList lr )
     {

@@ -31,37 +31,18 @@ public:
     typedef QList<QStringList>::iterator iterator ;
     typedef QStringList::Iterator col_iterator ;
 
-    QueryResult()
-    {
-    }
+    QueryResult(){}
 
     void appendColumnName( QString name , int col ) ;
     bool appendResultRow( QStringList res ) ;
 
-    QList<QStringList> getResultTable()
-    {
-        return q_result ;
-    }
+    QList<QStringList> getResultTable() { return q_result ; }
 
-    int size()
-    {
-        return q_result.size() ;
-    }
+    QStringList getColumnsNames() { return columns_names ; }
 
-    QStringList getColumnsNames()
-    {
-        return columns_names ;
-    }
+    QString getColumnName( int i ) { return columns_names[i] ; }
 
-    QString getColumnName( int i )
-    {
-        return columns_names[i] ;
-    }
-
-    int getColumnsCnt()
-    {
-        return columns_names.size() ;
-    }
+    int getColumnsCnt() { return columns_names.size() ; }
 
     void printResult() ;
 
@@ -83,15 +64,9 @@ public:
         return getField( col_name , row ) ;
     }
 
-    QString getField( int col_index , QueryResult::iterator row )
-    {
-        return row->value( col_index ) ;
-    }
+    QString getField( int col_index , QueryResult::iterator row ) { return row->value( col_index ) ; }
 
-    QString getField( int col_index , int row_index )
-    {
-        return this->q_result[row_index][col_index] ;
-    }
+    QString getField( int col_index , int row_index ) { return this->q_result[row_index][col_index] ; }
 
     QString getFirstColumnName()
     {
@@ -101,13 +76,11 @@ public:
             return QString( "" ) ;
     }
 
-    QStringList getColumnNames()
-    {
-        return columns_names ;
-    }
+    QStringList getColumnNames() { return columns_names ; }
 
     int sizeCol() { return columns_names.size() ; }
     int sizeRow() { return q_result.size() ; }
+    int size() { return q_result.size() ; }
 
     bool empty() { return q_result.empty() ; }
 
@@ -121,8 +94,6 @@ public:
     QList<QStringList> q_result ;
 
 private:
-
-
 
     QHash<QString,int> col_name_index ;
 };

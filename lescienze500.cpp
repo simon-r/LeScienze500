@@ -356,8 +356,8 @@ void LeScienze500::fillInformazioni( QModelIndex index )
 
     this->pdf_file.clear();
 
-    QString id_art = q_result.q_result[index.row()][2] ;
-    //QString id_art = q_result.getField( "Id" , q_result.begin() ) ;
+    //QString id_art = q_result.q_result[index.row()][2] ;
+    QString id_art = q_result.getField( 2 , index.row() ) ;
 
     QString query = "SELECT * FROM articoli WHERE id = " ;
     query.append( id_art ) ;
