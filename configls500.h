@@ -28,18 +28,27 @@
 
 #define SPACING "\t"
 #define ENDL "\n"
+
 #define PDF_APPL "pdf_appl"
 #define PDF_APPL_V "gv"
+
 #define DB_DIR "db_dir"
 #define DB_DIR_V "/opt/LeScienze500/LeScienze.db"
+
 #define ART_PATH_1 "art_pdf_path1"
 #define ART_PATH_1_V "/media/LESCIENZE/articoli/"
+
 #define ART_PATH_2 "art_pdf_path2"
 #define ART_PATH_2_V "/media/LESCIENZE/articoli/"
+
 #define COPERTINE_P "copertine_path"
 #define COPERTINE_P_V "/opt/LeScienze500/copertine/"
+
 #define USE_DVD "dvd"
 #define USE_DVD_V "no"
+
+#define BOOKMARK_PATH "bookmark"
+#define BOOKMARK_PATH_V "$HOME/.config/LeScienze500/bookmark_ls500.db"
 
 class configLS500
 {
@@ -52,6 +61,7 @@ public:
     QString getPDFAppl() ;
     QString getCopertinePath() ;
     QString getDVD() ;
+    QString getBookmarkPath() ;
 
     void open() ;
     void setDBPath( QString pr ) ;
@@ -60,6 +70,7 @@ public:
     void setPDFAppl( QString pr ) ;
     void setCopertinePath( QString pr ) ;
     void setDVD( QString pr ) ;
+    void setBookmarkPath( QString pr ) ;
     void close() ;
 
 private:

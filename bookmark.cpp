@@ -18,6 +18,51 @@
 
 #include "bookmark.h"
 
+#include "configls500.h"
+#include <QFile>
+#include <QDir>
+#include <QStringList>
+#include <QDebug>
+#include <QList>
+#include <QString>
+#include <sqlite3.h>
+#include "querydb.h"
+
 Bookmark::Bookmark()
 {
+}
+
+bool Bookmark::buildDataBase()
+{
+    configLS500 cfg ;
+
+    QString db_path = cfg.getBookmarkPath() ;
+
+    db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+//    config_dir.append( "/.config/LeScienze500/" ) ;
+
+    QFile file ;
+    file.setFileName( db_path );
+
+    bool result ;
+
+    QFile res ;
+    res.setFileName(":/sql/sql/bookmark.sql" );
+    res.open(QIODevice::ReadOnly) ;
+    QString full_sql = QString ( res.readAll() ) ;
+    res.close();
+
+    res.setFileName(":/sql/sql/bookmark_init.sql" );
+    res.open(QIODevice::ReadOnly) ;
+    QString full_init = QString ( res.readAll() ) ;
+    res.close();
+
+    if ( !file.exists() ) {
+        result = QueryDB::execNAQuery( db_path , full_sql ) ;
+        result = result && QueryDB::execNAQuery( db_path , full_init ) ;
+
+        return result ;
+    }
+    else
+        return true ;
 }

@@ -83,6 +83,8 @@ public:
 
     QueryResult execQuery( QString query ) ;
 
+    static bool execNAQuery(QString db_path , QString query ) ;
+
     bool p_chiave ;
     bool testo ;
     bool categorie ;

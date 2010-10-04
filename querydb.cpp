@@ -75,7 +75,22 @@ QueryResult QueryDB::getRubriche()
     return execQuery( query ) ;
 }
 
+bool QueryDB::execNAQuery(QString db_path , QString query )
+{
+    sqlite3* db;
+    char* db_err;
+    int sqlite_err ;
 
+    sqlite3_open( db_path.toAscii().data() , &db ) ;
+    sqlite_err = sqlite3_exec(db, query.toAscii().data(), NULL, 0, &db_err) ;
+    sqlite3_close(db) ;
+
+    if ( sqlite_err == SQLITE_OK )
+        return true ;
+    else
+        return false ;
+
+}
 
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////

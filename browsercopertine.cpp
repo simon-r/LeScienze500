@@ -21,6 +21,7 @@
 #include<QFile>
 #include<QDebug>
 
+
 BrowserCopertine::BrowserCopertine(QWidget *parent) :
         QDialog(parent),
         ui(new Ui::BrowserCopertine)

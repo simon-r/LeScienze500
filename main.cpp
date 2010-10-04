@@ -19,9 +19,14 @@
 #include <QtGui/QApplication>
 #include "lescienze500.h"
 #include "configls500.h"
+#include "bookmark.h"
 
 int main(int argc, char *argv[])
 {
+
+    Bookmark bk ;
+    bk.buildDataBase() ;
+
     configLS500 cfg ;
 
     QApplication a(argc, argv);

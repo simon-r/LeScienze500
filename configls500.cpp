@@ -66,6 +66,7 @@ void configLS500::writeDfaultFile( QFile* file )
     QString art_pdf_path2 ;
     QString copertine_path ;
     QString dvd ;
+    //QString bk ;
 
     db_dir.append(DB_DIR) ; db_dir.append(SPACING) ; db_dir.append(DB_DIR_V) ; db_dir.append(ENDL) ;
     pdf_appl.append(PDF_APPL) ; pdf_appl.append(SPACING) ; pdf_appl.append(PDF_APPL_V) ; pdf_appl.append(ENDL) ;
@@ -108,6 +109,15 @@ QString configLS500::getPDFAppl()
 {
     return getConfigParameter( PDF_APPL ) ;
 }
+
+ QString configLS500::getBookmarkPath()
+ {
+     QString bk = getConfigParameter( BOOKMARK_PATH ) ;
+     if ( bk.isEmpty() )
+         return QString( BOOKMARK_PATH_V ) ;
+     else
+         return bk ;
+ }
 
 QString configLS500::getDVD()
 {

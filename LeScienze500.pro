@@ -35,7 +35,8 @@ FORMS += lescienze500.ui \
 LIBS += -lsqlite3
 RESOURCES += icons.qrc \
     html.qrc \
-    crystal.qrc
+    crystal.qrc \
+    sql.qrc
 OBJECTS_DIR = tmp_files
 MOC_DIR = tmp_files
 target.path = /usr/bin
