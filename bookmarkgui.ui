@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>709</width>
-    <height>513</height>
+    <width>755</width>
+    <height>546</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>695</width>
-        <height>499</height>
+        <width>741</width>
+        <height>532</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -45,8 +45,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>273</width>
-            <height>400</height>
+            <width>319</width>
+            <height>433</height>
            </rect>
           </property>
           <attribute name="label">
@@ -69,8 +69,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>273</width>
-            <height>400</height>
+            <width>319</width>
+            <height>433</height>
            </rect>
           </property>
           <attribute name="label">
@@ -89,6 +89,14 @@
           </layout>
          </widget>
          <widget class="QWidget" name="page_3">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>319</width>
+            <height>433</height>
+           </rect>
+          </property>
           <attribute name="label">
            <string>Valutazione</string>
           </attribute>
@@ -120,8 +128,6 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <zorder>toolBox</zorder>
-         <zorder>toolBox</zorder>
         </widget>
        </item>
       </layout>
