@@ -305,7 +305,6 @@ void  LeScienze500::fillResultTable( QueryResult q_res )
     int cols = q_result.getColumnsCnt()-1 ;
 
     ui->TabellaRisultati->clearContents();
-
     ui->TabellaRisultati->setColumnCount( cols );
 
     ui->TabellaRisultati->setColumnWidth( 0 , 390 );
