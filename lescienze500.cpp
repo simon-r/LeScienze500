@@ -275,7 +275,7 @@ bool LeScienze500::ExecQuery()
         db.setFrasiTestoEsteso( lista_frasi ) ;
     }
 
-    QueryResult q_result = db.execMainQuery() ;
+    QueryResult q_result =  db.execMainQuery() ;
     fillResultTable( q_result ) ;
 
     return true ;
@@ -303,6 +303,9 @@ void  LeScienze500::fillResultTable( QueryResult q_res )
     q_result = q_res ;
 
     int cols = q_result.getColumnsCnt()-1 ;
+
+    ui->TabellaRisultati->clearContents();
+
     ui->TabellaRisultati->setColumnCount( cols );
 
     ui->TabellaRisultati->setColumnWidth( 0 , 390 );

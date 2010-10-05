@@ -24,6 +24,7 @@
 #include "configls500.h"
 #include <QPair>
 #include <QtAlgorithms>
+#include <stdlib.h>
 
 QueryDB::QueryDB()
 {
@@ -109,9 +110,14 @@ QueryResult QueryDB::execQuery( QString query )
     }
 
     cols = sqlite3_column_count(stmt);
-    for( col=0; col<cols; col++){
-        QString name = QString::fromUtf8( (const char*)sqlite3_column_name( stmt, col ) ) ;
+    for( col=0; col<cols; col++)
+    {
+        char *sql_buffer = NULL ;
+        sql_buffer = (char*)sqlite3_column_name( stmt, col ) ;
+        QString name = QString::fromUtf8( (const char*)sql_buffer ) ;
+
         q_result.appendColumnName( name , col );
+
 //        qDebug() << QString( (const char*)sqlite3_column_name( stmt, col ) ) ;
     }
 
@@ -128,7 +134,10 @@ QueryResult QueryDB::execQuery( QString query )
             row.clear();
             // print results for this row
             for( col=0; col<cols; col++){
-                row.append( QString::fromUtf8( (const char*)sqlite3_column_text( stmt, col ) ) ) ;
+                const unsigned char *sql_buffer = NULL ;
+                sql_buffer = sqlite3_column_text( stmt, col ) ;
+                //if ( cols == 1 )
+                    row.append( QString::fromUtf8( (const char*)sql_buffer ) ) ;
             }
             q_result.appendResultRow( row ) ;
             break;
@@ -139,7 +148,15 @@ QueryResult QueryDB::execQuery( QString query )
 
     // finalize the statement to release resources
     sqlite3_finalize(stmt);
+    sqlite3_close( db ) ;
 
     rc = 0 ;
+
+//    int cnt = q_result.getColumnsCnt() ;
+
+//    if ( cnt > 1 ) {
+//        q_result.q_result.clear();
+//        while(1);
+//    }
     return q_result ;
 }
