@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>755</width>
-    <height>546</height>
+    <width>647</width>
+    <height>521</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+   <item row="0" column="1">
     <widget class="QScrollArea" name="scrollArea">
      <property name="widgetResizable">
       <bool>true</bool>
@@ -24,11 +24,17 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>741</width>
-        <height>532</height>
+        <width>633</width>
+        <height>507</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="margin">
+        <number>1</number>
+       </property>
        <item>
         <widget class="QToolBox" name="toolBox">
          <property name="minimumSize">
@@ -45,8 +51,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>319</width>
-            <height>433</height>
+            <width>221</width>
+            <height>414</height>
            </rect>
           </property>
           <attribute name="label">
@@ -69,8 +75,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>319</width>
-            <height>433</height>
+            <width>221</width>
+            <height>414</height>
            </rect>
           </property>
           <attribute name="label">
@@ -93,8 +99,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>319</width>
-            <height>433</height>
+            <width>221</width>
+            <height>414</height>
            </rect>
           </property>
           <attribute name="label">
@@ -123,11 +129,106 @@
           </size>
          </property>
          <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
+          <enum>QFrame::NoFrame</enum>
          </property>
          <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
+          <enum>QFrame::Plain</enum>
          </property>
+         <layout class="QVBoxLayout">
+          <item>
+           <widget class="QTextBrowser" name="Title">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>90</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextBrowser" name="Abstract">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>150</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="Comments">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>140</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame_2">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>150</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="1" column="1">
+              <widget class="QPushButton" name="OpenReview">
+               <property name="text">
+                <string>PushButton</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1" rowspan="4">
+              <widget class="QPushButton" name="OpenPDF">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>80</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>PushButton</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QComboBox" name="State"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QComboBox" name="Evaluation">
+               <property name="locale">
+                <locale language="Italian" country="Switzerland"/>
+               </property>
+               <property name="editable">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
