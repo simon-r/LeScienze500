@@ -82,7 +82,7 @@ private:
 
     void fillLists() ;
 
-    void fillResultTable( QueryResult )  ;
+    void fillResultTable( QueryResult& )  ;
 
     void fillInformazioni( QModelIndex index ) ;
 

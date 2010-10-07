@@ -31,7 +31,7 @@ bool StrIntLessThan(const QString &s1, const QString &s2)
     return s1.toInt() < s2.toInt() ;
 }
 
-QueryResult QueryDB::execMainQuery()
+ void QueryDB::execMainQuery( QueryResult& q_result )
 {
     QString query ;
 
@@ -301,10 +301,9 @@ QueryResult QueryDB::execMainQuery()
 
     qDebug() << query  ;
 
-    QueryResult q_result = execQuery( query ) ;
+    q_result.clear() ;
+    this->execQuery( this->dbPath , query , q_result ) ;
     //q_result.printResult() ;
-
-    return q_result ;
 }
 
 

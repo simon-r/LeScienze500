@@ -70,7 +70,7 @@ public:
         lista_anni = la ;
     }
 
-    QueryResult execMainQuery() ;
+    void execMainQuery( QueryResult& ) ;
 
     QueryResult execQuery( QString query ) ;
 

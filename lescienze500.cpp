@@ -275,7 +275,9 @@ bool LeScienze500::ExecQuery()
         db.setFrasiTestoEsteso( lista_frasi ) ;
     }
 
-    QueryResult q_result =  db.execMainQuery() ;
+    QueryResult  q_result ;
+    db.execMainQuery( q_result ) ;
+
     fillResultTable( q_result ) ;
 
     return true ;
@@ -295,7 +297,7 @@ QStringList LeScienze500::ReadSelectedItems( QListWidget *ui_list )
 }
 
 //////////////////////////////////////////////////////////////////
-void  LeScienze500::fillResultTable( QueryResult q_res )
+void  LeScienze500::fillResultTable( QueryResult& q_res )
 {
 
     q_result.clear();

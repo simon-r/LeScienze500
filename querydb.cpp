@@ -93,7 +93,7 @@ bool QueryDB::execNAQuery(QString db_path , QString query )
 
 }
 
-void QueryDB::execQuery( const QString& db_path , const QString& query ,QueryResult& q_result )
+void QueryDB::execQuery( const QString& db_path , const QString& query , QueryResult& q_result )
 {
     sqlite3 *db;
     sqlite3_stmt *stmt;
