@@ -32,7 +32,7 @@ create table Categorie
 create table Categoria_SottoCategoria
 (
 	IdCategoria integer not null unique,
-        IdSottoCategoria integer not null unique,
+   IdSottoCategoria integer not null unique,
 	primary key ( IdCategoria , IdSottoCategoria ),
 	foreign key ( IdCategoria ) references Categorie( Id ),
 	foreign key ( IdSottoCategoria ) references Categorie( Id ),
@@ -78,8 +78,8 @@ create table Stato_Favoriti
 
 create table Commento_Favoriti
 (
-	IdCommento integer not null,
-	IdFavoriti integer not null,
+	IdCommento integer not null unique,
+	IdFavoriti integer not null unique,
 	primary key ( IdCommento , IdFavoriti ),
 	foreign key ( IdCommento ) references Commenti ( Id ),
 	foreign key ( IdFavoriti ) references Favoriti ( Id )

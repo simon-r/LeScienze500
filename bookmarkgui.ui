@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>647</width>
-    <height>521</height>
+    <width>628</width>
+    <height>478</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>633</width>
-        <height>507</height>
+        <width>614</width>
+        <height>464</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -39,7 +39,7 @@
         <widget class="QToolBox" name="toolBox">
          <property name="minimumSize">
           <size>
-           <width>150</width>
+           <width>170</width>
            <height>300</height>
           </size>
          </property>
@@ -51,8 +51,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>221</width>
-            <height>414</height>
+            <width>202</width>
+            <height>371</height>
            </rect>
           </property>
           <attribute name="label">
@@ -75,8 +75,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>221</width>
-            <height>414</height>
+            <width>202</width>
+            <height>371</height>
            </rect>
           </property>
           <attribute name="label">
@@ -99,8 +99,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>221</width>
-            <height>414</height>
+            <width>202</width>
+            <height>371</height>
            </rect>
           </property>
           <attribute name="label">
@@ -186,7 +186,7 @@
              </size>
             </property>
             <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
+             <enum>QFrame::NoFrame</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>

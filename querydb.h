@@ -74,6 +74,8 @@ public:
 
     QueryResult execQuery( QString query ) ;
 
+    void execQuery( const QString& db_path , const QString& query , QueryResult& q_result ) ;
+
     static bool execNAQuery(QString db_path , QString query ) ;
 
     bool p_chiave ;
@@ -91,10 +93,7 @@ private:
 
    void buildQuerySegTestoEsteso( QString &query ) ;
 
-    sqlite3 *db;
-    sqlite3_stmt *stmt;
-    int rc;
-    int col, cols;
+
 
     QStringList parole_chiave ;
     QStringList parole_chiave_abstract ;

@@ -33,7 +33,7 @@ QueryDB::QueryDB()
     dbPath = cfg.getDBPath() ;
     //dbPath = "./LeScienze.db" ;
 
-    rc = 0 ;
+    //rc = 0 ;
     p_chiave = false ;
     testo = false  ;
     categorie = false  ;
@@ -93,20 +93,22 @@ bool QueryDB::execNAQuery(QString db_path , QString query )
 
 }
 
-//////////////////////////////////////////////////////
-//////////////////////////////////////////////////////
-QueryResult QueryDB::execQuery( QString query )
+void QueryDB::execQuery( const QString& db_path , const QString& query ,QueryResult& q_result )
 {
-    QueryResult q_result ;
+    sqlite3 *db;
+    sqlite3_stmt *stmt;
+    int rc = 0 ;
+    int col, cols;
 
-    rc = sqlite3_open( dbPath.toAscii().data() , &db);
+    q_result.clear();
+    rc = sqlite3_open( db_path.toAscii().data() , &db );
     if( rc ){
-        return q_result;
+        return ;
     }
 
     rc = sqlite3_prepare_v2( db, query.toAscii().data() , -1, &stmt, 0);
     if( rc ){
-        return q_result;
+        return ;
     }
 
     cols = sqlite3_column_count(stmt);
@@ -118,7 +120,7 @@ QueryResult QueryDB::execQuery( QString query )
 
         q_result.appendColumnName( name , col );
 
-//        qDebug() << QString( (const char*)sqlite3_column_name( stmt, col ) ) ;
+        //        qDebug() << QString( (const char*)sqlite3_column_name( stmt, col ) ) ;
     }
 
     QStringList row ;
@@ -137,26 +139,25 @@ QueryResult QueryDB::execQuery( QString query )
                 const unsigned char *sql_buffer = NULL ;
                 sql_buffer = sqlite3_column_text( stmt, col ) ;
                 //if ( cols == 1 )
-                    row.append( QString::fromUtf8( (const char*)sql_buffer ) ) ;
+                row.append( QString::fromUtf8( (const char*)sql_buffer ) ) ;
             }
             q_result.appendResultRow( row ) ;
             break;
         default:
             break;
         }
-    }while( rc==SQLITE_ROW );
+    } while ( rc == SQLITE_ROW ) ;
 
     // finalize the statement to release resources
     sqlite3_finalize(stmt);
     sqlite3_close( db ) ;
+}
 
-    rc = 0 ;
-
-//    int cnt = q_result.getColumnsCnt() ;
-
-//    if ( cnt > 1 ) {
-//        q_result.q_result.clear();
-//        while(1);
-//    }
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+QueryResult QueryDB::execQuery( QString query )
+{
+    QueryResult q_result ;
+    execQuery( dbPath , query , q_result ) ;
     return q_result ;
 }

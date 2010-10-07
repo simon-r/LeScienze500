@@ -24,8 +24,8 @@
 int main(int argc, char *argv[])
 {
 
-//    Bookmark bk ;
-//    bk.initBookmark() ;
+    Bookmark bk ;
+    bk.initBookmark() ;
 
     configLS500 cfg ;
 
