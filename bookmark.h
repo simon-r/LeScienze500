@@ -32,10 +32,14 @@ public:
 
     bool exists() ;
 
-    QueryResult getFavorites() ;
-    QueryResult getCategorie() ;
-    QueryResult getStati() ;
-    QueryResult getValutazioni() ;
+    void getFavorites( QueryResult& query_r ) ;
+
+    void getCategorie( QueryResult& query_r ) ;
+    void getCategorie( QueryResult& query_r , const QString& base ) ;
+
+
+    void getStati( QueryResult& query_r ) ;
+    void getValutazioni( QueryResult& query_r ) ;
 
     QueryResult getFavoritesByStato( QString IdStato ) ;
     QueryResult getFavoritesByCategoria( QString IdCategoria ) ;
@@ -50,6 +54,7 @@ public:
 
 private:
 
+    void execQuery( QString& query , QueryResult& qr ) ;
 };
 
 #endif // BOOKMARK_H

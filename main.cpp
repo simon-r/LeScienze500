@@ -27,6 +27,13 @@ int main(int argc, char *argv[])
     Bookmark bk ;
     bk.initBookmark() ;
 
+    QueryResult r ;
+    bk.getStati( r );
+    bk.getValutazioni( r );
+   // bk.getCategorie( r );
+
+    bk.getCategorie( r , "Mio" );
+
     configLS500 cfg ;
 
     QApplication a(argc, argv);

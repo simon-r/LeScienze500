@@ -1,5 +1,5 @@
 //     Copyright 2010 Simone Riva
-//     mail:  simone (dot) rva (lumachina) gmail.com
+//     mail:  simone (dot) rva (-at-) gmail.com
 //
 //    This file is part of LeScienze500.
 //
@@ -76,4 +76,54 @@ bool Bookmark::initBookmark()
     }
     else
         return true ;
+}
+
+void Bookmark::getStati( QueryResult& query_r )
+{
+    query_r.clear();
+    QString query = "select Stato from Stato" ;
+    this->execQuery( query , query_r ) ;
+}
+
+void Bookmark::getValutazioni( QueryResult& query_r )
+{
+    query_r.clear();
+    QString query = "select Valutazione from Valutazioni" ;
+    this->execQuery( query , query_r ) ;
+}
+
+void  Bookmark::getFavorites( QueryResult& query_r )
+{
+    query_r.clear();
+    QString query = "select IdArticolo from Favoriti" ;
+    this->execQuery( query , query_r ) ;
+}
+
+void  Bookmark::getCategorie( QueryResult& query_r )
+{
+    query_r.clear();
+    QString query = "select Id, Categoria from Categorie" ;
+    this->execQuery( query , query_r ) ;
+}
+
+void Bookmark::getCategorie( QueryResult& query_r , const QString& base )
+{
+    query_r.clear();
+    QString query  = "select Id, Categoria from Categorie where " ;
+            query += "Id in ( select IdSottoCategoria from Categoria_SottoCategoria where IdCategoria in " ;
+            query += " ( select Id from Categorie where Categoria like \"" ;
+            query += base ;
+            query += "\" ) ) " ;
+    this->execQuery( query , query_r ) ;
+}
+
+void Bookmark::execQuery( QString& query , QueryResult& qr )
+{
+    configLS500 cfg ;
+    QString db_path = cfg.getBookmarkPath() ;
+
+    QueryDB db ;
+    db.execQuery( db_path , query , qr ) ;
+
+    qr.printResult();
 }

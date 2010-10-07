@@ -24,6 +24,7 @@
 #include <QDebug>
 #include <QList>
 #include "previewarticolo.h"
+#include <QRegExp>
 
 
 configLS500::configLS500()
@@ -113,20 +114,27 @@ QString configLS500::getPDFAppl()
  QString configLS500::getBookmarkPath()
  {
      QString bk = getConfigParameter( BOOKMARK_PATH ) ;
+     QString res ;
+
      if ( bk.isEmpty() )
-         return QString( BOOKMARK_PATH_V ) ;
+         res = QString( BOOKMARK_PATH_V ) ;
      else
-         return bk ;
+         res = bk ;
+
+      res.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+      return res ;
  }
 
 QString configLS500::getDVD()
 {
     QString dvd = getConfigParameter( USE_DVD ) ;
+    QString res ;
 
     if ( dvd.isEmpty() )
-        return QString( USE_DVD_V ) ;
+        res = QString( USE_DVD_V ) ;
     else
-        return dvd ;
+        res = dvd ;
+    return res ;
 }
 
 

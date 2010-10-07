@@ -31,8 +31,8 @@ create table Categorie
 
 create table Categoria_SottoCategoria
 (
-	IdCategoria integer not null unique,
-   IdSottoCategoria integer not null unique,
+	IdCategoria integer not null,
+	IdSottoCategoria integer not null unique,
 	primary key ( IdCategoria , IdSottoCategoria ),
 	foreign key ( IdCategoria ) references Categorie( Id ),
 	foreign key ( IdSottoCategoria ) references Categorie( Id ),
