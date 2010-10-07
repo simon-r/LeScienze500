@@ -32,7 +32,10 @@ int main(int argc, char *argv[])
     bk.getValutazioni( r );
    // bk.getCategorie( r );
 
-    bk.getCategorie( r , "Mio" );
+    bk.getOverCategoria( r , "sotto" ) ;
+
+    //bk.getCategorie( r , "Mio" );
+    bk.getMainCategorie( r );
 
     configLS500 cfg ;
 

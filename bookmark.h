@@ -37,6 +37,9 @@ public:
     void getCategorie( QueryResult& query_r ) ;
     void getCategorie( QueryResult& query_r , const QString& base ) ;
 
+    void getOverCategoria( QueryResult& query_r , const QString& cat ) ;
+
+    void getMainCategorie( QueryResult& query_r ) ;
 
     void getStati( QueryResult& query_r ) ;
     void getValutazioni( QueryResult& query_r ) ;
@@ -49,8 +52,8 @@ public:
     QueryResult getStato( QString IdFavorito ) ;
     QueryResult getCategoria( QString IdFavorito ) ;
 
-    QueryResult getSottoCategorie( QString IdCategoria ) ;
-    QueryResult getMainCategoria( QString IdCategoria ) ;
+    // QueryResult getSottoCategorie( QString IdCategoria ) ;
+
 
 private:
 

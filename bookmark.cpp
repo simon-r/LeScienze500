@@ -117,6 +117,26 @@ void Bookmark::getCategorie( QueryResult& query_r , const QString& base )
     this->execQuery( query , query_r ) ;
 }
 
+void Bookmark::getOverCategoria( QueryResult& query_r , const QString& categoria )
+{
+    query_r.clear();
+    QString query =  "select Id, Categoria from Categorie where " ;
+            query += "Id in ( select IdCategoria from Categoria_SottoCategoria where IdSottoCategoria in " ;
+            query += " ( select Id from Categorie where Categoria like \"" ;
+            query += categoria ;
+            query += "\"" ;
+            query += " ) ) " ;
+    this->execQuery( query , query_r ) ;
+}
+
+void Bookmark::getMainCategorie( QueryResult& query_r )
+{
+    query_r.clear();
+    QString query =  "select Id, Categoria from Categorie where " ;
+            query += "Id not in ( select IdSottoCategoria from Categoria_SottoCategoria ) " ;
+    this->execQuery( query , query_r ) ;
+}
+
 void Bookmark::execQuery( QString& query , QueryResult& qr )
 {
     configLS500 cfg ;

@@ -25,3 +25,5 @@ insert into Categoria_SottoCategoria ( IdCategoria , IdSottoCategoria ) values (
 
 insert into Categorie ( Categoria ) values ( "sotto2" ) ;
 insert into Categoria_SottoCategoria ( IdCategoria , IdSottoCategoria ) values ( 2 , 6 ) ;
+
+insert into Categorie ( Categoria ) values ( "Preferiti" ) ;
