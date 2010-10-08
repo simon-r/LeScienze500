@@ -1460,12 +1460,12 @@ p, li { white-space: pre-wrap; }
   </widget>
   <action name="actionConfigura">
    <property name="text">
-    <string>Configura</string>
+    <string>Configura ...</string>
    </property>
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>About </string>
+    <string>About ...</string>
    </property>
   </action>
   <action name="actionOrganizza_preferiti">

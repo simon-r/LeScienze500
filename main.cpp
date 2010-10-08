@@ -24,18 +24,18 @@
 int main(int argc, char *argv[])
 {
 
-    Bookmark bk ;
-    bk.initBookmark() ;
+//    Bookmark bk ;
+//    bk.initBookmark() ;
 
-    QueryResult r ;
-    bk.getStati( r );
-    bk.getValutazioni( r );
-   // bk.getCategorie( r );
+//    QueryResult r ;
+//    bk.getStati( r );
+//    bk.getValutazioni( r );
+//   // bk.getCategorie( r );
 
-    bk.getOverCategoria( r , "sotto" ) ;
+//    bk.getOverCategoria( r , "sotto" ) ;
 
-    //bk.getCategorie( r , "Mio" );
-    bk.getMainCategorie( r );
+//    //bk.getCategorie( r , "Mio" );
+//    bk.getMainCategorie( r );
 
     configLS500 cfg ;
 
