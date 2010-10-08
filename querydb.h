@@ -85,6 +85,7 @@ public:
     bool autori_n ;
     bool anno ;
     bool rubriche ;
+    bool global_and ;
 
     QString dbPath ;
 

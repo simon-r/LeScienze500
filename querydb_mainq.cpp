@@ -34,11 +34,16 @@ bool StrIntLessThan(const QString &s1, const QString &s2)
  void QueryDB::execMainQuery( QueryResult& q_result )
 {
     QString query ;
+    QString logical_global ;
 
-    QString logical_global = " AND " ;
+    if ( this->global_and )
+        logical_global = " AND " ;
+    else
+        logical_global = " OR " ;
 
     bool prevq = false ;
 
+    query.append( " ( " ) ;
     if ( p_chiave )
     {
         QString logical_at = " OR " ;
@@ -293,6 +298,7 @@ bool StrIntLessThan(const QString &s1, const QString &s2)
         buildQuerySegTestoEsteso( query ) ;
         prevq = true ;
     }
+    query.append( " ) " ) ;
 
     query.append( " ORDER BY idrivista" ) ;
 

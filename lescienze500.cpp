@@ -193,19 +193,20 @@ bool LeScienze500::ExecQuery()
     if ( ui->Select_Rubriche->isChecked() )
         db.rubriche = true ;
 
+    if ( ui->AND_Button->isChecked() )
+        db.global_and = true ;
+    else
+        db.global_and = false ;
+
     if ( db.p_chiave )
     {
         QString testo = ui->ParoleChiave->text() ;
         testo = testo.replace( "*" , "%" ) ;
         QStringList parole_c = testo.split( " " , QString::SkipEmptyParts ) ;
 
-        db.setParoleChiave( parole_c ) ;
-
         QString testo_b = ui->ParoleChiaveAbstract->text() ;
         testo_b = testo_b.replace( "*" , "%" ) ;
         QStringList parole_c_a = testo_b.split(" " , QString::SkipEmptyParts ) ;
-
-        db.setParoleChiaveAbstract( parole_c_a ) ;
     }
 
     if ( db.rubriche )
@@ -277,6 +278,7 @@ bool LeScienze500::ExecQuery()
     }
 
     QueryResult  q_result ;
+
     db.execMainQuery( q_result ) ;
 
     fillResultTable( q_result ) ;
