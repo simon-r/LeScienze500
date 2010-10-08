@@ -36,6 +36,7 @@
 #include "browsercopertinebase.h"
 #include "querydata.h"
 #include "bookmarkgui.h"
+#include "about.h"
 
 
 namespace Ui {
@@ -102,10 +103,12 @@ private:
     BrowserCopertine *b_copertine_d ;
     LSErrorMessage *error_message ;
     BookmarkGui *bk_gui ;
+    About *about_d ;
 
     void BuildErrorMessage() ;
     void BuildConfigura() ;
     void BuildBookmark() ;
+    void BuildAbout() ;
 
     QList<int> history_id_articoli ;
 
@@ -114,6 +117,7 @@ private slots:
     void on_openPDF( int id_articolo ) ;
     void on_errorLinkClicked( const QUrl &url ) ;
     void on_openBookmark() ;
+    void on_openAbout() ;
 
     void on_pushButton_clicked();
     void on_ApriBrowserCopertine_clicked();

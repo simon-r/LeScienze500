@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     browsercopertinebase.cpp \
     querydata.cpp \
     bookmark.cpp \
-    bookmarkgui.cpp
+    bookmarkgui.cpp \
+    about.cpp
 HEADERS += lescienze500.h \
     querydb.h \
     queryresult.h \
@@ -28,13 +29,15 @@ HEADERS += lescienze500.h \
     browsercopertinebase.h \
     querydata.h \
     bookmark.h \
-    bookmarkgui.h
+    bookmarkgui.h \
+    about.h
 FORMS += lescienze500.ui \
     configura.ui \
     previewarticolo.ui \
     browsercopertine.ui \
     lserrormessage.ui \
-    bookmarkgui.ui
+    bookmarkgui.ui \
+    about.ui
 LIBS += -lsqlite3
 RESOURCES += icons.qrc \
     html.qrc \
