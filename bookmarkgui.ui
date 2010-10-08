@@ -75,8 +75,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>202</width>
-            <height>371</height>
+            <width>83</width>
+            <height>72</height>
            </rect>
           </property>
           <attribute name="label">
@@ -99,8 +99,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>202</width>
-            <height>371</height>
+            <width>83</width>
+            <height>72</height>
            </rect>
           </property>
           <attribute name="label">
@@ -195,7 +195,7 @@
              <item row="1" column="1">
               <widget class="QPushButton" name="OpenReview">
                <property name="text">
-                <string>PushButton</string>
+                <string>Visualizza Rivista</string>
                </property>
               </widget>
              </item>
@@ -208,7 +208,7 @@
                 </size>
                </property>
                <property name="text">
-                <string>PushButton</string>
+                <string>Apri Pdf</string>
                </property>
               </widget>
              </item>

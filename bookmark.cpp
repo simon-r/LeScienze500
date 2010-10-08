@@ -109,6 +109,13 @@ void  Bookmark::getCategorie( QueryResult& query_r )
 void Bookmark::getCategorie( QueryResult& query_r , const QString& base )
 {
     query_r.clear();
+
+    if ( base.size() == 0 )
+    {
+        this->getMainCategorie( query_r );
+        return ;
+    }
+
     QString query  = "select Id, Categoria from Categorie where " ;
             query += "Id in ( select IdSottoCategoria from Categoria_SottoCategoria where IdCategoria in " ;
             query += " ( select Id from Categorie where Categoria like \"" ;
