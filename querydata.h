@@ -28,7 +28,11 @@ class QueryData : public QObject
 public:
     QueryData();
 
+    QString getQuery() ;
+
     enum Logical { QUERY_AND , QUERY_OR }  ;
+
+    void setGobalLogical( QueryData::Logical l ) { g_logical = l ; }
 
     void setParoleChiaveTitolo( const QString &pct );
 
@@ -45,6 +49,7 @@ public:
     void setAutori( const QStringList aut ) ;
 
 
+    QueryData::Logical getGobalLogical() { return g_logical ; }
 
     QString getParoleChiaveTitolo();
 

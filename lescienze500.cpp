@@ -174,6 +174,7 @@ void LeScienze500::clearResult()
 bool LeScienze500::ExecQuery()
 {
     QueryDB db ;
+    QueryData query_data ;
 
     if ( ui->Select_ParoleChiave->isChecked() )
         db.p_chiave = true ;
@@ -198,6 +199,12 @@ bool LeScienze500::ExecQuery()
     else
         db.global_and = false ;
 
+    // Nuovo in sviluppo
+    if ( ui->AND_Button->isChecked() )
+        query_data.setGobalLogical( QueryData::QUERY_AND );
+    else
+        query_data.setGobalLogical( QueryData::QUERY_OR );
+
     if ( db.p_chiave )
     {
         QString testo = ui->ParoleChiave->text() ;
@@ -207,6 +214,10 @@ bool LeScienze500::ExecQuery()
         QString testo_b = ui->ParoleChiaveAbstract->text() ;
         testo_b = testo_b.replace( "*" , "%" ) ;
         QStringList parole_c_a = testo_b.split(" " , QString::SkipEmptyParts ) ;
+
+        // Nuovo in sviluppo
+        query_data.setParoleChiaveTitolo( ui->ParoleChiave->text() );
+        query_data.setParoleChiaveAbstract( ui->ParoleChiaveAbstract->text() );
     }
 
     if ( db.rubriche )
