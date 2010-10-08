@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::About *ui;
+
+public slots:
+    void on_linkActivated( const QString& link ) ;
 };
 
 #endif // ABOUT_H
