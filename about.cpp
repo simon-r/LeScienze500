@@ -8,7 +8,21 @@ About::About(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::About)
 {
+
+    QString autore ;
+    QString ema ;
+
+    QString al ;
+    QString alom ;
     ui->setupUi(this);
+
+    al += "Jacopo" ;
+    ema.append( "simone" ) ; ema += "." ;
+    alom.append("jacopo") ;
+    autore += "Simone" ;
+    alom += "fois" ;
+    autore += " " ;
+    al += " " ; al.append("Fois") ;
 
     connect( ui->Credits , SIGNAL(linkActivated(QString)), this , SLOT(on_linkActivated(QString))) ;
     connect( ui->AboutText , SIGNAL(anchorClicked(QUrl)) , this ,SLOT(on_linkMessageClicked(QUrl)) ) ;
@@ -20,21 +34,22 @@ About::About(QWidget *parent) :
     QString message = QString::fromLocal8Bit ( res.readAll() ) ;
     res.close();
 
-    QString autore ;
-    QString ema ;
-    ema += "simone" ; ema += "." ;
-
-    autore += "Simone" ;
-    autore += " " ;
+    alom.append("@") ;
     ema.append("rva") ;
     autore += "Riva" ;
+    alom += "gmail" ;
     ema += "@" ;
+    alom.append(".") ;
     ema.append( "gmail" ) ;
     ema += "." ;
     ema += "com" ;
+    alom.append("com") ;
 
     message.replace( QRegExp("<!--autore-->") , autore ) ;
     message.replace( QRegExp("<!--email-->") , ema ) ;
+
+    message.replace( QRegExp("<!--autore_logo-->") , al ) ;
+    message.replace( QRegExp("<!--email_logo-->") , alom ) ;
 
     ui->AboutText->setHtml( message ) ;
 }
