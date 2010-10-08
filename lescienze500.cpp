@@ -212,10 +212,12 @@ bool LeScienze500::ExecQuery()
         QString testo = ui->ParoleChiave->text() ;
         testo = testo.replace( "*" , "%" ) ;
         QStringList parole_c = testo.split( " " , QString::SkipEmptyParts ) ;
+        db.setParoleChiave( parole_c );
 
         QString testo_b = ui->ParoleChiaveAbstract->text() ;
         testo_b = testo_b.replace( "*" , "%" ) ;
         QStringList parole_c_a = testo_b.split(" " , QString::SkipEmptyParts ) ;
+        db.setParoleChiaveAbstract( parole_c_a );;
 
         // Nuovo in sviluppo
         query_data.setParoleChiaveTitolo( ui->ParoleChiave->text() );
