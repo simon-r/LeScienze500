@@ -209,7 +209,11 @@ p, li { white-space: pre-wrap; }
        <number>0</number>
       </property>
       <item>
-       <widget class="QTextBrowser" name="AboutText"/>
+       <widget class="QTextBrowser" name="AboutText">
+        <property name="openLinks">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

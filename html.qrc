@@ -13,5 +13,6 @@
         <file>html/blank_lista_copertine.html</file>
         <file>html/copertine_not_found.html</file>
         <file>html/dvd_not_found.html</file>
+        <file>html/copyright_message.html</file>
     </qresource>
 </RCC>

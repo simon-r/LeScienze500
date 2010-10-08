@@ -2,6 +2,7 @@
 #define ABOUT_H
 
 #include <QDialog>
+#include <QUrl>
 
 namespace Ui {
     class About;
@@ -20,6 +21,7 @@ private:
 
 public slots:
     void on_linkActivated( const QString& link ) ;
+    void on_linkMessageClicked( const QUrl& url ) ;
 };
 
 #endif // ABOUT_H
