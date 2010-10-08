@@ -38,8 +38,8 @@
   <property name="locale">
    <locale language="Italian" country="Italy"/>
   </property>
-  <property name="dockOptions">
-   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  <property name="animated">
+   <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -60,7 +60,7 @@
          <x>0</x>
          <y>0</y>
          <width>1090</width>
-         <height>684</height>
+         <height>712</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
@@ -1136,14 +1136,17 @@ articolo.</string>
               </size>
              </property>
              <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
+              <enum>QFrame::NoFrame</enum>
              </property>
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <property name="spacing">
+               <number>0</number>
+              </property>
               <property name="margin">
-               <number>1</number>
+               <number>0</number>
               </property>
               <item>
                <widget class="QFrame" name="FrameRubriche">
@@ -1427,18 +1430,6 @@ p, li { white-space: pre-wrap; }
     </item>
    </layout>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <property name="windowTitle">
-    <string>Le Scienze 500</string>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -1466,17 +1457,6 @@ p, li { white-space: pre-wrap; }
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuFavoriti"/>
-  </widget>
-  <widget class="QToolBar" name="toolBar">
-   <property name="windowTitle">
-    <string>toolBar</string>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <action name="actionConfigura">
    <property name="text">
