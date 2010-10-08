@@ -53,8 +53,12 @@ LeScienze500::LeScienze500(QWidget *parent) :
     preview = 0 ;
     error_message = 0 ;
     b_copertine_d = 0 ;
+    bk_gui = 0 ;
 
     fillLists() ;
+
+    connect( ui->actionConfigura , SIGNAL(triggered()) , this , SLOT(on_Configura_clicked()) ) ;
+    connect( ui->actionOrganizza_preferiti , SIGNAL(triggered()) , this , SLOT(on_openBookmark()) ) ;
 }
 
 LeScienze500::~LeScienze500()
@@ -189,9 +193,6 @@ bool LeScienze500::ExecQuery()
     if ( ui->Select_Rubriche->isChecked() )
         db.rubriche = true ;
 
-    //    if ( ui->Select_NomeAutore->isChecked() )
-    //        db.autori_n = true ;
-
     if ( db.p_chiave )
     {
         QString testo = ui->ParoleChiave->text() ;
@@ -299,7 +300,6 @@ QStringList LeScienze500::ReadSelectedItems( QListWidget *ui_list )
 //////////////////////////////////////////////////////////////////
 void  LeScienze500::fillResultTable( QueryResult& q_res )
 {
-
     q_result.clear();
 
     q_result = q_res ;
@@ -309,8 +309,12 @@ void  LeScienze500::fillResultTable( QueryResult& q_res )
     ui->TabellaRisultati->clearContents();
     ui->TabellaRisultati->setColumnCount( cols );
 
-    ui->TabellaRisultati->setColumnWidth( 0 , 390 );
-    ui->TabellaRisultati->setColumnWidth( 1 , 40 );
+    QRect rect = ui->TabellaRisultati->geometry() ;
+
+    int w = rect.width() ;
+
+    ui->TabellaRisultati->setColumnWidth( 0 , w * 0.78 );
+    ui->TabellaRisultati->setColumnWidth( 1 , w * 0.10 );
 
     int row = 0 ;
     for( int i = 0 ; i < cols ; i++ )
@@ -784,6 +788,14 @@ void LeScienze500::BuildConfigura()
     }
 }
 
+void LeScienze500::BuildBookmark()
+{
+    if ( bk_gui == 0 )
+    {
+        bk_gui = new BookmarkGui() ;
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -792,6 +804,14 @@ void LeScienze500::BuildConfigura()
 void LeScienze500::on_openPDF( int id_articolo )
 {
     this->OpenPDF( id_articolo ) ;
+}
+
+void LeScienze500::on_openBookmark()
+{
+    BuildBookmark() ;
+    this->bk_gui->setModal( true ) ;
+    this->bk_gui->show() ;
+    this->bk_gui->exec() ;
 }
 
 void LeScienze500::on_errorLinkClicked( const QUrl &url )

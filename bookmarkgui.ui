@@ -75,8 +75,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>83</width>
-            <height>72</height>
+            <width>202</width>
+            <height>371</height>
            </rect>
           </property>
           <attribute name="label">
@@ -99,8 +99,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>83</width>
-            <height>72</height>
+            <width>202</width>
+            <height>371</height>
            </rect>
           </property>
           <attribute name="label">
@@ -208,14 +208,21 @@
                 </size>
                </property>
                <property name="text">
-                <string>Apri Pdf</string>
+                <string>    Apri Pdf</string>
+               </property>
+               <property name="icon">
+                <iconset resource="crystal.qrc">
+                 <normaloff>:/icons/crystal/pdf_icon.jpg</normaloff>:/icons/crystal/pdf_icon.jpg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
-              <widget class="QComboBox" name="State"/>
-             </item>
-             <item row="2" column="0">
+             <item row="1" column="0">
               <widget class="QComboBox" name="Evaluation">
                <property name="locale">
                 <locale language="Italian" country="Switzerland"/>
@@ -224,6 +231,9 @@
                 <bool>false</bool>
                </property>
               </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QComboBox" name="State"/>
              </item>
             </layout>
            </widget>
@@ -237,6 +247,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="crystal.qrc"/>
+ </resources>
  <connections/>
 </ui>

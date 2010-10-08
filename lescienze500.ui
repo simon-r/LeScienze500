@@ -1069,7 +1069,7 @@ articolo.</string>
                  <property name="margin">
                   <number>1</number>
                  </property>
-                 <item row="3" column="0">
+                 <item row="3" column="0" colspan="2">
                   <widget class="QListWidget" name="ListaAnni">
                    <property name="enabled">
                     <bool>false</bool>
@@ -1092,7 +1092,7 @@ articolo.</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="4" column="0">
+                 <item row="4" column="0" colspan="2">
                   <widget class="QPushButton" name="CleanAnni">
                    <property name="enabled">
                     <bool>false</bool>
@@ -1437,6 +1437,24 @@ articolo.</string>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionConfigura"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout"/>
+    <addaction name="actionEsci"/>
+   </widget>
+   <widget class="QMenu" name="menuFavoriti">
+    <property name="title">
+     <string>Preferiti</string>
+    </property>
+    <addaction name="actionOrganizza_preferiti"/>
+    <addaction name="separator"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuFavoriti"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
@@ -1449,11 +1467,48 @@ articolo.</string>
     <bool>false</bool>
    </attribute>
   </widget>
+  <action name="actionConfigura">
+   <property name="text">
+    <string>Configura</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About </string>
+   </property>
+  </action>
+  <action name="actionOrganizza_preferiti">
+   <property name="text">
+    <string>Organizza preferiti ...</string>
+   </property>
+  </action>
+  <action name="actionEsci">
+   <property name="text">
+    <string>Esci</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
   <include location="crystal.qrc"/>
   <include location="icons.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionEsci</sender>
+   <signal>triggered()</signal>
+   <receiver>LeScienze500</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>548</x>
+     <y>370</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

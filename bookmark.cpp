@@ -68,7 +68,8 @@ bool Bookmark::initBookmark()
     QString full_init = QString ( res.readAll() ) ;
     res.close();
 
-    if ( !file.exists() ) {
+    if ( !file.exists() )
+    {
         result = QueryDB::execNAQuery( db_path , full_sql ) ;
         result = result && QueryDB::execNAQuery( db_path , full_init ) ;
 
