@@ -107,11 +107,11 @@ void  Bookmark::getCategorie( QueryResult& query_r )
     this->execQuery( query , query_r ) ;
 }
 
-void Bookmark::getCategorie( QueryResult& query_r , const QString& base )
+void Bookmark::getCategorie( QueryResult& query_r , const QString& parent )
 {
     query_r.clear();
 
-    if ( base.size() == 0 )
+    if ( parent.size() == 0 )
     {
         this->getMainCategorie( query_r );
         return ;
@@ -120,7 +120,7 @@ void Bookmark::getCategorie( QueryResult& query_r , const QString& base )
     QString query  = "select Id, Categoria from Categorie where " ;
             query += "Id in ( select IdSottoCategoria from Categoria_SottoCategoria where IdCategoria in " ;
             query += " ( select Id from Categorie where Categoria like \"" ;
-            query += base ;
+            query += parent ;
             query += "\" ) ) " ;
     this->execQuery( query , query_r ) ;
 }

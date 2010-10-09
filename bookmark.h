@@ -35,7 +35,7 @@ public:
     void getFavorites( QueryResult& query_r ) ;
 
     void getCategorie( QueryResult& query_r ) ;
-    void getCategorie( QueryResult& query_r , const QString& base ) ;
+    void getCategorie( QueryResult& query_r , const QString& parent ) ;
 
     void getOverCategoria( QueryResult& query_r , const QString& cat ) ;
 

@@ -2,6 +2,7 @@
 #define BOOKMARKGUI_H
 
 #include <QDialog>
+#include <QTreeWidgetItem>
 
 namespace Ui {
     class BookmarkGui;
@@ -15,8 +16,12 @@ public:
     explicit BookmarkGui(QWidget *parent = 0);
     ~BookmarkGui();
 
+    void fillCategorie() ;
+
 private:
     Ui::BookmarkGui *ui;
+
+    void fillCategorieRec( const QString& name , QTreeWidgetItem* parent ) ;
 };
 
 #endif // BOOKMARKGUI_H

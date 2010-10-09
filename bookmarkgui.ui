@@ -60,7 +60,7 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <widget class="QTreeWidget" name="treeWidget">
+            <widget class="QTreeWidget" name="treeCategorie">
              <column>
               <property name="text">
                <string notr="true">1</string>
@@ -75,8 +75,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>202</width>
-            <height>371</height>
+            <width>83</width>
+            <height>72</height>
            </rect>
           </property>
           <attribute name="label">
@@ -99,8 +99,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>202</width>
-            <height>371</height>
+            <width>83</width>
+            <height>72</height>
            </rect>
           </property>
           <attribute name="label">
