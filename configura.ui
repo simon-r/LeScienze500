@@ -36,7 +36,7 @@
       <number>1</number>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="lettore_pdf">
       <property name="geometry">
@@ -247,8 +247,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>470</width>
-        <height>261</height>
+        <width>93</width>
+        <height>160</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -411,7 +411,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Seleziona il percorse delle copertine:</string>
+          <string>Seleziona il percorso delle copertine:</string>
          </property>
         </widget>
        </item>

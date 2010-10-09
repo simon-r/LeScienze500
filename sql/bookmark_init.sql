@@ -27,3 +27,13 @@ insert into Categorie ( Categoria ) values ( "sotto2" ) ;
 insert into Categoria_SottoCategoria ( IdCategoria , IdSottoCategoria ) values ( 2 , 6 ) ;
 
 insert into Categorie ( Categoria ) values ( "Preferiti" ) ;
+
+insert into Favoriti ( IdArticolo ) values ( 1 ) ;
+insert into Favoriti ( IdArticolo ) values ( 13 ) ;
+insert into Favoriti ( IdArticolo ) values ( 2000 ) ;
+insert into Favoriti ( IdArticolo ) values ( 3333 ) ;
+
+
+insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( 3 , 3 ) ;
+insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( 4 , 3 ) ;
+insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( 1 , 6 ) ;

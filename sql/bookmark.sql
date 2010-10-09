@@ -62,36 +62,36 @@ create table Valutazioni
 
 create table Categorie_Favoriti
 (
-	IdCategorie integer not null,
-	IdFavoriti integer not null,
-	primary key ( IdCategorie , IdFavoriti ),
-	foreign key ( IdCategorie ) references Categorie( Id ),
-	foreign key ( IdFavoriti ) references Favoriti( Id )
+	IdCategoria integer not null,
+	IdFavorito integer not null,
+	primary key ( IdCategoria , IdFavorito ),
+	foreign key ( IdCategoria ) references Categorie( Id ),
+	foreign key ( IdFavorito ) references Favoriti( Id )
 ) ;
 
 create table Stato_Favoriti 
 (
 	IdStato integer not null,
-	IdFavoriti integer not null,
+	IdFavorito integer not null,
 	primary key( IdStato, IdFavoriti ),
 	foreign key( IdStato ) references Stato( Id ),
-	foreign key( IdFavoriti ) references Favoriti( Id )
+	foreign key( IdFavorito ) references Favoriti( Id )
 ) ;
 
 create table Commento_Favoriti
 (
 	IdCommento integer not null unique,
-	IdFavoriti integer not null unique,
+	IdFavorito integer not null unique,
 	primary key ( IdCommento , IdFavoriti ),
 	foreign key ( IdCommento ) references Commenti ( Id ),
-	foreign key ( IdFavoriti ) references Favoriti ( Id )
+	foreign key ( IdFavorito ) references Favoriti ( Id )
 ) ;
 
 create table Valutazioni_Favoriti
 (
-	IdValutazioni integer not null,
-	IdFavoriti integer not null,
-	primary key ( IdValutazioni , IdFavoriti ),
-	foreign key ( IdValutazioni ) references Valutazioni ( Id ),
-	foreign key ( IdFavoriti ) references Favoriti ( Id )
+	IdValutazione integer not null,
+	IdFavorito integer not null,
+	primary key ( IdValutazione , IdFavorito ),
+	foreign key ( IdValutazione ) references Valutazioni ( Id ),
+	foreign key ( IdFavorito ) references Favoriti ( Id )
 ) ;

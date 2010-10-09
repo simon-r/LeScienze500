@@ -113,7 +113,7 @@ void Bookmark::getCategorie( QueryResult& query_r , const QString& parent )
 
     if ( parent.size() == 0 )
     {
-        this->getMainCategorie( query_r );
+        this->getRootCategorie( query_r );
         return ;
     }
 
@@ -125,7 +125,7 @@ void Bookmark::getCategorie( QueryResult& query_r , const QString& parent )
     this->execQuery( query , query_r ) ;
 }
 
-void Bookmark::getOverCategoria( QueryResult& query_r , const QString& categoria )
+void Bookmark::getParentCategoria( QueryResult& query_r , const QString& categoria )
 {
     query_r.clear();
     QString query =  "select Id, Categoria from Categorie where " ;
@@ -137,11 +137,33 @@ void Bookmark::getOverCategoria( QueryResult& query_r , const QString& categoria
     this->execQuery( query , query_r ) ;
 }
 
-void Bookmark::getMainCategorie( QueryResult& query_r )
+void Bookmark::getRootCategorie( QueryResult& query_r )
 {
     query_r.clear();
-    QString query =  "select Id, Categoria from Categorie where " ;
+    QString query =  "select Id, Categoria, Ordine from Categorie where " ;
             query += "Id not in ( select IdSottoCategoria from Categoria_SottoCategoria ) " ;
+    this->execQuery( query , query_r ) ;
+}
+
+void Bookmark::getFavoritesByParent( QueryResult& query_r , const QString& parent )
+{
+    QString query ;
+
+    if ( parent.isEmpty() )
+    {
+        query = "select * from Favoriti  where Id not in ( select IdFavorito from Categorie_Favoriti where IdCategoria ) " ;
+    }
+    else
+    {
+        query =  "select * from Favoriti where " ;
+        query += "Id in ( select IdFavorito from Categorie_Favoriti where IdCategoria in " ;
+        query += " ( select Id from Categorie where Categoria like \"" ;
+        query += parent ;
+        query += "\"" ;
+        query += " ) ) " ;
+    }
+
+    query_r.clear() ;
     this->execQuery( query , query_r ) ;
 }
 
@@ -155,3 +177,4 @@ void Bookmark::execQuery( QString& query , QueryResult& qr )
 
     qr.printResult();
 }
+

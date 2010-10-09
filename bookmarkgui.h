@@ -22,6 +22,8 @@ private:
     Ui::BookmarkGui *ui;
 
     void fillCategorieRec( const QString& name , QTreeWidgetItem* parent ) ;
+    void setFolderItemDecorations( QTreeWidgetItem* item , const QString& name ) ;
+    void setArticleItemDecorations( QTreeWidgetItem* item , const QString& name ) ;
 };
 
 #endif // BOOKMARKGUI_H

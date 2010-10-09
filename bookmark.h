@@ -37,15 +37,17 @@ public:
     void getCategorie( QueryResult& query_r ) ;
     void getCategorie( QueryResult& query_r , const QString& parent ) ;
 
-    void getOverCategoria( QueryResult& query_r , const QString& cat ) ;
+    void getParentCategoria( QueryResult& query_r , const QString& cat ) ;
 
-    void getMainCategorie( QueryResult& query_r ) ;
+    void getRootCategorie( QueryResult& query_r ) ;
 
     void getStati( QueryResult& query_r ) ;
     void getValutazioni( QueryResult& query_r ) ;
 
+    void getFavoritesByParent( QueryResult& query_r , const QString& parent ) ;
+
     QueryResult getFavoritesByStato( QString IdStato ) ;
-    QueryResult getFavoritesByCategoria( QString IdCategoria ) ;
+
 
     QueryResult getCommento( QString IdFavorito ) ;
     QueryResult getValutazione( QString IdFavorito ) ;
