@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>628</width>
-    <height>478</height>
+    <width>631</width>
+    <height>493</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>614</width>
-        <height>464</height>
+        <width>617</width>
+        <height>479</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -51,8 +51,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>202</width>
-            <height>371</height>
+            <width>205</width>
+            <height>386</height>
            </rect>
           </property>
           <attribute name="label">
@@ -61,6 +61,9 @@
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <widget class="QTreeWidget" name="treeCategorie">
+             <property name="columnCount">
+              <number>1</number>
+             </property>
              <column>
               <property name="text">
                <string notr="true">1</string>
@@ -75,8 +78,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>83</width>
-            <height>72</height>
+            <width>202</width>
+            <height>371</height>
            </rect>
           </property>
           <attribute name="label">
@@ -99,8 +102,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>83</width>
-            <height>72</height>
+            <width>202</width>
+            <height>371</height>
            </rect>
           </property>
           <attribute name="label">

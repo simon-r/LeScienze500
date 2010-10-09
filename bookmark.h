@@ -45,6 +45,7 @@ public:
     void getValutazioni( QueryResult& query_r ) ;
 
     void getFavoritesByParent( QueryResult& query_r , const QString& parent ) ;
+    void getFavoriteFullData( QueryResult& query_r , const QString& parent ) ;
 
     QueryResult getFavoritesByStato( QString IdStato ) ;
 

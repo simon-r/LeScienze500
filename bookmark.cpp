@@ -167,6 +167,14 @@ void Bookmark::getFavoritesByParent( QueryResult& query_r , const QString& paren
     this->execQuery( query , query_r ) ;
 }
 
+void getFavoriteFullData( QueryResult& query_r , const QString& parent )
+{
+
+    query_r.clear() ;
+    QueryDB db ;
+
+}
+
 void Bookmark::execQuery( QString& query , QueryResult& qr )
 {
     configLS500 cfg ;

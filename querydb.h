@@ -91,10 +91,7 @@ public:
 
 private:
 
-
    void buildQuerySegTestoEsteso( QString &query ) ;
-
-
 
     QStringList parole_chiave ;
     QStringList parole_chiave_abstract ;
