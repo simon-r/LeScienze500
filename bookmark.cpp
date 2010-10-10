@@ -55,25 +55,26 @@ bool Bookmark::initBookmark()
     QFile file ;
     file.setFileName( db_path );
 
-    bool result ;
+    bool result , result_b ;
 
     QFile res ;
     res.setFileName(":/sql/sql/bookmark.sql" );
     res.open(QIODevice::ReadOnly) ;
-    QString full_sql = QString ( res.readAll() ) ;
+    QString full_sql = QString::fromUtf8( res.readAll() ) ;
+    qDebug() << full_sql ;
     res.close();
 
     res.setFileName(":/sql/sql/bookmark_init.sql" );
     res.open(QIODevice::ReadOnly) ;
-    QString full_init = QString ( res.readAll() ) ;
+    QString full_init = QString::fromUtf8( res.readAll() ) ;
     res.close();
 
     if ( !file.exists() )
     {
         result = QueryDB::execNAQuery( db_path , full_sql ) ;
-        result = result && QueryDB::execNAQuery( db_path , full_init ) ;
+        result_b = QueryDB::execNAQuery( db_path , full_init ) ;
 
-        return result ;
+        return result_b ;
     }
     else
         return true ;
@@ -180,9 +181,24 @@ void  Bookmark::getFavoriteFullData( QueryResult& query_r , const QString& id )
     query_r = db.execQuery( query ) ;
 }
 
+bool Bookmark::folderExist( QString name )
+{
+    QString query = "select Id from Categorie where Categoria like \"" ;
+    query += name ;
+    query += "\"  " ;
+
+    QueryResult query_r ;
+    this->execQuery( query , query_r ) ;
+
+    if ( query_r.size() > 0 )
+        return true ;
+    else
+        return false ;
+}
+
 void Bookmark::addFolder( QString parent , QString name )
 {
-    if ( parent.isEmpty() )
+    if ( parent.isEmpty() || this->folderExist( name ) )
     {
         parent = "Favoriti" ; //////////////////// ATTENZIONE cartella root !!!!!!!!!!!!!!!!!!!!!!!!!
     }
@@ -195,6 +211,7 @@ void Bookmark::addFolder( QString parent , QString name )
 
     int cnt = 1 ;
     QString name_cnt = name ;
+    QString name_cnt_save ;
     QueryResult query_r ;
     do
     {
@@ -202,8 +219,11 @@ void Bookmark::addFolder( QString parent , QString name )
         query_name += name_cnt ;
         query_name += "\" " ;
 
+        query_r.clear();
+        qDebug() << query_name ;
         this->execQuery( query_name , query_r );
 
+        name_cnt_save = name_cnt ;
         name_cnt = name  ;
         name_cnt += " (" ; name_cnt += QString().setNum( cnt ) ; name_cnt += ")" ;
         cnt++ ;
@@ -211,14 +231,34 @@ void Bookmark::addFolder( QString parent , QString name )
     while ( query_r.size() > 0 ) ;
 
     QString query = "insert into Categorie ( Categoria ) values ( \"" ;
-    query += name_cnt ;
+    query += name_cnt_save ;
     query += "\" ) " ;
+
+    this->execQuery( query ) ;
 
     qDebug() << query ;
 
-    QString query_parent = "insert into Categoria_SottoCategoria ( IdCategoria , IdSottoCategoria ) values ( %1 , %2 )" ;
+    QString query_id = "select Id from Categorie where Categoria like \"" ;
+    query_id += name_cnt_save ;
+    query_id += "\"  " ;
 
-    this->execQuery( query ) ;
+    QString query_id_p = "select Id from Categorie where Categoria like \"" ;
+    query_id_p += parent ;
+    query_id_p += "\" " ;
+
+    QueryResult query_r_id , query_r_idp ;
+
+    this->execQuery( query_id , query_r_id ) ;
+    this->execQuery( query_id_p , query_r_idp ) ;
+
+    QString query_parent = "insert into Categoria_SottoCategoria ( IdCategoria , IdSottoCategoria ) values ( " ;
+    query_parent += query_r_idp.getField( "Id" , query_r_idp.begin() ) ;
+    query_parent += " , " ;
+    query_parent += query_r_id.getField( "Id" , query_r_id.begin() ) ;
+    query_parent += " ) " ;
+
+    this->execQuery( query_parent );
+    qDebug() <<  query_parent ;
 }
 
 

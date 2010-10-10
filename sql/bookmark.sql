@@ -19,79 +19,79 @@
 
 create table Favoriti 
 (
-	Id integer primary key autoincrement,
-	IdArticolo integer not null unique,
-	Ordine integer
+Id integer primary key autoincrement,
+IdArticolo integer not null unique,
+Ordine integer
 ) ;
 
 create table Categorie 
 (
-	Id integer primary key autoincrement,
-	Categoria varchar(40) not null,
-	Ordine integer
+Id integer primary key autoincrement,
+Categoria varchar(40) not null,
+Ordine integer
 ) ;
 
 create table Categoria_SottoCategoria
 (
-	IdCategoria integer not null,
-	IdSottoCategoria integer not null unique,
-	primary key ( IdCategoria , IdSottoCategoria ),
-	foreign key ( IdCategoria ) references Categorie( Id ),
-	foreign key ( IdSottoCategoria ) references Categorie( Id ),
-	constraint NonSelfReference check ( IdSottoCategoria <> IdCategoria )
+IdCategoria integer not null,
+IdSottoCategoria integer not null unique,
+primary key ( IdCategoria , IdSottoCategoria ),
+foreign key ( IdCategoria ) references Categorie( Id ),
+foreign key ( IdSottoCategoria ) references Categorie( Id ),
+constraint NonSelfReference check ( IdSottoCategoria <> IdCategoria )
 ) ;
 
 create table Stato
 (
-	Id integer primary key autoincrement,
-	Stato varchar(20) not null unique
+Id integer primary key autoincrement,
+Stato varchar(20) not null unique
 ) ;
 
 create table Commenti
 (
-	Id integer primary key autoincrement,
-	Commento text 
+Id integer primary key autoincrement,
+Commento text 
 ) ;
 
 create table Valutazioni
 (
-	Id integer primary key autoincrement,
-	Valutazione integer unique,
-	constraint RangeValutazioni check ( Valutazione > 0 and Valutazione <= 5 )
+Id integer primary key autoincrement,
+Valutazione integer unique,
+constraint RangeValutazioni check ( Valutazione > 0 and Valutazione <= 5 )
 ) ;
 
 create table Categorie_Favoriti
 (
-	IdCategoria integer not null,
-	IdFavorito integer not null,
-	primary key ( IdCategoria , IdFavorito ),
-	foreign key ( IdCategoria ) references Categorie( Id ),
-	foreign key ( IdFavorito ) references Favoriti( Id )
+IdCategoria integer not null,
+IdFavorito integer not null,
+primary key ( IdCategoria , IdFavorito ),
+foreign key ( IdCategoria ) references Categorie( Id ),
+foreign key ( IdFavorito ) references Favoriti( Id )
 ) ;
 
 create table Stato_Favoriti 
 (
-	IdStato integer not null,
-	IdFavorito integer not null,
-	primary key( IdStato, IdFavoriti ),
-	foreign key( IdStato ) references Stato( Id ),
-	foreign key( IdFavorito ) references Favoriti( Id )
+IdStato integer not null,
+IdFavorito integer not null,
+primary key( IdStato, IdFavoriti ),
+foreign key( IdStato ) references Stato( Id ),
+foreign key( IdFavorito ) references Favoriti( Id )
 ) ;
 
 create table Commento_Favoriti
 (
-	IdCommento integer not null unique,
-	IdFavorito integer not null unique,
-	primary key ( IdCommento , IdFavoriti ),
-	foreign key ( IdCommento ) references Commenti ( Id ),
-	foreign key ( IdFavorito ) references Favoriti ( Id )
+IdCommento integer not null unique,
+IdFavorito integer not null unique,
+primary key ( IdCommento , IdFavoriti ),
+foreign key ( IdCommento ) references Commenti ( Id ),
+foreign key ( IdFavorito ) references Favoriti ( Id )
 ) ;
 
 create table Valutazioni_Favoriti
 (
-	IdValutazione integer not null,
-	IdFavorito integer not null,
-	primary key ( IdValutazione , IdFavorito ),
-	foreign key ( IdValutazione ) references Valutazioni ( Id ),
-	foreign key ( IdFavorito ) references Favoriti ( Id )
+IdValutazione integer not null,
+IdFavorito integer not null,
+primary key ( IdValutazione , IdFavorito ),
+foreign key ( IdValutazione ) references Valutazioni ( Id ),
+foreign key ( IdFavorito ) references Favoriti ( Id )
 ) ;

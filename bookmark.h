@@ -50,6 +50,7 @@ public:
     QueryResult getFavoritesByStato( QString IdStato ) ;
 
     void addFolder( QString parent , QString name ) ;
+    bool folderExist( QString name ) ;
 
 
     QueryResult getCommento( QString IdFavorito ) ;

@@ -58,7 +58,6 @@ QueryResult QueryDB::getAutori( QString filtro )
     query.append( filtro );
     query.append("%'");
     query.append(" order by Autore");
-
     return execQuery( query ) ;
 }
 
@@ -89,7 +88,10 @@ bool QueryDB::execNAQuery(QString db_path , QString query )
     if ( sqlite_err == SQLITE_OK )
         return true ;
     else
+    {
+        qDebug() << "SQL Lite error code: " << sqlite_err ;
         return false ;
+    }
 
 }
 
