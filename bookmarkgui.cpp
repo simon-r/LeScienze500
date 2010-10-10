@@ -197,6 +197,11 @@ void BookmarkGui::appendFolder( QString name )
 
 void BookmarkGui::on_newFolder()
 {
-    this->appendFolder( "" ) ;
+    this->name_d.open();
+
+    if ( this->name_d.text().isEmpty() )
+        return ;
+
+    this->appendFolder( this->name_d.text() ) ;
 }
 

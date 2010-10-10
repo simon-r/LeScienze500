@@ -22,6 +22,7 @@
 #include <QDialog>
 #include <QTreeWidgetItem>
 #include <QMenu>
+#include "setname.h"
 
 namespace Ui {
     class BookmarkGui;
@@ -54,6 +55,8 @@ private:
     void fillCategorieRec( const QString& name , QTreeWidgetItem* parent ) ;
     void setFolderItemDecorations( QTreeWidgetItem* item , const QString& name ) ;
     void setArticleItemDecorations( QTreeWidgetItem* item , const QString& id ) ;
+
+    SetName name_d ;
 
 public slots:
     void on_favoriteActivated( QTreeWidgetItem * item, int column ) ;
