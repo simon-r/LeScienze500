@@ -198,7 +198,7 @@ bool Bookmark::folderExist( QString name )
 
 QString Bookmark::addFolder( QString parent , QString name )
 {
-    if ( parent.isEmpty() || this->folderExist( name ) )
+    if ( parent.isEmpty() || !this->folderExist( name ) )
     {
         parent = "Favoriti" ; //////////////////// ATTENZIONE cartella root !!!!!!!!!!!!!!!!!!!!!!!!!
     }
@@ -207,7 +207,6 @@ QString Bookmark::addFolder( QString parent , QString name )
     {
         name = "Nuova Cartella" ;
     }
-
 
     int cnt = 1 ;
     QString name_cnt = name ;
@@ -263,7 +262,43 @@ QString Bookmark::addFolder( QString parent , QString name )
     return name_cnt_save ;
 }
 
+QString Bookmark::addFavorite( QString parent , QString id )
+{
+    if ( parent.isEmpty() || !this->folderExist( parent ) )
+    {
+        QueryResult query_root ;
+        getRootCategorie( query_root ) ;
+        if ( query_root.empty() ) return QString( "" ) ;
+        parent = query_root.getField( "Categoria" , query_root.begin() ) ;
+    }
 
+    QueryResult query_r ;
+    getFavoriteFullData( query_r , id ) ;
+
+    if ( query_r.empty() ) return QString( "" ) ;
+
+    QString query = "insert into Favoriti ( IdArticolo ) values ( " ;
+    query += id ;
+    query += " ) " ;
+
+    QString query_id_p = "select Id from Categorie where Categoria like \"" ;
+    query_id_p += parent ;
+    query_id_p += "\" " ;
+
+    QueryResult query_r_idp ;
+    this->execQuery( query_id_p , query_r_idp ) ;
+
+    QString query_tr = "insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( " ;
+    query_tr += query_r_idp.getField( "Id" , query_r_idp.begin() ) ;
+    query_tr += " , " ;
+    query_tr += id ;
+    query_tr += " ) " ;
+
+    this->execQuery( query ) ;
+    this->execQuery( query_tr ) ;
+
+    return query_r.getField( "Titolo" , query_r.begin() ) ;
+}
 
 void Bookmark::execQuery( QString& query , QueryResult& qr )
 {

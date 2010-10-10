@@ -91,8 +91,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>83</width>
-            <height>72</height>
+            <width>211</width>
+            <height>392</height>
            </rect>
           </property>
           <attribute name="label">
@@ -115,8 +115,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>83</width>
-            <height>72</height>
+            <width>211</width>
+            <height>392</height>
            </rect>
           </property>
           <attribute name="label">
@@ -208,14 +208,20 @@
              <enum>QFrame::Raised</enum>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
-             <item row="1" column="1">
+             <item row="1" column="2">
               <widget class="QPushButton" name="OpenReview">
+               <property name="minimumSize">
+                <size>
+                 <width>190</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string>Visualizza Rivista</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="1" rowspan="4">
+             <item row="2" column="2" rowspan="4">
               <widget class="QPushButton" name="OpenPDF">
                <property name="minimumSize">
                 <size>
@@ -238,7 +244,10 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
+             <item row="4" column="0" colspan="2">
+              <widget class="QComboBox" name="State"/>
+             </item>
+             <item row="3" column="0" colspan="2">
               <widget class="QComboBox" name="Evaluation">
                <property name="locale">
                 <locale language="Italian" country="Switzerland"/>
@@ -263,8 +272,35 @@
                </item>
               </widget>
              </item>
-             <item row="2" column="0">
-              <widget class="QComboBox" name="State"/>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="AddFavorite">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Aggiungi</string>
+               </property>
+               <property name="icon">
+                <iconset resource="crystal.qrc">
+                 <normaloff>:/icons/crystal/1leftarrow-256.png</normaloff>:/icons/crystal/1leftarrow-256.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>

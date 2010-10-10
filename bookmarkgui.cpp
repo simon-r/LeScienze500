@@ -27,18 +27,41 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     ui(new Ui::BookmarkGui)
 {
     ui->setupUi(this);
+
     current_favorites_item = 0 ;
+    current_favorite = "" ;
+
     buildMenuFavorites() ;
+    this->setWindowTitle( "Preferiti (alpha release)" );
+
     connect( ui->treeCategorie , SIGNAL(itemClicked(QTreeWidgetItem*,int)) , this , SLOT(on_favoriteActivated(QTreeWidgetItem*,int)) ) ;
+    connect( ui->AddFavorite , SIGNAL(clicked()) , this , SLOT(on_addFavorite()) ) ;
 }
 
 void BookmarkGui::open()
 {
+    current_favorite = "" ;
     current_favorites_item = 0 ;
+
     fillCategorie() ;
 
     setModal( true ) ;
     show() ;
+    exec() ;
+}
+
+void BookmarkGui::open_article( QString id )
+{
+    current_favorites_item = 0 ;
+
+    fillCategorie() ;
+
+    setModal( true ) ;
+    show() ;
+
+    current_favorite = id ;
+    this->fillFavoriteInfo( id ) ;
+
     exec() ;
 }
 
@@ -195,6 +218,34 @@ void BookmarkGui::appendFolder( QString name )
      this->setFolderItemDecorations( new_folder , name ) ;
 }
 
+void BookmarkGui::appendFavorite( QString id )
+{
+    Bookmark bk ;
+    QString parent = "" ;
+    QTreeWidgetItem* parent_item ;
+    QTreeWidgetItem* new_favorite ;
+
+    if ( this->current_favorites_item == 0 )
+    {
+        parent = "" ;
+    }
+    else if ( this->current_favorites_item->type() == BookmarkGui::item_folder )
+    {
+        parent = this->current_favorites_item->text( 0 ) ;
+        parent_item = this->current_favorites_item ;
+    }
+    else if ( this->current_favorites_item->type() == BookmarkGui::item_article )
+    {
+        parent = this->current_favorites_item->parent()->text( 0 ) ;
+        parent_item = this->current_favorites_item = this->current_favorites_item->parent() ;
+    }
+
+    QString title = bk.addFavorite( parent , id ) ;
+
+    new_favorite = new QTreeWidgetItem( parent_item , BookmarkGui::item_article ) ;
+    this->setArticleItemDecorations( new_favorite , id ) ;
+}
+
 void BookmarkGui::on_newFolder()
 {
     this->name_d.open();
@@ -203,5 +254,11 @@ void BookmarkGui::on_newFolder()
         return ;
 
     this->appendFolder( this->name_d.text() ) ;
+}
+
+void BookmarkGui::on_addFavorite()
+{
+    if ( this->current_favorite == "" ) return ;
+    this->appendFavorite( this->current_favorite );
 }
 

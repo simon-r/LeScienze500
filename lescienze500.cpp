@@ -838,7 +838,7 @@ void LeScienze500::on_openPDF( int id_articolo )
 void LeScienze500::on_openBookmark()
 {
     BuildBookmark() ;
-    this->bk_gui->open();
+    this->bk_gui->open_article( "1000" );
 }
 
 void LeScienze500::on_openAbout()

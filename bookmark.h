@@ -1,5 +1,5 @@
 //     Copyright 2010 Simone Riva
-//     mail:  simone (dot) rva (lumachina) gmail.com
+//     mail:  simone (dot) rva (-a-) gmail.com
 //
 //    This file is part of LeScienze500.
 //
@@ -52,6 +52,7 @@ public:
     QString addFolder( QString parent , QString name ) ;
     bool folderExist( QString name ) ;
 
+    QString addFavorite( QString parent , QString id ) ;
 
     QueryResult getCommento( QString IdFavorito ) ;
     QueryResult getValutazione( QString IdFavorito ) ;

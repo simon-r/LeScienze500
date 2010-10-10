@@ -39,13 +39,16 @@ public:
     void fillCategorie() ;
     void fillFavoriteInfo( const QString& id ) ;
     void appendFolder( QString name ) ;
+    void appendFavorite( QString id ) ;
 
     void open() ;
+    void open_article( QString id ) ;
 
 private:
     Ui::BookmarkGui *ui;
     QMenu menuFavorites ;
     QTreeWidgetItem* current_favorites_item ;
+    QString current_favorite ;
 
     void buildMenuFavorites() ;
 
@@ -61,6 +64,7 @@ private:
 public slots:
     void on_favoriteActivated( QTreeWidgetItem * item, int column ) ;
     void on_newFolder() ;
+    void on_addFavorite() ;
 };
 
 #endif // BOOKMARKGUI_H
