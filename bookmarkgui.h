@@ -65,6 +65,10 @@ public slots:
     void on_favoriteActivated( QTreeWidgetItem * item, int column ) ;
     void on_newFolder() ;
     void on_addFavorite() ;
+    void on_openPdf() ;
+
+signals:
+    void sig_openPdf( int id ) ;
 };
 
 #endif // BOOKMARKGUI_H

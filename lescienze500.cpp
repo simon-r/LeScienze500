@@ -815,6 +815,7 @@ void LeScienze500::BuildBookmark()
     if ( bk_gui == 0 )
     {
         bk_gui = new BookmarkGui() ;
+        connect( bk_gui , SIGNAL(sig_openPdf(int)) , this , SLOT(on_openPDF(int)) ) ;
     }
 }
 

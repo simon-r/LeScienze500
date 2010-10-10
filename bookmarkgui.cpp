@@ -36,6 +36,7 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 
     connect( ui->treeCategorie , SIGNAL(itemClicked(QTreeWidgetItem*,int)) , this , SLOT(on_favoriteActivated(QTreeWidgetItem*,int)) ) ;
     connect( ui->AddFavorite , SIGNAL(clicked()) , this , SLOT(on_addFavorite()) ) ;
+    connect( ui->OpenPDF , SIGNAL(clicked()) , this , SLOT(on_openPdf()) ) ;
 }
 
 void BookmarkGui::open()
@@ -264,3 +265,7 @@ void BookmarkGui::on_addFavorite()
     this->appendFavorite( this->current_favorite );
 }
 
+void BookmarkGui::on_openPdf()
+{
+    emit this->sig_openPdf( this->current_favorite.toInt() );
+}
