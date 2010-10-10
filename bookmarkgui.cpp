@@ -27,10 +27,19 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     ui(new Ui::BookmarkGui)
 {
     ui->setupUi(this);
-    fillCategorie() ;
+    current_favorites_item = 0 ;
     buildMenuFavorites() ;
     connect( ui->treeCategorie , SIGNAL(itemClicked(QTreeWidgetItem*,int)) , this , SLOT(on_favoriteActivated(QTreeWidgetItem*,int)) ) ;
+}
 
+void BookmarkGui::open()
+{
+    current_favorites_item = 0 ;
+    fillCategorie() ;
+
+    setModal( true ) ;
+    show() ;
+    exec() ;
 }
 
 void BookmarkGui::buildMenuFavorites()
@@ -83,6 +92,7 @@ void BookmarkGui::fillCategorie()
      }
 
      ui->treeCategorie->clear();
+     current_favorites_item = items.first() ;
      ui->treeCategorie->insertTopLevelItems(0, items);
 }
 
@@ -153,19 +163,40 @@ void BookmarkGui::on_favoriteActivated( QTreeWidgetItem * item, int column )
     {
         this->fillFavoriteInfo( item->text( 1 ) );
     }
+
+    this->current_favorites_item = item ;
 }
 
 void BookmarkGui::appendFolder( QString name )
 {
     Bookmark bk ;
     QString parent = "" ;
+    QTreeWidgetItem* parent_item ;
+    QTreeWidgetItem* new_folder ;
 
+    if ( this->current_favorites_item == 0 )
+    {
+        parent = "" ; // Unused !!!!
+    }
+    else if ( this->current_favorites_item->type() == BookmarkGui::item_folder )
+    {
+        parent = this->current_favorites_item->text( 0 ) ;
+        parent_item = this->current_favorites_item ;
+    }
+    else if ( this->current_favorites_item->type() == BookmarkGui::item_article )
+    {
+        parent = this->current_favorites_item->parent()->text( 0 ) ;
+        parent_item = this->current_favorites_item = this->current_favorites_item->parent() ;
+    }
 
+     name = bk.addFolder( parent , name ) ;
 
-    bk.addFolder( parent , name ) ;
+     new_folder = new QTreeWidgetItem( parent_item , BookmarkGui::item_folder ) ;
+     this->setFolderItemDecorations( new_folder , name ) ;
 }
 
 void BookmarkGui::on_newFolder()
 {
     this->appendFolder( "" ) ;
 }
+

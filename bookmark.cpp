@@ -196,7 +196,7 @@ bool Bookmark::folderExist( QString name )
         return false ;
 }
 
-void Bookmark::addFolder( QString parent , QString name )
+QString Bookmark::addFolder( QString parent , QString name )
 {
     if ( parent.isEmpty() || this->folderExist( name ) )
     {
@@ -259,6 +259,8 @@ void Bookmark::addFolder( QString parent , QString name )
 
     this->execQuery( query_parent );
     qDebug() <<  query_parent ;
+
+    return name_cnt_save ;
 }
 
 

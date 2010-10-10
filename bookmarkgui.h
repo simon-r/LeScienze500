@@ -39,9 +39,12 @@ public:
     void fillFavoriteInfo( const QString& id ) ;
     void appendFolder( QString name ) ;
 
+    void open() ;
+
 private:
     Ui::BookmarkGui *ui;
     QMenu menuFavorites ;
+    QTreeWidgetItem* current_favorites_item ;
 
     void buildMenuFavorites() ;
 
