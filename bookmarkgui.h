@@ -17,13 +17,20 @@ public:
     ~BookmarkGui();
 
     void fillCategorie() ;
+    void fillFavoriteInfo( const QString& id ) ;
 
 private:
     Ui::BookmarkGui *ui;
 
+    static const int item_folder = 1001 ;
+    static const int item_article = 1002 ;
+
     void fillCategorieRec( const QString& name , QTreeWidgetItem* parent ) ;
     void setFolderItemDecorations( QTreeWidgetItem* item , const QString& name ) ;
     void setArticleItemDecorations( QTreeWidgetItem* item , const QString& id ) ;
+
+public slots:
+    void on_favoriteActivated( QTreeWidgetItem * item, int column ) ;
 };
 
 #endif // BOOKMARKGUI_H

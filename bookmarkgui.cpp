@@ -1,6 +1,7 @@
 #include "bookmarkgui.h"
 #include "ui_bookmarkgui.h"
 #include "bookmark.h"
+#include "QDebug"
 
 BookmarkGui::BookmarkGui(QWidget *parent) :
     QDialog(parent),
@@ -8,6 +9,8 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 {
     ui->setupUi(this);
     fillCategorie() ;
+
+    connect( ui->treeCategorie , SIGNAL(itemClicked(QTreeWidgetItem*,int)) , this , SLOT(on_favoriteActivated(QTreeWidgetItem*,int)) ) ;
 }
 
 BookmarkGui::~BookmarkGui()
@@ -26,7 +29,7 @@ void BookmarkGui::fillCategorie()
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
          QString name = qr.getField( "Categoria" , itr ) ;
-         QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 ) ;
+         QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_folder ) ;
          setFolderItemDecorations( item , name ) ;
          fillCategorieRec( name , item ) ;
          items.append( item ) ;
@@ -36,7 +39,7 @@ void BookmarkGui::fillCategorie()
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
           QString name = qr.getField( "IdArticolo" , itr ) ;
-          QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 ) ;
+          QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_article ) ;
           this->setArticleItemDecorations( item , name ) ;
           items.append( item );
      }
@@ -54,7 +57,7 @@ void BookmarkGui::fillCategorieRec( const QString& name , QTreeWidgetItem* paren
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
           QString name = qr.getField( "Categoria" , itr ) ;
-          QTreeWidgetItem* item = new QTreeWidgetItem( parent ) ;
+          QTreeWidgetItem* item = new QTreeWidgetItem( parent , BookmarkGui::item_folder ) ;
           this->setFolderItemDecorations( item , name ) ;
           this->fillCategorieRec( name , item ) ;
      }
@@ -63,7 +66,7 @@ void BookmarkGui::fillCategorieRec( const QString& name , QTreeWidgetItem* paren
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
           QString name = qr.getField( "IdArticolo" , itr ) ;
-          QTreeWidgetItem* item = new QTreeWidgetItem( parent ) ;
+          QTreeWidgetItem* item = new QTreeWidgetItem( parent , BookmarkGui::item_article ) ;
           this->setArticleItemDecorations( item , name ) ;
      }
 
@@ -78,6 +81,16 @@ void BookmarkGui::setFolderItemDecorations( QTreeWidgetItem* item , const QStrin
     item->setText( 1 , "folder" ) ;
 }
 
+void BookmarkGui::fillFavoriteInfo( const QString& id )
+{
+    QueryResult article ;
+    Bookmark bk ;
+    bk.getFavoriteFullData( article , id ) ;
+
+    ui->Title->setHtml( article.getField( "Titolo" , article.begin() ) );
+    ui->Abstract->setHtml( article.getField( "Abstract" , article.begin() ) );
+}
+
 void BookmarkGui::setArticleItemDecorations( QTreeWidgetItem* item , const QString& id )
 {
     QueryResult article ;
@@ -89,4 +102,13 @@ void BookmarkGui::setArticleItemDecorations( QTreeWidgetItem* item , const QStri
     item->setText( 0 , article.getField( "Titolo" , article.begin() ) );
 
     item->setText( 1 , id );
+}
+
+
+void BookmarkGui::on_favoriteActivated( QTreeWidgetItem * item, int column )
+{
+    if ( item->type() == BookmarkGui::item_article  )
+    {
+        this->fillFavoriteInfo( item->text( 1 ) );
+    }
 }
