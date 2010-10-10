@@ -27,7 +27,7 @@ create table Favoriti
 create table Categorie 
 (
 	Id integer primary key autoincrement,
-	Categoria varchar(40) not null unique,
+	Categoria varchar(40) not null,
 	Ordine integer
 ) ;
 

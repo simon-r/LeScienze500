@@ -180,6 +180,49 @@ void  Bookmark::getFavoriteFullData( QueryResult& query_r , const QString& id )
     query_r = db.execQuery( query ) ;
 }
 
+void Bookmark::addFolder( QString parent , QString name )
+{
+    if ( parent.isEmpty() )
+    {
+        parent = "Favoriti" ; //////////////////// ATTENZIONE cartella root !!!!!!!!!!!!!!!!!!!!!!!!!
+    }
+
+    if ( name.isEmpty() )
+    {
+        name = "Nuova Cartella" ;
+    }
+
+
+    int cnt = 1 ;
+    QString name_cnt = name ;
+    QueryResult query_r ;
+    do
+    {
+        QString query_name = "select * from Categorie where Categoria like \"" ;
+        query_name += name_cnt ;
+        query_name += "\" " ;
+
+        this->execQuery( query_name , query_r );
+
+        name_cnt = name  ;
+        name_cnt += " (" ; name_cnt += QString().setNum( cnt ) ; name_cnt += ")" ;
+        cnt++ ;
+    }
+    while ( query_r.size() > 0 ) ;
+
+    QString query = "insert into Categorie ( Categoria ) values ( \"" ;
+    query += name_cnt ;
+    query += "\" ) " ;
+
+    qDebug() << query ;
+
+    QString query_parent = "insert into Categoria_SottoCategoria ( IdCategoria , IdSottoCategoria ) values ( %1 , %2 )" ;
+
+    this->execQuery( query ) ;
+}
+
+
+
 void Bookmark::execQuery( QString& query , QueryResult& qr )
 {
     configLS500 cfg ;
@@ -189,5 +232,14 @@ void Bookmark::execQuery( QString& query , QueryResult& qr )
     db.execQuery( db_path , query , qr ) ;
 
     qr.printResult();
+}
+
+void Bookmark::execQuery( const QString& query )
+{
+    configLS500 cfg ;
+    QString db_path = cfg.getBookmarkPath() ;
+
+    QueryDB db ;
+    db.execNAQuery( db_path , query ) ;
 }
 

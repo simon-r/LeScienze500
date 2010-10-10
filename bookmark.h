@@ -49,6 +49,8 @@ public:
 
     QueryResult getFavoritesByStato( QString IdStato ) ;
 
+    void addFolder( QString parent , QString name ) ;
+
 
     QueryResult getCommento( QString IdFavorito ) ;
     QueryResult getValutazione( QString IdFavorito ) ;
@@ -61,6 +63,7 @@ public:
 private:
 
     void execQuery( QString& query , QueryResult& qr ) ;
+    void execQuery( const QString& query ) ;
 };
 
 #endif // BOOKMARK_H

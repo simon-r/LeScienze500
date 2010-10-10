@@ -12,17 +12,22 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     fillCategorie() ;
     buildMenuFavorites() ;
     connect( ui->treeCategorie , SIGNAL(itemClicked(QTreeWidgetItem*,int)) , this , SLOT(on_favoriteActivated(QTreeWidgetItem*,int)) ) ;
+
 }
 
 void BookmarkGui::buildMenuFavorites()
 {
-    this->menuFavorites.addAction( "Nuova Cartella" ) ;
+    QAction* new_folder = new QAction( tr( "Nuova Cartella" ) , 0 );
+    connect( new_folder , SIGNAL(triggered()) , this , SLOT(on_newFolder()) ) ;
+    this->menuFavorites.addAction( new_folder ) ;
+
+
     this->menuFavorites.addSeparator() ;
-    this->menuFavorites.addAction( "Taglia" ) ;
-    this->menuFavorites.addAction( "Copia" ) ;
-    this->menuFavorites.addAction( "Incolla" ) ;
+    this->menuFavorites.addAction( tr( "Taglia" ) ) ;
+    this->menuFavorites.addAction( tr( "Copia" ) ) ;
+    this->menuFavorites.addAction( tr( "Incolla" ) ) ;
     this->menuFavorites.addSeparator() ;
-    this->menuFavorites.addAction( "Rimuovi" ) ;
+    this->menuFavorites.addAction(tr( "Rimuovi" ) ) ;
     this->menuFavorites.addSeparator() ;
 
     ui->mainFavoritesMenu->setMenu( &this->menuFavorites );
@@ -129,4 +134,11 @@ void BookmarkGui::on_favoriteActivated( QTreeWidgetItem * item, int column )
     {
         this->fillFavoriteInfo( item->text( 1 ) );
     }
+}
+
+void BookmarkGui::on_newFolder()
+{
+    qDebug() << "new folder" ;
+    Bookmark bk ;
+    bk.addFolder( "" , "Ciao" );
 }

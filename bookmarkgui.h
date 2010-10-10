@@ -35,6 +35,7 @@ private:
 
 public slots:
     void on_favoriteActivated( QTreeWidgetItem * item, int column ) ;
+    void on_newFolder() ;
 };
 
 #endif // BOOKMARKGUI_H
