@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QTreeWidgetItem>
+#include <QMenu>
 
 namespace Ui {
     class BookmarkGui;
@@ -21,6 +22,9 @@ public:
 
 private:
     Ui::BookmarkGui *ui;
+    QMenu menuFavorites ;
+
+    void buildMenuFavorites() ;
 
     static const int item_folder = 1001 ;
     static const int item_article = 1002 ;

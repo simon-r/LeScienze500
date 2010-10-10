@@ -2,6 +2,7 @@
 #include "ui_bookmarkgui.h"
 #include "bookmark.h"
 #include "QDebug"
+#include <QAction>
 
 BookmarkGui::BookmarkGui(QWidget *parent) :
     QDialog(parent),
@@ -9,8 +10,22 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 {
     ui->setupUi(this);
     fillCategorie() ;
-
+    buildMenuFavorites() ;
     connect( ui->treeCategorie , SIGNAL(itemClicked(QTreeWidgetItem*,int)) , this , SLOT(on_favoriteActivated(QTreeWidgetItem*,int)) ) ;
+}
+
+void BookmarkGui::buildMenuFavorites()
+{
+    this->menuFavorites.addAction( "Nuova Cartella" ) ;
+    this->menuFavorites.addSeparator() ;
+    this->menuFavorites.addAction( "Taglia" ) ;
+    this->menuFavorites.addAction( "Copia" ) ;
+    this->menuFavorites.addAction( "Incolla" ) ;
+    this->menuFavorites.addSeparator() ;
+    this->menuFavorites.addAction( "Rimuovi" ) ;
+    this->menuFavorites.addSeparator() ;
+
+    ui->mainFavoritesMenu->setMenu( &this->menuFavorites );
 }
 
 BookmarkGui::~BookmarkGui()
@@ -69,7 +84,6 @@ void BookmarkGui::fillCategorieRec( const QString& name , QTreeWidgetItem* paren
           QTreeWidgetItem* item = new QTreeWidgetItem( parent , BookmarkGui::item_article ) ;
           this->setArticleItemDecorations( item , name ) ;
      }
-
 }
 
 void BookmarkGui::setFolderItemDecorations( QTreeWidgetItem* item , const QString& name )
@@ -87,6 +101,8 @@ void BookmarkGui::fillFavoriteInfo( const QString& id )
     Bookmark bk ;
     bk.getFavoriteFullData( article , id ) ;
 
+    if ( article.size() == 0 ) return ;
+
     ui->Title->setHtml( article.getField( "Titolo" , article.begin() ) );
     ui->Abstract->setHtml( article.getField( "Abstract" , article.begin() ) );
 }
@@ -99,6 +115,8 @@ void BookmarkGui::setArticleItemDecorations( QTreeWidgetItem* item , const QStri
 
     QIcon doc_icon(":/icons/crystal/doc-icon.png") ;
     item->setIcon( 0 , doc_icon );
+
+    if ( article.size() == 0 ) return ;
     item->setText( 0 , article.getField( "Titolo" , article.begin() ) );
 
     item->setText( 1 , id );

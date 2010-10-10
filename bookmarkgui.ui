@@ -66,6 +66,13 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
+            <widget class="QPushButton" name="mainFavoritesMenu">
+             <property name="text">
+              <string>Azioni</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QTreeWidget" name="treeCategorie">
              <property name="columnCount">
               <number>1</number>
@@ -84,8 +91,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>205</width>
-            <height>386</height>
+            <width>83</width>
+            <height>72</height>
            </rect>
           </property>
           <attribute name="label">
@@ -108,8 +115,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>205</width>
-            <height>386</height>
+            <width>83</width>
+            <height>72</height>
            </rect>
           </property>
           <attribute name="label">
