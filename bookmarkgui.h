@@ -23,7 +23,7 @@ private:
 
     void fillCategorieRec( const QString& name , QTreeWidgetItem* parent ) ;
     void setFolderItemDecorations( QTreeWidgetItem* item , const QString& name ) ;
-    void setArticleItemDecorations( QTreeWidgetItem* item , const QString& name ) ;
+    void setArticleItemDecorations( QTreeWidgetItem* item , const QString& id ) ;
 };
 
 #endif // BOOKMARKGUI_H

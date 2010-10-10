@@ -32,6 +32,7 @@ insert into Favoriti ( IdArticolo ) values ( 1 ) ;
 insert into Favoriti ( IdArticolo ) values ( 13 ) ;
 insert into Favoriti ( IdArticolo ) values ( 2000 ) ;
 insert into Favoriti ( IdArticolo ) values ( 3333 ) ;
+insert into Favoriti ( IdArticolo ) values ( 3876 ) ;
 
 
 insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( 3 , 3 ) ;

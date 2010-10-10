@@ -167,12 +167,17 @@ void Bookmark::getFavoritesByParent( QueryResult& query_r , const QString& paren
     this->execQuery( query , query_r ) ;
 }
 
-void getFavoriteFullData( QueryResult& query_r , const QString& parent )
+void  Bookmark::getFavoriteFullData( QueryResult& query_r , const QString& id )
 {
-
     query_r.clear() ;
-    QueryDB db ;
+    QString query ;
 
+    query = "select * from Articoli where Id = \"" ;
+    query += id ;
+    query += "\" " ;
+
+    QueryDB db ;
+    query_r = db.execQuery( query ) ;
 }
 
 void Bookmark::execQuery( QString& query , QueryResult& qr )

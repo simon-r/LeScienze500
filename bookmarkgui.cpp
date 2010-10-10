@@ -74,11 +74,19 @@ void BookmarkGui::setFolderItemDecorations( QTreeWidgetItem* item , const QStrin
     QIcon folder(":/icons/crystal/folder.png") ;
     item->setIcon( 0 , folder);
     item->setText( 0 , name );
+
+    item->setText( 1 , "folder" ) ;
 }
 
-void BookmarkGui::setArticleItemDecorations( QTreeWidgetItem* item , const QString& name )
+void BookmarkGui::setArticleItemDecorations( QTreeWidgetItem* item , const QString& id )
 {
-    QIcon doc(":/icons/crystal/doc-icon.png") ;
-    item->setIcon( 0 , doc );
-    item->setText( 0 , name );
+    QueryResult article ;
+    Bookmark bk ;
+    bk.getFavoriteFullData( article , id ) ;
+
+    QIcon doc_icon(":/icons/crystal/doc-icon.png") ;
+    item->setIcon( 0 , doc_icon );
+    item->setText( 0 , article.getField( "Titolo" , article.begin() ) );
+
+    item->setText( 1 , id );
 }
