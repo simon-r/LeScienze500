@@ -200,7 +200,10 @@ QString Bookmark::addFolder( QString parent , QString name )
 {
     if ( parent.isEmpty() || !this->folderExist( name ) )
     {
-        parent = "Favoriti" ; //////////////////// ATTENZIONE cartella root !!!!!!!!!!!!!!!!!!!!!!!!!
+        QueryResult query_root ;
+        getRootCategorie( query_root ) ;
+        if ( query_root.empty() ) return QString( "" ) ;
+        parent = query_root.getField( "Categoria" , query_root.begin() ) ;
     }
 
     if ( name.isEmpty() )
@@ -280,6 +283,13 @@ QString Bookmark::addFavorite( QString parent , QString id )
     QString query = "insert into Favoriti ( IdArticolo ) values ( " ;
     query += id ;
     query += " ) " ;
+    this->execQuery( query ) ;
+
+    QString query_ida = "select Id from Favoriti where IdArticolo = " ;
+    query_ida += id ;
+
+    QueryResult query_r_ida ;
+    this->execQuery( query_ida , query_r_ida ) ;
 
     QString query_id_p = "select Id from Categorie where Categoria like \"" ;
     query_id_p += parent ;
@@ -291,10 +301,12 @@ QString Bookmark::addFavorite( QString parent , QString id )
     QString query_tr = "insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( " ;
     query_tr += query_r_idp.getField( "Id" , query_r_idp.begin() ) ;
     query_tr += " , " ;
-    query_tr += id ;
+    query_tr += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
     query_tr += " ) " ;
 
-    this->execQuery( query ) ;
+    qDebug() << query_tr ;
+
+
     this->execQuery( query_tr ) ;
 
     return query_r.getField( "Titolo" , query_r.begin() ) ;
@@ -308,7 +320,7 @@ void Bookmark::execQuery( QString& query , QueryResult& qr )
     QueryDB db ;
     db.execQuery( db_path , query , qr ) ;
 
-    qr.printResult();
+    //qr.printResult();
 }
 
 void Bookmark::execQuery( const QString& query )

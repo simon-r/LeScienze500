@@ -302,7 +302,7 @@ articolo.</string>
                 </spacer>
                </item>
                <item row="4" column="5">
-                <widget class="QPushButton" name="pushButton_2">
+                <widget class="QPushButton" name="addFavoriti">
                  <property name="text">
                   <string>f</string>
                  </property>

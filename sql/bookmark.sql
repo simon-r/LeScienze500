@@ -21,14 +21,14 @@ create table Favoriti
 (
 Id integer primary key autoincrement,
 IdArticolo integer not null unique,
-Ordine integer
+Ordine integer default 1
 ) ;
 
 create table Categorie 
 (
 Id integer primary key autoincrement,
 Categoria varchar(40) not null,
-Ordine integer
+Ordine integer  default 1
 ) ;
 
 create table Categoria_SottoCategoria

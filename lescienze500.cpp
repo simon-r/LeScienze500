@@ -61,6 +61,7 @@ LeScienze500::LeScienze500(QWidget *parent) :
     connect( ui->actionConfigura , SIGNAL(triggered()) , this , SLOT(on_Configura_clicked()) ) ;
     connect( ui->actionOrganizza_preferiti , SIGNAL(triggered()) , this , SLOT(on_openBookmark()) ) ;
     connect( ui->actionAbout , SIGNAL(triggered()) , this , SLOT(on_openAbout()) ) ;
+    connect( ui->addFavoriti , SIGNAL(clicked()) , this , SLOT(on_addFavoriti()) ) ;
 }
 
 LeScienze500::~LeScienze500()
@@ -838,7 +839,7 @@ void LeScienze500::on_openPDF( int id_articolo )
 void LeScienze500::on_openBookmark()
 {
     BuildBookmark() ;
-    this->bk_gui->open_article( "1000" );
+    this->bk_gui->open();
 }
 
 void LeScienze500::on_openAbout()
@@ -912,6 +913,16 @@ void LeScienze500::on_errorLinkClicked( const QUrl &url )
         return ;
     }
 
+}
+
+void LeScienze500::on_addFavoriti()
+{
+    if ( this->history_id_articoli.isEmpty() )
+        return ;
+
+    int id = this->history_id_articoli.first() ;
+    BuildBookmark() ;
+    this->bk_gui->open( QString().setNum( id ) );
 }
 
 void LeScienze500::on_Select_ParoleChiave_toggled(bool checked)

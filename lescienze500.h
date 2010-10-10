@@ -118,6 +118,7 @@ private slots:
     void on_errorLinkClicked( const QUrl &url ) ;
     void on_openBookmark() ;
     void on_openAbout() ;
+    void on_addFavoriti() ;
 
     void on_pushButton_clicked();
     void on_ApriBrowserCopertine_clicked();

@@ -50,7 +50,7 @@ void BookmarkGui::open()
     exec() ;
 }
 
-void BookmarkGui::open_article( QString id )
+void BookmarkGui::open( QString id )
 {
     current_favorites_item = 0 ;
 
@@ -162,6 +162,8 @@ void BookmarkGui::fillFavoriteInfo( const QString& id )
 
     ui->Title->setHtml( article.getField( "Titolo" , article.begin() ) );
     ui->Abstract->setHtml( article.getField( "Abstract" , article.begin() ) );
+
+    this->current_favorite = id ;
 }
 
 void BookmarkGui::setArticleItemDecorations( QTreeWidgetItem* item , const QString& id )

@@ -42,7 +42,7 @@ public:
     void appendFavorite( QString id ) ;
 
     void open() ;
-    void open_article( QString id ) ;
+    void open( QString id ) ;
 
 private:
     Ui::BookmarkGui *ui;
