@@ -338,6 +338,176 @@ QPair<QString,QString> Bookmark::addFolderId( QString parent_id , QString name )
    return ret ;
 }
 
+QPair<QString,QString> Bookmark::addFavoriteId( QString parent_id , QString id_articolo )
+{
+    bool flag ;
+
+    if ( parent_id.isEmpty() || !this->folderIdExist( parent_id ) )
+    {
+        QueryResult query_root ;
+        getRootFolders( query_root ) ;
+        if ( query_root.empty() )
+            return qMakePair(QString(""),QString("")) ;
+        parent_id = query_root.getField( "Id" , query_root.begin() ) ;
+    }
+
+    QueryResult query_r ;
+    getFavoriteFullData( query_r , id_articolo ) ;
+
+    if ( query_r.empty() ) return qMakePair(QString(""),QString("")) ;
+
+    QString query = "insert into Favoriti ( IdArticolo ) values ( " ;
+    query += id_articolo ;
+    query += " ) " ;
+
+    flag = this->execQuery( query ) ;
+    if ( !flag ) qMakePair(QString(""),QString("")) ;
+
+    QString query_ida = "select max ( Id ) from Favoriti where IdArticolo = " ;
+    query_ida += id_articolo ;
+
+    QueryResult query_r_ida ;
+    this->execQuery( query_ida , query_r_ida ) ;
+
+    QString query_tr = "insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( " ;
+    query_tr += parent_id ;
+    query_tr += " , " ;
+    query_tr += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
+    query_tr += " ) " ;
+
+    flag = this->execQuery( query_tr ) ;
+    if ( !flag )
+    {
+        QString remove = "delete from Favoriti where Id = " ;
+        remove += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
+        this->execQuery( remove ) ;
+        return qMakePair(QString(""),QString("")) ;
+    }
+
+    QPair<QString,QString> ret ;
+
+    ret.first = query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
+    ret.second = query_r.getField( "Titolo" , query_r.begin() ) ;
+
+    return ret ;
+}
+
+
+bool  Bookmark::removeFavorite( QString parent_id , QString id )
+{
+    bool ret ;
+
+    if ( parent_id.isEmpty() || !this->folderIdExist( parent_id ) )
+    {
+      return false ;
+    }
+
+    QString remove = "delete from Favoriti where Id = " ;
+    remove += id ;
+    ret = this->execQuery( remove ) ;
+
+    if ( !ret ) return false ;
+
+    QString remove_ff = "delete from Categorie_Favoriti  where IdFavorito = " ;
+    remove_ff += id ;
+
+    ret = this->execQuery( remove_ff ) ;
+
+    return ret ;
+}
+
+void Bookmark::execQuery( QString& query , QueryResult& qr )
+{
+    configLS500 cfg ;
+    QString db_path = cfg.getBookmarkPath() ;
+
+    QueryDB db ;
+    db.execQuery( db_path , query , qr ) ;
+
+    //qr.printResult();
+}
+
+bool Bookmark::execQuery( const QString& query )
+{
+    configLS500 cfg ;
+    QString db_path = cfg.getBookmarkPath() ;
+
+    QueryDB db ;
+    return db.execNAQuery( db_path , query ) ;
+}
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+
+
+
+
+QString Bookmark::addFavorite( QString parent , QString id )
+{
+    if ( parent.isEmpty() || !this->folderExist( parent ) )
+    {
+        QueryResult query_root ;
+        getRootFolders( query_root ) ;
+        if ( query_root.empty() ) return QString( "" ) ;
+        parent = query_root.getField( "Categoria" , query_root.begin() ) ;
+    }
+
+    QueryResult query_r ;
+    getFavoriteFullData( query_r , id ) ;
+
+    if ( query_r.empty() ) return QString( "" ) ;
+
+    QString query = "insert into Favoriti ( IdArticolo ) values ( " ;
+    query += id ;
+    query += " ) " ;
+    this->execQuery( query ) ;
+
+    QString query_ida = "select Id from Favoriti where IdArticolo = " ;
+    query_ida += id ;
+
+    QueryResult query_r_ida ;
+    this->execQuery( query_ida , query_r_ida ) ;
+
+    QString query_id_p = "select Id from Categorie where Categoria like \"" ;
+    query_id_p += parent ;
+    query_id_p += "\" " ;
+
+    QueryResult query_r_idp ;
+    this->execQuery( query_id_p , query_r_idp ) ;
+
+    QString query_tr = "insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( " ;
+    query_tr += query_r_idp.getField( "Id" , query_r_idp.begin() ) ;
+    query_tr += " , " ;
+    query_tr += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
+    query_tr += " ) " ;
+
+    qDebug() << query_tr ;
+
+
+    this->execQuery( query_tr ) ;
+
+    return query_r.getField( "Titolo" , query_r.begin() ) ;
+}
+
+
+
 QPair<QString,QString> Bookmark::addFolder( QString parent , QString name )
 {
     if ( parent.isEmpty() || !this->folderExist( name ) )
@@ -413,121 +583,3 @@ QPair<QString,QString> Bookmark::addFolder( QString parent , QString name )
 
     return res ;
 }
-
-QString Bookmark::addFavoriteId( QString parent_id , QString id )
-{
-    bool flag ;
-
-    if ( parent_id.isEmpty() || !this->folderIdExist( parent_id ) )
-    {
-        QueryResult query_root ;
-        getRootFolders( query_root ) ;
-        if ( query_root.empty() )
-            return QString( "" ) ;
-        parent_id = query_root.getField( "Id" , query_root.begin() ) ;
-    }
-
-    QueryResult query_r ;
-    getFavoriteFullData( query_r , id ) ;
-
-    if ( query_r.empty() ) return QString( "" ) ;
-
-    QString query = "insert into Favoriti ( IdArticolo ) values ( " ;
-    query += id ;
-    query += " ) " ;
-
-    flag = this->execQuery( query ) ;
-    if ( !flag ) return "" ;
-
-    QString query_ida = "select max ( Id ) from Favoriti where IdArticolo = " ;
-    query_ida += id ;
-
-    QueryResult query_r_ida ;
-    this->execQuery( query_ida , query_r_ida ) ;
-
-    QString query_tr = "insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( " ;
-    query_tr += parent_id ;
-    query_tr += " , " ;
-    query_tr += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
-    query_tr += " ) " ;
-
-    flag = this->execQuery( query_tr ) ;
-    if ( !flag )
-    {
-        QString remove = "delete from Favoriti where Id = " ;
-        remove += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
-        this->execQuery( remove ) ;
-        return "" ;
-    }
-
-    return query_r.getField( "Titolo" , query_r.begin() ) ;
-}
-
-
-QString Bookmark::addFavorite( QString parent , QString id )
-{
-    if ( parent.isEmpty() || !this->folderExist( parent ) )
-    {
-        QueryResult query_root ;
-        getRootFolders( query_root ) ;
-        if ( query_root.empty() ) return QString( "" ) ;
-        parent = query_root.getField( "Categoria" , query_root.begin() ) ;
-    }
-
-    QueryResult query_r ;
-    getFavoriteFullData( query_r , id ) ;
-
-    if ( query_r.empty() ) return QString( "" ) ;
-
-    QString query = "insert into Favoriti ( IdArticolo ) values ( " ;
-    query += id ;
-    query += " ) " ;
-    this->execQuery( query ) ;
-
-    QString query_ida = "select Id from Favoriti where IdArticolo = " ;
-    query_ida += id ;
-
-    QueryResult query_r_ida ;
-    this->execQuery( query_ida , query_r_ida ) ;
-
-    QString query_id_p = "select Id from Categorie where Categoria like \"" ;
-    query_id_p += parent ;
-    query_id_p += "\" " ;
-
-    QueryResult query_r_idp ;
-    this->execQuery( query_id_p , query_r_idp ) ;
-
-    QString query_tr = "insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( " ;
-    query_tr += query_r_idp.getField( "Id" , query_r_idp.begin() ) ;
-    query_tr += " , " ;
-    query_tr += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
-    query_tr += " ) " ;
-
-    qDebug() << query_tr ;
-
-
-    this->execQuery( query_tr ) ;
-
-    return query_r.getField( "Titolo" , query_r.begin() ) ;
-}
-
-void Bookmark::execQuery( QString& query , QueryResult& qr )
-{
-    configLS500 cfg ;
-    QString db_path = cfg.getBookmarkPath() ;
-
-    QueryDB db ;
-    db.execQuery( db_path , query , qr ) ;
-
-    //qr.printResult();
-}
-
-bool Bookmark::execQuery( const QString& query )
-{
-    configLS500 cfg ;
-    QString db_path = cfg.getBookmarkPath() ;
-
-    QueryDB db ;
-    return db.execNAQuery( db_path , query ) ;
-}
-

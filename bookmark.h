@@ -56,14 +56,15 @@ public:
 
     QueryResult getFavoritesByStato( QString IdStato ) ;
 
-    QPair<QString,QString> addFolder( QString parent , QString name ) __attribute__ ((deprecated)) ;
+
     QPair<QString,QString> addFolderId( QString parent_id , QString name ) ;
 
     bool folderExist( QString name ) ;
     bool folderIdExist( QString id ) ;
 
-    QString addFavorite( QString parent , QString id ) __attribute__ ((deprecated)) ;
-    QString addFavoriteId( QString parent_id , QString id ) ;
+    QPair<QString,QString> addFavoriteId( QString parent_id , QString id_articolo ) ;
+
+    bool removeFavorite( QString parent_id , QString id ) ;
 
     QueryResult getCommento( QString IdFavorito ) ;
     QueryResult getValutazione( QString IdFavorito ) ;
@@ -71,7 +72,8 @@ public:
     QueryResult getCategoria( QString IdFavorito ) ;
 
     // QueryResult getSottoCategorie( QString IdCategoria ) ;
-
+ QString addFavorite( QString parent , QString id ) __attribute__ ((deprecated)) ;
+ QPair<QString,QString> addFolder( QString parent , QString name ) __attribute__ ((deprecated)) ;
 private:
 
     void execQuery( QString& query , QueryResult& qr ) ;

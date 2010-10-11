@@ -41,6 +41,8 @@ public:
     void appendFolder( QString name ) ;
     void appendFavorite( QString id ) ;
 
+    bool removeFavorite() ;
+
     void open() ;
     void open( QString id ) ;
 
@@ -56,8 +58,9 @@ private:
     static const int item_article = 1002 ;
 
     void fillCategorieRec( const QString& name , QTreeWidgetItem* parent ) ;
+
     void setFolderItemDecorations( QTreeWidgetItem* item , const QString& name , const QString& id ) ;
-    void setArticleItemDecorations( QTreeWidgetItem* item , const QString& id ) ;
+    void setArticleItemDecorations( QTreeWidgetItem* item , const QString& id_articolo , const QString& id ) ;
 
     SetName name_d ;
 
@@ -65,7 +68,9 @@ public slots:
     void on_favoriteActivated( QTreeWidgetItem * item, int column ) ;
     void on_newFolder() ;
     void on_addFavorite() ;
+    void on_remove() ;
     void on_openPdf() ;
+    void on_contextMenu( const QPoint& pos ) ;
 
 signals:
     void sig_openPdf( int id ) ;

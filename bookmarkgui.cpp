@@ -34,9 +34,12 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     buildMenuFavorites() ;
     this->setWindowTitle( "Preferiti (alpha release)" );
 
+    ui->treeCategorie->setContextMenuPolicy( Qt::CustomContextMenu );
+
     connect( ui->treeCategorie , SIGNAL(itemClicked(QTreeWidgetItem*,int)) , this , SLOT(on_favoriteActivated(QTreeWidgetItem*,int)) ) ;
     connect( ui->AddFavorite , SIGNAL(clicked()) , this , SLOT(on_addFavorite()) ) ;
     connect( ui->OpenPDF , SIGNAL(clicked()) , this , SLOT(on_openPdf()) ) ;
+    connect( ui->treeCategorie , SIGNAL(customContextMenuRequested(QPoint)) , this , SLOT(on_contextMenu(QPoint)) ) ;
 }
 
 void BookmarkGui::open()
@@ -78,7 +81,11 @@ void BookmarkGui::buildMenuFavorites()
     this->menuFavorites.addAction( tr( "Copia" ) ) ;
     this->menuFavorites.addAction( tr( "Incolla" ) ) ;
     this->menuFavorites.addSeparator() ;
-    this->menuFavorites.addAction(tr( "Rimuovi" ) ) ;
+
+    QAction* remove = new QAction( tr( "Rimuovi" ) , 0 );
+    connect( remove , SIGNAL(triggered()) , this , SLOT(on_remove()) ) ;
+    this->menuFavorites.addAction( remove ) ;
+
     this->menuFavorites.addSeparator() ;
 
     ui->mainFavoritesMenu->setMenu( &this->menuFavorites );
@@ -111,8 +118,9 @@ void BookmarkGui::fillCategorie()
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
           QString name = qr.getField( "IdArticolo" , itr ) ;
+          QString id = qr.getField( "Id" , itr ) ;
           QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_article ) ;
-          this->setArticleItemDecorations( item , name ) ;
+          this->setArticleItemDecorations( item , name , id ) ;
           items.append( item );
      }
 
@@ -141,8 +149,9 @@ void BookmarkGui::fillCategorieRec( const QString& name , QTreeWidgetItem* paren
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
           QString name = qr.getField( "IdArticolo" , itr ) ;
+          QString id = qr.getField( "Id" , itr ) ;
           QTreeWidgetItem* item = new QTreeWidgetItem( parent , BookmarkGui::item_article ) ;
-          this->setArticleItemDecorations( item , name ) ;
+          this->setArticleItemDecorations( item , name , id ) ;
      }
 }
 
@@ -155,19 +164,19 @@ void BookmarkGui::setFolderItemDecorations( QTreeWidgetItem* item , const QStrin
     item->setText( 1 , id ) ;
 }
 
-void BookmarkGui::setArticleItemDecorations( QTreeWidgetItem* item , const QString& id )
+void BookmarkGui::setArticleItemDecorations( QTreeWidgetItem* item , const QString& id_articolo , const QString& id )
 {
     QueryResult article ;
     Bookmark bk ;
-    bk.getFavoriteFullData( article , id ) ;
+    bk.getFavoriteFullData( article , id_articolo ) ;
 
     QIcon doc_icon(":/icons/crystal/doc-icon.png") ;
     item->setIcon( 0 , doc_icon );
 
     if ( article.size() == 0 ) return ;
     item->setText( 0 , article.getField( "Titolo" , article.begin() ) );
-
-    item->setText( 1 , id );
+    item->setText( 1 , id_articolo ) ;
+    item->setText( 2 , id ) ;
 }
 
 
@@ -260,14 +269,30 @@ void BookmarkGui::appendFavorite( QString id )
         parent_item = this->current_favorites_item->parent() ;
     }
 
-    QString title = bk.addFavoriteId( parent_id , id ) ;
+    QPair<QString,QString> title ;
+    title = bk.addFavoriteId( parent_id , id ) ;
 
-    if ( title.isEmpty() )
+    if ( title.first.isEmpty() )
         return ;
 
     new_favorite = new QTreeWidgetItem( parent_item , BookmarkGui::item_article ) ;
-    this->setArticleItemDecorations( new_favorite , id ) ;
+    this->setArticleItemDecorations( new_favorite , id , title.first  ) ;
 }
+
+ bool BookmarkGui::removeFavorite()
+ {
+     if ( this->current_favorites_item == 0 ) return false;
+     if ( this->current_favorites_item->type() == BookmarkGui::item_folder ) return false ;
+
+     QTreeWidgetItem* tmp_parent = this->current_favorites_item->parent() ;
+
+     Bookmark bk ;
+     bk.removeFavorite( tmp_parent->text( 1 ) , this->current_favorites_item->text( 2 ) ) ;
+
+     tmp_parent->removeChild( this->current_favorites_item ) ;
+     this->current_favorites_item = tmp_parent ;
+     ui->treeCategorie->setCurrentItem( tmp_parent );
+ }
 
 void BookmarkGui::on_newFolder()
 {
@@ -285,7 +310,18 @@ void BookmarkGui::on_addFavorite()
     this->appendFavorite( this->current_favorite );
 }
 
+void BookmarkGui::on_remove()
+{
+    this->removeFavorite() ;
+}
+
 void BookmarkGui::on_openPdf()
 {
     emit this->sig_openPdf( this->current_favorite.toInt() );
+}
+
+void BookmarkGui::on_contextMenu( const QPoint& pos )
+{
+    QPoint global_pos = ui->treeCategorie->mapToGlobal(pos) ;
+    this->menuFavorites.exec( global_pos ) ;
 }
