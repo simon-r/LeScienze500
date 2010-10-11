@@ -126,6 +126,24 @@ void Bookmark::getFolders( QueryResult& query_r , const QString& parent )
     this->execQuery( query , query_r ) ;
 }
 
+void Bookmark::getFoldersId( QueryResult& query_r , const QString& parent_id )
+{
+    query_r.clear();
+
+    if ( parent_id.size() == 0 )
+    {
+        this->getRootFolders( query_r );
+        return ;
+    }
+
+    QString query  = "select Id, Categoria from Categorie where " ;
+            query += "Id in ( select IdSottoCategoria from Categoria_SottoCategoria where IdCategoria = " ;
+            query += parent_id ;
+            query += " ) " ;
+    this->execQuery( query , query_r ) ;
+
+}
+
 bool Bookmark::folderExistsId( QString parent_id , QString folder_name )
 {
     if ( parent_id.isEmpty() )
@@ -168,13 +186,33 @@ void Bookmark::getRootFolders( QueryResult& query_r )
     this->execQuery( query , query_r ) ;
 }
 
+void Bookmark::getFavoritesByParentId( QueryResult& query_r , const QString& parent_id )
+{
+    QString query ;
+
+    if ( parent_id.isEmpty() )
+    {
+        query = "select * from Favoriti  where Id not in ( select IdFavorito from Categorie_Favoriti ) " ;
+    }
+    else
+    {
+        query =  "select * from Favoriti where " ;
+        query += "Id in ( select IdFavorito from Categorie_Favoriti where IdCategoria = " ;
+        query += parent_id ;
+        query += " ) " ;
+    }
+
+    query_r.clear() ;
+    this->execQuery( query , query_r ) ;
+}
+
 void Bookmark::getFavoritesByParent( QueryResult& query_r , const QString& parent )
 {
     QString query ;
 
     if ( parent.isEmpty() )
     {
-        query = "select * from Favoriti  where Id not in ( select IdFavorito from Categorie_Favoriti where IdCategoria ) " ;
+        query = "select * from Favoriti  where Id not in ( select IdFavorito from Categorie_Favoriti ) " ;
     }
     else
     {

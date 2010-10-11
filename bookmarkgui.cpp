@@ -96,7 +96,6 @@ void BookmarkGui::fillCategorie()
      QueryResult qr ;
 
      bk.getRootFolders( qr );
-
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
          QString name = qr.getField( "Categoria" , itr ) ;
@@ -107,7 +106,8 @@ void BookmarkGui::fillCategorie()
          items.append( item ) ;
      }
 
-     bk.getFavoritesByParent( qr , "" ) ;
+     // ATTENIONE!
+     bk.getFavoritesByParentId( qr , "" ) ;
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
           QString name = qr.getField( "IdArticolo" , itr ) ;

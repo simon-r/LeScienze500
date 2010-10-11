@@ -37,6 +37,7 @@ public:
 
     void getFolders( QueryResult& query_r ) ;
     void getFolders( QueryResult& query_r , const QString& parent ) ;
+    void getFoldersId( QueryResult& query_r , const QString& parent_id ) ;
 
     bool folderExistsId( QString parent_id , QString folder_name ) ;
 
@@ -48,19 +49,20 @@ public:
     void getValutazioni( QueryResult& query_r ) ;
 
     void getFavoritesByParent( QueryResult& query_r , const QString& parent ) ;
+    void getFavoritesByParentId( QueryResult& query_r , const QString& parent_id ) ;
+
+
     void getFavoriteFullData( QueryResult& query_r , const QString& id ) ;
 
     QueryResult getFavoritesByStato( QString IdStato ) ;
 
-    QPair<QString,QString> addFolder( QString parent , QString name ) __attribute__ ((deprecated));
-
+    QPair<QString,QString> addFolder( QString parent , QString name ) __attribute__ ((deprecated)) ;
     QPair<QString,QString> addFolderId( QString parent_id , QString name ) ;
 
     bool folderExist( QString name ) ;
     bool folderIdExist( QString id ) ;
 
     QString addFavorite( QString parent , QString id ) __attribute__ ((deprecated)) ;
-
     QString addFavoriteId( QString parent_id , QString id ) ;
 
     QueryResult getCommento( QString IdFavorito ) ;
@@ -69,7 +71,6 @@ public:
     QueryResult getCategoria( QString IdFavorito ) ;
 
     // QueryResult getSottoCategorie( QString IdCategoria ) ;
-
 
 private:
 
