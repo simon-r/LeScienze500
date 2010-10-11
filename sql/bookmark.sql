@@ -20,7 +20,7 @@
 create table Favoriti 
 (
 Id integer primary key autoincrement,
-IdArticolo integer not null unique,
+IdArticolo integer not null ,
 Ordine integer default 1
 ) ;
 

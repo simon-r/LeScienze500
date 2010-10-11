@@ -416,6 +416,8 @@ QPair<QString,QString> Bookmark::addFolder( QString parent , QString name )
 
 QString Bookmark::addFavoriteId( QString parent_id , QString id )
 {
+    bool flag ;
+
     if ( parent_id.isEmpty() || !this->folderIdExist( parent_id ) )
     {
         QueryResult query_root ;
@@ -433,9 +435,11 @@ QString Bookmark::addFavoriteId( QString parent_id , QString id )
     QString query = "insert into Favoriti ( IdArticolo ) values ( " ;
     query += id ;
     query += " ) " ;
-    this->execQuery( query ) ;
 
-    QString query_ida = "select Id from Favoriti where IdArticolo = " ;
+    flag = this->execQuery( query ) ;
+    if ( !flag ) return "" ;
+
+    QString query_ida = "select max ( Id ) from Favoriti where IdArticolo = " ;
     query_ida += id ;
 
     QueryResult query_r_ida ;
@@ -447,7 +451,14 @@ QString Bookmark::addFavoriteId( QString parent_id , QString id )
     query_tr += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
     query_tr += " ) " ;
 
-    this->execQuery( query_tr ) ;
+    flag = this->execQuery( query_tr ) ;
+    if ( !flag )
+    {
+        QString remove = "delete from Favoriti where Id = " ;
+        remove += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
+        this->execQuery( remove ) ;
+        return "" ;
+    }
 
     return query_r.getField( "Titolo" , query_r.begin() ) ;
 }
@@ -511,12 +522,12 @@ void Bookmark::execQuery( QString& query , QueryResult& qr )
     //qr.printResult();
 }
 
-void Bookmark::execQuery( const QString& query )
+bool Bookmark::execQuery( const QString& query )
 {
     configLS500 cfg ;
     QString db_path = cfg.getBookmarkPath() ;
 
     QueryDB db ;
-    db.execNAQuery( db_path , query ) ;
+    return db.execNAQuery( db_path , query ) ;
 }
 

@@ -75,7 +75,7 @@ public:
 private:
 
     void execQuery( QString& query , QueryResult& qr ) ;
-    void execQuery( const QString& query ) ;
+    bool execQuery( const QString& query ) ;
 };
 
 #endif // BOOKMARK_H

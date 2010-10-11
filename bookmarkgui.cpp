@@ -107,7 +107,7 @@ void BookmarkGui::fillCategorie()
      }
 
      // ATTENIONE!
-     bk.getFavoritesByParentId( qr , "" ) ;
+     bk.getFavoritesByParent( qr , "" ) ;
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
           QString name = qr.getField( "IdArticolo" , itr ) ;
@@ -261,6 +261,9 @@ void BookmarkGui::appendFavorite( QString id )
     }
 
     QString title = bk.addFavoriteId( parent_id , id ) ;
+
+    if ( title.isEmpty() )
+        return ;
 
     new_favorite = new QTreeWidgetItem( parent_item , BookmarkGui::item_article ) ;
     this->setArticleItemDecorations( new_favorite , id ) ;
