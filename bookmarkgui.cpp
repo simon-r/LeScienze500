@@ -100,8 +100,9 @@ void BookmarkGui::fillCategorie()
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
          QString name = qr.getField( "Categoria" , itr ) ;
+         QString id = qr.getField( "Id" , itr ) ;
          QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_folder ) ;
-         setFolderItemDecorations( item , name ) ;
+         setFolderItemDecorations( item , name , id ) ;
          fillCategorieRec( name , item ) ;
          items.append( item ) ;
      }
@@ -130,8 +131,9 @@ void BookmarkGui::fillCategorieRec( const QString& name , QTreeWidgetItem* paren
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
           QString name = qr.getField( "Categoria" , itr ) ;
+          QString id = qr.getField( "Id" , itr ) ;
           QTreeWidgetItem* item = new QTreeWidgetItem( parent , BookmarkGui::item_folder ) ;
-          this->setFolderItemDecorations( item , name ) ;
+          this->setFolderItemDecorations( item , name , id ) ;
           this->fillCategorieRec( name , item ) ;
      }
 
@@ -144,27 +146,13 @@ void BookmarkGui::fillCategorieRec( const QString& name , QTreeWidgetItem* paren
      }
 }
 
-void BookmarkGui::setFolderItemDecorations( QTreeWidgetItem* item , const QString& name )
+void BookmarkGui::setFolderItemDecorations( QTreeWidgetItem* item , const QString& name , const QString& id )
 {
     QIcon folder(":/icons/crystal/folder.png") ;
     item->setIcon( 0 , folder);
     item->setText( 0 , name );
 
-    item->setText( 1 , "folder" ) ;
-}
-
-void BookmarkGui::fillFavoriteInfo( const QString& id )
-{
-    QueryResult article ;
-    Bookmark bk ;
-    bk.getFavoriteFullData( article , id ) ;
-
-    if ( article.size() == 0 ) return ;
-
-    ui->Title->setHtml( article.getField( "Titolo" , article.begin() ) );
-    ui->Abstract->setHtml( article.getField( "Abstract" , article.begin() ) );
-
-    this->current_favorite = id ;
+    item->setText( 1 , id ) ;
 }
 
 void BookmarkGui::setArticleItemDecorations( QTreeWidgetItem* item , const QString& id )
@@ -183,6 +171,22 @@ void BookmarkGui::setArticleItemDecorations( QTreeWidgetItem* item , const QStri
 }
 
 
+void BookmarkGui::fillFavoriteInfo( const QString& id )
+{
+    QueryResult article ;
+    Bookmark bk ;
+    bk.getFavoriteFullData( article , id ) ;
+
+    if ( article.size() == 0 ) return ;
+
+    ui->Title->setHtml( article.getField( "Titolo" , article.begin() ) );
+    ui->Abstract->setHtml( article.getField( "Abstract" , article.begin() ) );
+
+    this->current_favorite = id ;
+}
+
+
+
 void BookmarkGui::on_favoriteActivated( QTreeWidgetItem * item, int column )
 {
     if ( item->type() == BookmarkGui::item_article  )
@@ -196,29 +200,35 @@ void BookmarkGui::on_favoriteActivated( QTreeWidgetItem * item, int column )
 void BookmarkGui::appendFolder( QString name )
 {
     Bookmark bk ;
+
     QString parent = "" ;
+    QString parent_id = "" ;
+
     QTreeWidgetItem* parent_item ;
     QTreeWidgetItem* new_folder ;
 
     if ( this->current_favorites_item == 0 )
     {
         parent = "" ; // Unused !!!!
+        parent_id = "1" ; // Unused !!!!
     }
     else if ( this->current_favorites_item->type() == BookmarkGui::item_folder )
     {
         parent = this->current_favorites_item->text( 0 ) ;
+        parent_id = this->current_favorites_item->text( 1 ) ;
         parent_item = this->current_favorites_item ;
     }
     else if ( this->current_favorites_item->type() == BookmarkGui::item_article )
     {
         parent = this->current_favorites_item->parent()->text( 0 ) ;
-        parent_item = this->current_favorites_item = this->current_favorites_item->parent() ;
+        parent_id = this->current_favorites_item->parent()->text( 1 ) ;
+        parent_item = this->current_favorites_item->parent() ;
     }
 
-     name = bk.addFolder( parent , name ) ;
+     QPair<QString,QString> folder_info = bk.addFolderId( parent_id , name ) ;
 
      new_folder = new QTreeWidgetItem( parent_item , BookmarkGui::item_folder ) ;
-     this->setFolderItemDecorations( new_folder , name ) ;
+     this->setFolderItemDecorations( new_folder , folder_info.second , folder_info.first ) ;
 }
 
 void BookmarkGui::appendFavorite( QString id )

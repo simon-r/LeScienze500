@@ -196,13 +196,98 @@ bool Bookmark::folderExist( QString name )
         return false ;
 }
 
-QString Bookmark::addFolder( QString parent , QString name )
+bool Bookmark::folderIdExist( QString id )
+{
+    QString query = "select Id from Categorie where Id = " ;
+    query += id ;
+    query += " " ;
+
+    QueryResult query_r ;
+    this->execQuery( query , query_r ) ;
+
+    if ( query_r.size() > 0 )
+        return true ;
+    else
+        return false ;
+}
+
+
+QPair<QString,QString> Bookmark::addFolderId( QString parent_id , QString name )
+{
+    QPair<QString,QString> ret ;
+    if ( parent_id.isEmpty() || !this->folderIdExist( parent_id ) )
+    {
+        QueryResult query_root ;
+        getRootCategorie( query_root ) ;
+        if ( query_root.empty() ) return ret ;
+        parent_id = query_root.getField( "Id" , query_root.begin() ) ;
+    }
+
+    if ( name.isEmpty() )
+    {
+        name = "Nuova Cartella" ;
+    }
+
+    int cnt = 1 ;
+    QString name_cnt = name ;
+    QString name_cnt_save ;
+    QueryResult query_r ;
+    do
+    {
+        QString query_name = "select * from Categorie where Categoria like \"" ;
+        query_name += name_cnt ;
+        query_name += "\" " ;
+
+        query_r.clear();
+        qDebug() << query_name ;
+        this->execQuery( query_name , query_r );
+
+        name_cnt_save = name_cnt ;
+        name_cnt = name  ;
+        name_cnt += " (" ; name_cnt += QString().setNum( cnt ) ; name_cnt += ")" ;
+        cnt++ ;
+    }
+    while ( query_r.size() > 0 ) ;
+
+    QString query = "insert into Categorie ( Categoria ) values ( \"" ;
+    query += name_cnt_save ;
+    query += "\" ) " ;
+
+    this->execQuery( query ) ;
+
+    qDebug() << query ;
+
+    QString query_id = "select Id from Categorie where Categoria like \"" ;
+    query_id += name_cnt_save ;
+    query_id += "\"  " ;
+
+   QueryResult query_r_id ;
+   this->execQuery( query_id , query_r_id ) ;
+
+   QString query_parent = "insert into Categoria_SottoCategoria ( IdCategoria , IdSottoCategoria ) values ( " ;
+   query_parent += parent_id ;
+   query_parent += " , " ;
+   query_parent += query_r_id.getField( "Id" , query_r_id.begin() ) ;
+   query_parent += " ) " ;
+
+   this->execQuery( query_parent );
+   qDebug() <<  query_parent ;
+
+   ret.first = query_r_id.getField( "Id" , query_r_id.begin() ) ;
+   ret.second = name_cnt_save ;
+   return ret ;
+}
+
+QPair<QString,QString> Bookmark::addFolder( QString parent , QString name )
 {
     if ( parent.isEmpty() || !this->folderExist( name ) )
     {
         QueryResult query_root ;
         getRootCategorie( query_root ) ;
-        if ( query_root.empty() ) return QString( "" ) ;
+        if ( query_root.empty() ) {
+            QPair<QString,QString> r ;
+            return r ;
+        }
         parent = query_root.getField( "Categoria" , query_root.begin() ) ;
     }
 
@@ -262,7 +347,11 @@ QString Bookmark::addFolder( QString parent , QString name )
     this->execQuery( query_parent );
     qDebug() <<  query_parent ;
 
-    return name_cnt_save ;
+    QPair<QString,QString> res ;
+    res.first = query_r_idp.getField( "Id" , query_r_idp.begin() ) ;
+    res.second = name_cnt_save ;
+
+    return res ;
 }
 
 QString Bookmark::addFavorite( QString parent , QString id )

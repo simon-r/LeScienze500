@@ -22,6 +22,7 @@
 #include <QStringList>
 #include <QList>
 #include <queryresult.h>
+#include <QPair>
 
 class Bookmark
 {
@@ -49,8 +50,12 @@ public:
 
     QueryResult getFavoritesByStato( QString IdStato ) ;
 
-    QString addFolder( QString parent , QString name ) ;
+    QPair<QString,QString> addFolder( QString parent , QString name ) ;
+
+    QPair<QString,QString> addFolderId( QString parent_id , QString name ) ;
+
     bool folderExist( QString name ) ;
+    bool folderIdExist( QString id ) ;
 
     QString addFavorite( QString parent , QString id ) ;
 
