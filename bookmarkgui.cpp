@@ -95,7 +95,7 @@ void BookmarkGui::fillCategorie()
      Bookmark bk ;
      QueryResult qr ;
 
-     bk.getRootCategorie( qr );
+     bk.getRootFolders( qr );
 
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
@@ -126,7 +126,7 @@ void BookmarkGui::fillCategorieRec( const QString& name , QTreeWidgetItem* paren
      Bookmark bk ;
      QueryResult qr ;
 
-     bk.getCategorie( qr , name ) ;
+     bk.getFolders( qr , name ) ;
 
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {

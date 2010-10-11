@@ -35,12 +35,14 @@ public:
 
     void getFavorites( QueryResult& query_r ) ;
 
-    void getCategorie( QueryResult& query_r ) ;
-    void getCategorie( QueryResult& query_r , const QString& parent ) ;
+    void getFolders( QueryResult& query_r ) ;
+    void getFolders( QueryResult& query_r , const QString& parent ) ;
 
-    void getParentCategoria( QueryResult& query_r , const QString& cat ) ;
+    bool folderExistsId( QString parent_id , QString folder_name ) ;
 
-    void getRootCategorie( QueryResult& query_r ) ;
+    void getParentFolder( QueryResult& query_r , const QString& cat ) ;
+
+    void getRootFolders( QueryResult& query_r ) ;
 
     void getStati( QueryResult& query_r ) ;
     void getValutazioni( QueryResult& query_r ) ;
@@ -50,6 +52,7 @@ public:
 
     QueryResult getFavoritesByStato( QString IdStato ) ;
 
+    // depreceted
     QPair<QString,QString> addFolder( QString parent , QString name ) ;
 
     QPair<QString,QString> addFolderId( QString parent_id , QString name ) ;

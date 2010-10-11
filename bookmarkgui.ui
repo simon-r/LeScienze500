@@ -36,7 +36,7 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="spacing">
-        <number>0</number>
+        <number>2</number>
        </property>
        <property name="margin">
         <number>1</number>
@@ -56,14 +56,14 @@
           </size>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page">
           <property name="geometry">
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>211</width>
+            <width>209</width>
             <height>392</height>
            </rect>
           </property>
@@ -97,8 +97,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>211</width>
-            <height>392</height>
+            <width>190</width>
+            <height>400</height>
            </rect>
           </property>
           <attribute name="label">
@@ -121,8 +121,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>211</width>
-            <height>392</height>
+            <width>190</width>
+            <height>400</height>
            </rect>
           </property>
           <attribute name="label">

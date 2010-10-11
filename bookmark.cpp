@@ -101,20 +101,20 @@ void  Bookmark::getFavorites( QueryResult& query_r )
     this->execQuery( query , query_r ) ;
 }
 
-void  Bookmark::getCategorie( QueryResult& query_r )
+void  Bookmark::getFolders( QueryResult& query_r )
 {
     query_r.clear();
     QString query = "select Id, Categoria from Categorie" ;
     this->execQuery( query , query_r ) ;
 }
 
-void Bookmark::getCategorie( QueryResult& query_r , const QString& parent )
+void Bookmark::getFolders( QueryResult& query_r , const QString& parent )
 {
     query_r.clear();
 
     if ( parent.size() == 0 )
     {
-        this->getRootCategorie( query_r );
+        this->getRootFolders( query_r );
         return ;
     }
 
@@ -126,7 +126,29 @@ void Bookmark::getCategorie( QueryResult& query_r , const QString& parent )
     this->execQuery( query , query_r ) ;
 }
 
-void Bookmark::getParentCategoria( QueryResult& query_r , const QString& categoria )
+bool Bookmark::folderExistsId( QString parent_id , QString folder_name )
+{
+    if ( parent_id.isEmpty() )
+        parent_id = "1" ;
+
+    QString query  = "select * from Categorie where Id in " ;
+            query += "( select IdSottoCategoria from Categoria_SottoCategoria where IdCategoria = " ;
+            query += parent_id ;
+            query += " and IdSottocategoria in ( " ;
+            query += " select  Id from Categorie where Ctagoria like " ;
+            query += folder_name ;
+            query += " ) ) " ;
+
+    QueryResult query_r ;
+    this->execQuery( query , query_r ) ;
+
+    if ( query_r.empty() )
+        return false ;
+    else
+        return true ;
+}
+
+void Bookmark::getParentFolder( QueryResult& query_r , const QString& categoria )
 {
     query_r.clear();
     QString query =  "select Id, Categoria from Categorie where " ;
@@ -138,7 +160,7 @@ void Bookmark::getParentCategoria( QueryResult& query_r , const QString& categor
     this->execQuery( query , query_r ) ;
 }
 
-void Bookmark::getRootCategorie( QueryResult& query_r )
+void Bookmark::getRootFolders( QueryResult& query_r )
 {
     query_r.clear();
     QString query =  "select Id, Categoria, Ordine from Categorie where " ;
@@ -218,7 +240,7 @@ QPair<QString,QString> Bookmark::addFolderId( QString parent_id , QString name )
     if ( parent_id.isEmpty() || !this->folderIdExist( parent_id ) )
     {
         QueryResult query_root ;
-        getRootCategorie( query_root ) ;
+        getRootFolders( query_root ) ;
         if ( query_root.empty() ) return ret ;
         parent_id = query_root.getField( "Id" , query_root.begin() ) ;
     }
@@ -283,7 +305,7 @@ QPair<QString,QString> Bookmark::addFolder( QString parent , QString name )
     if ( parent.isEmpty() || !this->folderExist( name ) )
     {
         QueryResult query_root ;
-        getRootCategorie( query_root ) ;
+        getRootFolders( query_root ) ;
         if ( query_root.empty() ) {
             QPair<QString,QString> r ;
             return r ;
@@ -359,7 +381,7 @@ QString Bookmark::addFavorite( QString parent , QString id )
     if ( parent.isEmpty() || !this->folderExist( parent ) )
     {
         QueryResult query_root ;
-        getRootCategorie( query_root ) ;
+        getRootFolders( query_root ) ;
         if ( query_root.empty() ) return QString( "" ) ;
         parent = query_root.getField( "Categoria" , query_root.begin() ) ;
     }
