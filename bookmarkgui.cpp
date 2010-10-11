@@ -186,7 +186,6 @@ void BookmarkGui::fillFavoriteInfo( const QString& id )
 }
 
 
-
 void BookmarkGui::on_favoriteActivated( QTreeWidgetItem * item, int column )
 {
     if ( item->type() == BookmarkGui::item_article  )
@@ -234,26 +233,34 @@ void BookmarkGui::appendFolder( QString name )
 void BookmarkGui::appendFavorite( QString id )
 {
     Bookmark bk ;
+
     QString parent = "" ;
-    QTreeWidgetItem* parent_item ;
+    QString parent_id = "" ;
+
+    QTreeWidgetItem* parent_item = 0 ;
     QTreeWidgetItem* new_favorite ;
 
     if ( this->current_favorites_item == 0 )
     {
         parent = "" ;
+        parent_id = "1" ;
     }
     else if ( this->current_favorites_item->type() == BookmarkGui::item_folder )
     {
         parent = this->current_favorites_item->text( 0 ) ;
+        parent_id = this->current_favorites_item->text( 1 ) ;
+
         parent_item = this->current_favorites_item ;
     }
     else if ( this->current_favorites_item->type() == BookmarkGui::item_article )
     {
         parent = this->current_favorites_item->parent()->text( 0 ) ;
-        parent_item = this->current_favorites_item = this->current_favorites_item->parent() ;
+        parent_id = this->current_favorites_item->parent()->text( 1 ) ;
+
+        parent_item = this->current_favorites_item->parent() ;
     }
 
-    QString title = bk.addFavorite( parent , id ) ;
+    QString title = bk.addFavoriteId( parent_id , id ) ;
 
     new_favorite = new QTreeWidgetItem( parent_item , BookmarkGui::item_article ) ;
     this->setArticleItemDecorations( new_favorite , id ) ;

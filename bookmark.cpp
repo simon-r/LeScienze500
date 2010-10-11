@@ -376,6 +376,45 @@ QPair<QString,QString> Bookmark::addFolder( QString parent , QString name )
     return res ;
 }
 
+QString Bookmark::addFavoriteId( QString parent_id , QString id )
+{
+    if ( parent_id.isEmpty() || !this->folderIdExist( parent_id ) )
+    {
+        QueryResult query_root ;
+        getRootFolders( query_root ) ;
+        if ( query_root.empty() )
+            return QString( "" ) ;
+        parent_id = query_root.getField( "Id" , query_root.begin() ) ;
+    }
+
+    QueryResult query_r ;
+    getFavoriteFullData( query_r , id ) ;
+
+    if ( query_r.empty() ) return QString( "" ) ;
+
+    QString query = "insert into Favoriti ( IdArticolo ) values ( " ;
+    query += id ;
+    query += " ) " ;
+    this->execQuery( query ) ;
+
+    QString query_ida = "select Id from Favoriti where IdArticolo = " ;
+    query_ida += id ;
+
+    QueryResult query_r_ida ;
+    this->execQuery( query_ida , query_r_ida ) ;
+
+    QString query_tr = "insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( " ;
+    query_tr += parent_id ;
+    query_tr += " , " ;
+    query_tr += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
+    query_tr += " ) " ;
+
+    this->execQuery( query_tr ) ;
+
+    return query_r.getField( "Titolo" , query_r.begin() ) ;
+}
+
+
 QString Bookmark::addFavorite( QString parent , QString id )
 {
     if ( parent.isEmpty() || !this->folderExist( parent ) )
