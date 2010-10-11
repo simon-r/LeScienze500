@@ -131,7 +131,7 @@ bool Bookmark::folderExistsId( QString parent_id , QString folder_name )
     if ( parent_id.isEmpty() )
         parent_id = "1" ;
 
-    QString query  = "select * from Categorie where Id in " ;
+    QString query  = "select Id from Categorie where Id in " ;
             query += "( select IdSottoCategoria from Categoria_SottoCategoria where IdCategoria = " ;
             query += parent_id ;
             query += " and IdSottocategoria in ( " ;
