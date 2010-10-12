@@ -418,7 +418,6 @@ bool  Bookmark::removeFavorite( QString parent_id , QString id )
 
 bool Bookmark::isFolderEmpty( QString folder_id )
 {
-
     bool flag = false  ;
 
     if ( folder_id.isEmpty() )
