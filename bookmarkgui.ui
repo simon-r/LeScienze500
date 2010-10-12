@@ -80,9 +80,15 @@
            </item>
            <item>
             <widget class="QTreeWidget" name="treeCategorie">
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
              <property name="columnCount">
               <number>1</number>
              </property>
+             <attribute name="headerVisible">
+              <bool>false</bool>
+             </attribute>
              <column>
               <property name="text">
                <string>Preferiti</string>
@@ -97,8 +103,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>209</width>
-            <height>392</height>
+            <width>83</width>
+            <height>72</height>
            </rect>
           </property>
           <attribute name="label">
@@ -121,8 +127,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>209</width>
-            <height>392</height>
+            <width>83</width>
+            <height>72</height>
            </rect>
           </property>
           <attribute name="label">

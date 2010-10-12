@@ -35,13 +35,12 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     this->setWindowTitle( "Preferiti (alpha release)" );
 
     ui->treeCategorie->setContextMenuPolicy( Qt::CustomContextMenu );
-    //connect( ui->treeCategorie , SIGNAL(itemClicked(QTreeWidgetItem*,int)) , this , SLOT(on_favoriteActivated(QTreeWidgetItem*,int)) ) ;
-    connect( ui->treeCategorie , SIGNAL(itemSelectionChanged()) , this , SLOT(on_selectedChanged()) ) ;
 
+    connect( ui->treeCategorie , SIGNAL(itemSelectionChanged()) , this , SLOT(on_selectedChanged()) ) ;
     connect( ui->treeCategorie ,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(on_contextMenu(QPoint))) ;
+
     connect( ui->AddFavorite , SIGNAL(clicked()) , this , SLOT(on_addFavorite()) ) ;
     connect( ui->OpenPDF , SIGNAL(clicked()) , this , SLOT(on_openPdf()) ) ;
-    //connect( ui->treeCategorie , SIGNAL(customContextMenuRequested(QPoint)) , this , SLOT(on_contextMenu(QPoint)) ) ;
 }
 
 void BookmarkGui::open()
@@ -315,7 +314,7 @@ void BookmarkGui::on_openPdf()
 
 void BookmarkGui::on_contextMenu( const QPoint& pos )
 {
-    QPoint global_pos = ui->treeCategorie->mapToGlobal(pos) ;
+    QPoint global_pos = ui->treeCategorie->mapToGlobal( pos ) ;
     this->menuFavorites.exec( global_pos ) ;
 }
 
@@ -334,6 +333,9 @@ void BookmarkGui::on_favoriteActivated( QTreeWidgetItem * item, int column )
 void BookmarkGui::on_selectedChanged()
 {
     QList<QTreeWidgetItem *> item_list = ui->treeCategorie->selectedItems() ;
+
+    if ( item_list.isEmpty() ) return ;
+
     QTreeWidgetItem *item = item_list.first() ;
 
     if ( item->type() == BookmarkGui::item_article )
