@@ -71,6 +71,7 @@ public slots:
     void on_remove() ;
     void on_openPdf() ;
     void on_contextMenu( const QPoint& pos ) ;
+    void on_selectedChanged() ;
 
 signals:
     void sig_openPdf( int id ) ;
