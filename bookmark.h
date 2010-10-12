@@ -41,6 +41,8 @@ public:
 
     bool folderExistsId( QString parent_id , QString folder_name ) ;
 
+    bool isFolderEmpty( QString folder_id ) ;
+
     void getParentFolder( QueryResult& query_r , const QString& cat ) ;
 
     void getRootFolders( QueryResult& query_r ) ;
@@ -65,6 +67,7 @@ public:
     QPair<QString,QString> addFavoriteId( QString parent_id , QString id_articolo ) ;
 
     bool removeFavorite( QString parent_id , QString id ) ;
+    bool removeFolder( QString folder_id ) ;
 
     QueryResult getCommento( QString IdFavorito ) ;
     QueryResult getValutazione( QString IdFavorito ) ;

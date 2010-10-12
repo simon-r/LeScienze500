@@ -416,6 +416,49 @@ bool  Bookmark::removeFavorite( QString parent_id , QString id )
     return ret ;
 }
 
+bool Bookmark::isFolderEmpty( QString folder_id )
+{
+
+}
+
+bool Bookmark::removeFolder( QString folder_id )
+{
+   if ( folder_id.isEmpty() )
+    return false ;
+
+   QString query =  "select * from Catgorie where Id = " ;
+   query += folder_id ;
+
+   QueryResult q_result ;
+   this->execQuery( query , q_result  );
+
+   if ( q_result.empty() )
+       return false ;
+
+   query = "select Categoria from Categorie_SottoCategorie where IdCategoria = " ;
+   query += folder_id ;
+
+   q_result.clear();
+   this->execQuery( query , q_result  ) ;
+
+   if ( !q_result.empty() )
+       return false ;
+
+   query = "select Favorito from Categorie_Favoriti where IdCategoria = " ;
+   query += folder_id ;
+
+   q_result.clear();
+   this->execQuery( query , q_result ) ;
+
+   if ( !q_result.empty() )
+       return false ;
+
+   QString remove = "delete from Categorie where Id = " ;
+   remove += folder_id ;
+
+   return this->execQuery( remove ) ;
+}
+
 void Bookmark::execQuery( QString& query , QueryResult& qr )
 {
     configLS500 cfg ;
