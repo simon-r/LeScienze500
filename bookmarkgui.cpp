@@ -88,7 +88,9 @@ void BookmarkGui::buildMenuFavorites()
 
     this->menuFavorites.addSeparator() ;
 
-    this->menuFavorites.addAction( tr( "Rinomina" ) ) ;
+    QAction* rename_folder = new QAction( tr( "Cambia nome" ) , 0 );
+    connect( rename_folder , SIGNAL(triggered()) , this , SLOT(on_remaneFolder()) ) ;
+    this->menuFavorites.addAction( rename_folder ) ;
 
     ui->mainFavoritesMenu->setMenu( &this->menuFavorites );
 }
@@ -233,6 +235,27 @@ void BookmarkGui::appendFolder( QString name )
      this->setFolderItemDecorations( new_folder , folder_info.second , folder_info.first ) ;
 }
 
+bool  BookmarkGui::renameFolder()
+{
+    if ( this->current_favorites_item == 0 ) return false;
+    if ( this->current_favorites_item->type() == BookmarkGui::item_article ) return false ;
+
+    QString curr_name = this->current_favorites_item->text(0) ;
+    QString folder_id = this->current_favorites_item->text(1) ;
+
+    name_d.open( curr_name );
+
+    QString new_name = name_d.text() ;
+
+    if ( new_name.isEmpty() ) return false ;
+
+    Bookmark bk ;
+    bool flag = bk.renameFolder( folder_id , new_name ) ;
+
+    if ( flag ) this->current_favorites_item->setText( 0 , new_name ) ;
+    return flag ;
+}
+
 bool BookmarkGui::removeFolder()
 {
     if ( this->current_favorites_item == 0 ) return false;
@@ -368,4 +391,9 @@ void BookmarkGui::on_selectedChanged()
     }
 
     this->current_favorites_item = item ;
+}
+
+void BookmarkGui::on_remaneFolder()
+{
+    this->renameFolder() ;
 }

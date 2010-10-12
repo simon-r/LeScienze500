@@ -44,6 +44,8 @@ public:
     bool removeFavorite() ;
     bool removeFolder() ;
 
+    bool renameFolder() ;
+
     void open() ;
     void open( QString id ) ;
 
@@ -68,10 +70,12 @@ private:
 public slots:
     void on_favoriteActivated( QTreeWidgetItem * item, int column ) ;
     void on_newFolder() ;
+    void on_remaneFolder() ;
     void on_addFavorite() ;
     void on_remove() ;
     void on_openPdf() ;
     void on_contextMenu( const QPoint& pos ) ;
+
     void on_selectedChanged() ;
 
 signals:

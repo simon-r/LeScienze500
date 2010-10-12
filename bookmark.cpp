@@ -440,8 +440,7 @@ bool Bookmark::isFolderEmpty( QString folder_id )
     this->execQuery( query , q_result  ) ;
 
     flag = false ;
-    if ( q_result.empty() )
-        flag = true ;
+    flag = q_result.empty() ;
 
     query = "select IdFavorito from Categorie_Favoriti where IdCategoria = " ;
     query += folder_id ;
@@ -449,8 +448,7 @@ bool Bookmark::isFolderEmpty( QString folder_id )
     q_result.clear();
     this->execQuery( query , q_result ) ;
 
-    if ( q_result.empty() )
-        flag = flag && true ;
+    flag = flag && q_result.empty() ;
 
     return flag ;
 }
@@ -462,7 +460,26 @@ bool Bookmark::removeFolder( QString folder_id )
    QString remove = "delete from Categorie where Id = " ;
    remove += folder_id ;
 
-   return this->execQuery( remove ) ;
+   bool flag = this->execQuery( remove ) ;
+
+   remove = "delete from Categoria_SottoCategoria where IdSottoCategori = " ;
+   remove += folder_id ;
+
+   flag = flag && this->execQuery( remove ) ;
+}
+
+bool Bookmark::renameFolder( QString folder_id , QString new_name )
+{
+    if ( folder_id.isEmpty() ) return false ;
+    //if ( !this->folderExistsId( folder_id ) ) return false ;
+
+    QString rename = "update Categorie set Categoria = \"" ;
+    rename += new_name ;
+    rename += "\" " ;
+    rename += "where Id = " ;
+    rename += folder_id ;
+
+    return this->execQuery( rename ) ;
 }
 
 void Bookmark::execQuery( QString& query , QueryResult& qr )

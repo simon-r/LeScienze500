@@ -37,7 +37,7 @@ public:
     void open() ;
     void open( QString txt ) ;
 
-    QString text() { return p_text ; }
+    QString text() { return p_text ; } 
 
 private:
     Ui::SetName *ui;

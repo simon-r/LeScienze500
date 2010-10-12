@@ -68,6 +68,9 @@ public:
     bool removeFavorite( QString parent_id , QString id ) ;
     bool removeFolder( QString folder_id ) ;
 
+    bool renameFolder( QString folder_id , QString new_name ) ;
+
+
     QueryResult getCommento( QString IdFavorito ) ;
     QueryResult getValutazione( QString IdFavorito ) ;
     QueryResult getStato( QString IdFavorito ) ;

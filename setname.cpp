@@ -59,3 +59,4 @@ void SetName::on_Close_clicked()
     p_text = "" ;
     this->close() ;
 }
+
