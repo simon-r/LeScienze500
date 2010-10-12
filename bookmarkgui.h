@@ -42,6 +42,7 @@ public:
     void appendFavorite( QString id ) ;
 
     bool removeFavorite() ;
+    bool removeFolder() ;
 
     void open() ;
     void open( QString id ) ;

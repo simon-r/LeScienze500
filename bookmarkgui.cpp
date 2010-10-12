@@ -233,6 +233,25 @@ void BookmarkGui::appendFolder( QString name )
      this->setFolderItemDecorations( new_folder , folder_info.second , folder_info.first ) ;
 }
 
+bool BookmarkGui::removeFolder()
+{
+    if ( this->current_favorites_item == 0 ) return false;
+    if ( this->current_favorites_item->type() == BookmarkGui::item_article ) return false ;
+
+    QTreeWidgetItem* tmp_parent = this->current_favorites_item->parent() ;
+
+    Bookmark bk ;
+    bool fr = bk.removeFolder( this->current_favorites_item->text( 1 ) ) ;
+
+    if ( !fr ) return false ;
+
+    tmp_parent->removeChild( this->current_favorites_item ) ;
+    this->current_favorites_item = tmp_parent ;
+    ui->treeCategorie->setCurrentItem( tmp_parent );
+
+    return true ;
+}
+
 void BookmarkGui::appendFavorite( QString id )
 {
     Bookmark bk ;
@@ -286,6 +305,8 @@ void BookmarkGui::appendFavorite( QString id )
      tmp_parent->removeChild( this->current_favorites_item ) ;
      this->current_favorites_item = tmp_parent ;
      ui->treeCategorie->setCurrentItem( tmp_parent );
+
+     return true ;
  }
 
 void BookmarkGui::on_newFolder()
@@ -307,6 +328,7 @@ void BookmarkGui::on_addFavorite()
 void BookmarkGui::on_remove()
 {
     this->removeFavorite() ;
+    this->removeFolder() ;
 }
 
 void BookmarkGui::on_openPdf()

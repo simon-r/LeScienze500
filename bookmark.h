@@ -53,7 +53,6 @@ public:
     void getFavoritesByParent( QueryResult& query_r , const QString& parent ) ;
     void getFavoritesByParentId( QueryResult& query_r , const QString& parent_id ) ;
 
-
     void getFavoriteFullData( QueryResult& query_r , const QString& id ) ;
 
     QueryResult getFavoritesByStato( QString IdStato ) ;

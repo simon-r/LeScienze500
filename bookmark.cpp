@@ -419,39 +419,44 @@ bool  Bookmark::removeFavorite( QString parent_id , QString id )
 bool Bookmark::isFolderEmpty( QString folder_id )
 {
 
+    bool flag = false  ;
+
+    if ( folder_id.isEmpty() )
+     return true ;
+
+    QString query =  "select * from Catgorie where Id = " ;
+    query += folder_id ;
+
+    QueryResult q_result ;
+    this->execQuery( query , q_result  );
+
+    if ( q_result.empty() )
+        return true ;
+
+    query = "select Categoria from Categorie_SottoCategorie where IdCategoria = " ;
+    query += folder_id ;
+
+    q_result.clear();
+    this->execQuery( query , q_result  ) ;
+
+    if ( !q_result.empty() )
+        flag = true ;
+
+    query = "select Favorito from Categorie_Favoriti where IdCategoria = " ;
+    query += folder_id ;
+
+    q_result.clear();
+    this->execQuery( query , q_result ) ;
+
+    if ( !q_result.empty() )
+        flag = flag && true ;
+
+    return flag ;
 }
 
 bool Bookmark::removeFolder( QString folder_id )
-{
-   if ( folder_id.isEmpty() )
-    return false ;
-
-   QString query =  "select * from Catgorie where Id = " ;
-   query += folder_id ;
-
-   QueryResult q_result ;
-   this->execQuery( query , q_result  );
-
-   if ( q_result.empty() )
-       return false ;
-
-   query = "select Categoria from Categorie_SottoCategorie where IdCategoria = " ;
-   query += folder_id ;
-
-   q_result.clear();
-   this->execQuery( query , q_result  ) ;
-
-   if ( !q_result.empty() )
-       return false ;
-
-   query = "select Favorito from Categorie_Favoriti where IdCategoria = " ;
-   query += folder_id ;
-
-   q_result.clear();
-   this->execQuery( query , q_result ) ;
-
-   if ( !q_result.empty() )
-       return false ;
+{ 
+    if ( this->isFolderEmpty( folder_id ) ) return false ;
 
    QString remove = "delete from Categorie where Id = " ;
    remove += folder_id ;
