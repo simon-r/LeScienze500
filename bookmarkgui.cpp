@@ -76,7 +76,6 @@ void BookmarkGui::buildMenuFavorites()
     connect( new_folder , SIGNAL(triggered()) , this , SLOT(on_newFolder()) ) ;
     this->menuFavorites.addAction( new_folder ) ;
 
-
     this->menuFavorites.addSeparator() ;
     this->menuFavorites.addAction( tr( "Taglia" ) ) ;
     this->menuFavorites.addAction( tr( "Copia" ) ) ;
@@ -88,6 +87,8 @@ void BookmarkGui::buildMenuFavorites()
     this->menuFavorites.addAction( remove ) ;
 
     this->menuFavorites.addSeparator() ;
+
+    this->menuFavorites.addAction( tr( "Rinomina" ) ) ;
 
     ui->mainFavoritesMenu->setMenu( &this->menuFavorites );
 }
@@ -128,6 +129,7 @@ void BookmarkGui::fillCategorie()
      ui->treeCategorie->clear();
      current_favorites_item = items.first() ;
      ui->treeCategorie->insertTopLevelItems(0, items);
+     current_favorites_item->setExpanded( true ) ;
 }
 
 void BookmarkGui::fillCategorieRec( const QString& name , QTreeWidgetItem* parent )
