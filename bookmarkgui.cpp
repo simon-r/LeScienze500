@@ -113,12 +113,12 @@ void BookmarkGui::fillCategorie()
          QString id = qr.getField( "Id" , itr ) ;
          QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_folder ) ;
          setFolderItemDecorations( item , name , id ) ;
-         fillCategorieRec( name , item ) ;
+         fillCategorieRec( name , id , item ) ;
          items.append( item ) ;
      }
 
      // ATTENIONE!
-     bk.getFavoritesByParent( qr , "" ) ;
+     bk.getFavoritesByParentId( qr , "" ) ;
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
           QString name = qr.getField( "IdArticolo" , itr ) ;
@@ -134,12 +134,12 @@ void BookmarkGui::fillCategorie()
      current_favorites_item->setExpanded( true ) ;
 }
 
-void BookmarkGui::fillCategorieRec( const QString& name , QTreeWidgetItem* parent )
+void BookmarkGui::fillCategorieRec( const QString& name , const QString& parent_id , QTreeWidgetItem* parent )
 {
      Bookmark bk ;
      QueryResult qr ;
 
-     bk.getFolders( qr , name ) ;
+     bk.getFoldersId( qr , parent_id ) ;
 
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
@@ -147,7 +147,7 @@ void BookmarkGui::fillCategorieRec( const QString& name , QTreeWidgetItem* paren
           QString id = qr.getField( "Id" , itr ) ;
           QTreeWidgetItem* item = new QTreeWidgetItem( parent , BookmarkGui::item_folder ) ;
           this->setFolderItemDecorations( item , name , id ) ;
-          this->fillCategorieRec( name , item ) ;
+          this->fillCategorieRec( name , id , item ) ;
      }
 
      bk.getFavoritesByParent( qr , name ) ;
@@ -233,6 +233,8 @@ void BookmarkGui::appendFolder( QString name )
 
      new_folder = new QTreeWidgetItem( parent_item , BookmarkGui::item_folder ) ;
      this->setFolderItemDecorations( new_folder , folder_info.second , folder_info.first ) ;
+     new_folder->setExpanded( true );
+     ui->treeCategorie->setCurrentItem( new_folder );
 }
 
 bool  BookmarkGui::renameFolder()
@@ -313,6 +315,8 @@ void BookmarkGui::appendFavorite( QString id )
 
     new_favorite = new QTreeWidgetItem( parent_item , BookmarkGui::item_article ) ;
     this->setArticleItemDecorations( new_favorite , id , title.first  ) ;
+    parent_item->setExpanded( true ) ;
+    ui->treeCategorie->setCurrentItem( new_favorite );
 }
 
  bool BookmarkGui::removeFavorite()

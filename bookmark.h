@@ -77,8 +77,10 @@ public:
     QueryResult getCategoria( QString IdFavorito ) ;
 
     // QueryResult getSottoCategorie( QString IdCategoria ) ;
- QString addFavorite( QString parent , QString id ) __attribute__ ((deprecated)) ;
- QPair<QString,QString> addFolder( QString parent , QString name ) __attribute__ ((deprecated)) ;
+
+    // deprecated:
+    QString addFavorite( QString parent , QString id ) __attribute__ ((deprecated)) ;
+    QPair<QString,QString> addFolder( QString parent , QString name ) __attribute__ ((deprecated)) ;
 private:
 
     void execQuery( QString& query , QueryResult& qr ) ;

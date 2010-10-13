@@ -60,7 +60,7 @@ private:
     static const int item_folder = 1001 ;
     static const int item_article = 1002 ;
 
-    void fillCategorieRec( const QString& name , QTreeWidgetItem* parent ) ;
+    void fillCategorieRec( const QString& name , const QString& id , QTreeWidgetItem* parent ) ;
 
     void setFolderItemDecorations( QTreeWidgetItem* item , const QString& name , const QString& id ) ;
     void setArticleItemDecorations( QTreeWidgetItem* item , const QString& id_articolo , const QString& id ) ;
