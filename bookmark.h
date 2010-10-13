@@ -70,6 +70,9 @@ public:
 
     bool renameFolder( QString folder_id , QString new_name ) ;
 
+    bool moveFolder( QString folder_id , QString new_parent_id ) ;
+    bool moveFavorite( QString favorite_id , QString new_parent_id ) ;
+
 
     QueryResult getCommento( QString IdFavorito ) ;
     QueryResult getValutazione( QString IdFavorito ) ;

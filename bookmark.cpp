@@ -505,7 +505,27 @@ bool Bookmark::execQuery( const QString& query )
 
 
 
+bool Bookmark::moveFolder( QString folder_id , QString new_parent_id )
+{
+    if ( folder_id.isEmpty() ) return false ;
+    if ( new_parent_id.isEmpty() ) return false ;
+    if ( folder_id.toInt() == 1 ) return false ;
+    if ( !this->folderIdExist( folder_id ) ) return false ;
+    if ( !this->folderIdExist( new_parent_id ) ) return false ;
 
+    QString mv_query ;
+    mv_query = "update Folders_SubFolders set IdFolder = " ;
+    mv_query += new_parent_id ;
+    mv_query += " where IdSubFolder = " ;
+    mv_query += folder_id ;
+
+    return this->execQuery( mv_query ) ;
+}
+
+bool Bookmark::moveFavorite( QString favorite_id , QString new_parent_id )
+{
+
+}
 
 
 
