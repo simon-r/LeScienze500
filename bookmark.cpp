@@ -83,28 +83,28 @@ bool Bookmark::initBookmark()
 void Bookmark::getStati( QueryResult& query_r )
 {
     query_r.clear();
-    QString query = "select Stato from Stato" ;
+    QString query = "select StateName from UserStates" ;
     this->execQuery( query , query_r ) ;
 }
 
 void Bookmark::getValutazioni( QueryResult& query_r )
 {
     query_r.clear();
-    QString query = "select Valutazione from Valutazioni" ;
+    QString query = "select Evaluation from Evaluations" ;
     this->execQuery( query , query_r ) ;
 }
 
 void  Bookmark::getFavorites( QueryResult& query_r )
 {
     query_r.clear();
-    QString query = "select IdArticolo from Favoriti" ;
+    QString query = "select IdEntry from BookmarkEntries" ;
     this->execQuery( query , query_r ) ;
 }
 
 void  Bookmark::getFolders( QueryResult& query_r )
 {
     query_r.clear();
-    QString query = "select Id, Categoria from Categorie" ;
+    QString query = "select Id, Folder from Folders" ;
     this->execQuery( query , query_r ) ;
 }
 
@@ -118,9 +118,9 @@ void Bookmark::getFolders( QueryResult& query_r , const QString& parent )
         return ;
     }
 
-    QString query  = "select Id, Categoria from Categorie where " ;
-            query += "Id in ( select IdSottoCategoria from Categoria_SottoCategoria where IdCategoria in " ;
-            query += " ( select Id from Categorie where Categoria like \"" ;
+    QString query  = "select Id, Folder from Folders where " ;
+            query += "Id in ( select IdSubFolder from Folder_SubFolders where IdFolder in " ;
+            query += " ( select Id from Folders where Folder like \"" ;
             query += parent ;
             query += "\" ) ) " ;
     this->execQuery( query , query_r ) ;
@@ -136,8 +136,8 @@ void Bookmark::getFoldersId( QueryResult& query_r , const QString& parent_id )
         return ;
     }
 
-    QString query  = "select Id, Categoria from Categorie where " ;
-            query += "Id in ( select IdSottoCategoria from Categoria_SottoCategoria where IdCategoria = " ;
+    QString query  = "select Id, Folder from Folders where " ;
+            query += "Id in ( select IdSubFolder from Folder_SubFolders where IdFolder = " ;
             query += parent_id ;
             query += " ) " ;
     this->execQuery( query , query_r ) ;
@@ -149,11 +149,11 @@ bool Bookmark::folderExistsId( QString parent_id , QString folder_name )
     if ( parent_id.isEmpty() )
         parent_id = "1" ;
 
-    QString query  = "select Id from Categorie where Id in " ;
-            query += "( select IdSottoCategoria from Categoria_SottoCategoria where IdCategoria = " ;
+    QString query  = "select Id from Folders where Id in " ;
+            query += "( select IdSubFolder from Folder_SubFolders where IdFolder = " ;
             query += parent_id ;
-            query += " and IdSottocategoria in ( " ;
-            query += " select  Id from Categorie where Ctagoria like " ;
+            query += " and IdSubFolder in ( " ;
+            query += " select  Id from Folders where Ctagoria like " ;
             query += folder_name ;
             query += " ) ) " ;
 
@@ -169,9 +169,9 @@ bool Bookmark::folderExistsId( QString parent_id , QString folder_name )
 void Bookmark::getParentFolder( QueryResult& query_r , const QString& categoria )
 {
     query_r.clear();
-    QString query =  "select Id, Categoria from Categorie where " ;
-            query += "Id in ( select IdCategoria from Categoria_SottoCategoria where IdSottoCategoria in " ;
-            query += " ( select Id from Categorie where Categoria like \"" ;
+    QString query =  "select Id, Folder from Folders where " ;
+            query += "Id in ( select IdFolder from Folder_SubFolders where IdSubFolder in " ;
+            query += " ( select Id from Folders where Folder like \"" ;
             query += categoria ;
             query += "\"" ;
             query += " ) ) " ;
@@ -181,8 +181,8 @@ void Bookmark::getParentFolder( QueryResult& query_r , const QString& categoria 
 void Bookmark::getRootFolders( QueryResult& query_r )
 {
     query_r.clear();
-    QString query =  "select Id, Categoria, Ordine from Categorie where " ;
-            query += "Id not in ( select IdSottoCategoria from Categoria_SottoCategoria ) " ;
+    QString query =  "select * from Folders where " ;
+            query += "Id not in ( select IdSubFolder from Folder_SubFolders ) " ;
     this->execQuery( query , query_r ) ;
 }
 
@@ -192,12 +192,12 @@ void Bookmark::getFavoritesByParentId( QueryResult& query_r , const QString& par
 
     if ( parent_id.isEmpty() )
     {
-        query = "select * from Favoriti  where Id not in ( select IdFavorito from Categorie_Favoriti ) " ;
+        query = "select * from BookmarkEntries  where Id not in ( select IdBookmarkEntry from Folders_BookmarkEntries ) " ;
     }
     else
     {
-        query =  "select * from Favoriti where " ;
-        query += "Id in ( select IdFavorito from Categorie_Favoriti where IdCategoria = " ;
+        query =  "select * from BookmarkEntries where " ;
+        query += "Id in ( select IdBookmarkEntry from Folders_BookmarkEntries where IdFolder = " ;
         query += parent_id ;
         query += " ) " ;
     }
@@ -212,13 +212,13 @@ void Bookmark::getFavoritesByParent( QueryResult& query_r , const QString& paren
 
     if ( parent.isEmpty() )
     {
-        query = "select * from Favoriti  where Id not in ( select IdFavorito from Categorie_Favoriti ) " ;
+        query = "select * from BookmarkEntries  where Id not in ( select IdBookmarkEntry from Folders_BookmarkEntries ) " ;
     }
     else
     {
-        query =  "select * from Favoriti where " ;
-        query += "Id in ( select IdFavorito from Categorie_Favoriti where IdCategoria in " ;
-        query += " ( select Id from Categorie where Categoria like \"" ;
+        query =  "select * from BookmarkEntries where " ;
+        query += "Id in ( select IdBookmarkEntry from Folders_BookmarkEntries where IdFolder in " ;
+        query += " ( select Id from Folders where Folder like \"" ;
         query += parent ;
         query += "\"" ;
         query += " ) ) " ;
@@ -243,7 +243,7 @@ void  Bookmark::getFavoriteFullData( QueryResult& query_r , const QString& id )
 
 bool Bookmark::folderExist( QString name )
 {
-    QString query = "select Id from Categorie where Categoria like \"" ;
+    QString query = "select Id from Folders where Folder like \"" ;
     query += name ;
     query += "\"  " ;
 
@@ -258,7 +258,7 @@ bool Bookmark::folderExist( QString name )
 
 bool Bookmark::folderIdExist( QString id )
 {
-    QString query = "select Id from Categorie where Id = " ;
+    QString query = "select Id from Folders where Id = " ;
     query += id ;
     query += " " ;
 
@@ -294,7 +294,7 @@ QPair<QString,QString> Bookmark::addFolderId( QString parent_id , QString name )
     QueryResult query_r ;
     do
     {
-        QString query_name = "select * from Categorie where Categoria like \"" ;
+        QString query_name = "select * from Folders where Folder like \"" ;
         query_name += name_cnt ;
         query_name += "\" " ;
 
@@ -309,7 +309,7 @@ QPair<QString,QString> Bookmark::addFolderId( QString parent_id , QString name )
     }
     while ( query_r.size() > 0 ) ;
 
-    QString query = "insert into Categorie ( Categoria ) values ( \"" ;
+    QString query = "insert into Folders ( Folder ) values ( \"" ;
     query += name_cnt_save ;
     query += "\" ) " ;
 
@@ -317,14 +317,14 @@ QPair<QString,QString> Bookmark::addFolderId( QString parent_id , QString name )
 
     qDebug() << query ;
 
-    QString query_id = "select Id from Categorie where Categoria like \"" ;
+    QString query_id = "select Id from Folders where Folder like \"" ;
     query_id += name_cnt_save ;
     query_id += "\"  " ;
 
    QueryResult query_r_id ;
    this->execQuery( query_id , query_r_id ) ;
 
-   QString query_parent = "insert into Categoria_SottoCategoria ( IdCategoria , IdSottoCategoria ) values ( " ;
+   QString query_parent = "insert into Folder_SubFolders ( IdFolder , IdSubFolder ) values ( " ;
    query_parent += parent_id ;
    query_parent += " , " ;
    query_parent += query_r_id.getField( "Id" , query_r_id.begin() ) ;
@@ -356,20 +356,20 @@ QPair<QString,QString> Bookmark::addFavoriteId( QString parent_id , QString id_a
 
     if ( query_r.empty() ) return qMakePair(QString(""),QString("")) ;
 
-    QString query = "insert into Favoriti ( IdArticolo ) values ( " ;
+    QString query = "insert into BookmarkEntries ( IdEntry ) values ( " ;
     query += id_articolo ;
     query += " ) " ;
 
     flag = this->execQuery( query ) ;
     if ( !flag ) qMakePair(QString(""),QString("")) ;
 
-    QString query_ida = "select max ( Id ) from Favoriti where IdArticolo = " ;
+    QString query_ida = "select max ( Id ) from BookmarkEntries where IdEntry = " ;
     query_ida += id_articolo ;
 
     QueryResult query_r_ida ;
     this->execQuery( query_ida , query_r_ida ) ;
 
-    QString query_tr = "insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( " ;
+    QString query_tr = "insert into Folders_BookmarkEntries ( IdFolder , IdBookmarkEntry ) values ( " ;
     query_tr += parent_id ;
     query_tr += " , " ;
     query_tr += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
@@ -378,7 +378,7 @@ QPair<QString,QString> Bookmark::addFavoriteId( QString parent_id , QString id_a
     flag = this->execQuery( query_tr ) ;
     if ( !flag )
     {
-        QString remove = "delete from Favoriti where Id = " ;
+        QString remove = "delete from BookmarkEntries where Id = " ;
         remove += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
         this->execQuery( remove ) ;
         return qMakePair(QString(""),QString("")) ;
@@ -402,13 +402,13 @@ bool  Bookmark::removeFavorite( QString parent_id , QString id )
       return false ;
     }
 
-    QString remove = "delete from Favoriti where Id = " ;
+    QString remove = "delete from BookmarkEntries where Id = " ;
     remove += id ;
     ret = this->execQuery( remove ) ;
 
     if ( !ret ) return false ;
 
-    QString remove_ff = "delete from Categorie_Favoriti  where IdFavorito = " ;
+    QString remove_ff = "delete from Folders_BookmarkEntries  where IdBookmarkEntry = " ;
     remove_ff += id ;
 
     ret = this->execQuery( remove_ff ) ;
@@ -423,7 +423,7 @@ bool Bookmark::isFolderEmpty( QString folder_id )
     if ( folder_id.isEmpty() )
      return true ;
 
-    QString query =  "select * from Categorie where Id = " ;
+    QString query =  "select * from Folders where Id = " ;
     query += folder_id ;
 
     QueryResult q_result ;
@@ -432,7 +432,7 @@ bool Bookmark::isFolderEmpty( QString folder_id )
     if ( q_result.empty() )
         return true ;
 
-    query = "select IdCategoria from Categoria_SottoCategoria where IdCategoria = " ;
+    query = "select IdFolder from Folder_SubFolders where IdFolder = " ;
     query += folder_id ;
 
     q_result.clear();
@@ -441,7 +441,7 @@ bool Bookmark::isFolderEmpty( QString folder_id )
     flag = false ;
     flag = q_result.empty() ;
 
-    query = "select IdFavorito from Categorie_Favoriti where IdCategoria = " ;
+    query = "select IdBookmarkEntry from Folders_BookmarkEntries where IdFolder = " ;
     query += folder_id ;
 
     q_result.clear();
@@ -455,13 +455,14 @@ bool Bookmark::isFolderEmpty( QString folder_id )
 bool Bookmark::removeFolder( QString folder_id )
 { 
     if ( !this->isFolderEmpty( folder_id ) ) return false ;
+    if ( folder_id.toInt() == 1 ) return false ;
 
-   QString remove = "delete from Categorie where Id = " ;
+   QString remove = "delete from Folders where Id = " ;
    remove += folder_id ;
 
    bool flag = this->execQuery( remove ) ;
 
-   remove = "delete from Categoria_SottoCategoria where IdSottoCategori = " ;
+   remove = "delete from Folder_SubFolders where IdSubFolder = " ;
    remove += folder_id ;
 
    flag = flag && this->execQuery( remove ) ;
@@ -472,7 +473,7 @@ bool Bookmark::renameFolder( QString folder_id , QString new_name )
     if ( folder_id.isEmpty() ) return false ;
     //if ( !this->folderExistsId( folder_id ) ) return false ;
 
-    QString rename = "update Categorie set Categoria = \"" ;
+    QString rename = "update Folders set Folder = \"" ;
     rename += new_name ;
     rename += "\" " ;
     rename += "where Id = " ;
@@ -531,7 +532,7 @@ QString Bookmark::addFavorite( QString parent , QString id )
         QueryResult query_root ;
         getRootFolders( query_root ) ;
         if ( query_root.empty() ) return QString( "" ) ;
-        parent = query_root.getField( "Categoria" , query_root.begin() ) ;
+        parent = query_root.getField( "Folder" , query_root.begin() ) ;
     }
 
     QueryResult query_r ;
@@ -539,25 +540,25 @@ QString Bookmark::addFavorite( QString parent , QString id )
 
     if ( query_r.empty() ) return QString( "" ) ;
 
-    QString query = "insert into Favoriti ( IdArticolo ) values ( " ;
+    QString query = "insert into BookmarkEntries ( IdEntry ) values ( " ;
     query += id ;
     query += " ) " ;
     this->execQuery( query ) ;
 
-    QString query_ida = "select Id from Favoriti where IdArticolo = " ;
+    QString query_ida = "select Id from BookmarkEntries where IdEntry = " ;
     query_ida += id ;
 
     QueryResult query_r_ida ;
     this->execQuery( query_ida , query_r_ida ) ;
 
-    QString query_id_p = "select Id from Categorie where Categoria like \"" ;
+    QString query_id_p = "select Id from Folders where Folder like \"" ;
     query_id_p += parent ;
     query_id_p += "\" " ;
 
     QueryResult query_r_idp ;
     this->execQuery( query_id_p , query_r_idp ) ;
 
-    QString query_tr = "insert into Categorie_Favoriti ( IdCategoria , IdFavorito ) values ( " ;
+    QString query_tr = "insert into Folders_BookmarkEntries ( IdFolder , IdBookmarkEntry ) values ( " ;
     query_tr += query_r_idp.getField( "Id" , query_r_idp.begin() ) ;
     query_tr += " , " ;
     query_tr += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
@@ -583,7 +584,7 @@ QPair<QString,QString> Bookmark::addFolder( QString parent , QString name )
             QPair<QString,QString> r ;
             return r ;
         }
-        parent = query_root.getField( "Categoria" , query_root.begin() ) ;
+        parent = query_root.getField( "Folder" , query_root.begin() ) ;
     }
 
     if ( name.isEmpty() )
@@ -597,7 +598,7 @@ QPair<QString,QString> Bookmark::addFolder( QString parent , QString name )
     QueryResult query_r ;
     do
     {
-        QString query_name = "select * from Categorie where Categoria like \"" ;
+        QString query_name = "select * from Folders where Folder like \"" ;
         query_name += name_cnt ;
         query_name += "\" " ;
 
@@ -612,7 +613,7 @@ QPair<QString,QString> Bookmark::addFolder( QString parent , QString name )
     }
     while ( query_r.size() > 0 ) ;
 
-    QString query = "insert into Categorie ( Categoria ) values ( \"" ;
+    QString query = "insert into Folders ( Folder ) values ( \"" ;
     query += name_cnt_save ;
     query += "\" ) " ;
 
@@ -620,11 +621,11 @@ QPair<QString,QString> Bookmark::addFolder( QString parent , QString name )
 
     qDebug() << query ;
 
-    QString query_id = "select Id from Categorie where Categoria like \"" ;
+    QString query_id = "select Id from Folders where Folder like \"" ;
     query_id += name_cnt_save ;
     query_id += "\"  " ;
 
-    QString query_id_p = "select Id from Categorie where Categoria like \"" ;
+    QString query_id_p = "select Id from Folders where Folder like \"" ;
     query_id_p += parent ;
     query_id_p += "\" " ;
 
@@ -633,7 +634,7 @@ QPair<QString,QString> Bookmark::addFolder( QString parent , QString name )
     this->execQuery( query_id , query_r_id ) ;
     this->execQuery( query_id_p , query_r_idp ) ;
 
-    QString query_parent = "insert into Categoria_SottoCategoria ( IdCategoria , IdSottoCategoria ) values ( " ;
+    QString query_parent = "insert into Folder_SubFolders ( IdFolder , IdSubFolder ) values ( " ;
     query_parent += query_r_idp.getField( "Id" , query_r_idp.begin() ) ;
     query_parent += " , " ;
     query_parent += query_r_id.getField( "Id" , query_r_id.begin() ) ;

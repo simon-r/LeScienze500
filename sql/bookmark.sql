@@ -17,83 +17,83 @@
 --    along with LeScienze500.  If not, see <http://www.gnu.org/licenses/>.
 
 
-create table Favoriti 
+create table BookmarkEntries 
 (
 Id integer primary key autoincrement,
-IdArticolo integer not null ,
-Ordine integer default 1,
+IdEntry integer not null ,
+N_Order integer default 1,
 expanded boolean default false 
 ) ;
 
-create table Categorie 
+create table Folders 
 (
 Id integer primary key autoincrement,
-Categoria varchar(40) not null,
-Ordine integer default 1,
+Folder varchar(40) not null,
+N_Order integer default 1,
 expanded boolean default false 
 ) ;
 
-create table Categoria_SottoCategoria
+create table Folder_SubFolders
 (
-IdCategoria integer not null,
-IdSottoCategoria integer not null unique,
-primary key ( IdCategoria , IdSottoCategoria ),
-foreign key ( IdCategoria ) references Categorie( Id ),
-foreign key ( IdSottoCategoria ) references Categorie( Id ),
-constraint NonSelfReference check ( IdSottoCategoria <> IdCategoria )
+IdFolder integer not null,
+IdSubFolder integer not null unique,
+primary key ( IdFolder , IdSubFolder ),
+foreign key ( IdFolder ) references Folders( Id ),
+foreign key ( IdSubFolder ) references Folders( Id ),
+constraint NotSelfReference check ( IdSubFolder <> IdFolder )
 ) ;
 
-create table Stato
+create table UserStates
 (
 Id integer primary key autoincrement,
-Stato varchar(20) not null unique
+StateName varchar(20) not null unique
 ) ;
 
-create table Commenti
+create table Comments
 (
 Id integer primary key autoincrement,
-Commento text 
+Comment text 
 ) ;
 
-create table Valutazioni
+create table Evaluations
 (
 Id integer primary key autoincrement,
-Valutazione integer unique,
-constraint RangeValutazioni check ( Valutazione > 0 and Valutazione <= 5 )
+Evaluation integer unique,
+constraint EvaluationsRange check ( Evaluation > 0 and Evaluation <= 5 )
 ) ;
 
-create table Categorie_Favoriti
+create table Folders_BookmarkEntries
 (
-IdCategoria integer not null,
-IdFavorito integer not null,
-primary key ( IdCategoria , IdFavorito ),
-foreign key ( IdCategoria ) references Categorie( Id ),
-foreign key ( IdFavorito ) references Favoriti( Id )
+IdFolder integer not null,
+IdBookmarkEntry integer not null,
+primary key ( IdFolder , IdBookmarkEntry ),
+foreign key ( IdFolder ) references Folders( Id ),
+foreign key ( IdBookmarkEntry ) references BookmarkEntries( Id )
 ) ;
 
-create table Stato_Favoriti 
+create table UserStates_BookmarkEntries
 (
-IdStato integer not null,
-IdFavorito integer not null,
-primary key( IdStato, IdFavoriti ),
-foreign key( IdStato ) references Stato( Id ),
-foreign key( IdFavorito ) references Favoriti( Id )
+IdUserState integer not null,
+IdBookmarkEntry integer not null,
+primary key( IdUserState, IdBookmarkEntry ),
+foreign key( IdUserState ) references UserStates( Id ),
+foreign key( IdBookmarkEntry ) references BookmarkEntries( Id )
 ) ;
 
-create table Commento_Favoriti
+create table Comments_BookmarkEntries
 (
-IdCommento integer not null unique,
-IdFavorito integer not null unique,
-primary key ( IdCommento , IdFavoriti ),
-foreign key ( IdCommento ) references Commenti ( Id ),
-foreign key ( IdFavorito ) references Favoriti ( Id )
+IdComment integer not null unique,
+IdBookmarkEntry integer not null unique,
+primary key ( IdComment , IdBookmarkEntry ),
+foreign key ( IdComment ) references Comments ( Id ),
+foreign key ( IdBookmarkEntry ) references BookmarkEntries ( Id )
 ) ;
 
-create table Valutazioni_Favoriti
+create table Evaluations_BookmarkEntries
 (
-IdValutazione integer not null,
-IdFavorito integer not null,
-primary key ( IdValutazione , IdFavorito ),
-foreign key ( IdValutazione ) references Valutazioni ( Id ),
-foreign key ( IdFavorito ) references Favoriti ( Id )
+IdEvaluation integer not null,
+IdBookmarkEntry integer not null,
+primary key ( IdEvaluation , IdBookmarkEntry ),
+foreign key ( IdEvaluation ) references Evaluations ( Id ),
+foreign key ( IdBookmarkEntry ) references BookmarkEntries ( Id )
 ) ;

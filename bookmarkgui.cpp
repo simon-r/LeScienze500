@@ -32,7 +32,7 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     current_favorite = "" ;
 
     buildMenuFavorites() ;
-    this->setWindowTitle( "Preferiti (alpha release)" );
+    this->setWindowTitle( "Preferiti (beta release)" );
 
     ui->treeCategorie->setContextMenuPolicy( Qt::CustomContextMenu );
 
@@ -109,7 +109,7 @@ void BookmarkGui::fillCategorie()
      bk.getRootFolders( qr );
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
-         QString name = qr.getField( "Categoria" , itr ) ;
+         QString name = qr.getField( "Folder" , itr ) ;
          QString id = qr.getField( "Id" , itr ) ;
          QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_folder ) ;
          setFolderItemDecorations( item , name , id ) ;
@@ -143,7 +143,7 @@ void BookmarkGui::fillCategorieRec( const QString& name , const QString& parent_
 
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
-          QString name = qr.getField( "Categoria" , itr ) ;
+          QString name = qr.getField( "Folder" , itr ) ;
           QString id = qr.getField( "Id" , itr ) ;
           QTreeWidgetItem* item = new QTreeWidgetItem( parent , BookmarkGui::item_folder ) ;
           this->setFolderItemDecorations( item , name , id ) ;
@@ -153,7 +153,7 @@ void BookmarkGui::fillCategorieRec( const QString& name , const QString& parent_
      bk.getFavoritesByParent( qr , name ) ;
      for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
      {
-          QString name = qr.getField( "IdArticolo" , itr ) ;
+          QString name = qr.getField( "IdEntry" , itr ) ;
           QString id = qr.getField( "Id" , itr ) ;
           QTreeWidgetItem* item = new QTreeWidgetItem( parent , BookmarkGui::item_article ) ;
           this->setArticleItemDecorations( item , name , id ) ;
