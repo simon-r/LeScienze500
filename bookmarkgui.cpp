@@ -319,6 +319,9 @@ void BookmarkGui::appendFavorite( QString id )
     this->setArticleItemDecorations( new_favorite , id , title.first  ) ;
     parent_item->setExpanded( true ) ;
     ui->treeCategorie->setCurrentItem( new_favorite );
+
+    QModelIndex m_index = ui->treeCategorie->currentIndex() ;
+    ui->treeCategorie->update( m_index ) ;
 }
 
  bool BookmarkGui::removeFavorite()
