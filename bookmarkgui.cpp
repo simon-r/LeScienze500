@@ -274,8 +274,10 @@ bool BookmarkGui::removeFolder()
     ui->treeCategorie->update();
     this->current_favorites_item = tmp_parent ;
     ui->treeCategorie->setCurrentItem( tmp_parent ) ;
-    QModelIndex m_index = ui->treeCategorie->currentIndex() ;
-    ui->treeCategorie->update( m_index ) ;
+
+//    QModelIndex m_index = ui->treeCategorie->currentIndex() ;
+//    ui->treeCategorie->update( m_index ) ;
+
     return true ;
 }
 
