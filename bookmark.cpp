@@ -528,7 +528,17 @@ bool Bookmark::moveFolder( QString folder_id , QString new_parent_id )
 
 bool Bookmark::moveFavorite( QString favorite_id , QString new_parent_id )
 {
+    if ( favorite_id.isEmpty() ) return false ;
+    if ( new_parent_id.isEmpty() ) return false ;
+    if ( !this->folderIdExist( new_parent_id ) ) return false ;
 
+    QString mv_query ;
+    mv_query = "update Folders_BookmarkEntries set IdFolder = " ;
+    mv_query += new_parent_id ;
+    mv_query += " where IdBookmarkEntry = " ;
+    mv_query += favorite_id ;
+
+    return this->execQuery( mv_query ) ;
 }
 
 

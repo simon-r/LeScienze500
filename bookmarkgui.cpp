@@ -378,9 +378,11 @@ void BookmarkGui::appendFavorite( QString id )
          this->cut_state = true ;
          qDebug() << "cut folder" ;
      }
-     else if ( this->current_favorites_item->type() == BookmarkGui::item_folder )
+     else if ( this->current_favorites_item->type() == BookmarkGui::item_article )
      {
-
+         this->cutted_item = this->current_favorites_item ;
+         this->cutted_item->setDisabled( true ) ;
+         this->cut_state = true ;
      }
      else
      {
@@ -391,7 +393,6 @@ void BookmarkGui::appendFavorite( QString id )
  void BookmarkGui::on_pasteItem()
  {
      if ( this->cut_state == true
-          && this->cutted_item->type() == BookmarkGui::item_folder
           && this->current_favorites_item->type() == BookmarkGui::item_folder )
      {
          Bookmark bk ;
@@ -401,7 +402,13 @@ void BookmarkGui::appendFavorite( QString id )
          if ( old_parent != this->current_favorites_item
               && this->cutted_item != this->current_favorites_item )
          {
-             bk.moveFolder( this->cutted_item->text(1) , this->current_favorites_item->text(1) ) ;
+             if ( this->cutted_item->type() == BookmarkGui::item_folder )
+                bk.moveFolder( this->cutted_item->text(1) , this->current_favorites_item->text(1) ) ;
+             else if ( this->cutted_item->type() == BookmarkGui::item_article )
+                bk.moveFavorite( this->cutted_item->text(2) , this->current_favorites_item->text(1) ) ;
+             else
+                 return ;
+
              int index = old_parent->indexOfChild( this->cutted_item ) ;
              this->cutted_item = old_parent->takeChild( index ) ;
              this->current_favorites_item->addChild( this->cutted_item );
