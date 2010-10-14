@@ -28,7 +28,11 @@ int main(int argc, char *argv[])
     Bookmark bk ;
     if ( bk.initBookmark() )
     {
-        qDebug() << "error" ;
+        qDebug() << "Ok" ;
+    }
+    else
+    {
+        qDebug() << "new bookmark" ;
     }
 
 //    QueryResult r ;

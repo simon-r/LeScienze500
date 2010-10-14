@@ -57,20 +57,22 @@ bool Bookmark::initBookmark()
 
     bool result , result_b ;
 
-    QFile res ;
-    res.setFileName(":/sql/sql/bookmark.sql" );
-    res.open(QIODevice::ReadOnly) ;
-    QString full_sql = QString::fromUtf8( res.readAll() ) ;
-    qDebug() << full_sql ;
-    res.close();
 
-    res.setFileName(":/sql/sql/bookmark_init.sql" );
-    res.open(QIODevice::ReadOnly) ;
-    QString full_init = QString::fromUtf8( res.readAll() ) ;
-    res.close();
 
     if ( !file.exists() )
     {
+        QFile res ;
+        res.setFileName(":/sql/sql/bookmark.sql" );
+        res.open(QIODevice::ReadOnly) ;
+        QString full_sql = QString::fromUtf8( res.readAll() ) ;
+        qDebug() << full_sql ;
+        res.close();
+
+        res.setFileName(":/sql/sql/bookmark_init.sql" );
+        res.open(QIODevice::ReadOnly) ;
+        QString full_init = QString::fromUtf8( res.readAll() ) ;
+        res.close();
+
         result = QueryDB::execNAQuery( db_path , full_sql ) ;
         result_b = QueryDB::execNAQuery( db_path , full_init ) ;
 
