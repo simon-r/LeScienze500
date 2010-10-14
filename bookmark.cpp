@@ -466,6 +466,8 @@ bool Bookmark::removeFolder( QString folder_id )
    remove += folder_id ;
 
    flag = flag && this->execQuery( remove ) ;
+
+   return flag ;
 }
 
 bool Bookmark::renameFolder( QString folder_id , QString new_name )
