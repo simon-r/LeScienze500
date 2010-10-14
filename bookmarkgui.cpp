@@ -34,6 +34,7 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     buildMenuFavorites() ;
     this->setWindowTitle( "Preferiti (beta release)" );
 
+    ui->treeCategorie->setUpdatesEnabled( true );
     ui->treeCategorie->setContextMenuPolicy( Qt::CustomContextMenu );
 
     connect( ui->treeCategorie , SIGNAL(itemSelectionChanged()) , this , SLOT(on_selectedChanged()) ) ;
@@ -271,7 +272,7 @@ bool BookmarkGui::removeFolder()
     if ( !fr ) return false ;
 
     tmp_parent->removeChild( this->current_favorites_item ) ;
-    ui->treeCategorie->update();
+//    ui->treeCategorie->update();
     this->current_favorites_item = tmp_parent ;
     ui->treeCategorie->setCurrentItem( tmp_parent ) ;
 
