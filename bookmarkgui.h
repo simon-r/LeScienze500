@@ -53,6 +53,10 @@ private:
     Ui::BookmarkGui *ui;
     QMenu menuFavorites ;
     QTreeWidgetItem* current_favorites_item ;
+
+    QTreeWidgetItem* cutted_item ;
+    bool cut_state ;
+
     QString current_favorite ;
 
     void buildMenuFavorites() ;
@@ -77,6 +81,9 @@ public slots:
     void on_contextMenu( const QPoint& pos ) ;
 
     void on_selectedChanged() ;
+    void on_cutItem() ;
+    void on_pasteItem() ;
+    void on_cancelCut() ;
 
 signals:
     void sig_openPdf( int id ) ;

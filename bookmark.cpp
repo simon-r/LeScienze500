@@ -516,10 +516,12 @@ bool Bookmark::moveFolder( QString folder_id , QString new_parent_id )
     if ( !this->folderIdExist( new_parent_id ) ) return false ;
 
     QString mv_query ;
-    mv_query = "update Folders_SubFolders set IdFolder = " ;
+    mv_query = "update Folder_SubFolders set IdFolder = " ;
     mv_query += new_parent_id ;
     mv_query += " where IdSubFolder = " ;
     mv_query += folder_id ;
+
+    qDebug() <<  mv_query ;
 
     return this->execQuery( mv_query ) ;
 }

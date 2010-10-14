@@ -31,6 +31,9 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     current_favorites_item = 0 ;
     current_favorite = "" ;
 
+    cutted_item = 0 ;
+    cut_state = false ;
+
     buildMenuFavorites() ;
     this->setWindowTitle( "Preferiti (beta release)" );
 
@@ -78,9 +81,21 @@ void BookmarkGui::buildMenuFavorites()
     this->menuFavorites.addAction( new_folder ) ;
 
     this->menuFavorites.addSeparator() ;
-    this->menuFavorites.addAction( tr( "Taglia" ) ) ;
+
+    QAction* cut_item = new QAction( tr( "Taglia" ) , 0 );
+    connect( cut_item , SIGNAL(triggered()) , this , SLOT(on_cutItem()) ) ;
+    this->menuFavorites.addAction( cut_item ) ;
+
     this->menuFavorites.addAction( tr( "Copia" ) ) ;
-    this->menuFavorites.addAction( tr( "Incolla" ) ) ;
+
+    QAction* paste = new QAction( tr( "Incolla" ) , 0 );
+    connect( paste , SIGNAL(triggered()) , this , SLOT(on_pasteItem()) ) ;
+    this->menuFavorites.addAction( paste ) ;
+
+    QAction* cancel_cut = new QAction( tr( "Annulla Taglia" ) , 0 );
+    connect( cancel_cut , SIGNAL(triggered()) , this , SLOT(on_cancelCut()) ) ;
+    this->menuFavorites.addAction( cancel_cut ) ;
+
     this->menuFavorites.addSeparator() ;
 
     QAction* remove = new QAction( tr( "Rimuovi" ) , 0 );
@@ -216,6 +231,7 @@ void BookmarkGui::appendFolder( QString name )
     {
         parent = "" ; // Unused !!!!
         parent_id = "1" ; // Unused !!!!
+        parent_item = 0 ;
     }
     else if ( this->current_favorites_item->type() == BookmarkGui::item_folder )
     {
@@ -345,6 +361,71 @@ void BookmarkGui::appendFavorite( QString id )
      //ui->treeCategorie->update( m_index ) ;
 
      return true ;
+ }
+
+ void BookmarkGui::on_cutItem()
+ {
+     if ( this->cut_state == true )
+     {
+         this->cutted_item->setDisabled( false );
+         this->cut_state = false ;
+     }
+
+     if ( this->current_favorites_item->type() == BookmarkGui::item_folder )
+     {
+         this->cutted_item = this->current_favorites_item ;
+         this->cutted_item->setDisabled( true ) ;
+         this->cut_state = true ;
+         qDebug() << "cut folder" ;
+     }
+     else if ( this->current_favorites_item->type() == BookmarkGui::item_folder )
+     {
+
+     }
+     else
+     {
+         return ;
+     }
+ }
+
+ void BookmarkGui::on_pasteItem()
+ {
+     if ( this->cut_state == true
+          && this->cutted_item->type() == BookmarkGui::item_folder
+          && this->current_favorites_item->type() == BookmarkGui::item_folder )
+     {
+         Bookmark bk ;
+
+         QTreeWidgetItem* old_parent = this->cutted_item->parent() ;
+
+         if ( old_parent != this->current_favorites_item
+              && this->cutted_item != this->current_favorites_item )
+         {
+             bk.moveFolder( this->cutted_item->text(1) , this->current_favorites_item->text(1) ) ;
+             int index = old_parent->indexOfChild( this->cutted_item ) ;
+             this->cutted_item = old_parent->takeChild( index ) ;
+             this->current_favorites_item->addChild( this->cutted_item );
+             this->cutted_item->setDisabled( false ) ;
+             this->cutted_item->parent()->setExpanded( true ) ;
+             ui->treeCategorie->setCurrentItem( this->cutted_item );
+         }
+
+         this->cutted_item->setDisabled( false ) ;
+         this->cutted_item = 0 ;
+         this->cut_state = false ;
+         return ;
+     }
+ }
+
+ void BookmarkGui::on_cancelCut()
+ {
+     if ( this->cutted_item != 0 )
+     {
+         this->cutted_item->setDisabled( false ) ;
+         this->cutted_item = 0 ;
+         this->cut_state = false ;
+         return ;
+     }
  }
 
 void BookmarkGui::on_newFolder()
