@@ -89,8 +89,12 @@ public slots:
     void on_pasteItem() ;
     void on_cancelCut() ;
 
+    void on_commentChanged() ;
+    void on_openBrowser() ;
+
 signals:
     void sig_openPdf( int id ) ;
+    void sig_openBrowser( int id ) ;
 };
 
 #endif // BOOKMARKGUI_H

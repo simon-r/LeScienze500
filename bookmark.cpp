@@ -103,6 +103,21 @@ void  Bookmark::getFavorites( QueryResult& query_r )
     this->execQuery( query , query_r ) ;
 }
 
+bool Bookmark::isFavoriteBookmarked( QString id )
+{
+     QString query = "select count(Id) from BookmarkEntries where IdEntry = " ;
+     query += id ;
+
+      QueryResult query_r ;
+
+      this->execQuery( query , query_r ) ;
+
+      if ( query_r.getField(0,0).toInt() > 0 )
+          return true ;
+      else
+          return false ;
+}
+
 void  Bookmark::getFolders( QueryResult& query_r )
 {
     query_r.clear();

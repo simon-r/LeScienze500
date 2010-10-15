@@ -41,6 +41,8 @@ public:
 
     bool folderExistsId( QString parent_id , QString folder_name ) ;
 
+    bool isFavoriteBookmarked( QString id ) ;
+
     bool isFolderEmpty( QString folder_id ) ;
 
     void getParentFolder( QueryResult& query_r , const QString& cat ) ;

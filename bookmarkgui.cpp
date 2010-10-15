@@ -30,6 +30,7 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 
     current_favorites_item = 0 ;
     current_favorite = "" ;
+    current_favorite_id = "" ;
 
     cutted_item = 0 ;
     cut_state = false ;
@@ -47,14 +48,25 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     connect( ui->OpenPDF , SIGNAL(clicked()) , this , SLOT(on_openPdf()) ) ;
 
     connect( ui->SaveComment , SIGNAL(clicked()) , this , SLOT(on_saveComment()) ) ;
+
+    connect( ui->Comments , SIGNAL(textChanged()) , this , SLOT(on_commentChanged()) ) ;
+
+    connect( ui->OpenReview , SIGNAL(clicked()) , this , SLOT(on_openBrowser()) ) ;
 }
 
 void BookmarkGui::open()
 {
     current_favorite = "" ;
     current_favorites_item = 0 ;
+    current_favorite_id = "" ;
+
+    ui->Title->clear();
+    ui->Abstract->clear();
+    ui->Comments->clear();
 
     fillCategorie() ;
+
+    ui->SaveComment->setDisabled( true );
 
     setModal( true ) ;
     show() ;
@@ -64,14 +76,19 @@ void BookmarkGui::open()
 void BookmarkGui::open( QString id )
 {
     current_favorites_item = 0 ;
-
     fillCategorie() ;
 
     setModal( true ) ;
     show() ;
 
+    ui->Title->clear();
+    ui->Abstract->clear();
+    ui->Comments->clear();
+
     current_favorite = id ;
     this->fillFavoriteInfo( id ) ;
+
+    ui->SaveComment->setDisabled( true );
 
     exec() ;
 }
@@ -215,6 +232,11 @@ void BookmarkGui::fillFavoriteInfo( const QString& id )
     ui->Abstract->setHtml( article.getField( "Abstract" , article.begin() ) );
 
     this->current_favorite = id ;
+
+    if ( bk.isFavoriteBookmarked(id) )
+        ui->AddFavorite->setDisabled( true );
+    else
+        ui->AddFavorite->setDisabled( false );
 }
 
 void BookmarkGui::fillFavoriteInfo( const QString& id , const QString& Id_f )
@@ -231,6 +253,8 @@ void BookmarkGui::fillFavoriteInfo( const QString& id , const QString& Id_f )
         ui->Comments->setHtml( "" ) ;
     else
         ui->Comments->setHtml( res.getField(0,0) ) ;
+
+     ui->SaveComment->setDisabled( true );
 }
 
 
@@ -525,4 +549,16 @@ void BookmarkGui::on_saveComment()
     if ( this->current_favorite.isEmpty() ) return ;
 
     bk.setComment( ui->Comments->toPlainText().toUtf8() , this->current_favorite_id ) ;
+    ui->SaveComment->setDisabled( true );
+}
+
+void BookmarkGui::on_commentChanged()
+{
+    ui->SaveComment->setDisabled( false );
+}
+
+void BookmarkGui::on_openBrowser()
+{
+    if ( this->current_favorite.isEmpty() ) return ;
+    emit sig_openBrowser( this->current_favorite.toInt() ) ;
 }

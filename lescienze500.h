@@ -119,6 +119,7 @@ private slots:
     void on_openBookmark() ;
     void on_openAbout() ;
     void on_addFavoriti() ;
+    void on_ApriBrowserCopertine( int id ) ;
 
     void on_pushButton_clicked();
     void on_ApriBrowserCopertine_clicked();

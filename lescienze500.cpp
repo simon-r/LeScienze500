@@ -816,6 +816,7 @@ void LeScienze500::BuildBookmark()
     {
         bk_gui = new BookmarkGui() ;
         connect( bk_gui , SIGNAL(sig_openPdf(int)) , this , SLOT(on_openPDF(int)) ) ;
+        connect( bk_gui , SIGNAL(sig_openBrowser(int)) , this , SLOT(on_ApriBrowserCopertine(int)) ) ;
     }
 }
 
@@ -1084,5 +1085,10 @@ void LeScienze500::on_pushButton_clicked()
     if ( this->history_id_articoli.isEmpty() ) return ;
 
     int id = this->history_id_articoli.front() ;
+    this->OpenBrowserCopertine( id ) ;
+}
+
+void LeScienze500::on_ApriBrowserCopertine( int id )
+{
     this->OpenBrowserCopertine( id ) ;
 }
