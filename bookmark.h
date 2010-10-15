@@ -74,7 +74,9 @@ public:
     bool moveFavorite( QString favorite_id , QString new_parent_id ) ;
 
 
-    QueryResult getCommento( QString IdFavorito ) ;
+    bool getComment( QueryResult& query_r , QString favorite_id ) ;
+    bool setComment( const QString& comment , QString favorite_id ) ;
+
     QueryResult getValutazione( QString IdFavorito ) ;
     QueryResult getStato( QString IdFavorito ) ;
     QueryResult getCategoria( QString IdFavorito ) ;

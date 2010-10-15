@@ -45,6 +45,8 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 
     connect( ui->AddFavorite , SIGNAL(clicked()) , this , SLOT(on_addFavorite()) ) ;
     connect( ui->OpenPDF , SIGNAL(clicked()) , this , SLOT(on_openPdf()) ) ;
+
+    connect( ui->SaveComment , SIGNAL(clicked()) , this , SLOT(on_saveComment()) ) ;
 }
 
 void BookmarkGui::open()
@@ -215,6 +217,21 @@ void BookmarkGui::fillFavoriteInfo( const QString& id )
     this->current_favorite = id ;
 }
 
+void BookmarkGui::fillFavoriteInfo( const QString& id , const QString& Id_f )
+{
+    this->fillFavoriteInfo( id ) ;
+    this->current_favorite_id = Id_f ;
+
+    Bookmark bk ;
+    QueryResult res ;
+
+    bk.getComment( res , Id_f ) ;
+
+    if ( res.empty() )
+        ui->Comments->setHtml( "" ) ;
+    else
+        ui->Comments->setHtml( res.getField(0,0) ) ;
+}
 
 
 void BookmarkGui::appendFolder( QString name )
@@ -224,7 +241,7 @@ void BookmarkGui::appendFolder( QString name )
     QString parent = "" ;
     QString parent_id = "" ;
 
-    QTreeWidgetItem* parent_item ;
+    QTreeWidgetItem* parent_item = 0 ;
     QTreeWidgetItem* new_folder ;
 
     if ( this->current_favorites_item == 0 )
@@ -490,7 +507,7 @@ void BookmarkGui::on_selectedChanged()
 
     if ( item->type() == BookmarkGui::item_article )
     {
-        this->fillFavoriteInfo( item->text( 1 ) );
+        this->fillFavoriteInfo( item->text(1) , item->text(2) );
     }
 
     this->current_favorites_item = item ;
@@ -499,4 +516,13 @@ void BookmarkGui::on_selectedChanged()
 void BookmarkGui::on_remaneFolder()
 {
     this->renameFolder() ;
+}
+
+void BookmarkGui::on_saveComment()
+{
+    Bookmark bk ;
+
+    if ( this->current_favorite.isEmpty() ) return ;
+
+    bk.setComment( ui->Comments->toPlainText().toUtf8() , this->current_favorite_id ) ;
 }

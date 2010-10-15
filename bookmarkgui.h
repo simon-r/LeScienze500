@@ -38,6 +38,8 @@ public:
 
     void fillCategorie() ;
     void fillFavoriteInfo( const QString& id ) ;
+    void fillFavoriteInfo( const QString& id , const QString& Id_f ) ;
+
     void appendFolder( QString name ) ;
     void appendFavorite( QString id ) ;
 
@@ -58,6 +60,7 @@ private:
     bool cut_state ;
 
     QString current_favorite ;
+    QString current_favorite_id ;
 
     void buildMenuFavorites() ;
 
@@ -79,6 +82,7 @@ public slots:
     void on_remove() ;
     void on_openPdf() ;
     void on_contextMenu( const QPoint& pos ) ;
+    void on_saveComment() ;
 
     void on_selectedChanged() ;
     void on_cutItem() ;

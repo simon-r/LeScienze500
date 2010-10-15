@@ -35,18 +35,6 @@ int main(int argc, char *argv[])
         qDebug() << "new bookmark" ;
     }
 
-//    QueryResult r ;
-//    bk.getStati( r );
-//    bk.getValutazioni( r );
-//   // bk.getCategorie( r );
-
-//    //bk.getOverCategoria( r , "sotto" ) ;
-
-//    //bk.getCategorie( r , "Mio" );
-//    //bk.getMainCategorie( r );
-
-//    bk.getFavoritesByParent( r , "Mio_3" ) ;
-
     configLS500 cfg ;
 
     QApplication a(argc, argv);

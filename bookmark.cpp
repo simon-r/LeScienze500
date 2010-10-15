@@ -544,6 +544,81 @@ bool Bookmark::moveFavorite( QString favorite_id , QString new_parent_id )
 }
 
 
+bool Bookmark::getComment( QueryResult& query_r , QString favorite_id )
+{
+     if ( favorite_id.isEmpty() ) return false ;
+
+     QString query ;
+     query = "select Comment from Comments where Id in ( " ;
+     query += " select IdComment from  Comments_BookmarkEntries where " ;
+     query += " IdBookmarkEntry = " ;
+     query += favorite_id ;
+     query += " ) " ;
+
+     this->execQuery( query , query_r ) ;
+
+     if ( query_r.empty() )
+         return false ;
+     else
+         return true ;
+}
+
+bool Bookmark::setComment( const QString& comment , QString favorite_id )
+{
+     if ( favorite_id.isEmpty() ) return false ;
+     bool res ;
+
+     QueryResult query_r ;
+
+     QString query ;
+     query = "select count(*) from Comments_BookmarkEntries where IdBookmarkEntry = " ;
+     query += favorite_id ;
+
+     this->execQuery( query , query_r ) ;
+
+     if( query_r.getField(0,0).toInt() > 0 )
+     {
+         QString update ;
+         update = "update Comments set Comment = \"" ;
+         update += comment ; update += "\" " ;
+         update += "where Id in ( select IdComment from Comments_BookmarkEntries where IdBookmarkEntry = " ;
+         update += favorite_id ;
+         update += " ) " ;
+
+         qDebug() << update ;
+
+         res = this->execQuery( update ) ;
+     }
+     else
+     {
+         QString insert ;
+         insert = "insert into Comments( Comment ) values ( \"" ;
+         insert += comment ;
+         insert += "\" ) " ;
+
+         res = this->execQuery( insert ) ;
+
+         query_r.clear() ;
+         query = " select max(Id) from Comments " ;
+         this->execQuery( query , query_r ) ;
+
+         QString max = query_r.getField(0,0) ;
+
+         query_r.clear() ;
+
+         insert = " insert into Comments_BookmarkEntries( IdComment , IdBookmarkEntry ) values  (  " ;
+         insert += max ;
+         insert += " , " ;
+         insert += favorite_id ;
+         insert += " ) " ;
+
+         res = res && this->execQuery( insert ) ;
+     }
+
+
+     return res ;
+}
+
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
