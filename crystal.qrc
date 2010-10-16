@@ -14,5 +14,6 @@
         <file>crystal/pdf_icon.jpg</file>
         <file>crystal/folder.png</file>
         <file>crystal/doc-icon.png</file>
+        <file>crystal/bookmark_add-256.png</file>
     </qresource>
 </RCC>

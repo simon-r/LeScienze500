@@ -301,10 +301,17 @@ articolo.</string>
                  </property>
                 </spacer>
                </item>
-               <item row="4" column="5">
+               <item row="3" column="5" rowspan="2">
                 <widget class="QPushButton" name="addFavoriti">
+                 <property name="toolTip">
+                  <string>Aggiungi ai Preferiti.</string>
+                 </property>
                  <property name="text">
-                  <string>f</string>
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="crystal.qrc">
+                   <normaloff>:/icons/crystal/bookmark_add-256.png</normaloff>:/icons/crystal/bookmark_add-256.png</iconset>
                  </property>
                 </widget>
                </item>
