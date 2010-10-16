@@ -230,8 +230,19 @@ void BrowserCopertine::on_indiceArticoliClicked( const QUrl &url )
 {
     QString id ;
     id = url.toString() ;
-    id.replace( QRegExp("^#PDF_") , "" ) ;
-    emit sig_openPDF ( id.toInt() ) ;
+    QRegExp reg_pdf("^#PDF_") ;
+    QRegExp reg_bk("^#BK_") ;
+
+    if ( reg_pdf.lastIndexIn( id ) > -1 )
+    {
+        id.replace( QRegExp("^#PDF_") , "" ) ;
+        emit sig_openPDF ( id.toInt() ) ;
+    }
+    else if ( reg_bk.lastIndexIn( id ) > -1 )
+    {
+       id.replace( QRegExp("^#BK_") , "" ) ;
+       emit sig_addBookmark ( id.toInt() ) ;
+    }
 }
 
 void BrowserCopertine::on_spinNuovoNumero( const QString &numero )

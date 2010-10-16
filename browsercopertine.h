@@ -75,6 +75,7 @@ public slots:
 
 signals:
     void sig_openPDF (int id_articolo) ;
+    void sig_addBookmark (int id_articolo) ;
 
 
 };

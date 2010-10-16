@@ -721,6 +721,7 @@ bool LeScienze500::OpenBrowserCopertine( int id_articolo )
     {
         this->b_copertine_d = new BrowserCopertine() ;
         connect( this->b_copertine_d , SIGNAL( sig_openPDF(int) ) , this , SLOT( on_openPDF(int) ) ) ;
+        connect( this->b_copertine_d , SIGNAL(sig_addBookmark(int)) , this , SLOT(on_openBookmark(int)) ) ;
     }
 
     configLS500 cfg ;
@@ -837,6 +838,12 @@ void LeScienze500::on_openBookmark()
 {
     BuildBookmark() ;
     this->bk_gui->open();
+}
+
+void LeScienze500::on_openBookmark( int id )
+{
+    BuildBookmark() ;
+    this->bk_gui->open( QString().setNum( id ) );
 }
 
 void LeScienze500::on_openAbout()

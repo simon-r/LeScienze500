@@ -22,6 +22,7 @@
 #include "QDebug"
 #include <QAction>
 #include <QMessageBox>
+#include "querydb.h"
 
 BookmarkGui::BookmarkGui(QWidget *parent) :
     QDialog(parent),
@@ -238,8 +239,39 @@ void BookmarkGui::fillFavoriteInfo( const QString& id )
 
     if ( article.size() == 0 ) return ;
 
-    ui->Title->setHtml( article.getField( "Titolo" , article.begin() ) );
-    ui->Abstract->setHtml( article.getField( "Abstract" , article.begin() ) );
+    QString query_autori = "SELECT autore FROM autori WHERE id in (SELECT idautore FROM articoli_autori WHERE idarticolo = " ;
+    query_autori += id ;
+    query_autori += " ) " ;
+
+    QueryDB db ;
+    QueryResult qr_autori =  db.execQuery( query_autori ) ;
+
+    QString query_data = "SELECT mese,anno FROM riviste WHERE id = " ;
+    query_data += article.getField( "IdRivista" , article.begin() ) ;
+
+    QueryResult qr_data =  db.execQuery( query_data ) ;
+
+    QString abstract ;
+    abstract += article.getField( "Abstract" , article.begin() ) ;
+    abstract += "<br\> <br\> <i>" ;
+
+    for ( QueryResult::iterator itr = qr_autori.begin() ; itr < qr_autori.end() ; itr++ )
+    {
+        abstract += qr_autori.getField( "Autore" , itr ) ;
+        if ( itr < qr_autori.end() - 1 ) abstract += "; " ;
+    }
+
+    abstract += "</i><br/>" ;
+    abstract += qr_data.getField( "Mese" , qr_data.begin() ) ;
+    abstract += " " ;
+    abstract += qr_data.getField( "Anno" , qr_data.begin() ) ;
+
+    QString title = "<b>" ;
+    title += article.getField( "Titolo" , article.begin() ) ;
+    title += "</b>" ;
+
+    ui->Title->setHtml( title ) ;
+    ui->Abstract->setHtml( abstract ) ;
 
     this->current_favorite = id ;
 

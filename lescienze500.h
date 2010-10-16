@@ -117,6 +117,7 @@ private slots:
     void on_openPDF( int id_articolo ) ;
     void on_errorLinkClicked( const QUrl &url ) ;
     void on_openBookmark() ;
+    void on_openBookmark( int id ) ;
     void on_openAbout() ;
     void on_addFavoriti() ;
     void on_ApriBrowserCopertine( int id ) ;
