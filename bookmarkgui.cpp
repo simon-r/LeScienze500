@@ -106,7 +106,9 @@ void BookmarkGui::buildMenuFavorites()
     connect( cut_item , SIGNAL(triggered()) , this , SLOT(on_cutItem()) ) ;
     this->menuFavorites.addAction( cut_item ) ;
 
-    this->menuFavorites.addAction( tr( "Copia" ) ) ;
+    QAction* copy_item = new QAction( tr( "Copia" ) , 0 );
+    copy_item->setDisabled( true );
+    this->menuFavorites.addAction( copy_item ) ;
 
     QAction* paste = new QAction( tr( "Incolla" ) , 0 );
     connect( paste , SIGNAL(triggered()) , this , SLOT(on_pasteItem()) ) ;

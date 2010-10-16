@@ -60,7 +60,6 @@ public:
 
     QueryResult getFavoritesByStato( QString IdStato ) ;
 
-
     QPair<QString,QString> addFolderId( QString parent_id , QString name ) ;
 
     bool folderExist( QString name ) ;
