@@ -21,6 +21,7 @@
 #include "bookmark.h"
 #include "QDebug"
 #include <QAction>
+#include <QMessageBox>
 
 BookmarkGui::BookmarkGui(QWidget *parent) :
     QDialog(parent),
@@ -164,6 +165,13 @@ void BookmarkGui::fillCategorie()
      }
 
      ui->treeCategorie->clear();
+
+     if ( items.isEmpty() )
+     {
+         showDataBaseMessage() ;
+         return ;
+     }
+
      current_favorites_item = items.first() ;
      ui->treeCategorie->insertTopLevelItems(0, items);
      current_favorites_item->setExpanded( true ) ;
@@ -462,6 +470,32 @@ void BookmarkGui::appendFavorite( QString id )
          this->cutted_item = 0 ;
          this->cut_state = false ;
          return ;
+     }
+ }
+
+ void BookmarkGui::showDataBaseMessage()
+ {
+     QMessageBox msgBox;
+     msgBox.setMinimumWidth( 300 );
+     msgBox.setText( tr("Bookmark inutillizabile") );
+     msgBox.setInformativeText( tr("Sembra esistere un file di bookmark ma e' inutilizzabile. <br\> Ne vuoi creare uno nuovo?")  );
+     msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+
+     int ret = msgBox.exec();
+
+     Bookmark bk ;
+
+     switch (ret) {
+     case QMessageBox::Ok:
+           bk.initBookmarkForce() ;
+           this->fillCategorie() ;
+           break;
+       case QMessageBox::Cancel:
+           // Cancel was clicked
+           break;
+       default:
+           // should never be reached
+           break;
      }
  }
 

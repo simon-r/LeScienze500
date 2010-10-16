@@ -72,6 +72,8 @@ private:
     void setFolderItemDecorations( QTreeWidgetItem* item , const QString& name , const QString& id ) ;
     void setArticleItemDecorations( QTreeWidgetItem* item , const QString& id_articolo , const QString& id ) ;
 
+    void showDataBaseMessage() ;
+
     SetName name_d ;
 
 public slots:

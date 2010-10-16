@@ -57,8 +57,6 @@ bool Bookmark::initBookmark()
 
     bool result , result_b ;
 
-
-
     if ( !file.exists() )
     {
         QFile res ;
@@ -80,6 +78,22 @@ bool Bookmark::initBookmark()
     }
     else
         return true ;
+}
+
+bool Bookmark::initBookmarkForce()
+{
+    configLS500 cfg ;
+
+    QString db_path = cfg.getBookmarkPath() ;
+    db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+
+    QFile file ;
+    file.setFileName( db_path );
+
+    if ( file.exists() )
+        file.remove() ;
+
+    this->initBookmark() ;
 }
 
 void Bookmark::getStati( QueryResult& query_r )

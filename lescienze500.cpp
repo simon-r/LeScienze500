@@ -759,7 +759,6 @@ bool LeScienze500::ShowErrorMessage( QString error_name , QString message )
 void LeScienze500::ShowDBConnectError()
 {
     BuildErrorMessage() ;
-
     this->error_message->showDBError();
 }
 
@@ -767,28 +766,24 @@ void LeScienze500::ShowDBConnectError()
 void LeScienze500::ShowArticleNotFoundError( QString file_name )
 {
     BuildErrorMessage() ;
-
     this->error_message->showArticleNotFound( file_name );
 }
 
 void LeScienze500::ShowReaderNotStartedError()
 {
     BuildErrorMessage() ;
-
     this->error_message->showReaderNotStarted();
 }
 
 void LeScienze500::ShowCopertineNotFoundError()
 {
     BuildErrorMessage() ;
-
     this->error_message->showCopertineNotFoundError();
 }
 
 void LeScienze500::ShowDvdNotFoundError()
 {
     BuildErrorMessage() ;
-
     this->error_message->showDvdNotFoundError();
 }
 

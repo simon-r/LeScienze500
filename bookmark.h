@@ -30,6 +30,7 @@ public:
     Bookmark();
 
     bool initBookmark() ;
+    bool initBookmarkForce();
 
     bool exists() ;
 
