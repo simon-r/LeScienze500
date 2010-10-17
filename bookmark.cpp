@@ -96,19 +96,20 @@ bool Bookmark::initBookmarkForce()
     this->initBookmark() ;
 }
 
-void Bookmark::getStati( QueryResult& query_r )
+void Bookmark::getStates( QueryResult& query_r )
 {
     query_r.clear();
     QString query = "select StateName from UserStates" ;
     this->execQuery( query , query_r ) ;
 }
 
-void Bookmark::getValutazioni( QueryResult& query_r )
+void Bookmark::getEvaluations( QueryResult& query_r )
 {
     query_r.clear();
     QString query = "select Evaluation from Evaluations" ;
     this->execQuery( query , query_r ) ;
 }
+
 
 void  Bookmark::getFavorites( QueryResult& query_r )
 {
@@ -648,6 +649,65 @@ bool Bookmark::setComment( const QString& comment , QString favorite_id )
      return res ;
 }
 
+bool Bookmark::getState( QueryResult& query_r , QString favorite_id )
+{
+    if ( favorite_id.isEmpty() ) return false ;
+
+    QString query ;
+    query = "select StateName from UserStates where Id in ( " ;
+    query += " select IdUserState from  UserStates_BookmarkEntries where " ;
+    query += " IdBookmarkEntry = " ;
+    query += favorite_id ;
+    query += " ) " ;
+
+    this->execQuery( query , query_r ) ;
+
+    if ( query_r.empty() )
+        return false ;
+    else
+        return true ;
+}
+
+bool Bookmark::setState( const QString& state_name , QString favorite_id )
+{
+    if ( favorite_id.isEmpty() ) return false ;
+    bool res ;
+
+    QueryResult query_r ;
+
+    QString query ;
+    query = "select count(*) from UserStates_BookmarkEntries where IdBookmarkEntry = " ;
+    query += favorite_id ;
+
+    this->execQuery( query , query_r ) ;
+
+    if( query_r.getField(0,0).toInt() > 0 )
+    {
+        QString update ;
+        update = "update UserStates_BookmarkEntries set IdState = ( select Id from UserStates where StateName = \"" ;
+        update += state_name ;
+        update += "\" ) where IdBookmarkEntry = " ;
+        update += favorite_id ;
+
+        qDebug() << update ;
+
+        res = this->execQuery( update ) ;
+    }
+    else
+    {
+         QString insert ;
+         insert = " insert into UserStates_BookmarkEntries ( IdState , IdBookmarkEntry ) values " ;
+         insert += " ( select Id from UserStates where StateName = \"" ;
+         insert += state_name ;
+         insert += "\"  , " ;
+         insert += favorite_id ;
+         insert += " ) " ;
+
+         res = this->execQuery( insert ) ;
+    }
+
+    return res ;
+}
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////

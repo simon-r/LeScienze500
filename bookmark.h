@@ -50,8 +50,8 @@ public:
 
     void getRootFolders( QueryResult& query_r ) ;
 
-    void getStati( QueryResult& query_r ) ;
-    void getValutazioni( QueryResult& query_r ) ;
+    void getStates( QueryResult& query_r ) ;
+    void getEvaluations( QueryResult& query_r ) ;
 
     void getFavoritesByParent( QueryResult& query_r , const QString& parent ) ;
     void getFavoritesByParentId( QueryResult& query_r , const QString& parent_id ) ;
@@ -75,13 +75,12 @@ public:
     bool moveFolder( QString folder_id , QString new_parent_id ) ;
     bool moveFavorite( QString favorite_id , QString new_parent_id ) ;
 
-
     bool getComment( QueryResult& query_r , QString favorite_id ) ;
     bool setComment( const QString& comment , QString favorite_id ) ;
 
-    QueryResult getValutazione( QString IdFavorito ) ;
-    QueryResult getStato( QString IdFavorito ) ;
-    QueryResult getCategoria( QString IdFavorito ) ;
+    bool getState( QueryResult& query_r , QString favorite_id ) ;
+    bool setState( const QString& state_name , QString favorite_id ) ;
+    bool getFavoritesByState(  QueryResult& query_r , const QString& state_name ) ;
 
     // QueryResult getSottoCategorie( QString IdCategoria ) ;
 

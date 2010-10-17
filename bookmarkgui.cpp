@@ -253,7 +253,7 @@ void BookmarkGui::fillFavoriteInfo( const QString& id )
 
     QString abstract ;
     abstract += article.getField( "Abstract" , article.begin() ) ;
-    abstract += "<br\> <br\> <i>" ;
+    abstract += "<br/> <br/> <i>" ;
 
     for ( QueryResult::iterator itr = qr_autori.begin() ; itr < qr_autori.end() ; itr++ )
     {
@@ -512,7 +512,7 @@ void BookmarkGui::appendFavorite( QString id )
      QMessageBox msgBox;
      msgBox.setMinimumWidth( 300 );
      msgBox.setText( tr("Bookmark inutillizabile") );
-     msgBox.setInformativeText( tr("Sembra esistere un file di bookmark ma e' inutilizzabile. <br\> Ne vuoi creare uno nuovo?")  );
+     msgBox.setInformativeText( tr("Sembra esistere un file di bookmark ma e' inutilizzabile. <br/> Ne vuoi creare uno nuovo?")  );
      msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
 
      int ret = msgBox.exec();
