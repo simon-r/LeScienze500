@@ -40,6 +40,8 @@ public:
     void fillFavoriteInfo( const QString& id ) ;
     void fillFavoriteInfo( const QString& id , const QString& Id_f ) ;
 
+    void fillStates() ;
+
     void appendFolder( QString name ) ;
     void appendFavorite( QString id ) ;
 
@@ -64,8 +66,10 @@ private:
 
     void buildMenuFavorites() ;
 
-    static const int item_folder = 1001 ;
-    static const int item_article = 1002 ;
+    //static const int item_folder = 1001 ;
+    //static const int item_article = 1002 ;
+
+    enum item_types { item_folder=1001 , item_article , item_state } ;
 
     void fillCategorieRec( const QString& name , const QString& id , QTreeWidgetItem* parent ) ;
 

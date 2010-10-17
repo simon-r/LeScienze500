@@ -67,6 +67,7 @@ void BookmarkGui::open()
     ui->Comments->clear();
 
     fillCategorie() ;
+    fillStates() ;
 
     ui->SaveComment->setDisabled( true );
 
@@ -299,6 +300,33 @@ void BookmarkGui::fillFavoriteInfo( const QString& id , const QString& Id_f )
      ui->SaveComment->setDisabled( true );
 }
 
+
+void BookmarkGui::fillStates()
+{
+    QueryResult states ;
+    Bookmark bk ;
+
+    bk.getStates( states );
+    QList<QTreeWidgetItem *> items;
+
+    ui->State->clear();
+    ui->State->insertItem( -1 , tr("Non definito") ) ;
+
+    for ( QueryResult::iterator itr = states.begin() ; itr < states.end() ; itr++ )
+    {
+        QString name = states.getField( "StateName" , itr ) ;
+        QString id = states.getField( "Id" , itr ) ;
+        QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_state ) ;
+
+        this->setFolderItemDecorations( item , name , id ) ;
+        items.append( item );
+
+        ui->State->insertItem( id.toInt() , name ) ;
+    }
+
+    ui->treeStates->clear();
+    ui->treeStates->addTopLevelItems( items ) ;
+}
 
 void BookmarkGui::appendFolder( QString name )
 {
