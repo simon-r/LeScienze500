@@ -56,7 +56,7 @@
           </size>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="page_1">
           <property name="geometry">
@@ -144,6 +144,9 @@
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
             <widget class="QTreeWidget" name="treeWidget_3">
+             <attribute name="headerVisible">
+              <bool>false</bool>
+             </attribute>
              <column>
               <property name="text">
                <string notr="true">1</string>
@@ -345,7 +348,7 @@
                </property>
               </spacer>
              </item>
-             <item row="7" column="0" rowspan="2" colspan="2">
+             <item row="6" column="0" rowspan="2" colspan="2">
               <layout class="QVBoxLayout" name="verticalLayout_4">
                <item>
                 <widget class="QComboBox" name="Evaluation">

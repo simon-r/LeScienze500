@@ -15,4 +15,12 @@
         <file>icons/scalable/apps/lescienze500.png</file>
         <file>icons/256x256/apps/lescienze500.png</file>
     </qresource>
+    <qresource prefix="/stars">
+        <file>stars/5s.png</file>
+        <file>stars/0s.png</file>
+        <file>stars/1s.png</file>
+        <file>stars/2s.png</file>
+        <file>stars/3s.png</file>
+        <file>stars/4s.png</file>
+    </qresource>
 </RCC>
