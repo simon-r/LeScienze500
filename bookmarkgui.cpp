@@ -54,6 +54,8 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     connect( ui->Comments , SIGNAL(textChanged()) , this , SLOT(on_commentChanged()) ) ;
 
     connect( ui->OpenReview , SIGNAL(clicked()) , this , SLOT(on_openBrowser()) ) ;
+
+    connect( ui->State , SIGNAL(currentIndexChanged(int)) , this , SLOT(on_stateChanged(int)) ) ;
 }
 
 void BookmarkGui::open()
@@ -310,7 +312,9 @@ void BookmarkGui::fillStates()
     QList<QTreeWidgetItem *> items;
 
     ui->State->clear();
-    ui->State->insertItem( -1 , tr("Non definito") ) ;
+
+    int index = 0 ;
+    ui->State->insertItem( index , tr("Non definito") ) ;
 
     for ( QueryResult::iterator itr = states.begin() ; itr < states.end() ; itr++ )
     {
@@ -321,7 +325,7 @@ void BookmarkGui::fillStates()
         this->setFolderItemDecorations( item , name , id ) ;
         items.append( item );
 
-        ui->State->insertItem( id.toInt() , name ) ;
+        ui->State->insertItem( ++index , name ) ;
     }
 
     ui->treeStates->clear();
@@ -657,4 +661,9 @@ void BookmarkGui::on_openBrowser()
 {
     if ( this->current_favorite.isEmpty() ) return ;
     emit sig_openBrowser( this->current_favorite.toInt() ) ;
+}
+
+void BookmarkGui::on_stateChanged( int index )
+{
+    qDebug() << index ;
 }

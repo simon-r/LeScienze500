@@ -99,7 +99,7 @@ bool Bookmark::initBookmarkForce()
 void Bookmark::getStates( QueryResult& query_r )
 {
     query_r.clear();
-    QString query = "select StateName from UserStates" ;
+    QString query = "select * from UserStates" ;
     this->execQuery( query , query_r ) ;
 }
 
