@@ -309,7 +309,7 @@ void BookmarkGui::fillStates()
     Bookmark bk ;
 
     bk.getStates( states );
-    QList<QTreeWidgetItem *> items;
+    QList<QTreeWidgetItem*> items;
 
     ui->State->clear();
 
@@ -321,6 +321,16 @@ void BookmarkGui::fillStates()
         QString name = states.getField( "StateName" , itr ) ;
         QString id = states.getField( "Id" , itr ) ;
         QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_state ) ;
+
+        QueryResult entries ;
+        bk.getFavoritesByState( entries , name ) ;
+        for ( QueryResult::iterator itr_b = entries.begin() ; itr_b < entries.end() ; itr_b++ )
+        {
+            QString id_entry = entries.getField( "IdEntry" , itr_b ) ;
+            QString id = entries.getField( "Id" , itr_b ) ;
+            QTreeWidgetItem* entry_item = new QTreeWidgetItem( item , BookmarkGui::item_article ) ;
+            this->setArticleItemDecorations( entry_item , id_entry , id ) ;
+        }
 
         this->setFolderItemDecorations( item , name , id ) ;
         items.append( item );
@@ -403,12 +413,8 @@ bool BookmarkGui::removeFolder()
     if ( !fr ) return false ;
 
     tmp_parent->removeChild( this->current_favorites_item ) ;
-//    ui->treeCategorie->update();
     this->current_favorites_item = tmp_parent ;
     ui->treeCategorie->setCurrentItem( tmp_parent ) ;
-
-//    QModelIndex m_index = ui->treeCategorie->currentIndex() ;
-//    ui->treeCategorie->update( m_index ) ;
 
     return true ;
 }
@@ -666,4 +672,11 @@ void BookmarkGui::on_openBrowser()
 void BookmarkGui::on_stateChanged( int index )
 {
     qDebug() << index ;
+    if ( index == 0 ) return ;
+    if ( this->current_favorite.isEmpty() ) return ;
+
+    QString state_name = ui->State->itemText( index ) ;
+
+    Bookmark bk ;
+    bk.setState( state_name , this->current_favorite_id ) ;
 }

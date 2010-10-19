@@ -425,6 +425,7 @@ QPair<QString,QString> Bookmark::addFavoriteId( QString parent_id , QString id_a
 }
 
 
+
 bool  Bookmark::removeFavorite( QString parent_id , QString id )
 {
     bool ret ;
@@ -696,17 +697,39 @@ bool Bookmark::setState( const QString& state_name , QString favorite_id )
     else
     {
          QString insert ;
-         insert = " insert into UserStates_BookmarkEntries ( IdState , IdBookmarkEntry ) values " ;
-         insert += " ( select Id from UserStates where StateName = \"" ;
+         insert = " insert into UserStates_BookmarkEntries ( IdUserState , IdBookmarkEntry ) values " ;
+         insert += " ( ( select Id from UserStates where StateName = \"" ;
          insert += state_name ;
-         insert += "\"  , " ;
+         insert += "\" ) , " ;
          insert += favorite_id ;
          insert += " ) " ;
 
+         qDebug() << insert ;
          res = this->execQuery( insert ) ;
     }
 
     return res ;
+}
+
+bool Bookmark::getFavoritesByState( QueryResult& query_r , const QString& state_name )
+{
+    if ( state_name.isEmpty() ) return false ;
+
+    QString query ;
+    query = " select * from BookmarkEntries where Id in ( select IdBookmarkEntry " ;
+    query += " from UserStates_BookmarkEntries where IdUserState in " ;
+    query += " ( select Id from UserStates where StateName = \"" ;
+    query += state_name ;
+    query += "\" ) ) " ;
+
+    this->execQuery( query , query_r ) ;
+
+     qDebug() << query ;
+
+    if ( query_r.empty() )
+        return false ;
+    else
+        return true ;
 }
 
 ///////////////////////////////////////////////////////////////////////
