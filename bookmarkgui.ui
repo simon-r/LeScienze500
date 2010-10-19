@@ -67,8 +67,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>239</width>
-             <height>385</height>
+             <width>256</width>
+             <height>384</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -111,10 +111,14 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>239</width>
-             <height>385</height>
+             <width>256</width>
+             <height>384</height>
             </rect>
            </property>
+           <attribute name="icon">
+            <iconset resource="crystal.qrc">
+             <normaloff>:/icons/crystal/1rightarrow-256.png</normaloff>:/icons/crystal/1rightarrow-256.png</iconset>
+           </attribute>
            <attribute name="label">
             <string>Stato</string>
            </attribute>
@@ -138,8 +142,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>239</width>
-             <height>385</height>
+             <width>256</width>
+             <height>384</height>
             </rect>
            </property>
            <attribute name="label">

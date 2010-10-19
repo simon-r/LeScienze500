@@ -55,7 +55,8 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 
     connect( ui->OpenReview , SIGNAL(clicked()) , this , SLOT(on_openBrowser()) ) ;
 
-    connect( ui->State , SIGNAL(currentIndexChanged(int)) , this , SLOT(on_stateChanged(int)) ) ;
+    connect( ui->State , SIGNAL(activated(int)) , this , SLOT(on_stateChanged(int)) ) ;
+    connect( ui->treeStates , SIGNAL(itemSelectionChanged()) , this , SLOT(on_selectedChanged()) ) ;
 }
 
 void BookmarkGui::open()
@@ -300,7 +301,17 @@ void BookmarkGui::fillFavoriteInfo( const QString& id , const QString& Id_f )
         ui->Comments->setHtml( res.getField(0,0) ) ;
 
      ui->SaveComment->setDisabled( true );
-}
+
+     res.clear() ;
+     bk.getState( res , Id_f ) ;
+     if ( !res.empty() )
+     {
+         int index = ui->State->findText( res.getField(0,0) ) ;
+         ui->State->setCurrentIndex( index );
+     }
+     else
+         ui->State->setCurrentIndex( 0 );
+ }
 
 
 void BookmarkGui::fillStates()
@@ -459,9 +470,6 @@ void BookmarkGui::appendFavorite( QString id )
     this->setArticleItemDecorations( new_favorite , id , title.first  ) ;
     parent_item->setExpanded( true ) ;
     ui->treeCategorie->setCurrentItem( new_favorite );
-
-    QModelIndex m_index = ui->treeCategorie->currentIndex() ;
-    ui->treeCategorie->update( m_index ) ;
 }
 
  bool BookmarkGui::removeFavorite()
@@ -477,9 +485,6 @@ void BookmarkGui::appendFavorite( QString id )
      tmp_parent->removeChild( this->current_favorites_item ) ;
      this->current_favorites_item = tmp_parent ;
      ui->treeCategorie->setCurrentItem( tmp_parent );
-
-     //QModelIndex m_index = ui->treeCategorie->currentIndex() ;
-     //ui->treeCategorie->update( m_index ) ;
 
      return true ;
  }
@@ -629,9 +634,15 @@ void BookmarkGui::on_favoriteActivated( QTreeWidgetItem * item, int column )
 
 void BookmarkGui::on_selectedChanged()
 {
-    QList<QTreeWidgetItem *> item_list = ui->treeCategorie->selectedItems() ;
+    QList<QTreeWidgetItem *> item_list ;
 
-    if ( item_list.isEmpty() ) return ;
+    item_list = ui->treeCategorie->selectedItems() ;
+
+    if ( item_list.isEmpty() )
+    {
+        item_list = ui->treeStates->selectedItems() ;
+        if ( item_list.isEmpty() ) return ;
+    }
 
     QTreeWidgetItem *item = item_list.first() ;
 

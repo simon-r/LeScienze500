@@ -48,6 +48,8 @@ public:
     bool removeFavorite() ;
     bool removeFolder() ;
 
+    bool changeState() ;
+
     bool renameFolder() ;
 
     void open() ;

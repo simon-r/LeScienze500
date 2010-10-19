@@ -646,7 +646,6 @@ bool Bookmark::setComment( const QString& comment , QString favorite_id )
          res = res && this->execQuery( insert ) ;
      }
 
-
      return res ;
 }
 
@@ -685,7 +684,7 @@ bool Bookmark::setState( const QString& state_name , QString favorite_id )
     if( query_r.getField(0,0).toInt() > 0 )
     {
         QString update ;
-        update = "update UserStates_BookmarkEntries set IdState = ( select Id from UserStates where StateName = \"" ;
+        update = "update UserStates_BookmarkEntries set IdUserState = ( select Id from UserStates where StateName = \"" ;
         update += state_name ;
         update += "\" ) where IdBookmarkEntry = " ;
         update += favorite_id ;
