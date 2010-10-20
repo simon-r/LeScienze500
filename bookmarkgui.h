@@ -68,9 +68,6 @@ private:
 
     void buildMenuFavorites() ;
 
-    //static const int item_folder = 1001 ;
-    //static const int item_article = 1002 ;
-
     enum item_types { item_folder=1001 , item_article , item_state } ;
 
     void fillCategorieRec( const QString& name , const QString& id , QTreeWidgetItem* parent ) ;
