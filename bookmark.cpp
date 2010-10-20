@@ -668,6 +668,19 @@ bool Bookmark::getState( QueryResult& query_r , QString favorite_id )
         return true ;
 }
 
+bool  Bookmark::deleteState( QString favorite_id )
+{
+    if ( favorite_id.isEmpty() ) return false ;
+
+    QString cancel ;
+    cancel = "delete from UserStates_BookmarkEntries where IdBookmarkEntry = " ;
+    cancel += favorite_id ;
+
+    qDebug() << cancel ;
+
+    return this->execQuery( cancel ) ;
+}
+
 bool Bookmark::setState( const QString& state_name , QString favorite_id )
 {
     if ( favorite_id.isEmpty() ) return false ;

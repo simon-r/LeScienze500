@@ -41,6 +41,8 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     this->setWindowTitle( "Preferiti (beta release)" );
 
     ui->treeCategorie->setUpdatesEnabled( true );
+    ui->treeStates->setUpdatesEnabled( true );
+
     ui->treeCategorie->setContextMenuPolicy( Qt::CustomContextMenu );
 
     connect( ui->treeCategorie , SIGNAL(itemSelectionChanged()) , this , SLOT(on_selectedChanged()) ) ;
@@ -493,30 +495,65 @@ void BookmarkGui::appendFavorite( QString id )
  {
      Bookmark bk ;
      QueryResult favorite ;
+     QTreeWidgetItem *item ;
 
      bk.getFavoriteFullData( favorite , this->current_favorite );
 
      QList<QTreeWidgetItem *> list =
-             ui->treeStates->findItems ( favorite.getField( "Titolo" , favorite.begin() ) , Qt::MatchExactly | Qt::MatchRecursive ) ;
+             ui->treeStates->findItems ( favorite.getField( "Titolo" , favorite.begin() ) , Qt::MatchExactly|Qt::MatchRecursive ) ;
+
+     if ( list.size() > 1 ) return false ;
+
+     if ( new_state.isEmpty() )
+     {
+         qDebug() << "new_state.isEmpty()" ;
+         item = list.first() ;
+
+         if ( item->type() != BookmarkGui::item_article ) return false ;
+
+         int index = item->parent()->indexOfChild( item ) ;
+         QTreeWidgetItem *parent = item->parent() ;
+         parent->removeChild( item ); ;
+
+         return true ;
+     }
 
      QList<QTreeWidgetItem *> list_state =
              ui->treeStates->findItems ( new_state , Qt::MatchExactly ) ;
 
-     if ( list.isEmpty() || list.size() > 1 ) return false ;
 
      if ( list_state.isEmpty() || list_state.size() > 1 ) return false ;
 
-     QTreeWidgetItem *item = list.first() ;
      QTreeWidgetItem *state = list_state.first() ;
-     if ( item->type() != BookmarkGui::item_article ) return false ;
+
      if ( state->type() != BookmarkGui::item_state ) return false ;
 
-     int index = item->parent()->indexOfChild( item ) ;
-     item = item->parent()->takeChild( index ) ;
+     if ( list.isEmpty() )
+     {
+         QString id_entry = favorite.getField( "IdEntry" , favorite.begin() ) ;
+         QString id = favorite.getField( "Id" , favorite.begin() ) ;
 
-     state->addChild( item );
+         QTreeWidgetItem* item = new QTreeWidgetItem( item , BookmarkGui::item_article ) ;
+         this->setArticleItemDecorations( item , id_entry , id ) ;
 
-     state->setExpanded( true );
+         state->addChild( item ) ;
+         state->setExpanded( true ) ;
+         return true ;
+     }
+     else
+     {
+         item = list.first() ;
+
+         if ( item->type() != BookmarkGui::item_article ) return false ;
+
+         int index = item->parent()->indexOfChild( item ) ;
+         item = item->parent()->takeChild( index ) ;
+
+         state->addChild( item );
+         state->setExpanded( true );
+
+         return true ;
+     }
  }
 
 
@@ -715,14 +752,21 @@ void BookmarkGui::on_openBrowser()
 
 void BookmarkGui::on_stateChanged( int index )
 {
-    qDebug() << index ;
-    if ( index == 0 ) return ;
+    qDebug() << " BookmarkGui::on_stateChanged index:" << index ;
+
+    Bookmark bk ;
+
+    if ( index == 0 )
+    {
+        bk.deleteState( this->current_favorite_id ) ;
+        this->changeState( "" ) ;
+        return ;
+    }
+
     if ( this->current_favorite.isEmpty() ) return ;
 
     QString state_name = ui->State->itemText( index ) ;
 
-    Bookmark bk ;
     bk.setState( state_name , this->current_favorite_id ) ;
-
     this->changeState( state_name ) ;
 }
