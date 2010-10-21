@@ -531,11 +531,8 @@ void BookmarkGui::appendFavorite( QString id )
 
      if ( list.isEmpty() )
      {
-         QString id_entry = favorite.getField( "IdEntry" , favorite.begin() ) ;
-         QString id = favorite.getField( "Id" , favorite.begin() ) ;
-
          QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidgetItem*)0 , BookmarkGui::item_article ) ;
-         this->setArticleItemDecorations( item , id_entry , id ) ;
+         this->setArticleItemDecorations( item , this->current_favorite , this->current_favorite_id ) ;
 
          state->addChild( item ) ;
          state->setExpanded( true ) ;
