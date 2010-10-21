@@ -7,13 +7,12 @@
         <file>icons/72x72/apps/lescienze500.png</file>
         <file>icons/96x96/apps/lescienze500.png</file>
         <file>icons/128x128/apps/lescienze500.png</file>
-        <file>icons/scalable/apps/lescienze500.png</file>
         <file>icons/16x16/apps/lescienze500.png</file>
         <file>icons/22x22/apps/lescienze500.png</file>
     </qresource>
     <qresource prefix="/logo">
-        <file>icons/scalable/apps/lescienze500.png</file>
         <file>icons/256x256/apps/lescienze500.png</file>
+        <file>logo/lescienze500.png</file>
     </qresource>
     <qresource prefix="/stars">
         <file>stars/5s.png</file>
