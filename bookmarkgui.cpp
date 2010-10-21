@@ -306,6 +306,7 @@ void BookmarkGui::fillFavoriteInfo( const QString& id , const QString& Id_f )
 
      res.clear() ;
      bk.getState( res , Id_f ) ;
+
      if ( !res.empty() )
      {
          int index = ui->State->findText( res.getField(0,0) ) ;
@@ -533,7 +534,7 @@ void BookmarkGui::appendFavorite( QString id )
          QString id_entry = favorite.getField( "IdEntry" , favorite.begin() ) ;
          QString id = favorite.getField( "Id" , favorite.begin() ) ;
 
-         QTreeWidgetItem* item = new QTreeWidgetItem( item , BookmarkGui::item_article ) ;
+         QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidgetItem*)0 , BookmarkGui::item_article ) ;
          this->setArticleItemDecorations( item , id_entry , id ) ;
 
          state->addChild( item ) ;
@@ -706,7 +707,12 @@ void BookmarkGui::on_selectedChanged()
 {
     QList<QTreeWidgetItem *> item_list ;
 
-    item_list = ui->treeCategorie->selectedItems() ;
+    if( ui->toolBox->currentIndex() == 0 )
+        item_list = ui->treeCategorie->selectedItems() ;
+    else if ( ui->toolBox->currentIndex() == 1 )
+        item_list = ui->treeStates->selectedItems() ;
+    else
+        return ;
 
     if ( item_list.isEmpty() )
     {
