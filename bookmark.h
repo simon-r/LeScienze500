@@ -78,7 +78,7 @@ public:
     bool setComment( const QString& comment , QString favorite_id ) ;
 
     bool getState( QueryResult& query_r , QString favorite_id ) ;
-    bool setState( const QString& state_name , QString favorite_id ) ;
+    int  setState( const QString& state_name , QString favorite_id ) ;
     bool deleteState( QString favorite_id ) ;
     bool getFavoritesByState(  QueryResult& query_r , const QString& state_name ) ;
     void getStates( QueryResult& query_r ) ;

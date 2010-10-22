@@ -93,7 +93,7 @@ bool Bookmark::initBookmarkForce()
     if ( file.exists() )
         file.remove() ;
 
-    this->initBookmark() ;
+    return this->initBookmark() ;
 }
 
 void Bookmark::getStates( QueryResult& query_r )
@@ -681,10 +681,11 @@ bool  Bookmark::deleteState( QString favorite_id )
     return this->execQuery( cancel ) ;
 }
 
-bool Bookmark::setState( const QString& state_name , QString favorite_id )
+int Bookmark::setState( const QString& state_name , QString favorite_id )
 {
-    if ( favorite_id.isEmpty() ) return false ;
+    if ( favorite_id.isEmpty() ) return 0 ;
     bool res ;
+    int ret ;
 
     QueryResult query_r ;
 
@@ -705,6 +706,10 @@ bool Bookmark::setState( const QString& state_name , QString favorite_id )
         qDebug() << update ;
 
         res = this->execQuery( update ) ;
+        if ( res )
+            ret = 1 ;
+        else
+            ret = 0 ;
     }
     else
     {
@@ -718,9 +723,14 @@ bool Bookmark::setState( const QString& state_name , QString favorite_id )
 
          qDebug() << insert ;
          res = this->execQuery( insert ) ;
+
+         if ( res )
+             ret = 2 ;
+         else
+             ret = 0 ;
     }
 
-    return res ;
+    return ret ;
 }
 
 bool Bookmark::getFavoritesByState( QueryResult& query_r , const QString& state_name )
