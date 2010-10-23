@@ -73,6 +73,7 @@ void BookmarkGui::open()
 
     fillCategorie() ;
     fillStates() ;
+    fillEvaluations() ;
 
     ui->SaveComment->setDisabled( true );
 
@@ -319,11 +320,36 @@ void BookmarkGui::fillFavoriteInfo( const QString& id , const QString& Id_f )
 
 void BookmarkGui::fillEvaluations()
 {
-    QueryResult states ;
+    QueryResult eval ;
     Bookmark bk ;
 
-    bk.getStates( states );
+
     QList<QTreeWidgetItem*> items;
+
+    ui->Evaluation->clear();
+
+    int index = 0 ;
+
+    ui->Evaluation->setIconSize( QSize( 100 , 20 ) );
+    ui->Evaluation->insertItem( index , tr("Nessuna valutazione") );
+
+    bk.getEvaluations( eval );
+
+    for ( QueryResult::iterator itr = eval.begin() ; itr < eval.end() ; itr++ )
+    {
+        QString Evaluation = eval.getField( "Evaluation" , itr ) ;
+
+
+        QString stars_file = ":/stars/stars/" ;
+        stars_file += Evaluation ;
+        stars_file += "s.png" ;
+        QIcon stars( stars_file ) ;
+
+
+        ui->Evaluation->insertItem( ++index , stars , "" ) ;
+    }
+
+
 }
 
 void BookmarkGui::fillStates()

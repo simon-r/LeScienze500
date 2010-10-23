@@ -149,15 +149,16 @@
            <attribute name="icon">
             <iconset resource="crystal.qrc">
              <normaloff>:/icons/crystal/1rightarrow-256.png</normaloff>
-             <activeon>:/icons/crystal/1downarrow1-256.png</activeon>
-             <selectedon>:/icons/crystal/1downarrow1-256.png</selectedon>:/icons/crystal/1rightarrow-256.png</iconset>
+             <normalon>:/icons/crystal/1rightarrow-256.png</normalon>
+             <activeon>:/icons/crystal/1rightarrow-256.png</activeon>
+             <selectedon>:/icons/crystal/1rightarrow-256.png</selectedon>:/icons/crystal/1rightarrow-256.png</iconset>
            </attribute>
            <attribute name="label">
             <string>Valutazione</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
-             <widget class="QTreeWidget" name="Evaluations">
+             <widget class="QTreeWidget" name="treeEvaluations">
               <attribute name="headerVisible">
                <bool>false</bool>
               </attribute>
