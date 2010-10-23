@@ -331,6 +331,8 @@ void BookmarkGui::fillEvaluations()
     int index = 0 ;
 
     ui->Evaluation->setIconSize( QSize( 100 , 20 ) );
+    ui->treeEvaluations->setIconSize( QSize( 100 , 20 ) );
+
     ui->Evaluation->insertItem( index , tr("Nessuna valutazione") );
 
     bk.getEvaluations( eval );
@@ -339,17 +341,21 @@ void BookmarkGui::fillEvaluations()
     {
         QString Evaluation = eval.getField( "Evaluation" , itr ) ;
 
-
         QString stars_file = ":/stars/stars/" ;
         stars_file += Evaluation ;
         stars_file += "s.png" ;
         QIcon stars( stars_file ) ;
+        QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_state ) ;
+        item->setIcon( 0 , stars ) ;
+        item->setText( 1 , Evaluation ) ;
 
 
+        items.append( item );
         ui->Evaluation->insertItem( ++index , stars , "" ) ;
     }
 
-
+    ui->treeEvaluations->clear();
+    ui->treeEvaluations->addTopLevelItems( items );
 }
 
 void BookmarkGui::fillStates()
