@@ -87,7 +87,7 @@ bool QueryDB::execNAQuery(QString db_path , QString query )
 
     sqlite3_open( db_path.toAscii().data() , &db ) ;
 
-    sqlite3_exec( db , "PRAGMA encoding = UTF8", NULL , 0 , &db_err );
+    //sqlite3_exec( db , "PRAGMA encoding = UTF8", NULL , 0 , &db_err );
     sqlite_err = sqlite3_exec(db, ch , NULL, 0, &db_err) ;
     sqlite3_close(db) ;
 
