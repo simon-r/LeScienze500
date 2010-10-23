@@ -347,20 +347,26 @@ QPair<QString,QString> Bookmark::addFolderId( QString parent_id , QString name )
 
     this->execQuery( query ) ;
 
-    qDebug() << query ;
+    qDebug() << "***********" << query ;
 
-    QString query_id = "select Id from Folders where Folder like \"" ;
-    query_id += name_cnt_save ;
-    query_id += "\"  " ;
+    QString query_id = "select max(Id) from Folders" ; // where Folder like \"" ;
+   // query_id += name_cnt_save ;
+   // query_id += "\"  " ;
 
    QueryResult query_r_id ;
+
+   qDebug() << "***********" << query_id ;
+
    this->execQuery( query_id , query_r_id ) ;
+
+ qDebug() << "***********" << query_id <<  query_r_id.size() ;
 
    QString query_parent = "insert into Folder_SubFolders ( IdFolder , IdSubFolder ) values ( " ;
    query_parent += parent_id ;
    query_parent += " , " ;
    query_parent += query_r_id.getField( "Id" , query_r_id.begin() ) ;
    query_parent += " ) " ;
+   qDebug() << "***********" << query_parent ;
 
    this->execQuery( query_parent );
    qDebug() <<  query_parent ;
