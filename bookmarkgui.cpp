@@ -552,19 +552,6 @@ void BookmarkGui::appendFavorite( QString id )
 
      if ( list.size() > 1 ) return false ;
 
-     if ( new_state.isEmpty() )
-     {
-         item = list.first() ;
-
-         if ( item->type() != BookmarkGui::item_article ) return false ;
-
-         int index = item->parent()->indexOfChild( item ) ;
-         QTreeWidgetItem *parent = item->parent() ;
-         parent->removeChild( item ); ;
-
-         return true ;
-     }
-
      QList<QTreeWidgetItem *> list_state =
              ui->treeStates->findItems ( new_state , Qt::MatchExactly ) ;
 
@@ -575,29 +562,17 @@ void BookmarkGui::appendFavorite( QString id )
 
      if ( state->type() != BookmarkGui::item_state ) return false ;
 
-     if ( list.isEmpty() )
-     {
-         QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidgetItem*)0 , BookmarkGui::item_article ) ;
-         this->setArticleItemDecorations( item , this->current_favorite , this->current_favorite_id ) ;
+     item = list.first() ;
 
-         state->addChild( item ) ;
-         state->setExpanded( true ) ;
-         return true ;
-     }
-     else
-     {
-         item = list.first() ;
+     if ( item->type() != BookmarkGui::item_article ) return false ;
 
-         if ( item->type() != BookmarkGui::item_article ) return false ;
+     int index = item->parent()->indexOfChild( item ) ;
+     item = item->parent()->takeChild( index ) ;
 
-         int index = item->parent()->indexOfChild( item ) ;
-         item = item->parent()->takeChild( index ) ;
+     state->addChild( item );
+     state->setExpanded( true );
 
-         state->addChild( item );
-         state->setExpanded( true );
-
-         return true ;
-     }
+     return true ;
  }
 
 
@@ -719,8 +694,12 @@ void BookmarkGui::on_addFavorite()
 
 void BookmarkGui::on_remove()
 {
-    this->removeFavorite() ;
-    this->removeFolder() ;
+    if ( this->current_favorites_item == 0 ) return ;
+
+    if ( this->current_favorites_item->type() == BookmarkGui::item_article )
+        this->removeFavorite() ;
+    else
+        this->removeFolder() ;
 }
 
 void BookmarkGui::on_openPdf()
@@ -808,7 +787,7 @@ void BookmarkGui::on_stateChanged( int index )
     if ( index == 0 )
     {
         bk.deleteState( this->current_favorite_id ) ;
-        this->changeState( "" ) ;
+        this->removeState() ;
         return ;
     }
 
@@ -816,6 +795,11 @@ void BookmarkGui::on_stateChanged( int index )
 
     QString state_name = ui->State->itemText( index ) ;
 
-    bk.setState( state_name , this->current_favorite_id ) ;
-    this->changeState( state_name ) ;
+    int f = bk.setState( state_name , this->current_favorite_id ) ;
+
+    if ( f == 0  ) return ;
+    else if ( f == 1 )
+        this->changeState( state_name ) ;
+    else if ( f == 2 )
+        this->addState( state_name ) ;
 }
