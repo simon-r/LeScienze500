@@ -41,6 +41,7 @@ public:
     void fillFavoriteInfo( const QString& id , const QString& Id_f ) ;
 
     void fillStates() ;
+    void fillEvaluations() ;
 
     void appendFolder( QString name ) ;
     void appendFavorite( QString id ) ;

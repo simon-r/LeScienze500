@@ -317,6 +317,15 @@ void BookmarkGui::fillFavoriteInfo( const QString& id , const QString& Id_f )
  }
 
 
+void BookmarkGui::fillEvaluations()
+{
+    QueryResult states ;
+    Bookmark bk ;
+
+    bk.getStates( states );
+    QList<QTreeWidgetItem*> items;
+}
+
 void BookmarkGui::fillStates()
 {
     QueryResult states ;

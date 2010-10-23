@@ -60,7 +60,7 @@
            </size>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="page_1">
            <property name="geometry">
@@ -68,7 +68,7 @@
              <x>0</x>
              <y>0</y>
              <width>256</width>
-             <height>384</height>
+             <height>383</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -112,7 +112,7 @@
              <x>0</x>
              <y>0</y>
              <width>256</width>
-             <height>384</height>
+             <height>383</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -143,15 +143,21 @@
              <x>0</x>
              <y>0</y>
              <width>256</width>
-             <height>384</height>
+             <height>383</height>
             </rect>
            </property>
+           <attribute name="icon">
+            <iconset resource="crystal.qrc">
+             <normaloff>:/icons/crystal/1rightarrow-256.png</normaloff>
+             <activeon>:/icons/crystal/1downarrow1-256.png</activeon>
+             <selectedon>:/icons/crystal/1downarrow1-256.png</selectedon>:/icons/crystal/1rightarrow-256.png</iconset>
+           </attribute>
            <attribute name="label">
             <string>Valutazione</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
-             <widget class="QTreeWidget" name="treeWidget_3">
+             <widget class="QTreeWidget" name="Evaluations">
               <attribute name="headerVisible">
                <bool>false</bool>
               </attribute>
