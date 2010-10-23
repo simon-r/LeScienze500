@@ -48,7 +48,9 @@ public:
     bool removeFavorite() ;
     bool removeFolder() ;
 
+    bool addState( QString new_state ) ;
     bool changeState( QString new_state ) ;
+    bool removeState() ;
 
     bool renameFolder() ;
 
