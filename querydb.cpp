@@ -25,6 +25,7 @@
 #include <QPair>
 #include <QtAlgorithms>
 #include <stdlib.h>
+#include <QLatin1String>
 
 QueryDB::QueryDB()
 {
@@ -80,10 +81,17 @@ bool QueryDB::execNAQuery(QString db_path , QString query )
     sqlite3* db;
     char* db_err;
     int sqlite_err ;
+    QByteArray b_query = query.toAscii() ;
+    const char *ch = new char[b_query.size()] ;
+    strcpy( (char*)ch, b_query.data());
 
     sqlite3_open( db_path.toAscii().data() , &db ) ;
-    sqlite_err = sqlite3_exec(db, query.toAscii().data(), NULL, 0, &db_err) ;
+
+    sqlite3_exec( db , "PRAGMA encoding = UTF8", NULL , 0 , &db_err );
+    sqlite_err = sqlite3_exec(db, ch , NULL, 0, &db_err) ;
     sqlite3_close(db) ;
+
+   //while(1)  qDebug() << "SQL Lite error code: " << sqlite_err ;
 
     if ( sqlite_err == SQLITE_OK )
         return true ;
@@ -93,6 +101,7 @@ bool QueryDB::execNAQuery(QString db_path , QString query )
         return false ;
     }
 
+    delete [] ch ;
 }
 
 void QueryDB::execQuery( const QString& db_path , const QString& query , QueryResult& q_result )

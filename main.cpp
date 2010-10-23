@@ -25,6 +25,9 @@
 int main(int argc, char *argv[])
 {
 
+    QString query = "öäöäöäöäöäöäöäöéàéàéàéàéàéèèèèèöäöäöäöäöäöäöäöä" ;
+    QByteArray b_query = query.toUtf8() ;
+
     Bookmark bk ;
     if ( bk.initBookmark() )
     {
