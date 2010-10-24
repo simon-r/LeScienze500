@@ -38,7 +38,7 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     cut_state = false ;
 
     buildMenuFavorites() ;
-    this->setWindowTitle( "Preferiti (beta release)" );
+    this->setWindowTitle( "Preferiti (RC 1)" );
 
     ui->treeCategorie->setUpdatesEnabled( true );
     ui->treeStates->setUpdatesEnabled( true );
@@ -86,7 +86,7 @@ void BookmarkGui::open()
 
     ui->SaveComment->setDisabled( true );
 
-    setModal( true ) ;
+    //setModal( true ) ;
     show() ;
     exec() ;
 }
@@ -98,7 +98,7 @@ void BookmarkGui::open( QString id )
     fillStates() ;
     fillEvaluations() ;
 
-    setModal( true ) ;
+    //setModal( true ) ;
     show() ;
 
     ui->Title->clear();
@@ -936,8 +936,9 @@ void BookmarkGui::on_saveComment()
     Bookmark bk ;
 
     if ( this->current_favorite.isEmpty() ) return ;
+    qDebug() << ui->Comments->toPlainText() ;
 
-    bk.setComment( ui->Comments->toPlainText().toUtf8() , this->current_favorite_id ) ;
+    bk.setComment( ui->Comments->toPlainText() , this->current_favorite_id ) ;
     ui->SaveComment->setDisabled( true );
 }
 

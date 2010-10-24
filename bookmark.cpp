@@ -613,11 +613,14 @@ bool Bookmark::setComment( const QString& comment , QString favorite_id )
 
     this->execQuery( query , query_r ) ;
 
+    QString i_comment = comment ;
+    i_comment.replace( QRegExp("(\')") , "\'\'" ) ;
+
     if( query_r.getField(0,0).toInt() > 0 )
     {
         QString update ;
-        update = "update Comments set Comment = \"" ;
-        update += comment ; update += "\" " ;
+        update = "update Comments set Comment = \'" ;
+        update += i_comment ; update += "\' " ;
         update += "where Id in ( select IdComment from Comments_BookmarkEntries where IdBookmarkEntry = " ;
         update += favorite_id ;
         update += " ) " ;
@@ -629,9 +632,9 @@ bool Bookmark::setComment( const QString& comment , QString favorite_id )
     else
     {
         QString insert ;
-        insert = "insert into Comments( Comment ) values ( \"" ;
-        insert += comment ;
-        insert += "\" ) " ;
+        insert = "insert into Comments( Comment ) values ( \'" ;
+        insert += i_comment ;
+        insert += "\' ) " ;
 
         res = this->execQuery( insert ) ;
 
