@@ -1447,8 +1447,9 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="actionConfigura"/>
     <addaction name="separator"/>
-    <addaction name="actionAbout"/>
-    <addaction name="actionEsci"/>
+    <addaction name="actionAbout_2"/>
+    <addaction name="actionMostra_Copertine"/>
+    <addaction name="actionEsci_2"/>
    </widget>
    <widget class="QMenu" name="menuFavoriti">
     <property name="title">
@@ -1465,17 +1466,37 @@ p, li { white-space: pre-wrap; }
     <string>Configura ...</string>
    </property>
   </action>
-  <action name="actionAbout">
-   <property name="text">
-    <string>About ...</string>
-   </property>
-  </action>
   <action name="actionOrganizza_preferiti">
    <property name="text">
     <string>Organizza preferiti ...</string>
    </property>
   </action>
   <action name="actionEsci">
+   <property name="text">
+    <string>Esci</string>
+   </property>
+  </action>
+  <action name="actionNaviga_nelle_riviste">
+   <property name="text">
+    <string>Naviga nelle riviste</string>
+   </property>
+  </action>
+  <action name="actionCiao">
+   <property name="text">
+    <string>ciao</string>
+   </property>
+  </action>
+  <action name="actionAbout_2">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionMostra_Copertine">
+   <property name="text">
+    <string>Mostra Copertine</string>
+   </property>
+  </action>
+  <action name="actionEsci_2">
    <property name="text">
     <string>Esci</string>
    </property>
@@ -1488,7 +1509,7 @@ p, li { white-space: pre-wrap; }
  </resources>
  <connections>
   <connection>
-   <sender>actionEsci</sender>
+   <sender>actionEsci_2</sender>
    <signal>triggered()</signal>
    <receiver>LeScienze500</receiver>
    <slot>close()</slot>
