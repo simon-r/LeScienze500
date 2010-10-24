@@ -13,6 +13,7 @@
     <qresource prefix="/logo">
         <file>icons/256x256/apps/lescienze500.png</file>
         <file>logo/lescienze500.png</file>
+        <file>logo/pattern.png</file>
     </qresource>
     <qresource prefix="/stars">
         <file>stars/5s.png</file>
