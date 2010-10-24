@@ -755,143 +755,95 @@ bool Bookmark::getFavoritesByState( QueryResult& query_r , const QString& state_
         return true ;
 }
 
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-
-
-
-
-
-QString Bookmark::addFavorite( QString parent , QString id )
+bool Bookmark::setEvaluation( const QString& stars , QString favorite_id )
 {
-    if ( parent.isEmpty() || !this->folderExist( parent ) )
-    {
-        QueryResult query_root ;
-        getRootFolders( query_root ) ;
-        if ( query_root.empty() ) return QString( "" ) ;
-        parent = query_root.getField( "Folder" , query_root.begin() ) ;
-    }
+    if ( favorite_id.isEmpty() ) return 0 ;
+    bool res ;
+    int ret ;
 
     QueryResult query_r ;
-    getFavoriteFullData( query_r , id ) ;
 
-    if ( query_r.empty() ) return QString( "" ) ;
+    QString query ;
+    query = "select count(*) from Evaluations_BookmarkEntries where IdBookmarkEntry = " ;
+    query += favorite_id ;
 
-    QString query = "insert into BookmarkEntries ( IdEntry ) values ( " ;
-    query += id ;
-    query += " ) " ;
-    this->execQuery( query ) ;
+    this->execQuery( query , query_r ) ;
 
-    QString query_ida = "select Id from BookmarkEntries where IdEntry = " ;
-    query_ida += id ;
+    if( query_r.getField(0,0).toInt() > 0 )
+    {
+        QString update ;
+        update = "update Evaluations_BookmarkEntries set IdEvaluation = ( select Id from Evaluations where Evaluation = " ;
+        update += stars ;
+        update += " ) where IdBookmarkEntry = " ;
+        update += favorite_id ;
 
-    QueryResult query_r_ida ;
-    this->execQuery( query_ida , query_r_ida ) ;
+        qDebug() << update ;
 
-    QString query_id_p = "select Id from Folders where Folder like \"" ;
-    query_id_p += parent ;
-    query_id_p += "\" " ;
+        res = this->execQuery( update ) ;
+        if ( res )
+            ret = 1 ;
+        else
+            ret = 0 ;
+    }
+    else
+    {
+        QString insert ;
+        insert = " insert into Evaluations_BookmarkEntries ( IdEvaluation , IdBookmarkEntry ) values " ;
+        insert += " ( ( select Id from Evaluations where Evaluation = " ;
+        insert += stars ;
+        insert += " ) , " ;
+        insert += favorite_id ;
+        insert += " ) " ;
 
-    QueryResult query_r_idp ;
-    this->execQuery( query_id_p , query_r_idp ) ;
+        qDebug() << insert ;
+        res = this->execQuery( insert ) ;
 
-    QString query_tr = "insert into Folders_BookmarkEntries ( IdFolder , IdBookmarkEntry ) values ( " ;
-    query_tr += query_r_idp.getField( "Id" , query_r_idp.begin() ) ;
-    query_tr += " , " ;
-    query_tr += query_r_ida.getField( "Id" , query_r_ida.begin() ) ;
-    query_tr += " ) " ;
+        if ( res )
+            ret = 2 ;
+        else
+            ret = 0 ;
+    }
 
-    qDebug() << query_tr ;
-
-
-    this->execQuery( query_tr ) ;
-
-    return query_r.getField( "Titolo" , query_r.begin() ) ;
+    return ret ;
 }
 
+  bool Bookmark::getFavoritesByEvaluation(  QueryResult& query_r , const QString& stars )
+  {
+      if ( stars.isEmpty() ) return false ;
 
+      QString query ;
+      query = " select * from BookmarkEntries where Id in ( select IdBookmarkEntry " ;
+      query += " from Evaluations_BookmarkEntries where IdEvaluation in " ;
+      query += " ( select Id from Evaluations where Evaluation = " ;
+      query += stars ;
+      query += " ) ) " ;
 
-QPair<QString,QString> Bookmark::addFolder( QString parent , QString name )
-{
-    if ( parent.isEmpty() || !this->folderExist( name ) )
-    {
-        QueryResult query_root ;
-        getRootFolders( query_root ) ;
-        if ( query_root.empty() ) {
-            QPair<QString,QString> r ;
-            return r ;
-        }
-        parent = query_root.getField( "Folder" , query_root.begin() ) ;
-    }
+      this->execQuery( query , query_r ) ;
 
-    if ( name.isEmpty() )
-    {
-        name = "Nuova Cartella" ;
-    }
+       qDebug() << query ;
 
-    int cnt = 1 ;
-    QString name_cnt = name ;
-    QString name_cnt_save ;
-    QueryResult query_r ;
-    do
-    {
-        QString query_name = "select * from Folders where Folder like \"" ;
-        query_name += name_cnt ;
-        query_name += "\" " ;
+      if ( query_r.empty() )
+          return false ;
+      else
+          return true ;
+  }
 
-        query_r.clear();
-        qDebug() << query_name ;
-        this->execQuery( query_name , query_r );
+  bool  Bookmark::getEvaluation( QueryResult& query_r , QString favorite_id )
+  {
+      if ( favorite_id.isEmpty() ) return false ;
 
-        name_cnt_save = name_cnt ;
-        name_cnt = name  ;
-        name_cnt += " (" ; name_cnt += QString().setNum( cnt ) ; name_cnt += ")" ;
-        cnt++ ;
-    }
-    while ( query_r.size() > 0 ) ;
+      QString query ;
+      query = "select Evaluation from Evaluations where Id in ( " ;
+      query += " select IdEvaluation from  Evaluations_BookmarkEntries where " ;
+      query += " IdBookmarkEntry = " ;
+      query += favorite_id ;
+      query += " ) " ;
 
-    QString query = "insert into Folders ( Folder ) values ( \"" ;
-    query += name_cnt_save ;
-    query += "\" ) " ;
+      this->execQuery( query , query_r ) ;
 
-    this->execQuery( query ) ;
-
-    qDebug() << query ;
-
-    QString query_id = "select Id from Folders where Folder like \"" ;
-    query_id += name_cnt_save ;
-    query_id += "\"  " ;
-
-    QString query_id_p = "select Id from Folders where Folder like \"" ;
-    query_id_p += parent ;
-    query_id_p += "\" " ;
-
-    QueryResult query_r_id , query_r_idp ;
-
-    this->execQuery( query_id , query_r_id ) ;
-    this->execQuery( query_id_p , query_r_idp ) ;
-
-    QString query_parent = "insert into Folder_SubFolders ( IdFolder , IdSubFolder ) values ( " ;
-    query_parent += query_r_idp.getField( "Id" , query_r_idp.begin() ) ;
-    query_parent += " , " ;
-    query_parent += query_r_id.getField( "Id" , query_r_id.begin() ) ;
-    query_parent += " ) " ;
-
-    this->execQuery( query_parent );
-    qDebug() <<  query_parent ;
-
-    QPair<QString,QString> res ;
-    res.first = query_r_idp.getField( "Id" , query_r_idp.begin() ) ;
-    res.second = name_cnt_save ;
-
-    return res ;
-}
+      if ( query_r.empty() )
+          return false ;
+      else
+          return true ;
+  }
