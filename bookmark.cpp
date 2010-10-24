@@ -120,17 +120,17 @@ void  Bookmark::getFavorites( QueryResult& query_r )
 
 bool Bookmark::isFavoriteBookmarked( QString id )
 {
-     QString query = "select count(Id) from BookmarkEntries where IdEntry = " ;
-     query += id ;
+    QString query = "select count(Id) from BookmarkEntries where IdEntry = " ;
+    query += id ;
 
-      QueryResult query_r ;
+    QueryResult query_r ;
 
-      this->execQuery( query , query_r ) ;
+    this->execQuery( query , query_r ) ;
 
-      if ( query_r.getField(0,0).toInt() > 0 )
-          return true ;
-      else
-          return false ;
+    if ( query_r.getField(0,0).toInt() > 0 )
+        return true ;
+    else
+        return false ;
 }
 
 void  Bookmark::getFolders( QueryResult& query_r )
@@ -151,10 +151,10 @@ void Bookmark::getFolders( QueryResult& query_r , const QString& parent )
     }
 
     QString query  = "select Id, Folder from Folders where " ;
-            query += "Id in ( select IdSubFolder from Folder_SubFolders where IdFolder in " ;
-            query += " ( select Id from Folders where Folder like \"" ;
-            query += parent ;
-            query += "\" ) ) " ;
+    query += "Id in ( select IdSubFolder from Folder_SubFolders where IdFolder in " ;
+    query += " ( select Id from Folders where Folder like \"" ;
+    query += parent ;
+    query += "\" ) ) " ;
     this->execQuery( query , query_r ) ;
 }
 
@@ -169,9 +169,9 @@ void Bookmark::getFoldersId( QueryResult& query_r , const QString& parent_id )
     }
 
     QString query  = "select Id, Folder from Folders where " ;
-            query += "Id in ( select IdSubFolder from Folder_SubFolders where IdFolder = " ;
-            query += parent_id ;
-            query += " ) " ;
+    query += "Id in ( select IdSubFolder from Folder_SubFolders where IdFolder = " ;
+    query += parent_id ;
+    query += " ) " ;
     this->execQuery( query , query_r ) ;
 
 }
@@ -182,12 +182,12 @@ bool Bookmark::folderExistsId( QString parent_id , QString folder_name )
         parent_id = "1" ;
 
     QString query  = "select Id from Folders where Id in " ;
-            query += "( select IdSubFolder from Folder_SubFolders where IdFolder = " ;
-            query += parent_id ;
-            query += " and IdSubFolder in ( " ;
-            query += " select  Id from Folders where Ctagoria like " ;
-            query += folder_name ;
-            query += " ) ) " ;
+    query += "( select IdSubFolder from Folder_SubFolders where IdFolder = " ;
+    query += parent_id ;
+    query += " and IdSubFolder in ( " ;
+    query += " select  Id from Folders where Ctagoria like " ;
+    query += folder_name ;
+    query += " ) ) " ;
 
     QueryResult query_r ;
     this->execQuery( query , query_r ) ;
@@ -202,11 +202,11 @@ void Bookmark::getParentFolder( QueryResult& query_r , const QString& categoria 
 {
     query_r.clear();
     QString query =  "select Id, Folder from Folders where " ;
-            query += "Id in ( select IdFolder from Folder_SubFolders where IdSubFolder in " ;
-            query += " ( select Id from Folders where Folder like \"" ;
-            query += categoria ;
-            query += "\"" ;
-            query += " ) ) " ;
+    query += "Id in ( select IdFolder from Folder_SubFolders where IdSubFolder in " ;
+    query += " ( select Id from Folders where Folder like \"" ;
+    query += categoria ;
+    query += "\"" ;
+    query += " ) ) " ;
     this->execQuery( query , query_r ) ;
 }
 
@@ -214,7 +214,7 @@ void Bookmark::getRootFolders( QueryResult& query_r )
 {
     query_r.clear();
     QString query =  "select * from Folders where " ;
-            query += "Id not in ( select IdSubFolder from Folder_SubFolders ) " ;
+    query += "Id not in ( select IdSubFolder from Folder_SubFolders ) " ;
     this->execQuery( query , query_r ) ;
 }
 
@@ -350,25 +350,25 @@ QPair<QString,QString> Bookmark::addFolderId( QString parent_id , QString name )
     qDebug() << query ;
 
     QString query_id = "select max(Id) from Folders" ; // where Folder like \"" ;
-   // query_id += name_cnt_save ;
-   // query_id += "\"  " ;
+    // query_id += name_cnt_save ;
+    // query_id += "\"  " ;
 
-   QueryResult query_r_id ;
+    QueryResult query_r_id ;
 
-   this->execQuery( query_id , query_r_id ) ;
+    this->execQuery( query_id , query_r_id ) ;
 
-   QString query_parent = "insert into Folder_SubFolders ( IdFolder , IdSubFolder ) values ( " ;
-   query_parent += parent_id ;
-   query_parent += " , " ;
-   query_parent += query_r_id.getField( "Id" , query_r_id.begin() ) ;
-   query_parent += " ) " ;
+    QString query_parent = "insert into Folder_SubFolders ( IdFolder , IdSubFolder ) values ( " ;
+    query_parent += parent_id ;
+    query_parent += " , " ;
+    query_parent += query_r_id.getField( "Id" , query_r_id.begin() ) ;
+    query_parent += " ) " ;
 
-   this->execQuery( query_parent );
-   qDebug() <<  query_parent ;
+    this->execQuery( query_parent );
+    qDebug() <<  query_parent ;
 
-   ret.first = query_r_id.getField( "Id" , query_r_id.begin() ) ;
-   ret.second = name_cnt_save ;
-   return ret ;
+    ret.first = query_r_id.getField( "Id" , query_r_id.begin() ) ;
+    ret.second = name_cnt_save ;
+    return ret ;
 }
 
 QPair<QString,QString> Bookmark::addFavoriteId( QString parent_id , QString id_articolo )
@@ -433,7 +433,7 @@ bool  Bookmark::removeFavorite( QString parent_id , QString id )
 
     if ( parent_id.isEmpty() || !this->folderIdExist( parent_id ) )
     {
-      return false ;
+        return false ;
     }
 
     QString remove = "delete from BookmarkEntries where Id = " ;
@@ -455,7 +455,7 @@ bool Bookmark::isFolderEmpty( QString folder_id )
     bool flag = false  ;
 
     if ( folder_id.isEmpty() )
-     return true ;
+        return true ;
 
     QString query =  "select * from Folders where Id = " ;
     query += folder_id ;
@@ -491,17 +491,17 @@ bool Bookmark::removeFolder( QString folder_id )
     if ( !this->isFolderEmpty( folder_id ) ) return false ;
     if ( folder_id.toInt() == 1 ) return false ;
 
-   QString remove = "delete from Folders where Id = " ;
-   remove += folder_id ;
+    QString remove = "delete from Folders where Id = " ;
+    remove += folder_id ;
 
-   bool flag = this->execQuery( remove ) ;
+    bool flag = this->execQuery( remove ) ;
 
-   remove = "delete from Folder_SubFolders where IdSubFolder = " ;
-   remove += folder_id ;
+    remove = "delete from Folder_SubFolders where IdSubFolder = " ;
+    remove += folder_id ;
 
-   flag = flag && this->execQuery( remove ) ;
+    flag = flag && this->execQuery( remove ) ;
 
-   return flag ;
+    return flag ;
 }
 
 bool Bookmark::renameFolder( QString folder_id , QString new_name )
@@ -578,76 +578,76 @@ bool Bookmark::moveFavorite( QString favorite_id , QString new_parent_id )
 
 bool Bookmark::getComment( QueryResult& query_r , QString favorite_id )
 {
-     if ( favorite_id.isEmpty() ) return false ;
+    if ( favorite_id.isEmpty() ) return false ;
 
-     QString query ;
-     query = "select Comment from Comments where Id in ( " ;
-     query += " select IdComment from  Comments_BookmarkEntries where " ;
-     query += " IdBookmarkEntry = " ;
-     query += favorite_id ;
-     query += " ) " ;
+    QString query ;
+    query = "select Comment from Comments where Id in ( " ;
+    query += " select IdComment from  Comments_BookmarkEntries where " ;
+    query += " IdBookmarkEntry = " ;
+    query += favorite_id ;
+    query += " ) " ;
 
-     this->execQuery( query , query_r ) ;
+    this->execQuery( query , query_r ) ;
 
-     if ( query_r.empty() )
-         return false ;
-     else
-         return true ;
+    if ( query_r.empty() )
+        return false ;
+    else
+        return true ;
 }
 
 bool Bookmark::setComment( const QString& comment , QString favorite_id )
 {
-     if ( favorite_id.isEmpty() ) return false ;
-     bool res ;
+    if ( favorite_id.isEmpty() ) return false ;
+    bool res ;
 
-     QueryResult query_r ;
+    QueryResult query_r ;
 
-     QString query ;
-     query = "select count(*) from Comments_BookmarkEntries where IdBookmarkEntry = " ;
-     query += favorite_id ;
+    QString query ;
+    query = "select count(*) from Comments_BookmarkEntries where IdBookmarkEntry = " ;
+    query += favorite_id ;
 
-     this->execQuery( query , query_r ) ;
+    this->execQuery( query , query_r ) ;
 
-     if( query_r.getField(0,0).toInt() > 0 )
-     {
-         QString update ;
-         update = "update Comments set Comment = \"" ;
-         update += comment ; update += "\" " ;
-         update += "where Id in ( select IdComment from Comments_BookmarkEntries where IdBookmarkEntry = " ;
-         update += favorite_id ;
-         update += " ) " ;
+    if( query_r.getField(0,0).toInt() > 0 )
+    {
+        QString update ;
+        update = "update Comments set Comment = \"" ;
+        update += comment ; update += "\" " ;
+        update += "where Id in ( select IdComment from Comments_BookmarkEntries where IdBookmarkEntry = " ;
+        update += favorite_id ;
+        update += " ) " ;
 
-         qDebug() << update ;
+        qDebug() << update ;
 
-         res = this->execQuery( update ) ;
-     }
-     else
-     {
-         QString insert ;
-         insert = "insert into Comments( Comment ) values ( \"" ;
-         insert += comment ;
-         insert += "\" ) " ;
+        res = this->execQuery( update ) ;
+    }
+    else
+    {
+        QString insert ;
+        insert = "insert into Comments( Comment ) values ( \"" ;
+        insert += comment ;
+        insert += "\" ) " ;
 
-         res = this->execQuery( insert ) ;
+        res = this->execQuery( insert ) ;
 
-         query_r.clear() ;
-         query = " select max(Id) from Comments " ;
-         this->execQuery( query , query_r ) ;
+        query_r.clear() ;
+        query = " select max(Id) from Comments " ;
+        this->execQuery( query , query_r ) ;
 
-         QString max = query_r.getField(0,0) ;
+        QString max = query_r.getField(0,0) ;
 
-         query_r.clear() ;
+        query_r.clear() ;
 
-         insert = " insert into Comments_BookmarkEntries( IdComment , IdBookmarkEntry ) values  (  " ;
-         insert += max ;
-         insert += " , " ;
-         insert += favorite_id ;
-         insert += " ) " ;
+        insert = " insert into Comments_BookmarkEntries( IdComment , IdBookmarkEntry ) values  (  " ;
+        insert += max ;
+        insert += " , " ;
+        insert += favorite_id ;
+        insert += " ) " ;
 
-         res = res && this->execQuery( insert ) ;
-     }
+        res = res && this->execQuery( insert ) ;
+    }
 
-     return res ;
+    return res ;
 }
 
 bool Bookmark::getState( QueryResult& query_r , QString favorite_id )
@@ -714,21 +714,21 @@ int Bookmark::setState( const QString& state_name , QString favorite_id )
     }
     else
     {
-         QString insert ;
-         insert = " insert into UserStates_BookmarkEntries ( IdUserState , IdBookmarkEntry ) values " ;
-         insert += " ( ( select Id from UserStates where StateName = \"" ;
-         insert += state_name ;
-         insert += "\" ) , " ;
-         insert += favorite_id ;
-         insert += " ) " ;
+        QString insert ;
+        insert = " insert into UserStates_BookmarkEntries ( IdUserState , IdBookmarkEntry ) values " ;
+        insert += " ( ( select Id from UserStates where StateName = \"" ;
+        insert += state_name ;
+        insert += "\" ) , " ;
+        insert += favorite_id ;
+        insert += " ) " ;
 
-         qDebug() << insert ;
-         res = this->execQuery( insert ) ;
+        qDebug() << insert ;
+        res = this->execQuery( insert ) ;
 
-         if ( res )
-             ret = 2 ;
-         else
-             ret = 0 ;
+        if ( res )
+            ret = 2 ;
+        else
+            ret = 0 ;
     }
 
     return ret ;
@@ -747,7 +747,7 @@ bool Bookmark::getFavoritesByState( QueryResult& query_r , const QString& state_
 
     this->execQuery( query , query_r ) ;
 
-     qDebug() << query ;
+    qDebug() << query ;
 
     if ( query_r.empty() )
         return false ;
@@ -808,56 +808,56 @@ int Bookmark::setEvaluation( const QString& stars , QString favorite_id )
     return ret ;
 }
 
-  bool Bookmark::getFavoritesByEvaluation(  QueryResult& query_r , const QString& stars )
-  {
-      if ( stars.isEmpty() ) return false ;
+bool Bookmark::getFavoritesByEvaluation(  QueryResult& query_r , const QString& stars )
+{
+    if ( stars.isEmpty() ) return false ;
 
-      QString query ;
-      query = " select * from BookmarkEntries where Id in ( select IdBookmarkEntry " ;
-      query += " from Evaluations_BookmarkEntries where IdEvaluation in " ;
-      query += " ( select Id from Evaluations where Evaluation = " ;
-      query += stars ;
-      query += " ) ) " ;
+    QString query ;
+    query = " select * from BookmarkEntries where Id in ( select IdBookmarkEntry " ;
+    query += " from Evaluations_BookmarkEntries where IdEvaluation in " ;
+    query += " ( select Id from Evaluations where Evaluation = " ;
+    query += stars ;
+    query += " ) ) " ;
 
-      this->execQuery( query , query_r ) ;
+    this->execQuery( query , query_r ) ;
 
-       qDebug() << query ;
+    qDebug() << query ;
 
-      if ( query_r.empty() )
-          return false ;
-      else
-          return true ;
-  }
+    if ( query_r.empty() )
+        return false ;
+    else
+        return true ;
+}
 
-  bool  Bookmark::getEvaluation( QueryResult& query_r , QString favorite_id )
-  {
-      if ( favorite_id.isEmpty() ) return false ;
+bool  Bookmark::getEvaluation( QueryResult& query_r , QString favorite_id )
+{
+    if ( favorite_id.isEmpty() ) return false ;
 
-      QString query ;
-      query = "select Evaluation from Evaluations where Id in ( " ;
-      query += " select IdEvaluation from  Evaluations_BookmarkEntries where " ;
-      query += " IdBookmarkEntry = " ;
-      query += favorite_id ;
-      query += " ) " ;
+    QString query ;
+    query = "select Evaluation from Evaluations where Id in ( " ;
+    query += " select IdEvaluation from  Evaluations_BookmarkEntries where " ;
+    query += " IdBookmarkEntry = " ;
+    query += favorite_id ;
+    query += " ) " ;
 
-      this->execQuery( query , query_r ) ;
+    this->execQuery( query , query_r ) ;
 
-      if ( query_r.empty() )
-          return false ;
-      else
-          return true ;
-  }
+    if ( query_r.empty() )
+        return false ;
+    else
+        return true ;
+}
 
 
-  bool Bookmark::deleteEvaluation( QString favorite_id )
-  {
-      if ( favorite_id.isEmpty() ) return false ;
+bool Bookmark::deleteEvaluation( QString favorite_id )
+{
+    if ( favorite_id.isEmpty() ) return false ;
 
-      QString cancel ;
-      cancel = "delete from Evaluations_BookmarkEntries where IdBookmarkEntry = " ;
-      cancel += favorite_id ;
+    QString cancel ;
+    cancel = "delete from Evaluations_BookmarkEntries where IdBookmarkEntry = " ;
+    cancel += favorite_id ;
 
-      qDebug() << cancel ;
+    qDebug() << cancel ;
 
-      return this->execQuery( cancel ) ;
-  }
+    return this->execQuery( cancel ) ;
+}
