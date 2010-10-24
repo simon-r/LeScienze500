@@ -43,6 +43,12 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     ui->treeCategorie->setUpdatesEnabled( true );
     ui->treeStates->setUpdatesEnabled( true );
 
+    ui->treeStates->setColumnCount(2);
+    ui->treeStates->setColumnHidden( 1 , true );
+
+    ui->treeEvaluations->setColumnCount(2);
+    ui->treeEvaluations->setColumnHidden( 1 , true );
+
     ui->treeCategorie->setContextMenuPolicy( Qt::CustomContextMenu );
 
     connect( ui->treeCategorie , SIGNAL(itemSelectionChanged()) , this , SLOT(on_selectedChanged()) ) ;
@@ -59,6 +65,9 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 
     connect( ui->State , SIGNAL(activated(int)) , this , SLOT(on_stateChanged(int)) ) ;
     connect( ui->treeStates , SIGNAL(itemSelectionChanged()) , this , SLOT(on_selectedChanged()) ) ;
+
+    connect( ui->Evaluation , SIGNAL(activated(int)) , this , SLOT(on_evaluationChanged(int)) ) ;
+    connect( ui->treeEvaluations , SIGNAL(itemSelectionChanged()) , this , SLOT(on_selectedChanged()) ) ;
 }
 
 void BookmarkGui::open()
@@ -86,6 +95,8 @@ void BookmarkGui::open( QString id )
 {
     current_favorites_item = 0 ;
     fillCategorie() ;
+    fillStates() ;
+    fillEvaluations() ;
 
     setModal( true ) ;
     show() ;
@@ -315,6 +326,16 @@ void BookmarkGui::fillFavoriteInfo( const QString& id , const QString& Id_f )
      }
      else
          ui->State->setCurrentIndex( 0 );
+
+     res.clear() ;
+     bk.getEvaluation( res , Id_f ) ;
+     if ( !res.empty() )
+     {
+         int index = ui->Evaluation->findData( res.getField(0,0) ) ;
+         ui->Evaluation->setCurrentIndex( index );
+     }
+     else
+         ui->Evaluation->setCurrentIndex( 0 );
  }
 
 
@@ -333,7 +354,7 @@ void BookmarkGui::fillEvaluations()
     ui->Evaluation->setIconSize( QSize( 100 , 20 ) );
     ui->treeEvaluations->setIconSize( QSize( 100 , 20 ) );
 
-    ui->Evaluation->insertItem( index , tr("Nessuna valutazione") );
+    ui->Evaluation->insertItem( index , tr("Nessuna valutazione") , "-1" );
 
     bk.getEvaluations( eval );
 
@@ -344,14 +365,30 @@ void BookmarkGui::fillEvaluations()
         QString stars_file = ":/stars/stars/" ;
         stars_file += Evaluation ;
         stars_file += "s.png" ;
-        QIcon stars( stars_file ) ;
-        QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_state ) ;
-        item->setIcon( 0 , stars ) ;
+        QIcon stars_icon( stars_file ) ;
+        QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_evaluation ) ;
+        item->setIcon( 0 , stars_icon ) ;
+
         item->setText( 1 , Evaluation ) ;
+        qDebug() << item->text(1);
+
+
+        QueryResult entries ;
+        bk.getFavoritesByEvaluation( entries , Evaluation ) ;
+        for ( QueryResult::iterator itr_b = entries.begin() ; itr_b < entries.end() ; itr_b++ )
+        {
+            QString id_entry = entries.getField( "IdEntry" , itr_b ) ;
+            QString id = entries.getField( "Id" , itr_b ) ;
+            QTreeWidgetItem* entry_item = new QTreeWidgetItem( item , BookmarkGui::item_article ) ;
+            this->setArticleItemDecorations( entry_item , id_entry , id ) ;
+        }
 
 
         items.append( item );
-        ui->Evaluation->insertItem( ++index , stars , "" ) ;
+
+        QVariant stars ;
+        stars.setValue( Evaluation );
+        ui->Evaluation->insertItem( ++index , stars_icon , "" , stars ) ;
     }
 
     ui->treeEvaluations->clear();
@@ -514,6 +551,9 @@ void BookmarkGui::appendFavorite( QString id )
     this->setArticleItemDecorations( new_favorite , id , title.first  ) ;
     parent_item->setExpanded( true ) ;
     ui->treeCategorie->setCurrentItem( new_favorite );
+
+    if ( ui->AddFavorite->isEnabled() )
+        ui->AddFavorite->setEnabled( false );
 }
 
  bool BookmarkGui::removeFavorite()
@@ -554,6 +594,8 @@ void BookmarkGui::appendFavorite( QString id )
 
      state->addChild( item ) ;
      state->setExpanded( true ) ;
+     ui->treeStates->setCurrentItem( item );
+
      return true ;
  }
 
@@ -613,9 +655,98 @@ void BookmarkGui::appendFavorite( QString id )
      state->addChild( item );
      state->setExpanded( true );
 
+     ui->treeStates->setCurrentItem( item );
+
      return true ;
  }
 
+ bool BookmarkGui::addEvaluation( QString stars )
+ {
+     Bookmark bk ;
+     QueryResult favorite ;
+
+     bk.getFavoriteFullData( favorite , this->current_favorite );
+
+     QList<QTreeWidgetItem *> list_evaluations =
+             ui->treeEvaluations->findItems ( stars , Qt::MatchExactly , 1 ) ;
+
+     qDebug() << list_evaluations.isEmpty() << list_evaluations.size() << stars ;
+     if ( list_evaluations.isEmpty() || list_evaluations.size() > 1 ) return false ;
+
+     QTreeWidgetItem *evaluation = list_evaluations.first() ;
+
+     if ( evaluation->type() != BookmarkGui::item_evaluation ) return false ;
+
+     QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidgetItem*)0 , BookmarkGui::item_article ) ;
+     this->setArticleItemDecorations( item , this->current_favorite , this->current_favorite_id ) ;
+
+     evaluation->addChild( item ) ;
+     evaluation->setExpanded( true ) ;
+
+     ui->treeEvaluations->setCurrentItem( item );
+
+     return true ;
+ }
+
+ bool BookmarkGui::changeEvaluation( QString stars )
+ {
+     Bookmark bk ;
+     QueryResult favorite ;
+     QTreeWidgetItem *item ;
+
+     bk.getFavoriteFullData( favorite , this->current_favorite );
+
+     QList<QTreeWidgetItem *> list =
+             ui->treeEvaluations->findItems ( favorite.getField( "Titolo" , favorite.begin() ) , Qt::MatchExactly|Qt::MatchRecursive ) ;
+
+     if ( list.size() > 1 ) return false ;
+
+     QList<QTreeWidgetItem *> list_evaluations =
+             ui->treeEvaluations->findItems ( stars , Qt::MatchExactly , 1 ) ;
+
+     if ( list_evaluations.isEmpty() || list_evaluations.size() > 1 ) return false ;
+
+     QTreeWidgetItem *evaluation = list_evaluations.first() ;
+
+     if ( evaluation->type() != BookmarkGui::item_evaluation ) return false ;
+
+     item = list.first() ;
+
+     if ( item->type() != BookmarkGui::item_article ) return false ;
+
+     int index = item->parent()->indexOfChild( item ) ;
+     item = item->parent()->takeChild( index ) ;
+
+     evaluation->addChild( item );
+     evaluation->setExpanded( true );
+
+     ui->treeEvaluations->setCurrentItem( item );
+
+     return true ;
+ }
+
+ bool BookmarkGui::removeEvaluation()
+ {
+     Bookmark bk ;
+     QueryResult favorite ;
+     QTreeWidgetItem *item ;
+
+     bk.getFavoriteFullData( favorite , this->current_favorite );
+
+     QList<QTreeWidgetItem *> list =
+             ui->treeEvaluations->findItems ( favorite.getField( "Id" , favorite.begin() ) , Qt::MatchExactly|Qt::MatchRecursive , 1 ) ;
+
+     if ( list.size() > 1 || list.isEmpty() ) return false ;
+
+     item = list.first() ;
+
+     if ( item->type() != BookmarkGui::item_article ) return false ;
+
+     QTreeWidgetItem *parent = item->parent() ;
+     parent->removeChild( item ); ;
+
+     return true ;
+ }
 
  void BookmarkGui::on_cutItem()
  {
@@ -853,20 +984,20 @@ void BookmarkGui::on_evaluationChanged( int index )
 
     if ( index == 0 )
     {
-//        bk.deleteState( this->current_favorite_id ) ;
-//        this->removeState() ;
-//        return ;
+        bk.deleteEvaluation( this->current_favorite_id ) ;
+        this->removeEvaluation() ;
+        return ;
     }
 
     if ( this->current_favorite.isEmpty() ) return ;
 
-    QString stars = ui->Evaluation->itemText( index ) ;
+    QString stars = ui->Evaluation->itemData( index ).toString() ;
 
     int f = bk.setEvaluation( stars , this->current_favorite_id ) ;
 
     if ( f == 0  ) return ;
-    // else if ( f == 1 )
-    //    this->changeState( state_name ) ;
-    //else if ( f == 2 )
-    //    this->addState( state_name ) ;
+    else if ( f == 1 )
+        this->changeEvaluation( stars ) ;
+    else if ( f == 2 )
+        this->addEvaluation( stars ) ;
 }

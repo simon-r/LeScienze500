@@ -51,9 +51,10 @@ public:
     void getRootFolders( QueryResult& query_r ) ;
 
     void getEvaluations( QueryResult& query_r ) ;
-    bool setEvaluation( const QString& stars , QString favorite_id ) ;
+    int  setEvaluation( const QString& stars , QString favorite_id ) ;
     bool getFavoritesByEvaluation(  QueryResult& query_r , const QString& stars ) ;
     bool getEvaluation( QueryResult& query_r , QString favorite_id ) ;
+    bool deleteEvaluation( QString favorite_id ) ;
 
     void getFavoritesByParent( QueryResult& query_r , const QString& parent ) ;
     void getFavoritesByParentId( QueryResult& query_r , const QString& parent_id ) ;

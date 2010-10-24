@@ -53,6 +53,10 @@ public:
     bool changeState( QString new_state ) ;
     bool removeState() ;
 
+    bool addEvaluation( QString stars ) ;
+    bool changeEvaluation( QString stars ) ;
+    bool removeEvaluation() ;
+
     bool renameFolder() ;
 
     void open() ;

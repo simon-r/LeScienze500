@@ -756,11 +756,11 @@ bool Bookmark::getFavoritesByState( QueryResult& query_r , const QString& state_
 }
 
 
-bool Bookmark::setEvaluation( const QString& stars , QString favorite_id )
+int Bookmark::setEvaluation( const QString& stars , QString favorite_id )
 {
     if ( favorite_id.isEmpty() ) return 0 ;
     bool res ;
-    int ret ;
+    int ret = 0 ;
 
     QueryResult query_r ;
 
@@ -796,13 +796,13 @@ bool Bookmark::setEvaluation( const QString& stars , QString favorite_id )
         insert += favorite_id ;
         insert += " ) " ;
 
-        qDebug() << insert ;
         res = this->execQuery( insert ) ;
 
         if ( res )
             ret = 2 ;
         else
             ret = 0 ;
+        qDebug() << "insert: " << insert << "ret: " << ret ;
     }
 
     return ret ;
@@ -846,4 +846,18 @@ bool Bookmark::setEvaluation( const QString& stars , QString favorite_id )
           return false ;
       else
           return true ;
+  }
+
+
+  bool Bookmark::deleteEvaluation( QString favorite_id )
+  {
+      if ( favorite_id.isEmpty() ) return false ;
+
+      QString cancel ;
+      cancel = "delete from Evaluations_BookmarkEntries where IdBookmarkEntry = " ;
+      cancel += favorite_id ;
+
+      qDebug() << cancel ;
+
+      return this->execQuery( cancel ) ;
   }
