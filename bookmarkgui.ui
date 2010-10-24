@@ -111,8 +111,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>256</width>
-             <height>383</height>
+             <width>83</width>
+             <height>72</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -142,8 +142,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>256</width>
-             <height>383</height>
+             <width>83</width>
+             <height>72</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -329,7 +329,7 @@
                <widget class="QPushButton" name="OpenReview">
                 <property name="minimumSize">
                  <size>
-                  <width>190</width>
+                  <width>0</width>
                   <height>0</height>
                  </size>
                 </property>
