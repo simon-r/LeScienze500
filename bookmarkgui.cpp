@@ -86,7 +86,7 @@ void BookmarkGui::open()
 
     ui->SaveComment->setDisabled( true );
 
-    //setModal( true ) ;
+    setModal( true ) ;
     show() ;
     exec() ;
 }
@@ -98,7 +98,7 @@ void BookmarkGui::open( QString id )
     fillStates() ;
     fillEvaluations() ;
 
-    //setModal( true ) ;
+    setModal( true ) ;
     show() ;
 
     ui->Title->clear();
@@ -116,36 +116,43 @@ void BookmarkGui::open( QString id )
 void BookmarkGui::buildMenuFavorites()
 {
     QAction* new_folder = new QAction( tr( "Nuova Cartella" ) , 0 );
+    menu_ptr.insert( "new_folder" , new_folder ) ;
     connect( new_folder , SIGNAL(triggered()) , this , SLOT(on_newFolder()) ) ;
     this->menuFavorites.addAction( new_folder ) ;
 
     this->menuFavorites.addSeparator() ;
 
-    QAction* cut_item = new QAction( tr( "Taglia" ) , 0 );
-    connect( cut_item , SIGNAL(triggered()) , this , SLOT(on_cutItem()) ) ;
-    this->menuFavorites.addAction( cut_item ) ;
+    QAction* cut = new QAction( tr( "Taglia" ) , 0 );
+    menu_ptr.insert( "cut" , cut ) ;
+    connect( cut , SIGNAL(triggered()) , this , SLOT(on_cutItem()) ) ;
+    this->menuFavorites.addAction( cut ) ;
 
-    QAction* copy_item = new QAction( tr( "Copia" ) , 0 );
-    copy_item->setDisabled( true );
-    this->menuFavorites.addAction( copy_item ) ;
+    QAction* copy = new QAction( tr( "Copia" ) , 0 );
+    menu_ptr.insert( "copy" , copy ) ;
+    copy->setDisabled( true );
+    this->menuFavorites.addAction( copy ) ;
 
     QAction* paste = new QAction( tr( "Incolla" ) , 0 );
+    menu_ptr.insert( "paste" , paste ) ;
     connect( paste , SIGNAL(triggered()) , this , SLOT(on_pasteItem()) ) ;
     this->menuFavorites.addAction( paste ) ;
 
     QAction* cancel_cut = new QAction( tr( "Annulla Taglia" ) , 0 );
+    menu_ptr.insert( "cancel_cut" , cancel_cut ) ;
     connect( cancel_cut , SIGNAL(triggered()) , this , SLOT(on_cancelCut()) ) ;
     this->menuFavorites.addAction( cancel_cut ) ;
 
     this->menuFavorites.addSeparator() ;
 
     QAction* remove = new QAction( tr( "Rimuovi" ) , 0 );
+    menu_ptr.insert( "remove" , remove ) ;
     connect( remove , SIGNAL(triggered()) , this , SLOT(on_remove()) ) ;
     this->menuFavorites.addAction( remove ) ;
 
     this->menuFavorites.addSeparator() ;
 
     QAction* rename_folder = new QAction( tr( "Cambia nome" ) , 0 );
+    menu_ptr.insert( "rename_folder" , rename_folder ) ;
     connect( rename_folder , SIGNAL(triggered()) , this , SLOT(on_remaneFolder()) ) ;
     this->menuFavorites.addAction( rename_folder ) ;
 

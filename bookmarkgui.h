@@ -22,6 +22,7 @@
 #include <QDialog>
 #include <QTreeWidgetItem>
 #include <QMenu>
+#include <QHash>
 #include "setname.h"
 
 namespace Ui {
@@ -72,6 +73,8 @@ private:
 
     QString current_favorite ;
     QString current_favorite_id ;
+
+    QHash<QString,QAction*> menu_ptr ;
 
     void buildMenuFavorites() ;
 
