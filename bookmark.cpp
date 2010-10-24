@@ -436,6 +436,9 @@ bool  Bookmark::removeFavorite( QString parent_id , QString id )
         return false ;
     }
 
+    this->deleteEvaluation( id ) ;
+    this->deleteState( id ) ;
+
     QString remove = "delete from BookmarkEntries where Id = " ;
     remove += id ;
     ret = this->execQuery( remove ) ;
@@ -446,6 +449,8 @@ bool  Bookmark::removeFavorite( QString parent_id , QString id )
     remove_ff += id ;
 
     ret = this->execQuery( remove_ff ) ;
+
+
 
     return ret ;
 }
