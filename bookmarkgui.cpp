@@ -774,6 +774,8 @@ void BookmarkGui::on_selectedChanged()
         item_list = ui->treeCategorie->selectedItems() ;
     else if ( ui->toolBox->currentIndex() == 1 )
         item_list = ui->treeStates->selectedItems() ;
+    else if ( ui->toolBox->currentIndex() == 2 )
+        item_list = ui->treeEvaluations->selectedItems() ;
     else
         return ;
 
@@ -843,4 +845,28 @@ void BookmarkGui::on_stateChanged( int index )
         this->changeState( state_name ) ;
     else if ( f == 2 )
         this->addState( state_name ) ;
+}
+
+void BookmarkGui::on_evaluationChanged( int index )
+{
+    Bookmark bk ;
+
+    if ( index == 0 )
+    {
+//        bk.deleteState( this->current_favorite_id ) ;
+//        this->removeState() ;
+//        return ;
+    }
+
+    if ( this->current_favorite.isEmpty() ) return ;
+
+    QString stars = ui->Evaluation->itemText( index ) ;
+
+    int f = bk.setEvaluation( stars , this->current_favorite_id ) ;
+
+    if ( f == 0  ) return ;
+    // else if ( f == 1 )
+    //    this->changeState( state_name ) ;
+    //else if ( f == 2 )
+    //    this->addState( state_name ) ;
 }
