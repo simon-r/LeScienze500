@@ -67,7 +67,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>256</width>
+             <width>281</width>
              <height>383</height>
             </rect>
            </property>
@@ -315,7 +315,7 @@
                 </property>
                 <property name="icon">
                  <iconset resource="crystal.qrc">
-                  <normaloff>:/icons/crystal/pdf_icon.jpg</normaloff>:/icons/crystal/pdf_icon.jpg</iconset>
+                  <normaloff>:/icons/crystal/pdficon.png</normaloff>:/icons/crystal/pdficon.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
