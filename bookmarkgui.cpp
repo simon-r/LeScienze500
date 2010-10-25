@@ -38,7 +38,7 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     cut_state = false ;
 
     buildMenuFavorites() ;
-    this->setWindowTitle( "Preferiti (RC 1)" );
+    this->setWindowTitle( tr("Preferiti") );
 
     ui->treeCategorie->setUpdatesEnabled( true );
     ui->treeStates->setUpdatesEnabled( true );
