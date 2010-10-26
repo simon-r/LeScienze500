@@ -41,7 +41,14 @@ FORMS += lescienze500.ui \
     bookmarkgui.ui \
     about.ui \
     setname.ui
-LIBS += -lsqlite3
+
+win32{
+    SOURCES += sqlite3.c
+    HEADERS += sqlite3.h
+}
+
+unix:LIBS += -lsqlite3
+
 RESOURCES += icons.qrc \
     html.qrc \
     crystal.qrc \
