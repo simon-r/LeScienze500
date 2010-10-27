@@ -50,7 +50,7 @@ void configLS500::initConfig()
     file.setFileName( this->config_path );
 
     if ( !file.exists() ) {
-        writeDfaultFile( &file ) ;
+        writeDfaultFile() ;
     }
 }
 
@@ -59,32 +59,20 @@ void configLS500::resetToDefault()
 
 }
 
-void configLS500::writeDfaultFile( QFile* file )
+void configLS500::writeDfaultFile()
 {
+     this->open() ;
 
-    QString db_dir ;
-    QString pdf_appl ;
-    QString art_pdf_path1 ;
-    QString art_pdf_path2 ;
-    QString copertine_path ;
-    QString dvd ;
-    //QString bk ;
+     setDBPath( DB_DIR_V ) ;
+     setPDFPath1( ART_PATH_1_V ) ;
+     setPDFPath2( ART_PATH_2_V ) ;
+     setPDFAppl( PDF_APPL_V ) ;
+     setCopertinePath( COPERTINE_P_V ) ;
+     setDVD( USE_DVD_V ) ;
+     setBookmarkPath( BOOKMARK_PATH_V ) ;
+     setBookmarkDumpPath( BOOKMARK_DB_DUMP_PATH_V ) ;
 
-    db_dir.append(DB_DIR) ; db_dir.append(SPACING) ; db_dir.append(DB_DIR_V) ; db_dir.append(ENDL) ;
-    pdf_appl.append(PDF_APPL) ; pdf_appl.append(SPACING) ; pdf_appl.append(PDF_APPL_V) ; pdf_appl.append(ENDL) ;
-    art_pdf_path1.append(ART_PATH_1) ; art_pdf_path1.append(SPACING) ; art_pdf_path1.append(ART_PATH_1_V) ; art_pdf_path1.append(ENDL) ;
-    art_pdf_path2.append(ART_PATH_2) ; art_pdf_path2.append(SPACING) ; art_pdf_path2.append(ART_PATH_2_V) ; art_pdf_path2.append(ENDL) ;
-    copertine_path.append(COPERTINE_P) ; copertine_path.append(SPACING) ; copertine_path.append(COPERTINE_P_V) ; copertine_path.append(ENDL) ;
-    dvd.append(USE_DVD) ; dvd.append(SPACING) ; dvd.append(USE_DVD_V) ; dvd.append(ENDL) ;
-
-    file->open(  QIODevice::ReadWrite ) ;
-    file->write( db_dir.toAscii().data() ) ;
-    file->write( pdf_appl.toAscii().data() ) ;
-    file->write( art_pdf_path1.toAscii().data() ) ;
-    file->write( art_pdf_path2.toAscii().data() ) ;
-    file->write( copertine_path.toAscii().data() ) ;
-    file->write( dvd.toAscii().data() ) ;
-    file->close();
+     this->close() ;
 }
 
 QString configLS500::getDBPath()

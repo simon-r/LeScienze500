@@ -88,7 +88,7 @@ private:
 
     void initConfig() ;
     void resetToDefault() ;
-    void writeDfaultFile( QFile *file ) ;
+    void writeDfaultFile() ;
 
     QHash<QString,QString> parameters ;
 
