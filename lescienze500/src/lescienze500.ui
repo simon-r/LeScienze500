@@ -1508,7 +1508,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionBack_up_dei_preferiti">
    <property name="text">
-    <string>Back-up dei preferiti ...</string>
+    <string>Backup dei preferiti ...</string>
    </property>
   </action>
  </widget>

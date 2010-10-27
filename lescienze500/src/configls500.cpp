@@ -29,6 +29,7 @@
 
 configLS500::configLS500()
 {
+    this->is_open = false ;
     initConfig() ;
 }
 
@@ -117,7 +118,12 @@ QString configLS500::getPDFAppl()
      QString res ;
 
      if ( bk.isEmpty() )
+     {
          res = QString( BOOKMARK_PATH_V ) ;
+         open() ;
+         this->setBookmarkPath( BOOKMARK_PATH_V );
+         close() ;
+     }
      else
          res = bk ;
 
@@ -143,7 +149,12 @@ QString configLS500::getBookmarkDumpPath()
     QString res ;
 
     if ( dump.isEmpty() )
+    {
         res = QString( BOOKMARK_DB_DUMP_PATH_V ) ;
+        open() ;
+        this->setBookmarkDumpPath( BOOKMARK_DB_DUMP_PATH );
+        close() ;
+    }
     else
         res = dump ;
     return res ;
@@ -151,17 +162,15 @@ QString configLS500::getBookmarkDumpPath()
 
 QString configLS500::getConfigParameter( QString name )
 {
-    char buf[1024];
     QString result ;
 
     QFile file ;
     file.setFileName( this->config_path );
     file.open(  QIODevice::ReadOnly ) ;
-    qint64 lineLength ;
-    do{
-        lineLength = file.readLine(buf, sizeof(buf)) ;
-        if (lineLength != -1) {
-            QString line = QString ( buf ) ;
+
+    while( !file.atEnd() ) {
+        QString line = file.readLine() ;
+        if ( line.size() > 0 ) {
             QStringList list = line.split( SPACING , QString::SkipEmptyParts );
             if ( list.size() == 2 )
             {
@@ -169,8 +178,7 @@ QString configLS500::getConfigParameter( QString name )
                     result = list[1] ;
             }
         }
-
-    } while ( lineLength != -1 ) ;
+    } ;
 
     file.close() ;
 
@@ -236,7 +244,12 @@ void configLS500::writeAllParameters()
 
 void configLS500::open()
 {
-    getAllParameters() ;
+    if ( !is_open )
+    {
+        parameters.clear() ;
+        getAllParameters() ;
+        is_open = true ;
+    }
 }
 
 void configLS500::setDBPath( QString pr )
@@ -269,8 +282,26 @@ void configLS500::setDVD( QString pr )
     parameters.insert( USE_DVD , pr ) ;
 }
 
+void configLS500::setBookmarkDumpPath( QString pr )
+ {
+     parameters.insert( BOOKMARK_DB_DUMP_PATH , pr ) ;
+ }
+
+ void configLS500::setBookmarkPath( QString pr )
+ {
+     parameters.insert( BOOKMARK_PATH , pr ) ;
+ }
+
 void configLS500::close()
 {
-    writeAllParameters() ;
-    parameters.clear() ;
+    if ( is_open )
+    {
+        writeAllParameters() ;
+        parameters.clear() ;
+        is_open = false ;
+    }
+    else
+    {
+        parameters.clear() ;
+    }
 }

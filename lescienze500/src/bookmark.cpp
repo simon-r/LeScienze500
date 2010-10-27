@@ -96,11 +96,28 @@ bool Bookmark::initBookmarkForce()
     return this->initBookmark() ;
 }
 
-bool backupDatabase( QString file_name )
+bool Bookmark::backupDatabase( QString file_name )
 {
-    if ( file_name.isEmpty() ) {
+    configLS500 cfg ;
+    QString file_name_bk ;
 
+    if ( file_name.isEmpty() ) {
+        QString bk_path = cfg.getBookmarkDumpPath() ;
+        QFile file ;
+        int cnt = 1 ;
+        do {
+            file_name_bk = bk_path + "." + "(" + QString().setNum(cnt++) + ")" ;
+            file.setFileName( file_name_bk );
+        } while( file.exists() ) ;
     }
+
+    QueryDB db ;
+    int rc = db.backup( cfg.getBookmarkPath() , file_name_bk ) ;
+
+    if ( rc == 0 )
+        return true ;
+    else
+        return false ;
 }
 
 void Bookmark::getStates( QueryResult& query_r )
@@ -549,8 +566,6 @@ bool Bookmark::execQuery( const QString& query )
     QueryDB db ;
     return db.execNAQuery( db_path , query ) ;
 }
-
-
 
 
 bool Bookmark::moveFolder( QString folder_id , QString new_parent_id )

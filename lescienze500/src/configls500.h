@@ -68,6 +68,7 @@ public:
     QString getBookmarkDumpPath() ;
 
     void open() ;
+    bool isOpen() { return is_open ; } ;
     void setDBPath( QString pr ) ;
     void setPDFPath1( QString pr ) ;
     void setPDFPath2( QString pr ) ;
@@ -93,6 +94,8 @@ private:
 
     QString config_path ;
     QString config_dir ;
+
+    bool is_open ;
 };
 
 #endif // CONFIGLS500_H
