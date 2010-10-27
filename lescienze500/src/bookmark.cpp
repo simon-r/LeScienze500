@@ -96,6 +96,13 @@ bool Bookmark::initBookmarkForce()
     return this->initBookmark() ;
 }
 
+bool dumpDatabase( QString file_name )
+{
+    if ( file_name.isEmpty() ) {
+
+    }
+}
+
 void Bookmark::getStates( QueryResult& query_r )
 {
     query_r.clear();

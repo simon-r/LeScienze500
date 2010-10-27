@@ -32,6 +32,8 @@ public:
     bool initBookmark() ;
     bool initBookmarkForce();
 
+    bool dumpDatabase( QString file_name = "" ) ;
+
     bool exists() ;
 
     void getFavorites( QueryResult& query_r ) ;

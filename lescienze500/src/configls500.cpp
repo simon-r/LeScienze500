@@ -137,6 +137,17 @@ QString configLS500::getDVD()
     return res ;
 }
 
+QString configLS500::getBookmarkDumpPath()
+{
+    QString dump = getConfigParameter( BOOKMARK_DB_DUMP_PATH ) ;
+    QString res ;
+
+    if ( dump.isEmpty() )
+        res = QString( BOOKMARK_DB_DUMP_PATH_V ) ;
+    else
+        res = dump ;
+    return res ;
+}
 
 QString configLS500::getConfigParameter( QString name )
 {

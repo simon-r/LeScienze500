@@ -50,6 +50,9 @@
 #define BOOKMARK_PATH "bookmark"
 #define BOOKMARK_PATH_V "$HOME/.config/LeScienze500/bookmark_ls500.db"
 
+#define BOOKMARK_DB_DUMP_PATH "bk_db_dump"
+#define BOOKMARK_DB_DUMP_PATH_V "$HOME/.config/LeScienze500/bookmark_ls500.dump"
+
 class configLS500
 {
 public:
@@ -62,6 +65,7 @@ public:
     QString getCopertinePath() ;
     QString getDVD() ;
     QString getBookmarkPath() ;
+    QString getBookmarkDumpPath() ;
 
     void open() ;
     void setDBPath( QString pr ) ;
@@ -71,6 +75,7 @@ public:
     void setCopertinePath( QString pr ) ;
     void setDVD( QString pr ) ;
     void setBookmarkPath( QString pr ) ;
+    void setBookmarkDumpPath( QString pr ) ;
     void close() ;
 
 private:
