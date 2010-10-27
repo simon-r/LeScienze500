@@ -1,0 +1,22 @@
+pkgname=lescienze500
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Un software per consultare, cercare e catalogare gli articoli dei 500 numeri di Le Scienze"
+arch=('i686' 'x86_64')
+url="http://lescienze500.wordpress.com/"
+license=('GPL')
+depends=('qt' 'sqlite3')
+install=lescienze500.install
+source=("http://heanet.dl.sourceforge.net/project/lescienze500/Nuove_Versioni/${pkgname}_${pkgver}.tar.gz")
+md5sums=('7035c9c64160abaf12bf2c6ea4632f72')
+
+build() {
+    cd ${srcdir}/${pkgname}_${pkgver}
+    qmake  ./LeScienze500.pro -spec linux-g++ -r CONFIG+=Release
+    make
+}
+
+package() {
+    cd ${srcdir}/${pkgname}_${pkgver}
+    make INSTALL_ROOT=${pkgdir} install
+}
