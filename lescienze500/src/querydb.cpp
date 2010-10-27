@@ -167,7 +167,7 @@ QueryResult QueryDB::execQuery( QString query )
 }
 
 
-int backup( QString from_db , QString to_db )
+int QueryDB::backup( QString from_db , QString to_db )
 {
     sqlite3 *p_from , *p_dest ;
     sqlite3_backup *p_backup ;
@@ -179,7 +179,8 @@ int backup( QString from_db , QString to_db )
     }
 
     rc = sqlite3_open( to_db.toAscii().data() , &p_dest );
-    if( rc != SQLITE_OK || rc != SQLITE_ERROR ){
+    if( rc != SQLITE_OK && rc != SQLITE_ERROR ){
+        sqlite3_close( p_from ) ;
         return rc ;
     }
 
@@ -189,10 +190,13 @@ int backup( QString from_db , QString to_db )
         do {
             rc = sqlite3_backup_step( p_backup , 1 ) ;
         } while( rc==SQLITE_OK || rc==SQLITE_BUSY || rc==SQLITE_LOCKED );
-
+        sqlite3_backup_finish( p_backup );
     }
     else
         return SQLITE_ERROR ;
+
+    sqlite3_close( p_from ) ;
+    sqlite3_close( p_dest ) ;
 
     return SQLITE_OK ;
 }

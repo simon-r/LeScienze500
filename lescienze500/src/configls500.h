@@ -51,7 +51,7 @@
 #define BOOKMARK_PATH_V "$HOME/.config/LeScienze500/bookmark_ls500.db"
 
 #define BOOKMARK_DB_DUMP_PATH "bk_db_dump"
-#define BOOKMARK_DB_DUMP_PATH_V "$HOME/.config/LeScienze500/bookmark_ls500.dump"
+#define BOOKMARK_DB_DUMP_PATH_V "$HOME/.config/LeScienze500/bookmark_ls500.backup"
 
 class configLS500
 {

@@ -21,6 +21,7 @@
 #include "configls500.h"
 #include "bookmark.h"
 #include <QDebug>
+#include "querydb.h"
 
 int main(int argc, char *argv[])
 {

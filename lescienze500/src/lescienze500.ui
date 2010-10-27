@@ -1446,7 +1446,7 @@ p, li { white-space: pre-wrap; }
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>LeScienze500</string>
+     <string>&amp;Le Scienze 500</string>
     </property>
     <addaction name="actionConfigura"/>
     <addaction name="separator"/>
@@ -1456,11 +1456,11 @@ p, li { white-space: pre-wrap; }
    </widget>
    <widget class="QMenu" name="menuFavoriti">
     <property name="title">
-     <string>Preferiti</string>
+     <string>&amp;Preferiti</string>
     </property>
     <addaction name="actionOrganizza_preferiti"/>
-    <addaction name="separator"/>
     <addaction name="actionBack_up_dei_preferiti"/>
+    <addaction name="separator"/>
     <addaction name="separator"/>
    </widget>
    <addaction name="menuFile"/>
@@ -1508,7 +1508,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionBack_up_dei_preferiti">
    <property name="text">
-    <string>Back-up dei preferiti</string>
+    <string>Back-up dei preferiti ...</string>
    </property>
   </action>
  </widget>
