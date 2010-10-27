@@ -165,3 +165,34 @@ QueryResult QueryDB::execQuery( QString query )
     execQuery( dbPath , query , q_result ) ;
     return q_result ;
 }
+
+
+int backup( QString from_db , QString to_db )
+{
+    sqlite3 *p_from , *p_dest ;
+    sqlite3_backup *p_backup ;
+    int rc = 0 ;
+
+    rc = sqlite3_open( from_db.toAscii().data() , &p_from );
+    if( rc != SQLITE_OK ){
+        return rc ;
+    }
+
+    rc = sqlite3_open( to_db.toAscii().data() , &p_dest );
+    if( rc != SQLITE_OK || rc != SQLITE_ERROR ){
+        return rc ;
+    }
+
+    p_backup = sqlite3_backup_init( p_dest , "main" , p_from , "main" );
+    if( p_backup )
+    {
+        do {
+            rc = sqlite3_backup_step( p_backup , 1 ) ;
+        } while( rc==SQLITE_OK || rc==SQLITE_BUSY || rc==SQLITE_LOCKED );
+
+    }
+    else
+        return SQLITE_ERROR ;
+
+    return SQLITE_OK ;
+}

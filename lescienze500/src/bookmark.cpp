@@ -96,7 +96,7 @@ bool Bookmark::initBookmarkForce()
     return this->initBookmark() ;
 }
 
-bool dumpDatabase( QString file_name )
+bool backupDatabase( QString file_name )
 {
     if ( file_name.isEmpty() ) {
 

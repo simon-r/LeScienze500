@@ -32,7 +32,7 @@ public:
     bool initBookmark() ;
     bool initBookmarkForce();
 
-    bool dumpDatabase( QString file_name = "" ) ;
+    bool backupDatabase( QString file_name = "" ) ;
 
     bool exists() ;
 

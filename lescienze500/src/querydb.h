@@ -78,6 +78,8 @@ public:
 
     static bool execNAQuery(QString db_path , QString query ) ;
 
+    int backup( QString from_db , QString to_db ) ;
+
     bool p_chiave ;
     bool testo ;
     bool categorie ;
