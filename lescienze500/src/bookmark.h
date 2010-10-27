@@ -89,11 +89,6 @@ public:
     bool getFavoritesByState(  QueryResult& query_r , const QString& state_name ) ;
     void getStates( QueryResult& query_r ) ;
 
-    // QueryResult getSottoCategorie( QString IdCategoria ) ;
-
-    // deprecated:
-    QString addFavorite( QString parent , QString id ) __attribute__ ((deprecated)) ;
-    QPair<QString,QString> addFolder( QString parent , QString name ) __attribute__ ((deprecated)) ;
 private:
 
     void execQuery( QString& query , QueryResult& qr ) ;
