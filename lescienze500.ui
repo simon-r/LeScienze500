@@ -1450,8 +1450,8 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="actionConfigura"/>
     <addaction name="separator"/>
-    <addaction name="actionAbout_2"/>
     <addaction name="actionMostra_Copertine"/>
+    <addaction name="actionAbout_2"/>
     <addaction name="actionEsci_2"/>
    </widget>
    <widget class="QMenu" name="menuFavoriti">
@@ -1459,6 +1459,8 @@ p, li { white-space: pre-wrap; }
      <string>Preferiti</string>
     </property>
     <addaction name="actionOrganizza_preferiti"/>
+    <addaction name="separator"/>
+    <addaction name="actionBack_up_dei_preferiti"/>
     <addaction name="separator"/>
    </widget>
    <addaction name="menuFile"/>
@@ -1502,6 +1504,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionEsci_2">
    <property name="text">
     <string>Esci</string>
+   </property>
+  </action>
+  <action name="actionBack_up_dei_preferiti">
+   <property name="text">
+    <string>Back-up dei preferiti</string>
    </property>
   </action>
  </widget>
