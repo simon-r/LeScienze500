@@ -140,11 +140,29 @@ QString configLS500::getBookmarkDumpPath()
     {
         res = QString( BOOKMARK_DB_DUMP_PATH_V ) ;
         open() ;
-        this->setBookmarkDumpPath( BOOKMARK_DB_DUMP_PATH );
+        this->setBookmarkDumpPath( res );
         close() ;
     }
     else
         res = dump ;
+    return res ;
+}
+
+QString configLS500::getBookmarkBkUpPath()
+{
+    QString dump = getConfigParameter( BOOKMARK_DB_BKUP_FILE ) ;
+    QString res ;
+
+    if ( dump.isEmpty() )
+    {
+        res = QString( BOOKMARK_DB_BKUP_FILE_V ) ;
+        open() ;
+        this->setBookmarkBkUpPath( res );
+        close() ;
+    }
+    else
+        res = dump ;
+
     return res ;
 }
 
@@ -274,6 +292,11 @@ void configLS500::setBookmarkDumpPath( QString pr )
  {
      parameters.insert( BOOKMARK_DB_DUMP_PATH , pr ) ;
  }
+
+void configLS500::setBookmarkBkUpPath( QString pr )
+{
+    parameters.insert( BOOKMARK_DB_BKUP_FILE , pr ) ;
+}
 
  void configLS500::setBookmarkPath( QString pr )
  {

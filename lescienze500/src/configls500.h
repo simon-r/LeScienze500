@@ -53,6 +53,9 @@
 #define BOOKMARK_DB_DUMP_PATH "bk_db_dump"
 #define BOOKMARK_DB_DUMP_PATH_V "$HOME/.config/LeScienze500/bookmark_ls500.backup"
 
+#define BOOKMARK_DB_BKUP_FILE "bk_db_dump_file"
+#define BOOKMARK_DB_BKUP_FILE_V "bookmark_ls500.backup"
+
 class configLS500
 {
 public:
@@ -66,9 +69,10 @@ public:
     QString getDVD() ;
     QString getBookmarkPath() ;
     QString getBookmarkDumpPath() ;
+    QString getBookmarkBkUpPath() ;
 
     void open() ;
-    bool isOpen() { return is_open ; } ;
+    bool isOpen() { return is_open ; }
     void setDBPath( QString pr ) ;
     void setPDFPath1( QString pr ) ;
     void setPDFPath2( QString pr ) ;
@@ -77,9 +81,10 @@ public:
     void setDVD( QString pr ) ;
     void setBookmarkPath( QString pr ) ;
     void setBookmarkDumpPath( QString pr ) ;
+    void setBookmarkBkUpPath( QString pr ) ;
     void close() ;
 
-    QString getConfigDir() { return this->config_dir ; } ;
+    QString getConfigDir() { return this->config_dir ; }
 
 private:
 
