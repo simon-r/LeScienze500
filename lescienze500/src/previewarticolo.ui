@@ -17,6 +17,9 @@
    <iconset>
     <normaloff>:/icons/icons/lescienze_20x20.xpm</normaloff>:/icons/icons/lescienze_20x20.xpm</iconset>
   </property>
+  <property name="locale">
+   <locale language="Italian" country="Italy"/>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="spacing">
     <number>3</number>

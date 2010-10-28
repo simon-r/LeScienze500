@@ -966,6 +966,12 @@ void BookmarkGui::on_stateChanged( int index )
 
     Bookmark bk ;
 
+    if ( this->current_favorite_id.isEmpty() )
+    {
+        ui->State->setCurrentIndex(0);
+        return ;
+    }
+
     if ( index == 0 )
     {
         bk.deleteState( this->current_favorite_id ) ;
@@ -989,6 +995,12 @@ void BookmarkGui::on_stateChanged( int index )
 void BookmarkGui::on_evaluationChanged( int index )
 {
     Bookmark bk ;
+
+    if ( this->current_favorite_id.isEmpty() )
+    {
+        ui->Evaluation->setCurrentIndex(0);
+        return ;
+    }
 
     if ( index == 0 )
     {
