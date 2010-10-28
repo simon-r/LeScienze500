@@ -18,7 +18,7 @@
     <normaloff>:/icons/icons/24x24/apps/lescienze500.png</normaloff>:/icons/icons/24x24/apps/lescienze500.png</iconset>
   </property>
   <property name="locale">
-   <locale language="Italian" country="Italy"/>
+   <locale language="C" country="AnyCountry"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="0" colspan="3">
@@ -138,8 +138,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>470</width>
-        <height>261</height>
+        <width>223</width>
+        <height>164</height>
        </rect>
       </property>
       <attribute name="icon">
@@ -377,8 +377,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>470</width>
-        <height>261</height>
+        <width>239</width>
+        <height>170</height>
        </rect>
       </property>
       <attribute name="icon">

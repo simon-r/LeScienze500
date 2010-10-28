@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="locale">
-   <locale language="Italian" country="Italy"/>
+   <locale language="C" country="AnyCountry"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" colspan="2">

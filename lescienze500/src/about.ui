@@ -36,7 +36,7 @@
     <normaloff>:/icons/icons/22x22/apps/lescienze500.png</normaloff>:/icons/icons/22x22/apps/lescienze500.png</iconset>
   </property>
   <property name="locale">
-   <locale language="Italian" country="Italy"/>
+   <locale language="C" country="AnyCountry"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
