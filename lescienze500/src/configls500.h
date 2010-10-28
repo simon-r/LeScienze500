@@ -56,6 +56,9 @@
 #define BOOKMARK_DB_BKUP_FILE "bk_db_dump_file"
 #define BOOKMARK_DB_BKUP_FILE_V "bookmark_ls500.backup"
 
+#define BOOKMARK_BKUP_CNT "bk_bkup_cnt"
+#define BOOKMARK_BKUP_CNT_V "0"
+
 class configLS500
 {
 public:
@@ -69,7 +72,8 @@ public:
     QString getDVD() ;
     QString getBookmarkPath() ;
     QString getBookmarkDumpPath() ;
-    QString getBookmarkBkUpPath() ;
+    QString getBookmarkBkUpFile() ;
+    QString getBkUpCnt() ;
 
     void open() ;
     bool isOpen() { return is_open ; }
@@ -81,7 +85,8 @@ public:
     void setDVD( QString pr ) ;
     void setBookmarkPath( QString pr ) ;
     void setBookmarkDumpPath( QString pr ) ;
-    void setBookmarkBkUpPath( QString pr ) ;
+    void setBookmarkBkUpFile( QString pr ) ;
+    void setBkUpCnt( QString pr ) ;
     void close() ;
 
     QString getConfigDir() { return this->config_dir ; }

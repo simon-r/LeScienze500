@@ -71,6 +71,7 @@ void configLS500::writeDfaultFile()
      setDVD( USE_DVD_V ) ;
      setBookmarkPath( BOOKMARK_PATH_V ) ;
      setBookmarkDumpPath( BOOKMARK_DB_DUMP_PATH_V ) ;
+     setBookmarkBkUpFile( BOOKMARK_DB_BKUP_FILE_V ) ;
 
      this->close() ;
 }
@@ -148,7 +149,7 @@ QString configLS500::getBookmarkDumpPath()
     return res ;
 }
 
-QString configLS500::getBookmarkBkUpPath()
+QString configLS500::getBookmarkBkUpFile()
 {
     QString dump = getConfigParameter( BOOKMARK_DB_BKUP_FILE ) ;
     QString res ;
@@ -157,7 +158,7 @@ QString configLS500::getBookmarkBkUpPath()
     {
         res = QString( BOOKMARK_DB_BKUP_FILE_V ) ;
         open() ;
-        this->setBookmarkBkUpPath( res );
+        this->setBookmarkBkUpFile( res );
         close() ;
     }
     else
@@ -293,7 +294,7 @@ void configLS500::setBookmarkDumpPath( QString pr )
      parameters.insert( BOOKMARK_DB_DUMP_PATH , pr ) ;
  }
 
-void configLS500::setBookmarkBkUpPath( QString pr )
+void configLS500::setBookmarkBkUpFile( QString pr )
 {
     parameters.insert( BOOKMARK_DB_BKUP_FILE , pr ) ;
 }
