@@ -79,6 +79,8 @@ public:
     void setBookmarkDumpPath( QString pr ) ;
     void close() ;
 
+    QString getConfigDir() { return this->config_dir ; } ;
+
 private:
 
     QString getConfigParameter( QString name ) ;

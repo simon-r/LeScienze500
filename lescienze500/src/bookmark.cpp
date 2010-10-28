@@ -26,6 +26,7 @@
 #include <QList>
 #include <QString>
 #include <sqlite3.h>
+#include <QTime>
 #include "querydb.h"
 
 Bookmark::Bookmark()
@@ -103,12 +104,19 @@ bool Bookmark::backupDatabase( QString file_name )
 
     if ( file_name.isEmpty() ) {
         QString bk_path = cfg.getBookmarkDumpPath() ;
+
+        bk_path += QTime::currentTime().toString( Qt::ISODate ) ;
+
         QFile file ;
         int cnt = 1 ;
-        do {
+
+        file_name_bk = bk_path ;
+        file.setFileName( file_name_bk );
+
+        while( file.exists() ) {
             file_name_bk = bk_path + "." + "(" + QString().setNum(cnt++) + ")" ;
             file.setFileName( file_name_bk );
-        } while( file.exists() ) ;
+        } ;
     }
 
     QueryDB db ;
