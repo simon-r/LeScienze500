@@ -66,6 +66,7 @@ public:
 //    enum  parName { SPACING , EDL , PDF_APPL , DB_DIR , ART_PATH_1 , ART_PATH_2 , ART_PATH_2 , COPERTINE_P , USE_DVD , BOOKMARK_PATH , BOOKMARK_DB_DUMP_PATH , BOOKMARK_DB_BKUP_FILE , BOOKMARK_BKUP_CNT } ;
 
 //    static QString DEFAULT( parName pn ) ;
+//    static QString PARAMETER( parName pn ) ;
 
     configLS500();
 

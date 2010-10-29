@@ -27,6 +27,74 @@
 #include <QRegExp>
 
 
+//static QString configLS500::PARAMETER( parName pn )
+//{
+//    switch ( pn )
+//    {
+////    case SPACING:
+////        return "space" ;
+////    case ENDL:
+////        return "endl" ;
+//    case  PDF_APPL:
+//        return  "pdf_appl";
+//    case DB_DIR:
+//        return "db_dir" ;
+//    case ART_PATH_1:
+//        return "art_pdf_path1" ;
+//    case ART_PATH_2:
+//        return "art_pdf_path1" ;
+//    case COPERTINE_P:
+//        return "copertine_path" ;
+//    case  USE_DVD:
+//        return "no" ;
+//    case BOOKMARK_PATH:
+//        return "bookmark" ;
+//    case BOOKMARK_DB_DUMP_PATH:
+//        return "bk_db_dump" ;
+//    case BOOKMARK_DB_BKUP_FILE:
+//        return "bk_db_dump_file" ;
+//    case BOOKMARK_BKUP_CNT:
+//        return "bk_bkup_cnt" ;
+//    default:
+//        break ;
+//    }
+//}
+
+//static QString configLS500::DEFAULT( parName pn )
+// {
+//     switch ( pn )
+//     {
+////     case SPACING:
+////         return "\\t" ;
+////     case ENDL:
+////         return "\\n" ;
+//     case  PDF_APPL:
+//         return  "gv";
+//     case DB_DIR:
+//         return "/opt/LeScienze500/LeScienze.db" ;
+//     case ART_PATH_1:
+//         return "/media/LESCIENZE/articoli/" ;
+//     case ART_PATH_2:
+//         return "/media/LESCIENZE/articoli/" ;
+//     case COPERTINE_P:
+//         return "/opt/LeScienze500/copertine/" ;
+//     case  USE_DVD:
+//         return "no" ;
+//     case BOOKMARK_PATH:
+//         return "$HOME/.config/LeScienze500/bookmark_ls500.db" ;
+//     case BOOKMARK_DB_DUMP_PATH:
+//         return "$HOME/.config/LeScienze500/bookmark_ls500.backup" ;
+//     case BOOKMARK_DB_BKUP_FILE:
+//         return "bookmark_ls500.backup" ;
+//     case BOOKMARK_BKUP_CNT:
+//         return "0" ;
+//     default:
+//         break ;
+//     }
+// }
+
+
+
 configLS500::configLS500()
 {
     this->is_open = false ;
