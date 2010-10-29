@@ -167,6 +167,7 @@ QString configLS500::getBookmarkBkUpFile()
     return res ;
 }
 
+
 QString configLS500::getConfigParameter( QString name )
 {
     QString result ;
@@ -185,7 +186,7 @@ QString configLS500::getConfigParameter( QString name )
                     result = list[1] ;
             }
         }
-    } ;
+    }
 
     file.close() ;
 
@@ -302,6 +303,11 @@ void configLS500::setBookmarkBkUpFile( QString pr )
  void configLS500::setBookmarkPath( QString pr )
  {
      parameters.insert( BOOKMARK_PATH , pr ) ;
+ }
+
+ void configLS500::setParamenter( QString name , QString val )
+ {
+     parameters.insert( name , val ) ;
  }
 
 void configLS500::close()

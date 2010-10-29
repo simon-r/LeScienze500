@@ -62,6 +62,11 @@
 class configLS500
 {
 public:
+
+//    enum  parName { PDF_APPL , DB_DIR , ART_PATH_1 , ART_PATH_2 , ART_PATH_2 , COPERTINE_P , USE_DVD , BOOKMARK_PATH , BOOKMARK_DB_DUMP_PATH , BOOKMARK_DB_BKUP_FILE , BOOKMARK_BKUP_CNT } ;
+
+//    QString DEFAULT( parName pn ) ;
+
     configLS500();
 
     QString getDBPath() ;
@@ -75,6 +80,8 @@ public:
     QString getBookmarkBkUpFile() ;
     QString getBkUpCnt() ;
 
+    QString getParameter( QString name ) ;
+
     void open() ;
     bool isOpen() { return is_open ; }
     void setDBPath( QString pr ) ;
@@ -87,9 +94,14 @@ public:
     void setBookmarkDumpPath( QString pr ) ;
     void setBookmarkBkUpFile( QString pr ) ;
     void setBkUpCnt( QString pr ) ;
+
+    void setParamenter( QString name , QString val ) ;
+
     void close() ;
 
     QString getConfigDir() { return this->config_dir ; }
+
+
 
 private:
 
