@@ -99,23 +99,57 @@ bool Bookmark::initBookmarkForce()
 
 bool Bookmark::autoBackup()
 {
+
+    bool ret = true ;
     configLS500 cfg ;
 
     int cnt = cfg.getBkUpCnt().toInt() ;
+
+    this->cleanBackUpFiles() ;
+
     if ( ( cnt % 3 ) == 0 )
-        this->backupDatabase() ;
+        ret = this->backupDatabase() ;
 
     cnt++ ;
 
     cfg.open();
     cfg.setBkUpCnt( QString().setNum( cnt ) );
     cfg.close();
+
+    return ret ;
+}
+
+void Bookmark::cleanBackUpFiles()
+{
+    configLS500 cfg ;
+    QString cfg_dir = cfg.getConfigDir() ;
+
+    QDir dir( cfg_dir ) ;
+
+    QStringList dir_list = dir.entryList ( QDir::NoDotAndDotDot|QDir::NoSymLinks|QDir::Files , QDir::Time ) ;
+
+    QString reg = "^" ;
+    reg += cfg.getBookmarkBkUpFile().replace( "." , "\\." ) ;
+    reg += "\..*$" ;
+    dir_list = dir_list.filter( QRegExp( reg ) ) ;
+
+//    for ( int jj = 0 ; jj < dir_list.size() ; jj ++  )
+//    {
+//        qDebug() << dir_list[jj] ;
+//    }
+
+    if ( dir_list.size() > 5 )
+    {
+        dir.remove( dir_list.last() ) ;
+    }
 }
 
 bool Bookmark::backupDatabase( QString file_name )
 {
     configLS500 cfg ;
     QString file_name_bk ;
+
+
 
     if ( file_name.isEmpty() ) {
         QString bk_path = cfg.getBookmarkDumpPath() ;
