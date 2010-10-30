@@ -236,6 +236,24 @@ QString configLS500::getBookmarkBkUpFile()
 }
 
 
+QString configLS500::getBkUpCnt()
+{
+    QString dump = getConfigParameter( BOOKMARK_BKUP_CNT ) ;
+    QString res ;
+
+    if ( dump.isEmpty() )
+    {
+        res = QString( BOOKMARK_BKUP_CNT_V ) ;
+        open() ;
+        this->setBkUpCnt( res );
+        close() ;
+    }
+    else
+        res = dump ;
+
+    return res ;
+}
+
 QString configLS500::getConfigParameter( QString name )
 {
     QString result ;
@@ -376,6 +394,11 @@ void configLS500::setBookmarkBkUpFile( QString pr )
  void configLS500::setParamenter( QString name , QString val )
  {
      parameters.insert( name , val ) ;
+ }
+
+ void configLS500::setBkUpCnt( QString pr )
+ {
+     parameters.insert( BOOKMARK_BKUP_CNT , pr ) ;
  }
 
 void configLS500::close()

@@ -72,6 +72,9 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 
 void BookmarkGui::open()
 {
+    Bookmark bk ;
+    bk.autoBackup() ;
+
     current_favorite = "" ;
     current_favorites_item = 0 ;
     current_favorite_id = "" ;
@@ -93,6 +96,9 @@ void BookmarkGui::open()
 
 void BookmarkGui::open( QString id )
 {
+    Bookmark bk ;
+    bk.autoBackup() ;
+
     current_favorites_item = 0 ;
     fillCategorie() ;
     fillStates() ;

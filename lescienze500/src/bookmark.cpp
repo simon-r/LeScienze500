@@ -97,10 +97,28 @@ bool Bookmark::initBookmarkForce()
     return this->initBookmark() ;
 }
 
+bool Bookmark::autoBackup()
+{
+    configLS500 cfg ;
+
+    int cnt = cfg.getBkUpCnt().toInt() ;
+
+    if ( cnt % 5 == 0 )
+        this->backupDatabase() ;
+
+    cnt++ ;
+
+    cfg.open();
+    cfg.setBkUpCnt( QString().setNum( cnt ) );
+    cfg.close();
+}
+
 bool Bookmark::backupDatabase( QString file_name )
 {
     configLS500 cfg ;
     QString file_name_bk ;
+
+    qDebug() << "Bookmark::backupDatabase" ;
 
     if ( file_name.isEmpty() ) {
         QString bk_path = cfg.getBookmarkDumpPath() ;
@@ -116,7 +134,7 @@ bool Bookmark::backupDatabase( QString file_name )
         while( file.exists() ) {
             file_name_bk = bk_path + "." + "(" + QString().setNum(cnt++) + ")" ;
             file.setFileName( file_name_bk );
-        } ;
+        }
     }
 
     QueryDB db ;
