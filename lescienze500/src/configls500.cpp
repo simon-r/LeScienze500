@@ -30,10 +30,10 @@ QString configLS500::PARAMETER( parName pn )
 {
     switch ( pn )
     {
-//    case Spacing:
-//        return "space" ;
-//    case Endl:
-//        return "endl" ;
+        //    case Spacing:
+        //        return "space" ;
+        //    case Endl:
+        //        return "endl" ;
     case  PdfAppl:
         return  "pdf_appl";
     case DbDir:
@@ -41,7 +41,7 @@ QString configLS500::PARAMETER( parName pn )
     case ArtPath1:
         return "art_pdf_path1" ;
     case ArtPath2:
-        return "art_pdf_path1" ;
+        return "art_pdf_path2" ;
     case CopertinePath:
         return "copertine_path" ;
     case UseDvd:
@@ -57,40 +57,42 @@ QString configLS500::PARAMETER( parName pn )
     default:
         break ;
     }
+    return "invalid" ;
 }
 
 QString configLS500::DEFAULT( parName pn )
- {
-     switch ( pn )
-     {
-//     case Spacing:
-//         return "\\t" ;
-//     case Endl:
-//         return "\\n" ;
-     case  PdfAppl:
-         return  "gv";
-     case DbDir:
-         return "/opt/LeScienze500/LeScienze.db" ;
-     case ArtPath1:
-         return "/media/LESCIENZE/articoli/" ;
-     case ArtPath2:
-         return "/media/LESCIENZE/articoli/" ;
-     case CopertinePath:
-         return "/opt/LeScienze500/copertine/" ;
-     case  UseDvd:
-         return "no" ;
-     case BookmarkPath:
-         return "$HOME/.config/LeScienze500/bookmark_ls500.db" ;
-     case BookmarkBkupPath:
-         return "$HOME/.config/LeScienze500/bookmark_ls500.backup" ;
-     case BookmarkBkupFile:
-         return "bookmark_ls500.backup" ;
-     case BookmarkBkupCnt:
-         return "0" ;
-     default:
-         break ;
-     }
- }
+{
+    switch ( pn )
+    {
+        //     case Spacing:
+        //         return "\\t" ;
+        //     case Endl:
+        //         return "\\n" ;
+    case  PdfAppl:
+        return  "gv";
+    case DbDir:
+        return "/opt/LeScienze500/LeScienze.db" ;
+    case ArtPath1:
+        return "/media/LESCIENZE/articoli/" ;
+    case ArtPath2:
+        return "/media/LESCIENZE/articoli/" ;
+    case CopertinePath:
+        return "/opt/LeScienze500/copertine/" ;
+    case  UseDvd:
+        return "no" ;
+    case BookmarkPath:
+        return "$HOME/.config/LeScienze500/bookmark_ls500.db" ;
+    case BookmarkBkupPath:
+        return "$HOME/.config/LeScienze500/bookmark_ls500.backup" ;
+    case BookmarkBkupFile:
+        return "bookmark_ls500.backup" ;
+    case BookmarkBkupCnt:
+        return "0" ;
+    default:
+        break ;
+    }
+    return "undef" ;
+}
 
 
 
@@ -128,68 +130,69 @@ void configLS500::resetToDefault()
 
 void configLS500::writeDfaultFile()
 {
-     this->open() ;
+    this->open() ;
 
-     setDBPath( configLS500::DEFAULT( DbDir ) ) ;
-     setPDFPath1( configLS500::DEFAULT( ArtPath1 ) ) ;
-     setPDFPath2( configLS500::DEFAULT( ArtPath2 ) ) ;
-     setPDFAppl( configLS500::DEFAULT( PdfAppl ) ) ;
-     setCopertinePath( configLS500::DEFAULT( CopertinePath ) ) ;
-     setDVD( configLS500::DEFAULT( UseDvd ) ) ;
-     setBookmarkPath( configLS500::DEFAULT( BookmarkPath ) ) ;
-     setBookmarkDumpPath( configLS500::DEFAULT( BookmarkBkupPath ) ) ;
-     setBookmarkBkUpFile( configLS500::DEFAULT( BookmarkBkupFile ) ) ;
-     setBkUpCnt( configLS500::DEFAULT( BookmarkBkupCnt ) ) ;
-     this->close() ;
+    setDBPath( configLS500::DEFAULT( DbDir ) ) ;
+    setPDFPath1( configLS500::DEFAULT( ArtPath1 ) ) ;
+    setPDFPath2( configLS500::DEFAULT( ArtPath2 ) ) ;
+    setPDFAppl( configLS500::DEFAULT( PdfAppl ) ) ;
+    setCopertinePath( configLS500::DEFAULT( CopertinePath ) ) ;
+    setDVD( configLS500::DEFAULT( UseDvd ) ) ;
+    setBookmarkPath( configLS500::DEFAULT( BookmarkPath ) ) ;
+    setBookmarkDumpPath( configLS500::DEFAULT( BookmarkBkupPath ) ) ;
+    setBookmarkBkUpFile( configLS500::DEFAULT( BookmarkBkupFile ) ) ;
+    setBkUpCnt( configLS500::DEFAULT( BookmarkBkupCnt ) ) ;
+
+    this->close() ;
 }
 
 QString configLS500::getDBPath()
 {
-    return getConfigParameter( DB_DIR ) ;
+    return getConfigParameter( configLS500::PARAMETER( DbDir ) ) ;
 }
 
 QString configLS500::getPDFPath1()
 {
-    return getConfigParameter( ART_PATH_1 ) ;
+    return getConfigParameter( configLS500::PARAMETER( ArtPath1 ) ) ;
 }
 
 QString configLS500::getPDFPath2()
 {
-    return getConfigParameter( ART_PATH_2 ) ;
+    return getConfigParameter( configLS500::PARAMETER( ArtPath2 ) ) ;
 }
 
 QString configLS500::getCopertinePath()
 {
-    return getConfigParameter( COPERTINE_P ) ;
+    return getConfigParameter( configLS500::PARAMETER( CopertinePath ) ) ;
 }
 
 QString configLS500::getPDFAppl()
 {
-    return getConfigParameter( PDF_APPL ) ;
+    return getConfigParameter( configLS500::PARAMETER( PdfAppl ) ) ;
 }
 
- QString configLS500::getBookmarkPath()
- {
-     QString bk = getConfigParameter( BOOKMARK_PATH ) ;
-     QString res ;
+QString configLS500::getBookmarkPath()
+{
+    QString bk = getConfigParameter( configLS500::PARAMETER( BookmarkPath ) ) ;
+    QString res ;
 
-     if ( bk.isEmpty() )
-     {
-         res = QString( configLS500::DEFAULT( BookmarkPath ) ) ;
-         open() ;
-         this->setBookmarkPath( configLS500::DEFAULT( BookmarkPath ) );
-         close() ;
-     }
-     else
-         res = bk ;
+    if ( bk.isEmpty() )
+    {
+        res = QString( configLS500::DEFAULT( BookmarkPath ) ) ;
+        open() ;
+        this->setBookmarkPath( configLS500::DEFAULT( BookmarkPath ) );
+        close() ;
+    }
+    else
+        res = bk ;
 
-      res.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
-      return res ;
- }
+    res.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+    return res ;
+}
 
 QString configLS500::getDVD()
 {
-    QString dvd = getConfigParameter( USE_DVD ) ;
+    QString dvd = getConfigParameter( configLS500::PARAMETER( UseDvd ) ) ;
     QString res ;
 
     if ( dvd.isEmpty() )
@@ -201,7 +204,7 @@ QString configLS500::getDVD()
 
 QString configLS500::getBookmarkDumpPath()
 {
-    QString dump = getConfigParameter( BOOKMARK_DB_DUMP_PATH ) ;
+    QString dump = getConfigParameter( configLS500::PARAMETER( BookmarkBkupPath ) ) ;
     QString res ;
 
     if ( dump.isEmpty() )
@@ -218,7 +221,7 @@ QString configLS500::getBookmarkDumpPath()
 
 QString configLS500::getBookmarkBkUpFile()
 {
-    QString dump = getConfigParameter( BOOKMARK_DB_BKUP_FILE ) ;
+    QString dump = getConfigParameter( configLS500::PARAMETER( BookmarkBkupFile ) ) ;
     QString res ;
 
     if ( dump.isEmpty() )
@@ -237,12 +240,12 @@ QString configLS500::getBookmarkBkUpFile()
 
 QString configLS500::getBkUpCnt()
 {
-    QString dump = getConfigParameter( BOOKMARK_BKUP_CNT ) ;
+    QString dump = getConfigParameter( configLS500::PARAMETER( BookmarkBkupCnt ) ) ;
     QString res ;
 
     if ( dump.isEmpty() )
     {
-        res = QString( BOOKMARK_BKUP_CNT_V ) ;
+        res = QString( configLS500::DEFAULT( BookmarkBkupCnt ) ) ;
         open() ;
         this->setBkUpCnt( res );
         close() ;
@@ -347,58 +350,58 @@ void configLS500::open()
 
 void configLS500::setDBPath( QString pr )
 {
-    parameters.insert( DB_DIR , pr ) ;
+    parameters.insert( configLS500::PARAMETER( DbDir ) , pr ) ;
 }
 
 void configLS500::setPDFPath1( QString pr )
 {
-    parameters.insert( ART_PATH_1 , pr ) ;
+    parameters.insert( configLS500::PARAMETER( ArtPath1 ) , pr ) ;
 }
 
 void configLS500::setPDFPath2( QString pr )
 {
-    parameters.insert( ART_PATH_2 , pr ) ;
+    parameters.insert( configLS500::PARAMETER( ArtPath2 ) , pr ) ;
 }
 
 void configLS500::setPDFAppl( QString pr )
 {
-    parameters.insert( PDF_APPL , pr ) ;
+    parameters.insert( configLS500::PARAMETER( PdfAppl ) , pr ) ;
 }
 
 void configLS500::setCopertinePath( QString pr )
 {
-    parameters.insert( COPERTINE_P , pr ) ;
+    parameters.insert( configLS500::PARAMETER( CopertinePath ) , pr ) ;
 }
 
 void configLS500::setDVD( QString pr )
 {
-    parameters.insert( USE_DVD , pr ) ;
+    parameters.insert( configLS500::PARAMETER( UseDvd ) , pr ) ;
 }
 
 void configLS500::setBookmarkDumpPath( QString pr )
- {
-     parameters.insert( BOOKMARK_DB_DUMP_PATH , pr ) ;
- }
+{
+    parameters.insert( configLS500::PARAMETER( BookmarkBkupPath ) , pr ) ;
+}
 
 void configLS500::setBookmarkBkUpFile( QString pr )
 {
-    parameters.insert( BOOKMARK_DB_BKUP_FILE , pr ) ;
+    parameters.insert( configLS500::PARAMETER( BookmarkBkupFile ) , pr ) ;
 }
 
- void configLS500::setBookmarkPath( QString pr )
- {
-     parameters.insert( BOOKMARK_PATH , pr ) ;
- }
+void configLS500::setBookmarkPath( QString pr )
+{
+    parameters.insert( configLS500::PARAMETER( BookmarkPath )  , pr ) ;
+}
 
- void configLS500::setParamenter( QString name , QString val )
- {
-     parameters.insert( name , val ) ;
- }
+void configLS500::setBkUpCnt( QString pr )
+{
+    parameters.insert( configLS500::PARAMETER( BookmarkBkupCnt ) , pr ) ;
+}
 
- void configLS500::setBkUpCnt( QString pr )
- {
-     parameters.insert( BOOKMARK_BKUP_CNT , pr ) ;
- }
+void configLS500::setParamenter( QString name , QString val )
+{
+    parameters.insert( name , val ) ;
+}
 
 void configLS500::close()
 {
