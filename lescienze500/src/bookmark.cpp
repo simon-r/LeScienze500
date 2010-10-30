@@ -102,8 +102,7 @@ bool Bookmark::autoBackup()
     configLS500 cfg ;
 
     int cnt = cfg.getBkUpCnt().toInt() ;
-
-    if ( cnt % 5 == 0 )
+    if ( ( cnt % 3 ) == 0 )
         this->backupDatabase() ;
 
     cnt++ ;
@@ -118,11 +117,14 @@ bool Bookmark::backupDatabase( QString file_name )
     configLS500 cfg ;
     QString file_name_bk ;
 
-    qDebug() << "Bookmark::backupDatabase" ;
-
     if ( file_name.isEmpty() ) {
         QString bk_path = cfg.getBookmarkDumpPath() ;
 
+        bk_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+
+        bk_path += "." ;
+        bk_path += QDate::currentDate().toString( Qt::ISODate ) ;
+        bk_path += "-" ;
         bk_path += QTime::currentTime().toString( Qt::ISODate ) ;
 
         QFile file ;
@@ -138,6 +140,7 @@ bool Bookmark::backupDatabase( QString file_name )
     }
 
     QueryDB db ;
+
     int rc = db.backup( cfg.getBookmarkPath() , file_name_bk ) ;
 
     if ( rc == 0 )
