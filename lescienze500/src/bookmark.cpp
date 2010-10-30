@@ -130,7 +130,7 @@ void Bookmark::cleanBackUpFiles()
 
     QString reg = "^" ;
     reg += cfg.getBookmarkBkUpFile().replace( "." , "\\." ) ;
-    reg += "\..*$" ;
+    reg += "\\..*$" ;
     dir_list = dir_list.filter( QRegExp( reg ) ) ;
 
 //    for ( int jj = 0 ; jj < dir_list.size() ; jj ++  )
