@@ -352,7 +352,6 @@ void configLS500::writeAllParameters()
         QString line ;
 
         out << *it << SPACING << parameters[*it] << ENDL ;
-        //line.append( *it ) ; line.append( SPACING ) ; line.append( parameters[*it] ) ; line.append( ENDL ) ;
         file.write( line.toAscii().data() ) ;
     }
 
