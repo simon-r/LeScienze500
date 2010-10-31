@@ -104,6 +104,7 @@ private:
     LSErrorMessage *error_message ;
     BookmarkGui *bk_gui ;
     About *about_d ;
+    QAction *menu_organize ;
 
     void BuildErrorMessage() ;
     void BuildConfigura() ;

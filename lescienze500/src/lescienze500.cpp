@@ -67,6 +67,11 @@ LeScienze500::LeScienze500(QWidget *parent) :
     BuildBookmark() ;
 
     connect( ui->menuFavoriti , SIGNAL(aboutToShow()) , this , SLOT(on_menuFavoritesClicked()) ) ;
+
+    menu_organize = new QAction( tr("Organizza preferiti ...") , 0 ) ;
+    menu_organize->setIcon( QIcon( ":/icons/crystal/bookmark_add-256.png" ) );
+
+    connect( menu_organize , SIGNAL(triggered()) , this , SLOT(on_openBookmark()) ) ;
 }
 
 LeScienze500::~LeScienze500()
@@ -1106,5 +1111,5 @@ void LeScienze500::on_ApriBrowserCopertine( int id )
 
 void LeScienze500::on_menuFavoritesClicked()
 {
-    this->bk_gui->fillBookmarkMenu() ;
+    this->bk_gui->fillBookmarkMenu( menu_organize ) ;
 }

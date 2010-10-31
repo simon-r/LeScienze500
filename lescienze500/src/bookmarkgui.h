@@ -44,7 +44,7 @@ public:
     void fillStates() ;
     void fillEvaluations() ;
 
-    void fillBookmarkMenu() ;
+    void fillBookmarkMenu( QAction* def_act = 0 ) ;
     void fillBookmarkMenuRec( QMenu *menu , QString name , QString id ) ;
 
     void appendFolder( QString name ) ;

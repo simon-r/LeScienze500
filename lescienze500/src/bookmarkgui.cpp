@@ -190,10 +190,16 @@ BookmarkGui::~BookmarkGui()
     delete ui;
 }
 
-void BookmarkGui::fillBookmarkMenu()
+void BookmarkGui::fillBookmarkMenu( QAction* def_act )
 {
     if ( this->bookmarkMenu == 0 ) return ;
     this->bookmarkMenu->clear() ;
+
+    if ( def_act != 0 )
+    {
+       this->bookmarkMenu->addAction( def_act ) ;
+       this->bookmarkMenu->addSeparator() ;
+   }
 
     Bookmark bk ;
     QueryResult qr ;
