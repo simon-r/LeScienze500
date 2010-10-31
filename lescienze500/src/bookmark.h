@@ -92,6 +92,7 @@ public:
     void getStates( QueryResult& query_r ) ;
     bool addState( QString name ) ;
     QString getStateId( QString name ) ;
+    bool removeState( QString name ) ;
 
 private:
 

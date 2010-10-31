@@ -101,11 +101,13 @@ public slots:
     void on_remove() ;
     void on_openPdf() ;
     void on_contextMenu( const QPoint& pos ) ;
+    void on_contextMenuStates( const QPoint& pos ) ;
     void on_saveComment() ;
     void on_stateChanged( int index ) ;
     void on_evaluationChanged( int index ) ;
 
     void on_newState() ;
+    void on_removeState() ;
 
     void on_selectedChanged() ;
     void on_cutItem() ;

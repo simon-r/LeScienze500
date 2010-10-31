@@ -56,9 +56,12 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     ui->treeEvaluations->setColumnHidden( 1 , true );
 
     ui->treeCategorie->setContextMenuPolicy( Qt::CustomContextMenu );
+    ui->treeStates->setContextMenuPolicy( Qt::CustomContextMenu );
 
     connect( ui->treeCategorie , SIGNAL(itemSelectionChanged()) , this , SLOT(on_selectedChanged()) ) ;
     connect( ui->treeCategorie ,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(on_contextMenu(QPoint))) ;
+
+    connect( ui->treeStates ,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(on_contextMenuStates(QPoint))) ;
 
     connect( ui->AddFavorite , SIGNAL(clicked()) , this , SLOT(on_addFavorite()) ) ;
     connect( ui->OpenPDF , SIGNAL(clicked()) , this , SLOT(on_openPdf()) ) ;
@@ -125,6 +128,11 @@ void BookmarkGui::buildMenuStates()
     //menu_ptr.insert( "new_folder" , new_folder ) ;
     connect( add_state , SIGNAL(triggered()) , this , SLOT(on_newState()) ) ;
     this->menuStates.addAction( add_state ) ;
+
+    QAction* remove_state = new QAction( tr( "Rimuovi Stato" ) , 0 );
+    //menu_ptr.insert( "new_folder" , new_folder ) ;
+    connect( remove_state , SIGNAL(triggered()) , this , SLOT(on_removeState()) ) ;
+    this->menuStates.addAction( remove_state ) ;
 
     ui->stateMenu->setMenu( &this->menuStates );
 }
@@ -910,6 +918,11 @@ void BookmarkGui::on_contextMenu( const QPoint& pos )
     this->menuFavorites.exec( global_pos ) ;
 }
 
+void BookmarkGui::on_contextMenuStates( const QPoint& pos )
+{
+    QPoint global_pos = ui->treeStates->mapToGlobal( pos ) ;
+    this->menuStates.exec( global_pos ) ;
+}
 
 void BookmarkGui::on_favoriteActivated( QTreeWidgetItem * item, int column )
 {
@@ -937,8 +950,7 @@ void BookmarkGui::on_selectedChanged()
 
     if ( item_list.isEmpty() )
     {
-        item_list = ui->treeStates->selectedItems() ;
-        if ( item_list.isEmpty() ) return ;
+        return ;
     }
 
     QTreeWidgetItem *item = item_list.first() ;
@@ -1039,6 +1051,7 @@ void BookmarkGui::on_evaluationChanged( int index )
     else if ( f == 2 )
         this->addEvaluation( stars ) ;
 }
+
 void BookmarkGui::on_newState()
 {
     this->name_d.setMessage( tr( "Inserisci il nome del nuovo stato" ) );
@@ -1064,4 +1077,33 @@ void BookmarkGui::on_newState()
         msgBox.setIcon( QMessageBox::Warning ) ;
         msgBox.exec();
     }
+}
+
+void  BookmarkGui::on_removeState()
+{
+    if ( this->current_favorites_item == 0 ) return ;
+    if ( this->current_favorites_item->type() != BookmarkGui::item_state ) return ;
+
+    Bookmark bk ;
+    QString name = this->current_favorites_item->text(0) ;
+    bool f = bk.removeState( name ) ;
+
+    if ( f == false )
+    {
+        QMessageBox msgBox;
+        msgBox.setText( tr("Impossibile rimuovere lo stato: deve essere vuoto") );
+        msgBox.setIcon( QMessageBox::Warning ) ;
+        msgBox.exec();
+    }
+
+    int index = ui->treeStates->indexOfTopLevelItem( this->current_favorites_item ) ;
+    QTreeWidgetItem* item = ui->treeStates->takeTopLevelItem( index ) ;
+    delete item ;
+
+    index = ui->State->findText( name ,Qt::MatchExactly ) ;
+    ui->State->removeItem( index );
+
+    this->current_favorites_item = 0 ;
+    this->current_favorite_id = "" ;
+    this->current_favorite = "" ;
 }

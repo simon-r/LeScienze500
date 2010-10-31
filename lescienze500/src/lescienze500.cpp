@@ -1095,3 +1095,9 @@ void LeScienze500::on_ApriBrowserCopertine( int id )
 {
     this->OpenBrowserCopertine( id ) ;
 }
+
+void LeScienze500::on_favoriteSelected()
+{
+    QObject* from = this->sender() ;
+
+}

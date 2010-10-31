@@ -971,7 +971,7 @@ QString  Bookmark::getStateId( QString name )
 {
     QString query = "select Id from UserStates where StateName like \'" ;
     query += name ;
-    query += "\' ) " ;
+    query += "\' " ;
 
     QueryResult qr ;
     this->execQuery( query , qr );
@@ -981,3 +981,33 @@ QString  Bookmark::getStateId( QString name )
     else
         return qr.getField(0,0) ;
 }
+
+bool Bookmark::removeState( QString name )
+{
+//    qDebug() << "Bookmark::removeState" << name ;
+    QueryResult query_r ;
+    getFavoritesByState( query_r , name ) ;
+//    qDebug() << "Bookmark::removeState" << query_r.size()  ;
+
+    if ( query_r.size() == 0 )
+    {
+        QString id = this->getStateId( name ) ;
+
+        QString query = "delete from UserStates where Id = " ;
+        query += id ;
+
+        qDebug() << query ;
+
+        if ( id.isEmpty() ) return false ;
+
+        return this->execQuery( query ) ;
+    }
+    else
+    {
+        return false ;
+    }
+}
+
+
+
+
