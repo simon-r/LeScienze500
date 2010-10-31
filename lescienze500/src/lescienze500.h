@@ -148,7 +148,7 @@ private slots:
     void on_Cerca_clicked();
     void on_Select_ParoleChiave_toggled(bool checked);
 
-    void on_favoriteSelected() ;
+    void on_menuFavoritesClicked() ;
 
 public slots:
 

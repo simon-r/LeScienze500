@@ -63,6 +63,10 @@ LeScienze500::LeScienze500(QWidget *parent) :
     connect( ui->actionAbout_2 , SIGNAL(triggered()) , this , SLOT(on_openAbout()) ) ;
     connect( ui->actionMostra_Copertine , SIGNAL(triggered()) , this , SLOT(on_ApriBrowserCopertine_clicked()) ) ;
     connect( ui->addFavoriti , SIGNAL(clicked()) , this , SLOT(on_addFavoriti()) ) ;
+
+    BuildBookmark() ;
+
+    connect( ui->menuFavoriti , SIGNAL(aboutToShow()) , this , SLOT(on_menuFavoritesClicked()) ) ;
 }
 
 LeScienze500::~LeScienze500()
@@ -814,6 +818,9 @@ void LeScienze500::BuildBookmark()
         bk_gui = new BookmarkGui() ;
         connect( bk_gui , SIGNAL(sig_openPdf(int)) , this , SLOT(on_openPDF(int)) ) ;
         connect( bk_gui , SIGNAL(sig_openBrowser(int)) , this , SLOT(on_ApriBrowserCopertine(int)) ) ;
+
+        bk_gui->setMenuFavorites( ui->menuFavoriti );
+        //bk_gui->fillBookmarkMenu() ;
     }
 }
 
@@ -1096,8 +1103,8 @@ void LeScienze500::on_ApriBrowserCopertine( int id )
     this->OpenBrowserCopertine( id ) ;
 }
 
-void LeScienze500::on_favoriteSelected()
-{
-    QObject* from = this->sender() ;
 
+void LeScienze500::on_menuFavoritesClicked()
+{
+    this->bk_gui->fillBookmarkMenu() ;
 }

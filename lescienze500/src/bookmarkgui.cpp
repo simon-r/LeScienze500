@@ -41,6 +41,8 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     cutted_item = 0 ;
     cut_state = false ;
 
+    bookmarkMenu = 0 ;
+
     buildMenuFavorites() ;
     buildMenuStates() ;
 
@@ -186,6 +188,70 @@ void BookmarkGui::buildMenuFavorites()
 BookmarkGui::~BookmarkGui()
 {
     delete ui;
+}
+
+void BookmarkGui::fillBookmarkMenu()
+{
+    if ( this->bookmarkMenu == 0 ) return ;
+    this->bookmarkMenu->clear() ;
+
+    Bookmark bk ;
+    QueryResult qr ;
+
+    bk.getRootFolders( qr ) ;
+    for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
+    {
+        QString name = qr.getField( "Folder" , itr ) ;
+        QString id = qr.getField( "Id" , itr ) ;
+         qDebug() << "BookmarkGui::fillBookmarkMenu" << name << id ;
+        this->fillBookmarkMenuRec( bookmarkMenu , name , id ) ;
+    }
+}
+
+void BookmarkGui::fillBookmarkMenuRec( QMenu *menu , QString name , QString parent_id )
+{
+    Bookmark bk ;
+    QueryResult qr ;
+
+    bk.getFoldersId( qr , parent_id ) ;
+    for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
+    {
+        QString name = qr.getField( "Folder" , itr ) ;
+        QString id = qr.getField( "Id" , itr ) ;
+        QMenu* sub_menu = new QMenu( name , menu ) ;
+
+        QIcon folder(":/icons/crystal/folder.png") ;
+        sub_menu->setIcon( folder );
+        menu->addMenu( sub_menu ) ;
+
+        this->fillBookmarkMenuRec( sub_menu , name , id ) ;
+    }
+
+    bk.getFavoritesByParent( qr , name ) ;
+    for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
+    {
+         QString id_entry = qr.getField( "IdEntry" , itr ) ;
+         QString id = qr.getField( "Id" , itr ) ;
+         QAction* entry = new QAction( 0 ) ;
+         setArticleActionDecorations( entry , id_entry , id ) ;
+         connect( entry , SIGNAL(triggered()) , this , SLOT(on_favoriteSelected()) ) ;
+         menu->addAction( entry ) ;
+    }
+}
+
+void BookmarkGui::setArticleActionDecorations( QAction* action , const QString& id_entry , const QString& id )
+{
+    QueryResult article ;
+    Bookmark bk ;
+    bk.getFavoriteFullData( article , id_entry ) ;
+
+    QIcon doc_icon(":/icons/crystal/doc-icon.png") ;
+    action->setIcon( doc_icon );
+
+    if ( article.size() == 0 ) return ;
+    action->setText( article.getField( "Titolo" , article.begin() ) ) ;
+    action->setIcon( doc_icon ) ;
+    action->setData( QVariant( id_entry ) ) ;
 }
 
 void BookmarkGui::fillCategorie()
@@ -1106,4 +1172,13 @@ void  BookmarkGui::on_removeState()
     this->current_favorites_item = 0 ;
     this->current_favorite_id = "" ;
     this->current_favorite = "" ;
+}
+
+
+void BookmarkGui::on_favoriteSelected()
+{
+    QObject* from = this->sender() ;
+
+    QAction* from_ac = dynamic_cast<QAction*> ( from ) ;
+    emit this->sig_openPdf( from_ac->data().toInt() );
 }

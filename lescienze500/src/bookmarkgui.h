@@ -44,6 +44,9 @@ public:
     void fillStates() ;
     void fillEvaluations() ;
 
+    void fillBookmarkMenu() ;
+    void fillBookmarkMenuRec( QMenu *menu , QString name , QString id ) ;
+
     void appendFolder( QString name ) ;
     void appendFavorite( QString id ) ;
 
@@ -63,11 +66,15 @@ public:
     void open() ;
     void open( QString id ) ;
 
+    void setMenuFavorites( QMenu* menu_f ) { if ( bookmarkMenu == 0 ) bookmarkMenu = menu_f ; }
+
 private:
     Ui::BookmarkGui *ui;
 
     QMenu menuFavorites ;
     QMenu menuStates ;
+
+    QMenu *bookmarkMenu ;
 
     QTreeWidgetItem* current_favorites_item ;
 
@@ -88,6 +95,8 @@ private:
 
     void setFolderItemDecorations( QTreeWidgetItem* item , const QString& name , const QString& id ) ;
     void setArticleItemDecorations( QTreeWidgetItem* item , const QString& id_articolo , const QString& id ) ;
+
+    void setArticleActionDecorations( QAction* action , const QString& id_articolo , const QString& id ) ;
 
     void showDataBaseMessage() ;
 
@@ -116,6 +125,8 @@ public slots:
 
     void on_commentChanged() ;
     void on_openBrowser() ;
+
+    void on_favoriteSelected() ;
 
 signals:
     void sig_openPdf( int id ) ;
