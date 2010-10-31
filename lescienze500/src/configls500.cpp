@@ -45,7 +45,7 @@ QString configLS500::PARAMETER( parName pn )
     case CopertinePath:
         return "copertine_path" ;
     case UseDvd:
-        return "no" ;
+        return "dvd" ;
     case BookmarkPath:
         return "bookmark" ;
     case BookmarkBkupPath:
@@ -265,9 +265,21 @@ QString configLS500::getConfigParameter( QString name )
     file.open(  QIODevice::ReadOnly ) ;
 
     while( !file.atEnd() ) {
-        QString line = file.readLine() ;
+        QString line = QString::fromAscii( file.readLine() ) ;
         if ( line.size() > 0 ) {
-            QStringList list = line.split( SPACING , QString::SkipEmptyParts );
+
+            QRegExp reg( this->getLineRegex() ) ;
+            int pos = reg.indexIn( line );
+            QStringList list = reg.capturedTexts() ;
+
+//            qDebug() << "configLS500::getConfigParameter" << list.size() ;
+//            qDebug() << "configLS500::getConfigParameter" << list[0] ;
+//            qDebug() << "configLS500::getConfigParameter" << list[1] ;
+//            qDebug() << "configLS500::getConfigParameter" << list[2] ;
+
+            list.pop_front();
+
+//            QStringList list = line.split( SPACING , QString::SkipEmptyParts );
             if ( list.size() == 2 )
             {
                 if (list[0] == name )
@@ -290,7 +302,7 @@ QString configLS500::getConfigParameter( QString name )
 
 void configLS500::getAllParameters()
 {
-    char buf[1024];
+    //char buf[1024];
     QString result ;
 
     QFile file ;
@@ -299,12 +311,21 @@ void configLS500::getAllParameters()
 
     file.setFileName( this->config_path );
     file.open(  QIODevice::ReadOnly ) ;
-    qint64 lineLength ;
-    do{
-        lineLength = file.readLine(buf, sizeof(buf)) ;
-        if (lineLength != -1) {
-            QString line = QString ( buf ) ;
-            QStringList list = line.split( SPACING , QString::SkipEmptyParts );
+    //qint64 lineLength ;
+    while ( !file.atEnd() ) {
+        QString line ;
+        line = QString::fromAscii( file.readLine() ) ;
+
+        if ( line.size() > 0 ) {
+
+            QRegExp reg( this->getLineRegex() ) ;
+            int pos = reg.indexIn( line );
+            QStringList list = reg.capturedTexts() ;
+
+            list.pop_front();
+
+//            QString line = QString ( buf ) ;
+//            QStringList list = line.split( SPACING , QString::SkipEmptyParts );
             if ( list.size() == 2 )
             {
                 int ls = list[1].size() ;
@@ -312,8 +333,7 @@ void configLS500::getAllParameters()
                 parameters.insert( list[0] , list[1] ) ;
             }
         }
-
-    } while ( lineLength != -1 ) ;
+    }
 
     file.close() ;
 }
@@ -322,15 +342,17 @@ void configLS500::writeAllParameters()
 {
     QFile file ;
     file.setFileName( this->config_path );
-    file.open(  QIODevice::WriteOnly ) ;
+    file.open(  QIODevice::WriteOnly | QIODevice::Text ) ;
 
     QList<QString> keys = parameters.keys() ;
 
+    QTextStream out(&file) ;
     for( QList<QString>::iterator it = keys.begin() ; it < keys.end() ; it++ )
     {
         QString line ;
 
-        line.append( *it ) ; line.append( SPACING ) ; line.append( parameters[*it] ) ; line.append( ENDL ) ;
+        out << *it << SPACING << parameters[*it] << ENDL ;
+        //line.append( *it ) ; line.append( SPACING ) ; line.append( parameters[*it] ) ; line.append( ENDL ) ;
         file.write( line.toAscii().data() ) ;
     }
 
