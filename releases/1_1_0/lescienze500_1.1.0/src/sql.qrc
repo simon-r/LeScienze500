@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/sql">
+        <file>sql/bookmark.sql</file>
+        <file>sql/bookmark_init.sql</file>
+    </qresource>
+</RCC>
