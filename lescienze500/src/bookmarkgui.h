@@ -65,7 +65,10 @@ public:
 
 private:
     Ui::BookmarkGui *ui;
+
     QMenu menuFavorites ;
+    QMenu menuStates ;
+
     QTreeWidgetItem* current_favorites_item ;
 
     QTreeWidgetItem* cutted_item ;
@@ -77,6 +80,7 @@ private:
     QHash<QString,QAction*> menu_ptr ;
 
     void buildMenuFavorites() ;
+    void buildMenuStates() ;
 
     enum item_types { item_folder=1001 , item_article , item_state , item_evaluation } ;
 
@@ -100,6 +104,8 @@ public slots:
     void on_saveComment() ;
     void on_stateChanged( int index ) ;
     void on_evaluationChanged( int index ) ;
+
+    void on_newState() ;
 
     void on_selectedChanged() ;
     void on_cutItem() ;

@@ -42,6 +42,8 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     cut_state = false ;
 
     buildMenuFavorites() ;
+    buildMenuStates() ;
+
     this->setWindowTitle( tr("Preferiti") );
 
     ui->treeCategorie->setUpdatesEnabled( true );
@@ -115,6 +117,16 @@ void BookmarkGui::open( QString id )
     ui->SaveComment->setDisabled( true );
 
     exec() ;
+}
+
+void BookmarkGui::buildMenuStates()
+{
+    QAction* add_state = new QAction( tr( "Aggiungi Stato" ) , 0 );
+    //menu_ptr.insert( "new_folder" , new_folder ) ;
+    connect( add_state , SIGNAL(triggered()) , this , SLOT(on_newState()) ) ;
+    this->menuStates.addAction( add_state ) ;
+
+    ui->stateMenu->setMenu( &this->menuStates );
 }
 
 void BookmarkGui::buildMenuFavorites()
@@ -490,6 +502,7 @@ bool  BookmarkGui::renameFolder()
     QString curr_name = this->current_favorites_item->text(0) ;
     QString folder_id = this->current_favorites_item->text(1) ;
 
+    this->name_d.setMessage( tr( "Inserisci il nuovo nome della cartella" ) );
     name_d.open( curr_name );
 
     QString new_name = name_d.text() ;
@@ -861,6 +874,7 @@ void BookmarkGui::appendFavorite( QString id )
 
 void BookmarkGui::on_newFolder()
 {
+    this->name_d.setMessage( tr( "Inserisci il nome della nuova cartella" ) );
     this->name_d.open();
 
     if ( this->name_d.text().isEmpty() )
@@ -1024,4 +1038,30 @@ void BookmarkGui::on_evaluationChanged( int index )
         this->changeEvaluation( stars ) ;
     else if ( f == 2 )
         this->addEvaluation( stars ) ;
+}
+void BookmarkGui::on_newState()
+{
+    this->name_d.setMessage( tr( "Inserisci il nome del nuovo stato" ) );
+    this->name_d.open();
+
+    QString name = name_d.text() ;
+
+    Bookmark bk ;
+
+    if ( bk.addState( name ) )
+    {
+        QString id = bk.getStateId( name ) ;
+        QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_state ) ;
+        this->setFolderItemDecorations( item , name , id ) ;
+        ui->treeStates->addTopLevelItem( item );
+
+        ui->State->insertItem( ui->State->count() , name ) ;
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setText( tr("Impossibile creare il nuovo stato, il nome deve essere unico") );
+        msgBox.setIcon( QMessageBox::Warning ) ;
+        msgBox.exec();
+    }
 }

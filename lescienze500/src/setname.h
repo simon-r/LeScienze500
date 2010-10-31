@@ -37,6 +37,8 @@ public:
     void open() ;
     void open( QString txt ) ;
 
+    void setMessage( QString msg ) ;
+
     QString text() { return p_text ; } 
 
 private:

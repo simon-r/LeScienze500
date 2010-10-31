@@ -85,7 +85,7 @@ private:
     void resetToDefault() ;
     void writeDfaultFile() ;
 
-    QString getLineRegex() { return QString ( "([\\w]+)\\t([\\w\\W]+)" ) ; }
+    QString getLineRegex() { return QString ( "([\\w]+)\\t([\\w\\W!\\n]+)" ) ; }
 
     QHash<QString,QString> parameters ;
 

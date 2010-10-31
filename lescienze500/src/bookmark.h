@@ -90,6 +90,8 @@ public:
     bool deleteState( QString favorite_id ) ;
     bool getFavoritesByState(  QueryResult& query_r , const QString& state_name ) ;
     void getStates( QueryResult& query_r ) ;
+    bool addState( QString name ) ;
+    QString getStateId( QString name ) ;
 
 private:
 

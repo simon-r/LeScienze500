@@ -954,3 +954,30 @@ bool Bookmark::deleteEvaluation( QString favorite_id )
 
     return this->execQuery( cancel ) ;
 }
+
+bool Bookmark::addState( QString name )
+{
+    QString query = "insert into UserStates ( StateName ) values ( \'" ;
+    query += name ;
+    query += "\' ) " ;
+
+    qDebug() << query ;
+
+    return this->execQuery( query ) ;
+}
+
+
+QString  Bookmark::getStateId( QString name )
+{
+    QString query = "select Id from UserStates where StateName like \'" ;
+    query += name ;
+    query += "\' ) " ;
+
+    QueryResult qr ;
+    this->execQuery( query , qr );
+
+    if ( qr.size() == 0 )
+        return QString() ;
+    else
+        return qr.getField(0,0) ;
+}

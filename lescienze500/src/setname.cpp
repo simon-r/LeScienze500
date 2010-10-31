@@ -48,6 +48,12 @@ void SetName::open( QString txt )
     exec() ;
 }
 
+void SetName::setMessage( QString msg )
+{
+    ui->label->clear();
+    ui->label->setText( msg );
+}
+
 void SetName::on_OK_clicked()
 {
     p_text = ui->lineEdit->text() ;
