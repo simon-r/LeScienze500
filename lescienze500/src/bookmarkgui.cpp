@@ -127,12 +127,14 @@ void BookmarkGui::open( QString id )
 void BookmarkGui::buildMenuStates()
 {
     QAction* add_state = new QAction( tr( "Aggiungi Stato" ) , 0 );
-    //menu_ptr.insert( "new_folder" , new_folder ) ;
     connect( add_state , SIGNAL(triggered()) , this , SLOT(on_newState()) ) ;
     this->menuStates.addAction( add_state ) ;
 
+    QAction* rename = new QAction( tr( "Cambia nome" ) , 0 );
+    connect( rename , SIGNAL(triggered()) , this , SLOT(on_renameState()) ) ;
+    this->menuStates.addAction( rename ) ;
+
     QAction* remove_state = new QAction( tr( "Rimuovi Stato" ) , 0 );
-    //menu_ptr.insert( "new_folder" , new_folder ) ;
     connect( remove_state , SIGNAL(triggered()) , this , SLOT(on_removeState()) ) ;
     this->menuStates.addAction( remove_state ) ;
 
@@ -1182,6 +1184,33 @@ void  BookmarkGui::on_removeState()
     this->current_favorite = "" ;
 }
 
+void BookmarkGui::on_renameState()
+{
+    if ( this->current_favorites_item == 0 ) return ;
+    if ( this->current_favorites_item->type() != BookmarkGui::item_state ) return ;
+
+    Bookmark bk ;
+    QString name = this->current_favorites_item->text(0) ;
+
+    this->name_d.setMessage( tr( "Inserisci il nuovo nome dello stato" ) );
+    this->name_d.open( name ) ;
+
+    QString new_name = name_d.text() ;
+
+    bool f =  bk.renameState( name , new_name ) ;
+
+    if ( f == false )
+    {
+        QMessageBox msgBox;
+        msgBox.setText( tr("Impossibile modificare il nome: deve essere unico") );
+        msgBox.setIcon( QMessageBox::Warning ) ;
+        msgBox.exec();
+
+        return ;
+    }
+
+    this->current_favorites_item->setText( 0 , new_name ) ;
+}
 
 void BookmarkGui::on_favoriteSelected()
 {

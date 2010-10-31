@@ -1008,6 +1008,24 @@ bool Bookmark::removeState( QString name )
     }
 }
 
+bool Bookmark::renameState( QString name , QString new_name )
+{
+    if ( name.isEmpty() || new_name.isEmpty() )
+        return false ;
+
+    QString id = this->getStateId( name ) ;
+
+    if ( id.isEmpty() )
+        return false ;
+
+    QString query = "update UserStates set StateName = \'" ;
+    query += new_name ;
+    query += "\' where Id = " ;
+    query += id ;
+
+    return this->execQuery( query ) ;
+}
+
 
 
 

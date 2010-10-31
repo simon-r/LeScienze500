@@ -93,6 +93,7 @@ public:
     bool addState( QString name ) ;
     QString getStateId( QString name ) ;
     bool removeState( QString name ) ;
+    bool renameState( QString name , QString new_name ) ;
 
 private:
 

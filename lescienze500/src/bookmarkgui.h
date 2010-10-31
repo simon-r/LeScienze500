@@ -117,6 +117,7 @@ public slots:
 
     void on_newState() ;
     void on_removeState() ;
+    void on_renameState() ;
 
     void on_selectedChanged() ;
     void on_cutItem() ;
