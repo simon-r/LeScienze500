@@ -15,5 +15,10 @@
         <file>crystal/doc-icon.png</file>
         <file>crystal/bookmark_add-256.png</file>
         <file>crystal/pdficon.png</file>
+        <file>crystal/application-exit-3.png</file>
+        <file>crystal/help-contents.png</file>
+        <file>crystal/bookmark-toolbar-2.png</file>
+        <file>crystal/bookmarks-organize.png</file>
+        <file>crystal/book.png</file>
     </qresource>
 </RCC>

@@ -1160,6 +1160,8 @@ void  BookmarkGui::on_removeState()
         msgBox.setText( tr("Impossibile rimuovere lo stato: deve essere vuoto") );
         msgBox.setIcon( QMessageBox::Warning ) ;
         msgBox.exec();
+
+        return ;
     }
 
     int index = ui->treeStates->indexOfTopLevelItem( this->current_favorites_item ) ;

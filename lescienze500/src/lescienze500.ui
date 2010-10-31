@@ -1473,6 +1473,10 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="actionOrganizza_preferiti">
+   <property name="icon">
+    <iconset resource="crystal.qrc">
+     <normaloff>:/icons/crystal/bookmark-toolbar-2.png</normaloff>:/icons/crystal/bookmark-toolbar-2.png</iconset>
+   </property>
    <property name="text">
     <string>Organizza preferiti ...</string>
    </property>
@@ -1493,16 +1497,28 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="actionAbout_2">
+   <property name="icon">
+    <iconset resource="crystal.qrc">
+     <normaloff>:/icons/crystal/help-contents.png</normaloff>:/icons/crystal/help-contents.png</iconset>
+   </property>
    <property name="text">
     <string>About</string>
    </property>
   </action>
   <action name="actionMostra_Copertine">
+   <property name="icon">
+    <iconset resource="crystal.qrc">
+     <normaloff>:/icons/crystal/book.png</normaloff>:/icons/crystal/book.png</iconset>
+   </property>
    <property name="text">
     <string>Mostra Copertine</string>
    </property>
   </action>
   <action name="actionEsci_2">
+   <property name="icon">
+    <iconset resource="crystal.qrc">
+     <normaloff>:/icons/crystal/application-exit-3.png</normaloff>:/icons/crystal/application-exit-3.png</iconset>
+   </property>
    <property name="text">
     <string>Esci</string>
    </property>
