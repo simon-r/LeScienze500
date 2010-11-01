@@ -25,8 +25,8 @@
 #include "querydb.h"
 
 BookmarkGui::BookmarkGui(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::BookmarkGui)
+        QDialog(parent),
+        ui(new Ui::BookmarkGui)
 {
 
     Bookmark bk ;
@@ -220,9 +220,9 @@ void BookmarkGui::fillBookmarkMenu( QAction* def_act )
 
     if ( def_act != 0 )
     {
-       this->bookmarkMenu->addAction( def_act ) ;
-       this->bookmarkMenu->addSeparator() ;
-   }
+        this->bookmarkMenu->addAction( def_act ) ;
+        this->bookmarkMenu->addSeparator() ;
+    }
 
     Bookmark bk ;
     QueryResult qr ;
@@ -232,7 +232,7 @@ void BookmarkGui::fillBookmarkMenu( QAction* def_act )
     {
         QString name = qr.getField( "Folder" , itr ) ;
         QString id = qr.getField( "Id" , itr ) ;
-         qDebug() << "BookmarkGui::fillBookmarkMenu" << name << id ;
+        qDebug() << "BookmarkGui::fillBookmarkMenu" << name << id ;
         this->fillBookmarkMenuRec( bookmarkMenu , name , id ) ;
     }
 }
@@ -313,12 +313,12 @@ void BookmarkGui::fillBookmarkMenuRec( QMenu *menu , QString name , QString pare
     bk.getFavoritesByParent( qr , name ) ;
     for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
     {
-         QString id_entry = qr.getField( "IdEntry" , itr ) ;
-         QString id = qr.getField( "Id" , itr ) ;
-         QAction* entry = new QAction( 0 ) ;
-         setArticleActionDecorations( entry , id_entry , id ) ;
-         connect( entry , SIGNAL(triggered()) , this , SLOT(on_favoriteSelected()) ) ;
-         menu->addAction( entry ) ;
+        QString id_entry = qr.getField( "IdEntry" , itr ) ;
+        QString id = qr.getField( "Id" , itr ) ;
+        QAction* entry = new QAction( 0 ) ;
+        setArticleActionDecorations( entry , id_entry , id ) ;
+        connect( entry , SIGNAL(triggered()) , this , SLOT(on_favoriteSelected()) ) ;
+        menu->addAction( entry ) ;
     }
 }
 
@@ -339,69 +339,69 @@ void BookmarkGui::setArticleActionDecorations( QAction* action , const QString& 
 
 void BookmarkGui::fillCategorie()
 {
-     QList<QTreeWidgetItem *> items;
-     Bookmark bk ;
-     QueryResult qr ;
+    QList<QTreeWidgetItem *> items;
+    Bookmark bk ;
+    QueryResult qr ;
 
-     bk.getRootFolders( qr );
-     for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
-     {
-         QString name = qr.getField( "Folder" , itr ) ;
-         QString id = qr.getField( "Id" , itr ) ;
-         QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_folder ) ;
-         setFolderItemDecorations( item , name , id ) ;
-         fillCategorieRec( name , id , item ) ;
-         items.append( item ) ;
-     }
+    bk.getRootFolders( qr );
+    for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
+    {
+        QString name = qr.getField( "Folder" , itr ) ;
+        QString id = qr.getField( "Id" , itr ) ;
+        QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_folder ) ;
+        setFolderItemDecorations( item , name , id ) ;
+        fillCategorieRec( name , id , item ) ;
+        items.append( item ) ;
+    }
 
-     // ATTENIONE!
-     bk.getFavoritesByParentId( qr , "" ) ;
-     for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
-     {
-          QString name = qr.getField( "IdArticolo" , itr ) ;
-          QString id = qr.getField( "Id" , itr ) ;
-          QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_article ) ;
-          this->setArticleItemDecorations( item , name , id ) ;
-          items.append( item );
-     }
+    // ATTENIONE!
+    bk.getFavoritesByParentId( qr , "" ) ;
+    for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
+    {
+        QString name = qr.getField( "IdArticolo" , itr ) ;
+        QString id = qr.getField( "Id" , itr ) ;
+        QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidget*)0 , BookmarkGui::item_article ) ;
+        this->setArticleItemDecorations( item , name , id ) ;
+        items.append( item );
+    }
 
-     ui->treeCategorie->clear();
+    ui->treeCategorie->clear();
 
-     if ( items.isEmpty() )
-     {
-         showDataBaseMessage() ;
-         return ;
-     }
+    if ( items.isEmpty() )
+    {
+        showDataBaseMessage() ;
+        return ;
+    }
 
-     current_favorites_item = items.first() ;
-     ui->treeCategorie->insertTopLevelItems(0, items);
-     current_favorites_item->setExpanded( true ) ;
+    current_favorites_item = items.first() ;
+    ui->treeCategorie->insertTopLevelItems(0, items);
+    current_favorites_item->setExpanded( true ) ;
 }
 
 void BookmarkGui::fillCategorieRec( const QString& name , const QString& parent_id , QTreeWidgetItem* parent )
 {
-     Bookmark bk ;
-     QueryResult qr ;
+    Bookmark bk ;
+    QueryResult qr ;
 
-     bk.getFoldersId( qr , parent_id ) ;
+    bk.getFoldersId( qr , parent_id ) ;
 
-     for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
-     {
-          QString name = qr.getField( "Folder" , itr ) ;
-          QString id = qr.getField( "Id" , itr ) ;
-          QTreeWidgetItem* item = new QTreeWidgetItem( parent , BookmarkGui::item_folder ) ;
-          this->setFolderItemDecorations( item , name , id ) ;
-          this->fillCategorieRec( name , id , item ) ;
-     }
+    for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
+    {
+        QString name = qr.getField( "Folder" , itr ) ;
+        QString id = qr.getField( "Id" , itr ) ;
+        QTreeWidgetItem* item = new QTreeWidgetItem( parent , BookmarkGui::item_folder ) ;
+        this->setFolderItemDecorations( item , name , id ) ;
+        this->fillCategorieRec( name , id , item ) ;
+    }
 
-     bk.getFavoritesByParent( qr , name ) ;
-     for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
-     {
-          QString id_entry = qr.getField( "IdEntry" , itr ) ;
-          QString id = qr.getField( "Id" , itr ) ;
-          QTreeWidgetItem* item = new QTreeWidgetItem( parent , BookmarkGui::item_article ) ;
-          this->setArticleItemDecorations( item , id_entry , id ) ;
-     }
+    bk.getFavoritesByParent( qr , name ) ;
+    for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
+    {
+        QString id_entry = qr.getField( "IdEntry" , itr ) ;
+        QString id = qr.getField( "Id" , itr ) ;
+        QTreeWidgetItem* item = new QTreeWidgetItem( parent , BookmarkGui::item_article ) ;
+        this->setArticleItemDecorations( item , id_entry , id ) ;
+    }
 }
 
 void BookmarkGui::setFolderItemDecorations( QTreeWidgetItem* item , const QString& name , const QString& id )
@@ -494,29 +494,29 @@ void BookmarkGui::fillFavoriteInfo( const QString& id , const QString& Id_f )
     else
         ui->Comments->setHtml( res.getField(0,0) ) ;
 
-     ui->SaveComment->setDisabled( true );
+    ui->SaveComment->setDisabled( true );
 
-     res.clear() ;
-     bk.getState( res , Id_f ) ;
+    res.clear() ;
+    bk.getState( res , Id_f ) ;
 
-     if ( !res.empty() )
-     {
-         int index = ui->State->findText( res.getField(0,0) ) ;
-         ui->State->setCurrentIndex( index );
-     }
-     else
-         ui->State->setCurrentIndex( 0 );
+    if ( !res.empty() )
+    {
+        int index = ui->State->findText( res.getField(0,0) ) ;
+        ui->State->setCurrentIndex( index );
+    }
+    else
+        ui->State->setCurrentIndex( 0 );
 
-     res.clear() ;
-     bk.getEvaluation( res , Id_f ) ;
-     if ( !res.empty() )
-     {
-         int index = ui->Evaluation->findData( res.getField(0,0) ) ;
-         ui->Evaluation->setCurrentIndex( index );
-     }
-     else
-         ui->Evaluation->setCurrentIndex( 0 );
- }
+    res.clear() ;
+    bk.getEvaluation( res , Id_f ) ;
+    if ( !res.empty() )
+    {
+        int index = ui->Evaluation->findData( res.getField(0,0) ) ;
+        ui->Evaluation->setCurrentIndex( index );
+    }
+    else
+        ui->Evaluation->setCurrentIndex( 0 );
+}
 
 
 void BookmarkGui::fillEvaluations()
@@ -643,12 +643,12 @@ void BookmarkGui::appendFolder( QString name )
         parent_item = this->current_favorites_item->parent() ;
     }
 
-     QPair<QString,QString> folder_info = bk.addFolderId( parent_id , name ) ;
+    QPair<QString,QString> folder_info = bk.addFolderId( parent_id , name ) ;
 
-     new_folder = new QTreeWidgetItem( parent_item , BookmarkGui::item_folder ) ;
-     this->setFolderItemDecorations( new_folder , folder_info.second , folder_info.first ) ;
-     new_folder->setExpanded( true );
-     ui->treeCategorie->setCurrentItem( new_folder );
+    new_folder = new QTreeWidgetItem( parent_item , BookmarkGui::item_folder ) ;
+    this->setFolderItemDecorations( new_folder , folder_info.second , folder_info.first ) ;
+    new_folder->setExpanded( true );
+    ui->treeCategorie->setCurrentItem( new_folder );
 }
 
 bool  BookmarkGui::renameFolder()
@@ -745,310 +745,310 @@ void BookmarkGui::appendFavorite( QString id )
         ui->AddFavorite->setEnabled( false );
 }
 
- bool BookmarkGui::removeFavorite()
- {
-     if ( this->current_favorites_item == 0 ) return false;
-     if ( this->current_favorites_item->type() == BookmarkGui::item_folder ) return false ;
+bool BookmarkGui::removeFavorite()
+{
+    if ( this->current_favorites_item == 0 ) return false;
+    if ( this->current_favorites_item->type() == BookmarkGui::item_folder ) return false ;
 
-     QTreeWidgetItem* tmp_parent = this->current_favorites_item->parent() ;
+    QTreeWidgetItem* tmp_parent = this->current_favorites_item->parent() ;
 
-     Bookmark bk ;
-     bk.removeFavorite( tmp_parent->text( 1 ) , this->current_favorites_item->text( 2 ) ) ;
+    Bookmark bk ;
+    bk.removeFavorite( tmp_parent->text( 1 ) , this->current_favorites_item->text( 2 ) ) ;
 
-     tmp_parent->removeChild( this->current_favorites_item ) ;
-     this->current_favorites_item = tmp_parent ;
-     ui->treeCategorie->setCurrentItem( tmp_parent );
+    tmp_parent->removeChild( this->current_favorites_item ) ;
+    this->current_favorites_item = tmp_parent ;
+    ui->treeCategorie->setCurrentItem( tmp_parent );
 
-     return true ;
- }
+    return true ;
+}
 
- bool BookmarkGui::addState( QString new_state )
- {
-     Bookmark bk ;
-     QueryResult favorite ;
+bool BookmarkGui::addState( QString new_state )
+{
+    Bookmark bk ;
+    QueryResult favorite ;
 
-     bk.getFavoriteFullData( favorite , this->current_favorite );
+    bk.getFavoriteFullData( favorite , this->current_favorite );
 
-     QList<QTreeWidgetItem *> list_state =
-             ui->treeStates->findItems ( new_state , Qt::MatchExactly ) ;
+    QList<QTreeWidgetItem *> list_state =
+            ui->treeStates->findItems ( new_state , Qt::MatchExactly ) ;
 
-     if ( list_state.isEmpty() || list_state.size() > 1 ) return false ;
+    if ( list_state.isEmpty() || list_state.size() > 1 ) return false ;
 
-     QTreeWidgetItem *state = list_state.first() ;
+    QTreeWidgetItem *state = list_state.first() ;
 
-     if ( state->type() != BookmarkGui::item_state ) return false ;
+    if ( state->type() != BookmarkGui::item_state ) return false ;
 
-     QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidgetItem*)0 , BookmarkGui::item_article ) ;
-     this->setArticleItemDecorations( item , this->current_favorite , this->current_favorite_id ) ;
+    QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidgetItem*)0 , BookmarkGui::item_article ) ;
+    this->setArticleItemDecorations( item , this->current_favorite , this->current_favorite_id ) ;
 
-     state->addChild( item ) ;
-     state->setExpanded( true ) ;
-     ui->treeStates->setCurrentItem( item );
+    state->addChild( item ) ;
+    state->setExpanded( true ) ;
+    ui->treeStates->setCurrentItem( item );
 
-     return true ;
- }
+    return true ;
+}
 
- bool BookmarkGui::removeState()
- {
-     Bookmark bk ;
-     QueryResult favorite ;
-     QTreeWidgetItem *item ;
+bool BookmarkGui::removeState()
+{
+    Bookmark bk ;
+    QueryResult favorite ;
+    QTreeWidgetItem *item ;
 
-     bk.getFavoriteFullData( favorite , this->current_favorite );
+    bk.getFavoriteFullData( favorite , this->current_favorite );
 
-     QList<QTreeWidgetItem *> list =
-             ui->treeStates->findItems ( favorite.getField( "Id" , favorite.begin() ) , Qt::MatchExactly|Qt::MatchRecursive , 1 ) ;
+    QList<QTreeWidgetItem *> list =
+            ui->treeStates->findItems ( favorite.getField( "Id" , favorite.begin() ) , Qt::MatchExactly|Qt::MatchRecursive , 1 ) ;
 
-     if ( list.size() > 1 || list.isEmpty() ) return false ;
+    if ( list.size() > 1 || list.isEmpty() ) return false ;
 
-     item = list.first() ;
+    item = list.first() ;
 
-     if ( item->type() != BookmarkGui::item_article ) return false ;
+    if ( item->type() != BookmarkGui::item_article ) return false ;
 
-     QTreeWidgetItem *parent = item->parent() ;
-     parent->removeChild( item ); ;
+    QTreeWidgetItem *parent = item->parent() ;
+    parent->removeChild( item ); ;
 
-     return true ;
- }
+    return true ;
+}
 
- bool BookmarkGui::changeState( QString new_state )
- {
-     Bookmark bk ;
-     QueryResult favorite ;
-     QTreeWidgetItem *item ;
+bool BookmarkGui::changeState( QString new_state )
+{
+    Bookmark bk ;
+    QueryResult favorite ;
+    QTreeWidgetItem *item ;
 
-     bk.getFavoriteFullData( favorite , this->current_favorite );
+    bk.getFavoriteFullData( favorite , this->current_favorite );
 
-     QList<QTreeWidgetItem *> list =
-             ui->treeStates->findItems ( favorite.getField( "Titolo" , favorite.begin() ) , Qt::MatchExactly|Qt::MatchRecursive ) ;
+    QList<QTreeWidgetItem *> list =
+            ui->treeStates->findItems ( favorite.getField( "Titolo" , favorite.begin() ) , Qt::MatchExactly|Qt::MatchRecursive ) ;
 
-     if ( list.size() > 1 ) return false ;
+    if ( list.size() > 1 ) return false ;
 
-     QList<QTreeWidgetItem *> list_state =
-             ui->treeStates->findItems ( new_state , Qt::MatchExactly ) ;
+    QList<QTreeWidgetItem *> list_state =
+            ui->treeStates->findItems ( new_state , Qt::MatchExactly ) ;
 
 
-     if ( list_state.isEmpty() || list_state.size() > 1 ) return false ;
+    if ( list_state.isEmpty() || list_state.size() > 1 ) return false ;
 
-     QTreeWidgetItem *state = list_state.first() ;
+    QTreeWidgetItem *state = list_state.first() ;
 
-     if ( state->type() != BookmarkGui::item_state ) return false ;
+    if ( state->type() != BookmarkGui::item_state ) return false ;
 
-     item = list.first() ;
+    item = list.first() ;
 
-     if ( item->type() != BookmarkGui::item_article ) return false ;
+    if ( item->type() != BookmarkGui::item_article ) return false ;
 
-     int index = item->parent()->indexOfChild( item ) ;
-     item = item->parent()->takeChild( index ) ;
+    int index = item->parent()->indexOfChild( item ) ;
+    item = item->parent()->takeChild( index ) ;
 
-     state->addChild( item );
-     state->setExpanded( true );
+    state->addChild( item );
+    state->setExpanded( true );
 
-     ui->treeStates->setCurrentItem( item );
+    ui->treeStates->setCurrentItem( item );
 
-     return true ;
- }
+    return true ;
+}
 
- bool BookmarkGui::addEvaluation( QString stars )
- {
-     Bookmark bk ;
-     QueryResult favorite ;
+bool BookmarkGui::addEvaluation( QString stars )
+{
+    Bookmark bk ;
+    QueryResult favorite ;
 
-     bk.getFavoriteFullData( favorite , this->current_favorite );
+    bk.getFavoriteFullData( favorite , this->current_favorite );
 
-     QList<QTreeWidgetItem *> list_evaluations =
-             ui->treeEvaluations->findItems ( stars , Qt::MatchExactly , 1 ) ;
+    QList<QTreeWidgetItem *> list_evaluations =
+            ui->treeEvaluations->findItems ( stars , Qt::MatchExactly , 1 ) ;
 
-     qDebug() << list_evaluations.isEmpty() << list_evaluations.size() << stars ;
-     if ( list_evaluations.isEmpty() || list_evaluations.size() > 1 ) return false ;
+    qDebug() << list_evaluations.isEmpty() << list_evaluations.size() << stars ;
+    if ( list_evaluations.isEmpty() || list_evaluations.size() > 1 ) return false ;
 
-     QTreeWidgetItem *evaluation = list_evaluations.first() ;
+    QTreeWidgetItem *evaluation = list_evaluations.first() ;
 
-     if ( evaluation->type() != BookmarkGui::item_evaluation ) return false ;
+    if ( evaluation->type() != BookmarkGui::item_evaluation ) return false ;
 
-     QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidgetItem*)0 , BookmarkGui::item_article ) ;
-     this->setArticleItemDecorations( item , this->current_favorite , this->current_favorite_id ) ;
+    QTreeWidgetItem* item = new QTreeWidgetItem( (QTreeWidgetItem*)0 , BookmarkGui::item_article ) ;
+    this->setArticleItemDecorations( item , this->current_favorite , this->current_favorite_id ) ;
 
-     evaluation->addChild( item ) ;
-     evaluation->setExpanded( true ) ;
+    evaluation->addChild( item ) ;
+    evaluation->setExpanded( true ) ;
 
-     ui->treeEvaluations->setCurrentItem( item );
+    ui->treeEvaluations->setCurrentItem( item );
 
-     return true ;
- }
+    return true ;
+}
 
- bool BookmarkGui::changeEvaluation( QString stars )
- {
-     Bookmark bk ;
-     QueryResult favorite ;
-     QTreeWidgetItem *item ;
+bool BookmarkGui::changeEvaluation( QString stars )
+{
+    Bookmark bk ;
+    QueryResult favorite ;
+    QTreeWidgetItem *item ;
 
-     bk.getFavoriteFullData( favorite , this->current_favorite );
+    bk.getFavoriteFullData( favorite , this->current_favorite );
 
-     QList<QTreeWidgetItem *> list =
-             ui->treeEvaluations->findItems ( favorite.getField( "Titolo" , favorite.begin() ) , Qt::MatchExactly|Qt::MatchRecursive ) ;
+    QList<QTreeWidgetItem *> list =
+            ui->treeEvaluations->findItems ( favorite.getField( "Titolo" , favorite.begin() ) , Qt::MatchExactly|Qt::MatchRecursive ) ;
 
-     if ( list.size() > 1 ) return false ;
+    if ( list.size() > 1 ) return false ;
 
-     QList<QTreeWidgetItem *> list_evaluations =
-             ui->treeEvaluations->findItems ( stars , Qt::MatchExactly , 1 ) ;
+    QList<QTreeWidgetItem *> list_evaluations =
+            ui->treeEvaluations->findItems ( stars , Qt::MatchExactly , 1 ) ;
 
-     if ( list_evaluations.isEmpty() || list_evaluations.size() > 1 ) return false ;
+    if ( list_evaluations.isEmpty() || list_evaluations.size() > 1 ) return false ;
 
-     QTreeWidgetItem *evaluation = list_evaluations.first() ;
+    QTreeWidgetItem *evaluation = list_evaluations.first() ;
 
-     if ( evaluation->type() != BookmarkGui::item_evaluation ) return false ;
+    if ( evaluation->type() != BookmarkGui::item_evaluation ) return false ;
 
-     item = list.first() ;
+    item = list.first() ;
 
-     if ( item->type() != BookmarkGui::item_article ) return false ;
+    if ( item->type() != BookmarkGui::item_article ) return false ;
 
-     int index = item->parent()->indexOfChild( item ) ;
-     item = item->parent()->takeChild( index ) ;
+    int index = item->parent()->indexOfChild( item ) ;
+    item = item->parent()->takeChild( index ) ;
 
-     evaluation->addChild( item );
-     evaluation->setExpanded( true );
+    evaluation->addChild( item );
+    evaluation->setExpanded( true );
 
-     ui->treeEvaluations->setCurrentItem( item );
+    ui->treeEvaluations->setCurrentItem( item );
 
-     return true ;
- }
+    return true ;
+}
 
- bool BookmarkGui::removeEvaluation()
- {
-     Bookmark bk ;
-     QueryResult favorite ;
-     QTreeWidgetItem *item ;
+bool BookmarkGui::removeEvaluation()
+{
+    Bookmark bk ;
+    QueryResult favorite ;
+    QTreeWidgetItem *item ;
 
-     bk.getFavoriteFullData( favorite , this->current_favorite );
+    bk.getFavoriteFullData( favorite , this->current_favorite );
 
-     QList<QTreeWidgetItem *> list =
-             ui->treeEvaluations->findItems ( favorite.getField( "Id" , favorite.begin() ) , Qt::MatchExactly|Qt::MatchRecursive , 1 ) ;
+    QList<QTreeWidgetItem *> list =
+            ui->treeEvaluations->findItems ( favorite.getField( "Id" , favorite.begin() ) , Qt::MatchExactly|Qt::MatchRecursive , 1 ) ;
 
-     if ( list.size() > 1 || list.isEmpty() ) return false ;
+    if ( list.size() > 1 || list.isEmpty() ) return false ;
 
-     item = list.first() ;
+    item = list.first() ;
 
-     if ( item->type() != BookmarkGui::item_article ) return false ;
+    if ( item->type() != BookmarkGui::item_article ) return false ;
 
-     QTreeWidgetItem *parent = item->parent() ;
-     parent->removeChild( item ); ;
+    QTreeWidgetItem *parent = item->parent() ;
+    parent->removeChild( item ); ;
 
-     return true ;
- }
+    return true ;
+}
 
- void BookmarkGui::on_cutItem()
- {
-     if ( this->cut_state == true )
-     {
-         this->cutted_item->setDisabled( false );
-         this->cut_state = false ;
-     }
+void BookmarkGui::on_cutItem()
+{
+    if ( this->cut_state == true )
+    {
+        this->cutted_item->setDisabled( false );
+        this->cut_state = false ;
+    }
 
-     if ( this->current_favorites_item->type() == BookmarkGui::item_folder )
-     {
-         this->cutted_item = this->current_favorites_item ;
-         this->cutted_item->setDisabled( true ) ;
-         this->cut_state = true ;
+    if ( this->current_favorites_item->type() == BookmarkGui::item_folder )
+    {
+        this->cutted_item = this->current_favorites_item ;
+        this->cutted_item->setDisabled( true ) ;
+        this->cut_state = true ;
 
-         this->enableEntryMenuFavorites( BookmarkGui::paste | BookmarkGui::cancelCut );
-         this->disableEntryMenuFavorites( BookmarkGui::cut );
-     }
-     else if ( this->current_favorites_item->type() == BookmarkGui::item_article )
-     {
-         this->cutted_item = this->current_favorites_item ;
-         this->cutted_item->setDisabled( true ) ;
-         this->cut_state = true ;
+        this->enableEntryMenuFavorites( BookmarkGui::paste | BookmarkGui::cancelCut );
+        this->disableEntryMenuFavorites( BookmarkGui::cut );
+    }
+    else if ( this->current_favorites_item->type() == BookmarkGui::item_article )
+    {
+        this->cutted_item = this->current_favorites_item ;
+        this->cutted_item->setDisabled( true ) ;
+        this->cut_state = true ;
 
-         this->enableEntryMenuFavorites( BookmarkGui::paste | BookmarkGui::cancelCut );
-         this->disableEntryMenuFavorites( BookmarkGui::cut );
-     }
-     else
-     {
-         return ;
-     }
- }
+        this->enableEntryMenuFavorites( BookmarkGui::paste | BookmarkGui::cancelCut );
+        this->disableEntryMenuFavorites( BookmarkGui::cut );
+    }
+    else
+    {
+        return ;
+    }
+}
 
 
 
- void BookmarkGui::on_pasteItem()
- {
-     if ( this->cut_state == true
-          && this->current_favorites_item->type() == BookmarkGui::item_folder )
-     {
-         Bookmark bk ;
+void BookmarkGui::on_pasteItem()
+{
+    if ( this->cut_state == true
+         && this->current_favorites_item->type() == BookmarkGui::item_folder )
+    {
+        Bookmark bk ;
 
-         QTreeWidgetItem* old_parent = this->cutted_item->parent() ;
+        QTreeWidgetItem* old_parent = this->cutted_item->parent() ;
 
-         if ( old_parent != this->current_favorites_item
-              && this->cutted_item != this->current_favorites_item )
-         {
-             if ( this->cutted_item->type() == BookmarkGui::item_folder )
+        if ( old_parent != this->current_favorites_item
+             && this->cutted_item != this->current_favorites_item )
+        {
+            if ( this->cutted_item->type() == BookmarkGui::item_folder )
                 bk.moveFolder( this->cutted_item->text(1) , this->current_favorites_item->text(1) ) ;
-             else if ( this->cutted_item->type() == BookmarkGui::item_article )
+            else if ( this->cutted_item->type() == BookmarkGui::item_article )
                 bk.moveFavorite( this->cutted_item->text(2) , this->current_favorites_item->text(1) ) ;
-             else
-                 return ;
+            else
+                return ;
 
-             int index = old_parent->indexOfChild( this->cutted_item ) ;
-             this->cutted_item = old_parent->takeChild( index ) ;
-             this->current_favorites_item->addChild( this->cutted_item );
-             this->cutted_item->setDisabled( false ) ;
-             this->cutted_item->parent()->setExpanded( true ) ;
-             ui->treeCategorie->setCurrentItem( this->cutted_item );
-         }
+            int index = old_parent->indexOfChild( this->cutted_item ) ;
+            this->cutted_item = old_parent->takeChild( index ) ;
+            this->current_favorites_item->addChild( this->cutted_item );
+            this->cutted_item->setDisabled( false ) ;
+            this->cutted_item->parent()->setExpanded( true ) ;
+            ui->treeCategorie->setCurrentItem( this->cutted_item );
+        }
 
-         this->cutted_item->setDisabled( false ) ;
-         this->cutted_item = 0 ;
-         this->cut_state = false ;
+        this->cutted_item->setDisabled( false ) ;
+        this->cutted_item = 0 ;
+        this->cut_state = false ;
 
-         this->disableEntryMenuFavorites( BookmarkGui::paste | BookmarkGui::cancelCut );
-         this->enableEntryMenuFavorites( BookmarkGui::cut );
+        this->disableEntryMenuFavorites( BookmarkGui::paste | BookmarkGui::cancelCut );
+        this->enableEntryMenuFavorites( BookmarkGui::cut );
 
-         return ;
-     }
- }
+        return ;
+    }
+}
 
- void BookmarkGui::showDataBaseMessage()
- {
-     QMessageBox msgBox;
-     msgBox.setMinimumWidth( 300 );
-     msgBox.setText( tr("Bookmark inutillizabile") );
-     msgBox.setInformativeText( tr("Sembra esistere un file di bookmark ma e' inutilizzabile. <br/> Ne vuoi creare uno nuovo?")  );
-     msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+void BookmarkGui::showDataBaseMessage()
+{
+    QMessageBox msgBox;
+    msgBox.setMinimumWidth( 300 );
+    msgBox.setText( tr("Bookmark inutillizabile") );
+    msgBox.setInformativeText( tr("Sembra esistere un file di bookmark ma e' inutilizzabile. <br/> Ne vuoi creare uno nuovo?")  );
+    msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
 
-     int ret = msgBox.exec();
+    int ret = msgBox.exec();
 
-     Bookmark bk ;
+    Bookmark bk ;
 
-     switch (ret) {
-     case QMessageBox::Ok:
-           bk.initBookmarkForce() ;
-           this->fillCategorie() ;
-           break;
-       case QMessageBox::Cancel:
-           // Cancel was clicked
-           break;
-       default:
-           // should never be reached
-           break;
-     }
- }
+    switch (ret) {
+    case QMessageBox::Ok:
+        bk.initBookmarkForce() ;
+        this->fillCategorie() ;
+        break;
+    case QMessageBox::Cancel:
+        // Cancel was clicked
+        break;
+    default:
+        // should never be reached
+        break;
+    }
+}
 
- void BookmarkGui::on_cancelCut()
- {
-     if ( this->cutted_item != 0 )
-     {
-         this->cutted_item->setDisabled( false ) ;
-         this->cutted_item = 0 ;
-         this->cut_state = false ;
+void BookmarkGui::on_cancelCut()
+{
+    if ( this->cutted_item != 0 )
+    {
+        this->cutted_item->setDisabled( false ) ;
+        this->cutted_item = 0 ;
+        this->cut_state = false ;
 
-         this->disableEntryMenuFavorites( BookmarkGui::paste | BookmarkGui::cancelCut );
-         this->enableEntryMenuFavorites( BookmarkGui::cut );
+        this->disableEntryMenuFavorites( BookmarkGui::paste | BookmarkGui::cancelCut );
+        this->enableEntryMenuFavorites( BookmarkGui::cut );
 
-         return ;
-     }
- }
+        return ;
+    }
+}
 
 void BookmarkGui::on_newFolder()
 {
@@ -1397,3 +1397,4 @@ void BookmarkGui::clearFavoriteInfo()
     ui->Abstract->clear();
     ui->Comments->clear();
 }
+
