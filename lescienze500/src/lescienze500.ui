@@ -139,7 +139,7 @@
                <property name="margin">
                 <number>1</number>
                </property>
-               <item row="0" column="0" colspan="12">
+               <item row="0" column="0" colspan="11">
                 <widget class="QTextBrowser" name="MostraTitolo">
                  <property name="minimumSize">
                   <size>
@@ -171,82 +171,7 @@
                  </property>
                 </widget>
                </item>
-               <item row="4" column="1">
-                <widget class="QTextBrowser" name="MostraNumero">
-                 <property name="minimumSize">
-                  <size>
-                   <width>70</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>70</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QTextBrowser" name="MostraData">
-                 <property name="minimumSize">
-                  <size>
-                   <width>100</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>143</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="7">
-                <widget class="QPushButton" name="PreviewArticolo_2">
-                 <property name="minimumSize">
-                  <size>
-                   <width>40</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="toolTip">
-                  <string>Mostra L'anteprima
-dell'articolo</string>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="crystal.qrc">
-                   <normaloff>:/icons/crystal/contents-256.png</normaloff>:/icons/crystal/contents-256.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>20</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="4">
-                <widget class="QPushButton" name="pushButton">
-                 <property name="toolTip">
-                  <string>Mostra la rivista
-contenete questo 
-articolo.</string>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="crystal.qrc">
-                   <normaloff>:/icons/crystal/1rightarrow-256.png</normaloff>:/icons/crystal/1rightarrow-256.png</iconset>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="6">
+               <item row="4" column="5">
                 <spacer name="horizontalSpacer_10">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
@@ -259,24 +184,7 @@ articolo.</string>
                  </property>
                 </spacer>
                </item>
-               <item row="4" column="8">
-                <widget class="QPushButton" name="ApriPDF_A">
-                 <property name="minimumSize">
-                  <size>
-                   <width>120</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>Leggi Articolo</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="crystal.qrc">
-                   <normaloff>:/icons/crystal/pdficon.png</normaloff>:/icons/crystal/pdficon.png</iconset>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="11">
+               <item row="4" column="10">
                 <spacer name="horizontalSpacer_11">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
@@ -289,19 +197,121 @@ articolo.</string>
                  </property>
                 </spacer>
                </item>
-               <item row="3" column="5" rowspan="2">
-                <widget class="QPushButton" name="addFavoriti">
-                 <property name="toolTip">
-                  <string>Aggiungi ai Preferiti.</string>
+               <item row="4" column="0" colspan="5">
+                <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <property name="spacing">
+                  <number>0</number>
                  </property>
-                 <property name="text">
-                  <string/>
+                 <property name="sizeConstraint">
+                  <enum>QLayout::SetNoConstraint</enum>
                  </property>
-                 <property name="icon">
-                  <iconset resource="crystal.qrc">
-                   <normaloff>:/icons/crystal/bookmark_add-256.png</normaloff>:/icons/crystal/bookmark_add-256.png</iconset>
-                 </property>
-                </widget>
+                 <item>
+                  <widget class="QTextBrowser" name="MostraData">
+                   <property name="minimumSize">
+                    <size>
+                     <width>130</width>
+                     <height>31</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>143</width>
+                     <height>31</height>
+                    </size>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QTextBrowser" name="MostraNumero">
+                   <property name="minimumSize">
+                    <size>
+                     <width>70</width>
+                     <height>31</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>70</width>
+                     <height>31</height>
+                    </size>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton">
+                   <property name="toolTip">
+                    <string>Mostra la rivista
+contenete questo 
+articolo.</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="crystal.qrc">
+                     <normaloff>:/icons/crystal/1rightarrow-256.png</normaloff>:/icons/crystal/1rightarrow-256.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="addFavoriti">
+                   <property name="toolTip">
+                    <string>Aggiungi ai Preferiti.</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="crystal.qrc">
+                     <normaloff>:/icons/crystal/bookmark_add-256.png</normaloff>:/icons/crystal/bookmark_add-256.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="PreviewArticolo_2">
+                   <property name="minimumSize">
+                    <size>
+                     <width>40</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Mostra L'anteprima
+dell'articolo</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="crystal.qrc">
+                     <normaloff>:/icons/crystal/contents-256.png</normaloff>:/icons/crystal/contents-256.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>20</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="ApriPDF_A">
+                   <property name="minimumSize">
+                    <size>
+                     <width>120</width>
+                     <height>31</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Leggi Articolo  </string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="crystal.qrc">
+                     <normaloff>:/icons/crystal/pdficon.png</normaloff>:/icons/crystal/pdficon.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
@@ -353,6 +363,10 @@ articolo.</string>
                  <property name="text">
                   <string>Apri Articolo in PDF</string>
                  </property>
+                 <property name="icon">
+                  <iconset resource="crystal.qrc">
+                   <normaloff>:/icons/crystal/pdficon.png</normaloff>:/icons/crystal/pdficon.png</iconset>
+                 </property>
                 </widget>
                </item>
                <item row="3" column="0">
@@ -375,6 +389,10 @@ articolo.</string>
                 <widget class="QPushButton" name="PreviewArticolo">
                  <property name="text">
                   <string>Preview articolo</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="crystal.qrc">
+                   <normaloff>:/icons/crystal/bookmarks-organize.png</normaloff>:/icons/crystal/bookmarks-organize.png</iconset>
                  </property>
                 </widget>
                </item>
@@ -1251,7 +1269,7 @@ articolo.</string>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>10</width>
+                  <width>5</width>
                   <height>20</height>
                  </size>
                 </property>
@@ -1272,6 +1290,12 @@ articolo.</string>
                  <enum>QFrame::Raised</enum>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_7">
+                 <property name="margin">
+                  <number>0</number>
+                 </property>
+                 <property name="spacing">
+                  <number>0</number>
+                 </property>
                  <item row="2" column="0">
                   <widget class="QFrame" name="AND_OR_Frame">
                    <property name="enabled">
@@ -1279,7 +1303,7 @@ articolo.</string>
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>150</width>
+                     <width>130</width>
                      <height>30</height>
                     </size>
                    </property>
@@ -1349,12 +1373,16 @@ p, li { white-space: pre-wrap; }
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>86</width>
+                     <width>100</width>
                      <height>30</height>
                     </size>
                    </property>
                    <property name="text">
                     <string>Configura</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="crystal.qrc">
+                     <normaloff>:/icons/crystal/configure-256.png</normaloff>:/icons/crystal/configure-256.png</iconset>
                    </property>
                   </widget>
                  </item>
@@ -1409,11 +1437,15 @@ p, li { white-space: pre-wrap; }
                    <property name="maximumSize">
                     <size>
                      <width>16777215</width>
-                     <height>25</height>
+                     <height>30</height>
                     </size>
                    </property>
                    <property name="text">
                     <string>Apri Browser Riviste</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="crystal.qrc">
+                     <normaloff>:/icons/crystal/bookmarks-organize.png</normaloff>:/icons/crystal/bookmarks-organize.png</iconset>
                    </property>
                   </widget>
                  </item>
