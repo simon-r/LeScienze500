@@ -213,29 +213,7 @@ BookmarkGui::~BookmarkGui()
     delete ui;
 }
 
-void BookmarkGui::fillBookmarkMenu( QAction* def_act )
-{
-    if ( this->bookmarkMenu == 0 ) return ;
-    this->bookmarkMenu->clear() ;
 
-    if ( def_act != 0 )
-    {
-        this->bookmarkMenu->addAction( def_act ) ;
-        this->bookmarkMenu->addSeparator() ;
-    }
-
-    Bookmark bk ;
-    QueryResult qr ;
-
-    bk.getRootFolders( qr ) ;
-    for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
-    {
-        QString name = qr.getField( "Folder" , itr ) ;
-        QString id = qr.getField( "Id" , itr ) ;
-        qDebug() << "BookmarkGui::fillBookmarkMenu" << name << id ;
-        this->fillBookmarkMenuRec( bookmarkMenu , name , id ) ;
-    }
-}
 
 //enum menuFavoritesEntry { newFolder=1 , cut=2 , cancelCut=4 , paste=8 , remove=16 , ranameFolder=32 } ;
 void BookmarkGui::enableEntryMenuFavorites( int e )
@@ -289,6 +267,30 @@ void  BookmarkGui::disableEntryMenuStates( int e )
         menu_states_ptr["rename"]->setDisabled( true ) ;
     if ( e & RemoveState )
         menu_states_ptr["remove_state"]->setDisabled( true ) ;
+}
+
+void BookmarkGui::fillBookmarkMenu( QAction* def_act )
+{
+    if ( this->bookmarkMenu == 0 ) return ;
+    this->bookmarkMenu->clear() ;
+
+    if ( def_act != 0 )
+    {
+        this->bookmarkMenu->addAction( def_act ) ;
+        this->bookmarkMenu->addSeparator() ;
+    }
+
+    Bookmark bk ;
+    QueryResult qr ;
+
+    bk.getRootFolders( qr ) ;
+    for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
+    {
+        QString name = qr.getField( "Folder" , itr ) ;
+        QString id = qr.getField( "Id" , itr ) ;
+        qDebug() << "BookmarkGui::fillBookmarkMenu" << name << id ;
+        this->fillBookmarkMenuRec( bookmarkMenu , name , id ) ;
+    }
 }
 
 void BookmarkGui::fillBookmarkMenuRec( QMenu *menu , QString name , QString parent_id )
@@ -1148,7 +1150,6 @@ void BookmarkGui::on_selectedChanged()
     {
         this->clearFavoriteInfo();
     }
-
 
     if ( ui->toolBox->currentIndex() == 0 && item->type() == BookmarkGui::item_folder )
         this->enableEntryMenuFavorites( BookmarkGui::renameFold ) ;
