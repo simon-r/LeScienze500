@@ -139,18 +139,22 @@ void BookmarkGui::open( QString id )
 void BookmarkGui::buildMenuStates()
 {
     QAction* add_state = new QAction( tr( "Aggiungi Stato" ) , 0 );
+    menu_states_ptr.insert( "add_state" , add_state ) ;
     connect( add_state , SIGNAL(triggered()) , this , SLOT(on_newState()) ) ;
     this->menuStates.addAction( add_state ) ;
 
     QAction* rename = new QAction( tr( "Cambia nome" ) , 0 );
+    menu_states_ptr.insert( "rename" , rename ) ;
     connect( rename , SIGNAL(triggered()) , this , SLOT(on_renameState()) ) ;
     this->menuStates.addAction( rename ) ;
 
     QAction* remove_state = new QAction( tr( "Rimuovi Stato" ) , 0 );
+    menu_states_ptr.insert( "remove_state" , remove_state ) ;
     connect( remove_state , SIGNAL(triggered()) , this , SLOT(on_removeState()) ) ;
     this->menuStates.addAction( remove_state ) ;
 
     ui->stateMenu->setMenu( &this->menuStates );
+    this->disableEntryMenuStates( RenameState | RemoveState ) ;
 }
 
 void BookmarkGui::buildMenuFavorites()
@@ -166,11 +170,6 @@ void BookmarkGui::buildMenuFavorites()
     menu_ptr.insert( "cut" , cut ) ;
     connect( cut , SIGNAL(triggered()) , this , SLOT(on_cutItem()) ) ;
     this->menuFavorites.addAction( cut ) ;
-
-//    QAction* copy = new QAction( tr( "Copia" ) , 0 );
-//    menu_ptr.insert( "copy" , copy ) ;
-//    copy->setDisabled( true );
-//    this->menuFavorites.addAction( copy ) ;
 
     QAction* paste = new QAction( tr( "Incolla" ) , 0 );
     menu_ptr.insert( "paste" , paste ) ;
@@ -267,6 +266,27 @@ void BookmarkGui::disableEntryMenuFavorites( int e )
         menu_ptr["remove"]->setDisabled( true );
     if ( e & renameFold )
         menu_ptr["rename_folder"]->setDisabled( true );
+}
+
+//enum menuStatesEntry { NewState=1 , RenameState=2 , RemoveState=4 } ;
+void  BookmarkGui::enableEntryMenuStates( int e )
+{
+    if ( e & NewState )
+        menu_states_ptr["add_state"]->setEnabled( true ) ;
+    if ( e & RenameState )
+        menu_states_ptr["rename"]->setEnabled( true ) ;
+    if ( e & RemoveState )
+        menu_states_ptr["remove_state"]->setEnabled( true ) ;
+}
+
+void  BookmarkGui::disableEntryMenuStates( int e )
+{
+    if ( e & NewState )
+        menu_states_ptr["add_state"]->setDisabled( true ) ;
+    if ( e & RenameState )
+        menu_states_ptr["rename"]->setDisabled( true ) ;
+    if ( e & RemoveState )
+        menu_states_ptr["remove_state"]->setDisabled( true ) ;
 }
 
 void BookmarkGui::fillBookmarkMenuRec( QMenu *menu , QString name , QString parent_id )
@@ -661,7 +681,15 @@ bool BookmarkGui::removeFolder()
     Bookmark bk ;
     bool fr = bk.removeFolder( this->current_favorites_item->text( 1 ) ) ;
 
-    if ( !fr ) return false ;
+    if ( !fr )
+    {
+        QMessageBox msgBox;
+        msgBox.setText( tr("Si possono rimuovere solo le cartelle vuote.") );
+        msgBox.setIcon( QMessageBox::Information ) ;
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.exec() ;
+        return false ;
+    }
 
     tmp_parent->removeChild( this->current_favorites_item ) ;
     this->current_favorites_item = tmp_parent ;
@@ -1121,6 +1149,12 @@ void BookmarkGui::on_selectedChanged()
     if ( ui->toolBox->currentIndex() == 0 && item->type() == BookmarkGui::item_article )
         this->disableEntryMenuFavorites( BookmarkGui::renameFold ) ;
 
+    if ( ui->toolBox->currentIndex() == 1 && item->type() == BookmarkGui::item_state )
+        this->enableEntryMenuStates( RenameState | RemoveState ) ;
+
+    if ( ui->toolBox->currentIndex() == 1 && item->type() == BookmarkGui::item_article )
+        this->disableEntryMenuStates( RenameState | RemoveState ) ;
+
     this->current_favorites_item = item ;
 }
 
@@ -1219,6 +1253,7 @@ void BookmarkGui::on_newState()
     this->name_d.open();
 
     QString name = name_d.text() ;
+    if ( name.isEmpty() ) return ;
 
     Bookmark bk ;
 

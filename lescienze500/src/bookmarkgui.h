@@ -88,15 +88,21 @@ private:
     QString current_favorite_id ;
 
     QHash<QString,QAction*> menu_ptr ;
+    QHash<QString,QAction*> menu_states_ptr ;
+
 
     void buildMenuFavorites() ;
     void buildMenuStates() ;
 
     enum item_types { item_folder=1001 , item_article , item_state , item_evaluation } ;
     enum menuFavoritesEntry { newFolder=1 , cut=2 , cancelCut=4 , paste=8 , remove=16 , renameFold=32 } ;
+    enum menuStatesEntry { NewState=1 , RenameState=2 , RemoveState=4 } ;
 
     void enableEntryMenuFavorites( int e ) ;
     void disableEntryMenuFavorites( int e ) ;
+
+    void enableEntryMenuStates( int e ) ;
+    void disableEntryMenuStates( int e ) ;
 
     void fillCategorieRec( const QString& name , const QString& id , QTreeWidgetItem* parent ) ;
 
