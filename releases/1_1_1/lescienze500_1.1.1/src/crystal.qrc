@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>crystal/1downarrow-256.png</file>
+        <file>crystal/1downarrow1-256.png</file>
+        <file>crystal/1leftarrow-256.png</file>
+        <file>crystal/1rightarrow-256.png</file>
+        <file>crystal/1uparrow-256.png</file>
+        <file>crystal/agt_action_fail-256.png</file>
+        <file>crystal/agt_action_fail1-256.png</file>
+        <file>crystal/configure-256.png</file>
+        <file>crystal/documentinfo-256.png</file>
+        <file>crystal/contents-256.png</file>
+        <file>crystal/cdinfo-256.png</file>
+        <file>crystal/folder.png</file>
+        <file>crystal/doc-icon.png</file>
+        <file>crystal/bookmark_add-256.png</file>
+        <file>crystal/pdficon.png</file>
+        <file>crystal/application-exit-3.png</file>
+        <file>crystal/help-contents.png</file>
+        <file>crystal/bookmark-toolbar-2.png</file>
+        <file>crystal/bookmarks-organize.png</file>
+        <file>crystal/book.png</file>
+        <file>crystal/db_update.png</file>
+    </qresource>
+</RCC>
