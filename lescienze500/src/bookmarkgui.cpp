@@ -97,6 +97,12 @@ void BookmarkGui::open()
 
     ui->SaveComment->setDisabled( true );
 
+    this->disableEntryMenuFavorites( BookmarkGui::cancelCut
+                                     | BookmarkGui::cut
+                                     | BookmarkGui::paste
+                                     | BookmarkGui::renameFold
+                                     | BookmarkGui::remove );
+
     setModal( true ) ;
     show() ;
     exec() ;
@@ -120,6 +126,12 @@ void BookmarkGui::open( QString id )
     this->fillFavoriteInfo( id ) ;
 
     ui->SaveComment->setDisabled( true );
+
+    this->disableEntryMenuFavorites( BookmarkGui::cancelCut
+                                     | BookmarkGui::cut
+                                     | BookmarkGui::paste
+                                     | BookmarkGui::renameFold
+                                     | BookmarkGui::remove );
 
     exec() ;
 }
@@ -155,10 +167,10 @@ void BookmarkGui::buildMenuFavorites()
     connect( cut , SIGNAL(triggered()) , this , SLOT(on_cutItem()) ) ;
     this->menuFavorites.addAction( cut ) ;
 
-    QAction* copy = new QAction( tr( "Copia" ) , 0 );
-    menu_ptr.insert( "copy" , copy ) ;
-    copy->setDisabled( true );
-    this->menuFavorites.addAction( copy ) ;
+//    QAction* copy = new QAction( tr( "Copia" ) , 0 );
+//    menu_ptr.insert( "copy" , copy ) ;
+//    copy->setDisabled( true );
+//    this->menuFavorites.addAction( copy ) ;
 
     QAction* paste = new QAction( tr( "Incolla" ) , 0 );
     menu_ptr.insert( "paste" , paste ) ;
@@ -185,7 +197,15 @@ void BookmarkGui::buildMenuFavorites()
     this->menuFavorites.addAction( rename_folder ) ;
 
     ui->mainFavoritesMenu->setMenu( &this->menuFavorites );
+
+    this->disableEntryMenuFavorites( BookmarkGui::cancelCut
+                                     | BookmarkGui::cut
+                                     | BookmarkGui::paste
+                                     | BookmarkGui::renameFold
+                                     | BookmarkGui::remove );
 }
+
+//enum menuFavoritesEntry { newFolder=1 , cut=2 , cancelCut=4 , paste=8 , remove=16 , ranameFolder=32 } ;
 
 BookmarkGui::~BookmarkGui()
 {
@@ -214,6 +234,39 @@ void BookmarkGui::fillBookmarkMenu( QAction* def_act )
          qDebug() << "BookmarkGui::fillBookmarkMenu" << name << id ;
         this->fillBookmarkMenuRec( bookmarkMenu , name , id ) ;
     }
+}
+
+//enum menuFavoritesEntry { newFolder=1 , cut=2 , cancelCut=4 , paste=8 , remove=16 , ranameFolder=32 } ;
+void BookmarkGui::enableEntryMenuFavorites( int e )
+{
+    if ( e & newFolder )
+        menu_ptr["new_folder"]->setEnabled( true );
+    if ( e & cut )
+        menu_ptr["cut"]->setEnabled( true );
+    if ( e & cancelCut )
+        menu_ptr["cancel_cut"]->setEnabled( true );
+    if ( e & paste )
+        menu_ptr["paste"]->setEnabled( true );
+    if ( e & remove )
+        menu_ptr["remove"]->setEnabled( true );
+    if ( e & renameFold )
+        menu_ptr["rename_folder"]->setEnabled( true );
+}
+
+void BookmarkGui::disableEntryMenuFavorites( int e )
+{
+    if ( e & newFolder )
+        menu_ptr["new_folder"]->setDisabled( true );
+    if ( e & cut )
+        menu_ptr["cut"]->setDisabled( true );
+    if ( e & cancelCut )
+        menu_ptr["cancel_cut"]->setDisabled( true );
+    if ( e & paste )
+        menu_ptr["paste"]->setDisabled( true );
+    if ( e & remove )
+        menu_ptr["remove"]->setDisabled( true );
+    if ( e & renameFold )
+        menu_ptr["rename_folder"]->setDisabled( true );
 }
 
 void BookmarkGui::fillBookmarkMenuRec( QMenu *menu , QString name , QString parent_id )
@@ -867,13 +920,18 @@ void BookmarkGui::appendFavorite( QString id )
          this->cutted_item = this->current_favorites_item ;
          this->cutted_item->setDisabled( true ) ;
          this->cut_state = true ;
-         qDebug() << "cut folder" ;
+
+         this->enableEntryMenuFavorites( BookmarkGui::paste | BookmarkGui::cancelCut );
+         this->disableEntryMenuFavorites( BookmarkGui::cut );
      }
      else if ( this->current_favorites_item->type() == BookmarkGui::item_article )
      {
          this->cutted_item = this->current_favorites_item ;
          this->cutted_item->setDisabled( true ) ;
          this->cut_state = true ;
+
+         this->enableEntryMenuFavorites( BookmarkGui::paste | BookmarkGui::cancelCut );
+         this->disableEntryMenuFavorites( BookmarkGui::cut );
      }
      else
      {
@@ -913,6 +971,10 @@ void BookmarkGui::appendFavorite( QString id )
          this->cutted_item->setDisabled( false ) ;
          this->cutted_item = 0 ;
          this->cut_state = false ;
+
+         this->disableEntryMenuFavorites( BookmarkGui::paste | BookmarkGui::cancelCut );
+         this->enableEntryMenuFavorites( BookmarkGui::cut );
+
          return ;
      }
  }
@@ -950,6 +1012,10 @@ void BookmarkGui::appendFavorite( QString id )
          this->cutted_item->setDisabled( false ) ;
          this->cutted_item = 0 ;
          this->cut_state = false ;
+
+         this->disableEntryMenuFavorites( BookmarkGui::paste | BookmarkGui::cancelCut );
+         this->enableEntryMenuFavorites( BookmarkGui::cut );
+
          return ;
      }
  }
@@ -1014,7 +1080,10 @@ void BookmarkGui::on_selectedChanged()
     QList<QTreeWidgetItem *> item_list ;
 
     if( ui->toolBox->currentIndex() == 0 )
+    {
         item_list = ui->treeCategorie->selectedItems() ;
+        this->enableEntryMenuFavorites( BookmarkGui::cut | BookmarkGui::remove );
+    }
     else if ( ui->toolBox->currentIndex() == 1 )
         item_list = ui->treeStates->selectedItems() ;
     else if ( ui->toolBox->currentIndex() == 2 )
@@ -1033,6 +1102,12 @@ void BookmarkGui::on_selectedChanged()
     {
         this->fillFavoriteInfo( item->text(1) , item->text(2) );
     }
+
+    if ( ui->toolBox->currentIndex() == 0 && item->type() == BookmarkGui::item_folder )
+        this->enableEntryMenuFavorites( BookmarkGui::renameFold ) ;
+
+    if ( ui->toolBox->currentIndex() == 0 && item->type() == BookmarkGui::item_article )
+        this->disableEntryMenuFavorites( BookmarkGui::renameFold ) ;
 
     this->current_favorites_item = item ;
 }

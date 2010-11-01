@@ -69,6 +69,9 @@ public:
     void setMenuFavorites( QMenu* menu_f ) { if ( bookmarkMenu == 0 ) bookmarkMenu = menu_f ; }
 
 private:
+
+
+
     Ui::BookmarkGui *ui;
 
     QMenu menuFavorites ;
@@ -90,6 +93,10 @@ private:
     void buildMenuStates() ;
 
     enum item_types { item_folder=1001 , item_article , item_state , item_evaluation } ;
+    enum menuFavoritesEntry { newFolder=1 , cut=2 , cancelCut=4 , paste=8 , remove=16 , renameFold=32 } ;
+
+    void enableEntryMenuFavorites( int e ) ;
+    void disableEntryMenuFavorites( int e ) ;
 
     void fillCategorieRec( const QString& name , const QString& id , QTreeWidgetItem* parent ) ;
 
