@@ -1319,6 +1319,9 @@ void BookmarkGui::on_renameState()
 
     QString new_name = name_d.text() ;
 
+    if( new_name.isEmpty() )
+        return ;
+
     bool f =  bk.renameState( name , new_name ) ;
 
     if ( f == false )
@@ -1332,6 +1335,12 @@ void BookmarkGui::on_renameState()
     }
 
     this->current_favorites_item->setText( 0 , new_name ) ;
+
+    int c_index = ui->State->currentIndex() ;
+    int index = ui->State->findText( name ,Qt::MatchExactly ) ;
+    ui->State->insertItem( index , new_name ) ;
+    ui->State->removeItem( index + 1 );
+    ui->State->setCurrentIndex( c_index );
 }
 
 void BookmarkGui::on_favoriteSelected()
