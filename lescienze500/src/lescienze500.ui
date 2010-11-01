@@ -1480,6 +1480,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionConfigura"/>
     <addaction name="separator"/>
     <addaction name="actionOrganizza_preferiti"/>
+    <addaction name="actionBackup_preferiti"/>
     <addaction name="separator"/>
     <addaction name="actionMostra_Copertine"/>
     <addaction name="actionAbout_2"/>
@@ -1501,7 +1502,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/icons/crystal/configure-256.png</normaloff>:/icons/crystal/configure-256.png</iconset>
    </property>
    <property name="text">
-    <string>Configura ...</string>
+    <string>&amp;Configura ...</string>
    </property>
   </action>
   <action name="actionOrganizza_preferiti">
@@ -1510,7 +1511,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/icons/crystal/bookmark-toolbar-2.png</normaloff>:/icons/crystal/bookmark-toolbar-2.png</iconset>
    </property>
    <property name="text">
-    <string>Organizza preferiti ...</string>
+    <string>&amp;Organizza preferiti ...</string>
    </property>
   </action>
   <action name="actionEsci">
@@ -1534,7 +1535,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/icons/crystal/help-contents.png</normaloff>:/icons/crystal/help-contents.png</iconset>
    </property>
    <property name="text">
-    <string>About</string>
+    <string>&amp;About</string>
    </property>
   </action>
   <action name="actionMostra_Copertine">
@@ -1543,7 +1544,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/icons/crystal/book.png</normaloff>:/icons/crystal/book.png</iconset>
    </property>
    <property name="text">
-    <string>Mostra Copertine</string>
+    <string>&amp;Mostra Copertine ...</string>
    </property>
   </action>
   <action name="actionEsci_2">
@@ -1552,12 +1553,21 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/icons/crystal/application-exit-3.png</normaloff>:/icons/crystal/application-exit-3.png</iconset>
    </property>
    <property name="text">
-    <string>Esci</string>
+    <string>&amp;Esci</string>
    </property>
   </action>
   <action name="actionBack_up_dei_preferiti">
    <property name="text">
     <string>Backup dei preferiti ...</string>
+   </property>
+  </action>
+  <action name="actionBackup_preferiti">
+   <property name="icon">
+    <iconset resource="crystal.qrc">
+     <normaloff>:/icons/crystal/db_update.png</normaloff>:/icons/crystal/db_update.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Backup preferiti ...</string>
    </property>
   </action>
  </widget>

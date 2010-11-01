@@ -3,6 +3,7 @@
 # -------------------------------------------------
 TARGET = ../LeScienze500
 TEMPLATE = app
+
 SOURCES += main.cpp \
     lescienze500.cpp \
     querydb.cpp \
@@ -34,7 +35,8 @@ HEADERS += lescienze500.h \
     bookmarkgui.h \
     about.h \
     setname.h \
-    bookmarkbackup.h
+    bookmarkbackup.h \
+
 FORMS += lescienze500.ui \
     configura.ui \
     previewarticolo.ui \
@@ -48,6 +50,10 @@ FORMS += lescienze500.ui \
 win32{
     SOURCES += sqlite3.c
     HEADERS += sqlite3.h
+}
+
+unix{
+    SOURCES += 
 }
 
 unix:LIBS += -lsqlite3

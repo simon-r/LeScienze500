@@ -151,6 +151,8 @@ private slots:
 
     void on_menuFavoritesClicked() ;
 
+    void on_backUpBookmark() ;
+
 public slots:
 
     void on_NewConfigFile() ;

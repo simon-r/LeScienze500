@@ -20,5 +20,6 @@
         <file>crystal/bookmark-toolbar-2.png</file>
         <file>crystal/bookmarks-organize.png</file>
         <file>crystal/book.png</file>
+        <file>crystal/db_update.png</file>
     </qresource>
 </RCC>

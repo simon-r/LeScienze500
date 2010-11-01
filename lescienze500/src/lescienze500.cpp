@@ -39,6 +39,8 @@
 #include <QDesktopServices>
 #include <QDir>
 #include <QFileInfoList>
+#include "bookmark.h"
+#include <QMessageBox>
 
 
 using namespace std ;
@@ -62,6 +64,8 @@ LeScienze500::LeScienze500(QWidget *parent) :
     connect( ui->actionOrganizza_preferiti , SIGNAL(triggered()) , this , SLOT(on_openBookmark()) ) ;
     connect( ui->actionAbout_2 , SIGNAL(triggered()) , this , SLOT(on_openAbout()) ) ;
     connect( ui->actionMostra_Copertine , SIGNAL(triggered()) , this , SLOT(on_ApriBrowserCopertine_clicked()) ) ;
+    connect( ui->actionBackup_preferiti , SIGNAL(triggered()) , this , SLOT(on_backUpBookmark()) ) ;
+
     connect( ui->addFavoriti , SIGNAL(clicked()) , this , SLOT(on_addFavoriti()) ) ;
 
     BuildBookmark() ;
@@ -1112,4 +1116,44 @@ void LeScienze500::on_ApriBrowserCopertine( int id )
 void LeScienze500::on_menuFavoritesClicked()
 {
     this->bk_gui->fillBookmarkMenu( menu_organize ) ;
+}
+
+void LeScienze500::on_backUpBookmark()
+{
+    QMessageBox msgBox;
+    msgBox.setMinimumWidth( 300 );
+    msgBox.setText( tr("Vuoi eseguire subito un backup dei preferiti?") );
+    msgBox.setInformativeText( tr("Il backup verra salvato nella directory di configurazione. Visita la home page per ulteriori informazioni")  );
+    msgBox.setIcon( QMessageBox::Question ) ;
+    msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+
+    int ret = msgBox.exec();
+
+    Bookmark bk ;
+    bool f ;
+
+    switch (ret) {
+    case QMessageBox::Ok:
+          f = bk.autoBackup() ;
+          break;
+      case QMessageBox::Cancel:
+          return ;
+          break;
+      default:
+          return ;
+          break;
+    }
+
+    QMessageBox msgBox2;
+    msgBox2.setMinimumWidth( 300 );
+    msgBox2.setIcon( QMessageBox::Information );
+
+    msgBox2.setStandardButtons(QMessageBox::Ok);
+
+    if ( f )
+        msgBox2.setText( tr("Backup avvenuto con sucesso") );
+    else
+        msgBox2.setText( tr("Backup non riuscito") );
+
+    msgBox2.exec();
 }
