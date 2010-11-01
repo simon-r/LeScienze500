@@ -41,6 +41,8 @@ public:
     void fillFavoriteInfo( const QString& id ) ;
     void fillFavoriteInfo( const QString& id , const QString& Id_f ) ;
 
+    void clearFavoriteInfo() ;
+
     void fillStates() ;
     void fillEvaluations() ;
 
@@ -127,6 +129,8 @@ public slots:
     void on_saveComment() ;
     void on_stateChanged( int index ) ;
     void on_evaluationChanged( int index ) ;
+
+    void on_currentChanged( int c ) ;
 
     void on_newState() ;
     void on_removeState() ;

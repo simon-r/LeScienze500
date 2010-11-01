@@ -79,6 +79,8 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 
     connect( ui->Evaluation , SIGNAL(activated(int)) , this , SLOT(on_evaluationChanged(int)) ) ;
     connect( ui->treeEvaluations , SIGNAL(itemSelectionChanged()) , this , SLOT(on_selectedChanged()) ) ;
+
+    connect( ui->toolBox , SIGNAL(currentChanged(int)) , this , SLOT(on_currentChanged(int)) ) ;
 }
 
 void BookmarkGui::open()
@@ -1142,6 +1144,10 @@ void BookmarkGui::on_selectedChanged()
     {
         this->fillFavoriteInfo( item->text(1) , item->text(2) );
     }
+    else
+    {
+        this->clearFavoriteInfo();
+    }
 
     if ( ui->toolBox->currentIndex() == 0 && item->type() == BookmarkGui::item_folder )
         this->enableEntryMenuFavorites( BookmarkGui::renameFold ) ;
@@ -1349,4 +1355,44 @@ void BookmarkGui::on_favoriteSelected()
 
     QAction* from_ac = dynamic_cast<QAction*> ( from ) ;
     emit this->sig_openPdf( from_ac->data().toInt() );
+}
+
+void BookmarkGui::on_currentChanged( int c )
+{
+    QList<QTreeWidgetItem *> item_list ;
+
+    if( c == 0 )
+        item_list = ui->treeCategorie->selectedItems() ;
+    else if ( c == 1 )
+        item_list = ui->treeStates->selectedItems() ;
+    else if ( c == 2 )
+        item_list = ui->treeEvaluations->selectedItems() ;
+    else
+        return ;
+
+    if ( item_list.isEmpty() )
+    {
+        this->clearFavoriteInfo();
+        return ;
+    }
+
+    if ( item_list.size() > 1 ) return ;
+
+    QTreeWidgetItem *item = item_list.first() ;
+
+    if( item->type() == BookmarkGui::item_article )
+    {
+        this->fillFavoriteInfo( item->text(1) , item->text(2) );
+    }
+    else
+    {
+        this->clearFavoriteInfo();
+    }
+}
+
+void BookmarkGui::clearFavoriteInfo()
+{
+    ui->Title->clear();
+    ui->Abstract->clear();
+    ui->Comments->clear();
 }
