@@ -1134,7 +1134,7 @@ void LeScienze500::on_backUpBookmark()
 
     switch (ret) {
     case QMessageBox::Ok:
-          f = bk.autoBackup() ;
+          f = bk.backupDatabase() ;
           break;
       case QMessageBox::Cancel:
           return ;

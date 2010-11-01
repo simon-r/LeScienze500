@@ -52,10 +52,6 @@ win32{
     HEADERS += sqlite3.h
 }
 
-unix{
-    SOURCES += 
-}
-
 unix:LIBS += -lsqlite3
 
 RESOURCES += icons.qrc \
