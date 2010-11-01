@@ -1149,6 +1149,7 @@ void BookmarkGui::on_selectedChanged()
         this->clearFavoriteInfo();
     }
 
+
     if ( ui->toolBox->currentIndex() == 0 && item->type() == BookmarkGui::item_folder )
         this->enableEntryMenuFavorites( BookmarkGui::renameFold ) ;
 
