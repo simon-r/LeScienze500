@@ -138,7 +138,7 @@ void Bookmark::cleanBackUpFiles()
 //        qDebug() << dir_list[jj] ;
 //    }
 
-    if ( dir_list.size() > 5 )
+    if ( dir_list.size() > 6 )
     {
         dir.remove( dir_list.last() ) ;
     }

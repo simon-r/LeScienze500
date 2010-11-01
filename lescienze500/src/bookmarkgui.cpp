@@ -1039,6 +1039,18 @@ void BookmarkGui::on_addFavorite()
 
 void BookmarkGui::on_remove()
 {
+
+    QMessageBox msgBox;
+    msgBox.setMinimumWidth( 300 );
+    msgBox.setText( tr("Vuoi veramente rimuovre l'oggetto selezionato?") );
+    msgBox.setIcon( QMessageBox::Question ) ;
+    msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+
+    int ret = msgBox.exec();
+
+    if ( ret == QMessageBox::Cancel )
+        return ;
+
     if ( this->current_favorites_item == 0 ) return ;
 
     if ( this->current_favorites_item->type() == BookmarkGui::item_article )
