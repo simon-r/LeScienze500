@@ -92,7 +92,6 @@ private:
     QHash<QString,QAction*> menu_ptr ;
     QHash<QString,QAction*> menu_states_ptr ;
 
-
     void buildMenuFavorites() ;
     void buildMenuStates() ;
 

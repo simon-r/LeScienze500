@@ -669,6 +669,7 @@ bool Bookmark::moveFavorite( QString favorite_id , QString new_parent_id )
 bool Bookmark::getComment( QueryResult& query_r , QString favorite_id )
 {
     if ( favorite_id.isEmpty() ) return false ;
+    query_r.clear();
 
     QString query ;
     query = "select Comment from Comments where Id in ( " ;
@@ -746,6 +747,7 @@ bool Bookmark::setComment( const QString& comment , QString favorite_id )
 bool Bookmark::getState( QueryResult& query_r , QString favorite_id )
 {
     if ( favorite_id.isEmpty() ) return false ;
+    query_r.clear();
 
     QString query ;
     query = "select StateName from UserStates where Id in ( " ;
@@ -830,6 +832,7 @@ int Bookmark::setState( const QString& state_name , QString favorite_id )
 bool Bookmark::getFavoritesByState( QueryResult& query_r , const QString& state_name )
 {
     if ( state_name.isEmpty() ) return false ;
+    query_r.clear();
 
     QString query ;
     query = " select * from BookmarkEntries where Id in ( select IdBookmarkEntry " ;
@@ -904,6 +907,7 @@ int Bookmark::setEvaluation( const QString& stars , QString favorite_id )
 bool Bookmark::getFavoritesByEvaluation(  QueryResult& query_r , const QString& stars )
 {
     if ( stars.isEmpty() ) return false ;
+    query_r.clear();
 
     QString query ;
     query = " select * from BookmarkEntries where Id in ( select IdBookmarkEntry " ;
@@ -925,6 +929,7 @@ bool Bookmark::getFavoritesByEvaluation(  QueryResult& query_r , const QString& 
 bool  Bookmark::getEvaluation( QueryResult& query_r , QString favorite_id )
 {
     if ( favorite_id.isEmpty() ) return false ;
+    query_r.clear();
 
     QString query ;
     query = "select Evaluation from Evaluations where Id in ( " ;
