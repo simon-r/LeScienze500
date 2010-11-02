@@ -47,7 +47,7 @@ public:
     void fillEvaluations() ;
 
     void fillBookmarkMenu( QAction* def_act = 0 ) ;
-    void fillBookmarkMenuRec( QMenu *menu , QString name , QString id ) ;
+
 
     void appendFolder( QString name ) ;
     void appendFavorite( QString id ) ;
@@ -107,6 +107,8 @@ private:
     void disableEntryMenuStates( int e ) ;
 
     void fillCategorieRec( const QString& name , const QString& id , QTreeWidgetItem* parent ) ;
+
+    void fillBookmarkMenuRec( QMenu *menu , QString name , QString id ) ;
 
     void setFolderItemDecorations( QTreeWidgetItem* item , const QString& name , const QString& id ) ;
     void setArticleItemDecorations( QTreeWidgetItem* item , const QString& id_articolo , const QString& id ) ;
