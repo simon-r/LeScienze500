@@ -1148,7 +1148,9 @@ void BookmarkGui::on_selectedChanged()
     }
     else
     {
-        this->clearFavoriteInfo();
+        Bookmark bk ;
+        if ( bk.isFavoriteBookmarked( this->current_favorite_id ) )
+            this->clearFavoriteInfo();
     }
 
     if ( ui->toolBox->currentIndex() == 0 && item->type() == BookmarkGui::item_folder )

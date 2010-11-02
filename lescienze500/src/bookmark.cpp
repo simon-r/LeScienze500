@@ -214,6 +214,9 @@ bool Bookmark::isFavoriteBookmarked( QString id )
 
     this->execQuery( query , query_r ) ;
 
+    if ( query_r.empty() )
+        return false ;
+
     if ( query_r.getField(0,0).toInt() > 0 )
         return true ;
     else
