@@ -80,10 +80,10 @@ About::~About()
 void About::on_linkActivated( const QString& link )
 {
     QUrl url( link ) ;
-    QDesktopServices::openUrl ( url ) ;
+    QDesktopServices::openUrl( url ) ;
 }
 
 void About::on_linkMessageClicked( const QUrl& url )
 {
-    QDesktopServices::openUrl ( url ) ;
+    QDesktopServices::openUrl( url ) ;
 }
