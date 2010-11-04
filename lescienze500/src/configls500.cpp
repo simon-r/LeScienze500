@@ -32,8 +32,6 @@ QString configLS500::PARAMETER( parName pn )
     {
         //    case Spacing:
         //        return "space" ;
-        //    case Endl:
-        //        return "endl" ;
     case  PdfAppl:
         return  "pdf_appl";
     case DbDir:
@@ -66,8 +64,6 @@ QString configLS500::DEFAULT( parName pn )
     {
         //     case Spacing:
         //         return "\\t" ;
-        //     case Endl:
-        //         return "\\n" ;
     case  PdfAppl:
         return  "gv";
     case DbDir:
@@ -265,19 +261,14 @@ QString configLS500::getConfigParameter( QString name )
     file.open(  QIODevice::ReadOnly ) ;
 
     while( !file.atEnd() ) {
-        QString line = QString::fromAscii( file.readLine() ) ;
+        QString line = QString::fromUtf8( file.readLine() ) ;
         if ( line.size() > 0 ) {
 
             QRegExp reg( this->getLineRegex() ) ;
             int pos = reg.indexIn( line );
             QStringList list = reg.capturedTexts() ;
 
-//            qDebug() << "configLS500::getConfigParameter" << list.size() ;
-//            qDebug() << "configLS500::getConfigParameter" << list[0] ;
-//            qDebug() << "configLS500::getConfigParameter" << list[1] ;
-//            qDebug() << "configLS500::getConfigParameter" << list[2] ;
-
-            list.pop_front();
+            list.takeFirst();
 
 //            QStringList list = line.split( SPACING , QString::SkipEmptyParts );
             if ( list.size() == 2 )
@@ -311,10 +302,9 @@ void configLS500::getAllParameters()
 
     file.setFileName( this->config_path );
     file.open(  QIODevice::ReadOnly ) ;
-    //qint64 lineLength ;
     while ( !file.atEnd() ) {
         QString line ;
-        line = QString::fromAscii( file.readLine() ) ;
+        line = QString::fromUtf8( file.readLine() ) ;
 
         if ( line.size() > 0 ) {
 
@@ -323,9 +313,6 @@ void configLS500::getAllParameters()
             QStringList list = reg.capturedTexts() ;
 
             list.pop_front();
-
-//            QString line = QString ( buf ) ;
-//            QStringList list = line.split( SPACING , QString::SkipEmptyParts );
             if ( list.size() == 2 )
             {
                 int ls = list[1].size() ;
@@ -347,12 +334,14 @@ void configLS500::writeAllParameters()
     QList<QString> keys = parameters.keys() ;
 
     QTextStream out(&file) ;
+    out.setCodec( "UTF-8" );
+
     for( QList<QString>::iterator it = keys.begin() ; it < keys.end() ; it++ )
     {
         QString line ;
 
-        out << *it << SPACING << parameters[*it] << ENDL ;
-        file.write( line.toAscii().data() ) ;
+        out << *it << SPACING << parameters[*it] << endl ;
+        file.write( line.toUtf8().data() ) ;
     }
 
     file.close() ;
