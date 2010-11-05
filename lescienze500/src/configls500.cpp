@@ -93,6 +93,41 @@ QString configLS500::DEFAULT( parName pn )
 #endif
 
 
+#ifdef Q_WS_WIN
+QString configLS500::DEFAULT( parName pn )
+{
+    switch ( pn )
+    {
+        //     case Spacing:
+        //         return "\\t" ;
+    case  PdfAppl:
+        return  "gv";
+    case DbDir:
+        return "C:\\Programmi\\Le Scienze - 500 Numeri\\data\\LeScienze.db" ;
+    case ArtPath1:
+        return "/media/LESCIENZE/articoli/" ;
+    case ArtPath2:
+        return "/media/LESCIENZE/articoli/" ;
+    case CopertinePath:
+        return "C:\\Programmi\\Le Scienze - 500 Numeri\\copertine" ;
+    case  UseDvd:
+        return "no" ;
+    case BookmarkPath:
+        return "$HOME\\AppData\\LeScienze500\\bookmark_ls500.db" ;
+    case BookmarkBkupPath:
+        return "$HOME\\AppData\\LeScienze500\\bookmark_ls500.backup" ;
+    case BookmarkBkupFile:
+        return "bookmark_ls500.backup" ;
+    case BookmarkBkupCnt:
+        return "0" ;
+    default:
+        break ;
+    }
+    return "undef" ;
+}
+#endif
+
+
 configLS500::configLS500()
 {
     this->is_open = false ;
@@ -102,7 +137,14 @@ configLS500::configLS500()
 void configLS500::initConfig()
 {
     this->config_dir = QDir::homePath() ;
+
+#ifdef Q_WS_X11
     this->config_dir.append( "/.config/LeScienze500/" ) ;
+#endif
+
+#ifdef Q_WS_WIN
+    this->config_dir.append( "\\AppData\\LeScienze500\\" ) ;
+#endif
 
     this->config_path = this->config_dir ;
     this->config_path.append( "le_scienze500.cfg" ) ;
