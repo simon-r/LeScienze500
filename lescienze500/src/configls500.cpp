@@ -270,7 +270,6 @@ QString configLS500::getConfigParameter( QString name )
 
             list.takeFirst();
 
-//            QStringList list = line.split( SPACING , QString::SkipEmptyParts );
             if ( list.size() == 2 )
             {
                 if (list[0] == name )

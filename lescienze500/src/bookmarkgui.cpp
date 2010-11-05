@@ -117,8 +117,6 @@ void BookmarkGui::open( QString id )
     fillStates() ;
     fillEvaluations() ;
 
-    setModal( true ) ;
-    show() ;
 
     ui->Title->clear();
     ui->Abstract->clear();
@@ -134,6 +132,9 @@ void BookmarkGui::open( QString id )
                                      | BookmarkGui::paste
                                      | BookmarkGui::renameFold
                                      | BookmarkGui::remove );
+
+    setModal( true ) ;
+    show() ;
 
     exec() ;
 }
@@ -828,7 +829,6 @@ bool BookmarkGui::changeState( QString new_state )
 
     QList<QTreeWidgetItem *> list_state =
             ui->treeStates->findItems ( new_state , Qt::MatchExactly ) ;
-
 
     if ( list_state.isEmpty() || list_state.size() > 1 ) return false ;
 
