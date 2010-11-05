@@ -33,7 +33,7 @@
 #include <qapplication.h>
 #include <qprocess.h>
 #include <QRegExp>
-#include <QStringBuilder>
+//#include <QStringBuilder>
 #include <QIcon>
 #include "browsercopertine.h"
 #include <QDesktopServices>
