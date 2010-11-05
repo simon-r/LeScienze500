@@ -58,6 +58,7 @@ QString configLS500::PARAMETER( parName pn )
     return "invalid" ;
 }
 
+#ifdef Q_WS_X11
 QString configLS500::DEFAULT( parName pn )
 {
     switch ( pn )
@@ -89,7 +90,7 @@ QString configLS500::DEFAULT( parName pn )
     }
     return "undef" ;
 }
-
+#endif
 
 
 configLS500::configLS500()
