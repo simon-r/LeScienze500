@@ -301,7 +301,7 @@ QString configLS500::getConfigParameter( QString name )
 
     QFile file ;
     file.setFileName( this->config_path );
-    file.open(  QIODevice::ReadOnly ) ;
+    file.open(  QIODevice::ReadOnly | QIODevice::Text ) ;
 
     while( !file.atEnd() ) {
         QString line = QString::fromUtf8( file.readLine() ) ;
@@ -343,7 +343,7 @@ void configLS500::getAllParameters()
     parameters.clear() ;
 
     file.setFileName( this->config_path );
-    file.open(  QIODevice::ReadOnly ) ;
+    file.open(  QIODevice::ReadOnly | QIODevice::Text ) ;
     while ( !file.atEnd() ) {
         QString line ;
         line = QString::fromUtf8( file.readLine() ) ;
