@@ -1,5 +1,5 @@
 pkgname=lescienze500
-pkgver=1.1.2
+pkgver=1.1.3
 pkgrel=1
 pkgdesc="Un software per consultare, cercare e catalogare gli articoli dei 500 numeri di Le Scienze"
 arch=('i686' 'x86_64')
@@ -8,7 +8,7 @@ license=('GPL')
 depends=('qt' 'sqlite3')
 install=lescienze500.install
 source=("http://heanet.dl.sourceforge.net/project/lescienze500/Nuove_Versioni/${pkgname}_${pkgver}.tar.gz")
-md5sums=('528b6807352ec1b3a9f782fb02e1c133')
+md5sums=('de6393e0d6e230b70d93baa275ece34a')
 
 build() {
     cd ${srcdir}/${pkgname}_${pkgver}
