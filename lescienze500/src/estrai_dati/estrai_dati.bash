@@ -33,7 +33,7 @@ fi
 
 
 if [ -e install.dmg ] ; then 
-	ARCHLS=install.dmb
+	ARCHLS=install.dmg
 elif [ -e  /media/LESCIENZE/install.dmg ] ; then
 	ARCHLS=/media/LESCIENZE/install.dmg
 else
