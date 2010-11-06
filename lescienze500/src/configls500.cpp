@@ -139,14 +139,15 @@ void configLS500::initConfig()
     this->config_dir = QDir::homePath() ;
 
 #ifdef Q_WS_X11
-    this->config_dir.append( "/.config/LeScienze500/" ) ;
+    this->config_dir.append( "/.config/LeScienze500" ) ;
 #endif
 
 #ifdef Q_WS_WIN
-    this->config_dir.append( "/AppData/LeScienze500/" ) ;
+    this->config_dir.append( "/AppData/LeScienze500" ) ;
 #endif
 
     this->config_path = this->config_dir ;
+    this->config_path.append( "/" ) ;
     this->config_path.append( "le_scienze500.cfg" ) ;
 
     QDir dir ;
