@@ -149,8 +149,6 @@ bool Bookmark::backupDatabase( QString file_name )
     configLS500 cfg ;
     QString file_name_bk ;
 
-
-
     if ( file_name.isEmpty() ) {
         QString bk_path = cfg.getBookmarkDumpPath() ;
 

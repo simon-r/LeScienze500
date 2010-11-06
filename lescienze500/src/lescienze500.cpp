@@ -639,7 +639,7 @@ bool LeScienze500::OpenPDF( QString file_pdf )
     pdf_appl = cfg.getPDFAppl() ;
 
     file_p.append( cfg.getPDFPath1() ) ;
-    file_p.append( "" ) ;
+    file_p.append( "/" ) ;
     file_p.append( file_pdf ) ;
 
     //qDebug() << file_p ;
@@ -662,7 +662,7 @@ bool LeScienze500::OpenPDF( QString file_pdf )
 
     file_p.clear();
     file_p.append( cfg.getPDFPath2() ) ;
-    file_p.append( "" ) ;
+    file_p.append( "/" ) ;
     file_p.append( file_pdf ) ;
 
     file.setFileName( file_p );
@@ -741,7 +741,7 @@ bool LeScienze500::OpenBrowserCopertine( int id_articolo )
     QString file_n = cfg.getCopertinePath() ;
     QFile file ;
 
-    file_n.append("000.jpg") ;
+    file_n.append("/000.jpg") ;
     file.setFileName( file_n );
 
     if ( !file.exists() )

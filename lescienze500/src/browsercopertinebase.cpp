@@ -124,6 +124,7 @@ bool BrowserCopertineBase::showAnno( const QString &anno )
         QString copertina = riviste_anno.getField( "FileCopertina" , it ) ;
         copertina.replace( QRegExp( "(^[\\d]{4,4}_)" ) , "" ) ;
         copertina.replace( QRegExp( "pdf$" ) , "jpg" ) ;
+        copertina.prepend( "/" ) ;
         copertina.prepend( path_copertine ) ;
 
         QString mese = riviste_anno.getField( QString( "Mese" ) , it ) ;
@@ -176,6 +177,7 @@ bool BrowserCopertineBase::showRivista( const QString &numero )
 
     copertina.replace( QRegExp( "(^[\\d]{4,4}_)" ) , "" ) ;
     copertina.replace( QRegExp( "pdf$" ) , "jpg" ) ;
+    copertina.prepend( "/" ) ;
     copertina.prepend( path_copertine ) ;
 
     this->openNumeroRivista( copertina , numero , mese , anno ) ;

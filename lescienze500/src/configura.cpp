@@ -85,16 +85,16 @@ void Configura::setConfigData()
 
 
     value = cfg.getPDFPath1() ;
-    ui->Path1->setText( value );
+    ui->Path1->setText( QDir::toNativeSeparators(value) );
 
     value = cfg.getPDFPath2() ;
-    ui->Path2->setText( value );
+    ui->Path2->setText( QDir::toNativeSeparators(value) );
 
     value = cfg.getDBPath() ;
-    ui->DBPath->setText( value );
+    ui->DBPath->setText( QDir::toNativeSeparators(value) );
 
     value = cfg.getCopertinePath() ;
-    ui->CopertinePath->setText( value );
+    ui->CopertinePath->setText( QDir::toNativeSeparators(value) );
 
     value = cfg.getDVD() ;
     QRegExp reg( "(yes)" ) ;
@@ -140,16 +140,16 @@ void Configura::writeConfigData()
     }
 
     QString val ;
-    val = ui->Path1->text() ;
+    val = QDir::fromNativeSeparators( ui->Path1->text() ) ;
     cfg.setPDFPath1(val);
 
-    val = ui->Path2->text() ;
+    val = QDir::fromNativeSeparators( ui->Path2->text() ) ;
     cfg.setPDFPath2(val);
 
-    val = ui->DBPath->text() ;
+    val = QDir::fromNativeSeparators( ui->DBPath->text() ) ;
     cfg.setDBPath( val );
 
-    val = ui->CopertinePath->text() ;
+    val = QDir::fromNativeSeparators( ui->CopertinePath->text() ) ;
     cfg.setCopertinePath( val );
 
     bool dvd = ui->radioSelectDVD->isChecked() ;
@@ -187,7 +187,7 @@ void Configura::on_SearchPDFPath1_clicked()
 
     if ( dir.size() > 0 )
     {
-        dir.append("/") ;
+        //dir.append("/") ;
         ui->Path1->setText( dir );
     }
 }
@@ -198,7 +198,7 @@ void Configura::on_SearchPDFPath2_clicked()
                                                     QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if ( dir.size() > 0 )
     {
-        dir.append("/") ;
+        //dir.append("/") ;
         ui->Path2->setText( dir );
 
     }
@@ -218,7 +218,7 @@ void Configura::on_SearchCopertinePath_clicked()
                                                     QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if ( dir.size() > 0 )
     {
-        dir.append("/") ;
+        //dir.append("/") ;
         ui->CopertinePath->setText( dir );
     }
 }
