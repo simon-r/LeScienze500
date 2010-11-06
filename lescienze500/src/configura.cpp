@@ -80,7 +80,7 @@ void Configura::setConfigData()
     else
     {
         ui->SelectAnyPDFappl->setChecked( true );
-        ui->PdfApplPath->setText( value );
+        ui->PdfApplPath->setText( QDir::toNativeSeparators(value) );
     }
 
 
@@ -135,7 +135,7 @@ void Configura::writeConfigData()
     else
     {
         QString appl ;
-        appl = ui->PdfApplPath->text() ;
+        appl =  QDir::fromNativeSeparators( ui->PdfApplPath->text() ) ;
         cfg.setPDFAppl( appl );
     }
 

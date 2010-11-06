@@ -48,8 +48,8 @@ FORMS += lescienze500.ui \
     bookmarkbackup.ui
 
 win32{
-    SOURCES += sqlite3.c
-    HEADERS += sqlite3.h
+    SOURCES += sqlite/sqlite3.c
+    INCLUDEPATH += sqlite
 }
 
 unix:LIBS += -lsqlite3
