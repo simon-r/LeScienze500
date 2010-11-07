@@ -949,55 +949,37 @@ void LeScienze500::on_errorLinkClicked( const QUrl &url )
            if ( QDesktopServices::openUrl ( url ) )
            return ;
     }
+    this->error_message->close() ;
+    this->cfg_d->setConfigData();
 
     reg.setPattern( "(#configura_copertine)" );
     if ( reg.exactMatch( error_msg ) )
     {
-        this->error_message->close() ;
-        this->cfg_d->setConfigData();
         this->cfg_d->setCurrentTool( Configura::SetCopertinePath );
-        this->cfg_d->setModal( true );
-        this->cfg_d->show();
-        this->cfg_d->exec() ;
-        return ;
     }
 
     reg.setPattern( "(#configura_articoli)" );
     if ( reg.exactMatch( error_msg ) )
     {
-        this->error_message->close() ;
-        this->cfg_d->setConfigData();
         this->cfg_d->setCurrentTool( Configura::SetPdfPath );
-        this->cfg_d->setModal( true );
-        this->cfg_d->show();
-        this->cfg_d->exec() ;
-        return ;
     }
 
     reg.setPattern( "(#configura_db)" );
     if ( reg.exactMatch( error_msg ) )
     {
-        this->error_message->close() ;
-        this->cfg_d->setConfigData();
         this->cfg_d->setCurrentTool( Configura::SetDbPath );
-        this->cfg_d->setModal( true );
-        this->cfg_d->show();
-        this->cfg_d->exec() ;
-        return ;
     }
 
     reg.setPattern( "(#configura_reader)" );
     if ( reg.exactMatch( error_msg ) )
     {
-        this->error_message->close() ;
-        this->cfg_d->setConfigData();
         this->cfg_d->setCurrentTool( Configura::SetPdfReader );
-        this->cfg_d->setModal( true );
-        this->cfg_d->show();
-        this->cfg_d->exec() ;
-        return ;
     }
 
+    this->cfg_d->setModal( true );
+    this->cfg_d->show();
+    this->cfg_d->exec() ;
+    return ;
 }
 
 void LeScienze500::on_addFavoriti()
