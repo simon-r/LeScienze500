@@ -55,6 +55,7 @@ public:
     bool OpenPDF( int id_articolo ) ;
     bool OpenPDF( QString file ) ;
     bool OpenPDFDvd( QString file ) ;
+    void ejectDVD( QString dvd_path = "" ) ;
 
     QString getDvdPath() ;
 

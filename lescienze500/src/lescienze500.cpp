@@ -40,7 +40,11 @@
 #include <QFileInfoList>
 #include "bookmark.h"
 #include <QMessageBox>
+#include <QFileInfoList>
 
+#ifdef Q_WS_WIN
+#include<windows.h>
+#endif
 
 using namespace std ;
 
@@ -571,12 +575,51 @@ bool LeScienze500::ViewPreview()
 
 QString LeScienze500::getDvdPath()
 {
-    return "/media/LESCIENZE/" ;
+#ifdef Q_WS_X11
+        QString path = "/media/LESCIENZE" ;
+
+        QString path_1 = path + "/DVD1" ;
+        QString path_2 = path + "/DVD2" ;
+
+        if ( QFile().exists( path_1 ) || QFile().exists( path_2 ) )
+            return path ;
+        else
+            return QString() ;
+#endif
+
+#ifdef Q_WS_WIN
+        QFileInfoList dev_list ;
+        dev_list = QDir::drives() ;
+        for (  QFileInfoList::iterator itr = dev_list.begin() ; itr < dev_list.end() ; itr++ )
+        {
+            QString path = itr->absolutePath() ;
+            QString path_1 = path + "/DVD1" ;
+            QString path_2 = path + "/DVD2" ;
+
+            if ( QFile().exists( path_1 ) || QFile().exists( path_2 ) )
+            {
+                return path ;
+            }
+        }
+
+        return QString() ;
+#endif
+
+
 }
 
 bool LeScienze500::OpenPDFDvd( QString file_pdf )
 {
     QString dvd_dir = this->getDvdPath() ;
+
+    if ( dvd_dir.isEmpty() )
+    {
+        ShowDvdNotFoundError() ;
+        ejectDVD() ;
+
+        return false ;
+    }
+
     QString file_n ;
 
     configLS500 cfg ;
@@ -586,9 +629,8 @@ bool LeScienze500::OpenPDFDvd( QString file_pdf )
 
     QProcess process_pdf ;
 
-    int dvd_nr = 0 ;
     file_n += dvd_dir ;
-    file_n += "articoli/" ;
+    file_n += "/articoli/" ;
     file_n += file_pdf ;
 
     QFile file ;
@@ -596,6 +638,7 @@ bool LeScienze500::OpenPDFDvd( QString file_pdf )
     if ( file.exists() )
     {
         pdf_appl = cfg.getPDFAppl() ;
+
         command.append( pdf_appl ) ;
         command.append( " " ) ;
         command.append( "\"" ) ;
@@ -610,7 +653,7 @@ bool LeScienze500::OpenPDFDvd( QString file_pdf )
     else
     {
         ShowDvdNotFoundError() ;
-        process_strated = process_pdf.startDetached( "eject" );
+        this->ejectDVD() ;
 
         flag = false ;
     }
@@ -618,6 +661,22 @@ bool LeScienze500::OpenPDFDvd( QString file_pdf )
     return flag && process_strated ;
 }
 
+void LeScienze500::ejectDVD( QString dvd_path )
+{
+#ifdef Q_WS_X11
+    QString command = "eject "  + dvd_path ;
+    QProcess().startDetached( command ) ;
+#endif
+
+#ifdef Q_WS_WIN
+    QString command ;
+    if ( dvd_path.isEmpty() )
+        command = "set cdaudio door open" ;
+    else
+        command "open " + dvd_path ;
+    mciSendString( command.data()->toAscii() , null, 0, IntPtr.Zero) ;
+#endif
+}
 
 bool LeScienze500::OpenPDF( QString file_pdf )
 {
