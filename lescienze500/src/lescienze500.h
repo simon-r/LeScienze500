@@ -93,6 +93,8 @@ private:
     void clearLists() ;
     void clearResult() ;
 
+    bool startPdfAppl( QString file_path ) ;
+
     QStringList ReadSelectedItems( QListWidget *ui_list ) ;
 
     QString pdf_file ;

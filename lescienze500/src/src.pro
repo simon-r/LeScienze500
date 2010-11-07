@@ -50,9 +50,12 @@ FORMS += lescienze500.ui \
 win32{
     SOURCES += sqlite/sqlite3.c
     INCLUDEPATH += sqlite
+ #   LIBS += winmm.lib
 }
 
-unix:LIBS += -lsqlite3
+unix{
+    LIBS += -lsqlite3
+}
 
 RESOURCES += icons.qrc \
     html.qrc \

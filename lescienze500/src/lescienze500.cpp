@@ -637,17 +637,7 @@ bool LeScienze500::OpenPDFDvd( QString file_pdf )
     file.setFileName( file_n ) ;
     if ( file.exists() )
     {
-        pdf_appl = cfg.getPDFAppl() ;
-
-        command.append( pdf_appl ) ;
-        command.append( " " ) ;
-        command.append( "\"" ) ;
-
-        command.append( file_n ) ;
-        command.append( "\"" ) ;
-
-        qDebug() << command ;
-        process_strated = process_pdf.startDetached( command );
+        process_strated = startPdfAppl( file_n ) ;
         flag = true ;
     }
     else
@@ -661,6 +651,38 @@ bool LeScienze500::OpenPDFDvd( QString file_pdf )
     return flag && process_strated ;
 }
 
+bool LeScienze500::startPdfAppl( QString file_path )
+{
+    QString pdf_appl , command ;
+    bool flag , process_strated ;
+
+     QProcess process_pdf ;
+
+    configLS500 cfg ;
+    pdf_appl = cfg.getPDFAppl() ;
+
+    command.append( pdf_appl ) ;
+    command.append( " " ) ;
+    command.append( "\"" ) ;
+
+    command.append( file_path ) ;
+    command.append( "\"" ) ;
+
+    qDebug() << command ;
+
+    if ( pdf_appl != "desktop" )
+        process_strated = process_pdf.startDetached( command );
+    else
+    {
+        QUrl url ;
+        url.setScheme( "file" );
+        url.setPath( file_path );
+        process_strated = QDesktopServices::openUrl( url ) ;
+    }
+
+    return process_strated ;
+}
+
 void LeScienze500::ejectDVD( QString dvd_path )
 {
 #ifdef Q_WS_X11
@@ -669,12 +691,12 @@ void LeScienze500::ejectDVD( QString dvd_path )
 #endif
 
 #ifdef Q_WS_WIN
-    QString command ;
-    if ( dvd_path.isEmpty() )
-        command = "set cdaudio door open" ;
-    else
-        command "open " + dvd_path ;
-    mciSendString( command.data()->toAscii() , null, 0, IntPtr.Zero) ;
+//    QString command ;
+//    if ( dvd_path.isEmpty() )
+//        command = "set cdaudio door open" ;
+//    else
+//        command = "open " + dvd_path ;
+//    mciSendString( (LPCTSTR)command.data()->toAscii() , null, 0, 0) ;
 #endif
 }
 
@@ -707,15 +729,7 @@ bool LeScienze500::OpenPDF( QString file_pdf )
     file.setFileName( file_p );
     if ( file.exists() )
     {
-        command.append( pdf_appl ) ;
-        command.append( " " ) ;
-        command.append( "\"" ) ;
-
-        command.append( file_p ) ;
-        command.append( "\"" ) ;
-
-        qDebug() << command ;
-        process_strated = process_pdf.startDetached( command );
+        process_strated = startPdfAppl( file_p ) ;
         flag = true ;
     }
 
@@ -727,15 +741,7 @@ bool LeScienze500::OpenPDF( QString file_pdf )
     file.setFileName( file_p );
     if ( file.exists() && flag == false )
     {
-        command.append( pdf_appl ) ;
-        command.append( " " ) ;
-        command.append( "\"" ) ;
-
-        command.append( file_p ) ;
-        command.append( "\"" ) ;
-
-        qDebug() << command ;
-        process_strated = process_pdf.startDetached( command );
+        process_strated = startPdfAppl( file_p ) ;
         flag = true ;
     }
 

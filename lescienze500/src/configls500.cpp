@@ -101,7 +101,7 @@ QString configLS500::DEFAULT( parName pn )
         //     case Spacing:
         //         return "\\t" ;
     case  PdfAppl:
-        return  "gv";
+        return "desktop";
     case DbDir:
         return "C:/Programmi/Le Scienze - 500 Numeri/data/LeScienze.db" ;
     case ArtPath1:

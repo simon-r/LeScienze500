@@ -29,6 +29,14 @@ Configura::Configura(QWidget *parent) :
         ui(new Ui::Configura)
 {
     ui->setupUi(this);
+
+#ifdef Q_WS_WIN
+    ui->SelectAdobeAcrobat->setDisabled(true) ;
+    ui->SelectEvice->setDisabled(true) ;
+    ui->SelectGV->setDisabled(true) ;
+    ui->SelectOkular->setDisabled(true) ;
+#endif
+
 }
 
 Configura::~Configura()
@@ -61,10 +69,11 @@ void Configura::setConfigData()
 
     value = cfg.getPDFAppl() ;
 
-    if ( value == "gv" )
+    if ( value == "desktop" )
     {
-        ui->SelectGV->setChecked( true ) ;
+        ui->SelectDesktop->setChecked( true ) ;
     }
+#ifdef Q_WS_X11
     else if ( value == "okular" )
     {
         ui->SelectOkular->setChecked( true ) ;
@@ -77,6 +86,11 @@ void Configura::setConfigData()
     {
         ui->SelectAdobeAcrobat->setChecked( true ) ;
     }
+    else if ( value == "gv" )
+    {
+        ui->SelectGV->setChecked( true ) ;
+    }
+#endif
     else
     {
         ui->SelectAnyPDFappl->setChecked( true );
@@ -131,6 +145,10 @@ void Configura::writeConfigData()
     else if (ui->SelectOkular->isChecked())
     {
         cfg.setPDFAppl("okular");
+    }
+    else if ( ui->SelectDesktop->isChecked() )
+    {
+        cfg.setPDFAppl("desktop");
     }
     else
     {
