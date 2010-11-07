@@ -49,7 +49,7 @@ About::About(QWidget *parent) :
     QFile res ;
     res.setFileName( ":/html/html/copyright_message.html" );
     res.open(QIODevice::ReadOnly) ;
-    QString message = QString::fromLocal8Bit ( res.readAll() ) ;
+    QString message = QString::fromUtf8( res.readAll() ) ;
     res.close();
 
     alom.append("@") ;
