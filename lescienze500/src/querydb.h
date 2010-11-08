@@ -44,6 +44,14 @@ public:
 
     //bool setDBPath(string path) { return false ; } ;
 
+    void setLogicalTestoEsteso( bool log )
+    {
+        if ( log )
+            this->logical_testo_esteso = " and " ;
+        else
+            this->logical_testo_esteso = " or " ;
+    }
+
     void setParoleChiave( QStringList pc ) { parole_chiave = pc ; }
 
     void setParoleChiaveAbstract( QStringList pc ) { parole_chiave_abstract = pc ; }
@@ -71,13 +79,10 @@ public:
     }
 
     void execMainQuery( QueryResult& ) ;
-
     QueryResult execQuery( QString query ) ;
 
     void execQuery( const QString& db_path , const QString& query , QueryResult& q_result ) ;
-
     static bool execNAQuery(QString db_path , QString query ) ;
-
     int backup( QString from_db , QString to_db ) ;
 
     bool p_chiave ;
@@ -102,6 +107,8 @@ private:
     QStringList lista_categorie ;
     QStringList lista_autori ;
     QStringList lista_anni ;
+
+    QString logical_testo_esteso ;
 };
 
 bool StrIntLessThan(const QString &s1, const QString &s2) ;

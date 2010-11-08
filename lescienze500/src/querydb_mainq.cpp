@@ -325,7 +325,7 @@ void QueryDB::buildQuerySegTestoEsteso( QString &query )
     }
     else
     {
-        QString logical_ext = " and " ;
+       // QString logical_ext = this->logical_testo_esteso ;
 
         for ( QStringList::iterator it = frasi_testo_esteso.begin() ; it < frasi_testo_esteso.end() ; it++ )
         {
@@ -336,7 +336,7 @@ void QueryDB::buildQuerySegTestoEsteso( QString &query )
 
             if ( it < frasi_testo_esteso.end() - 1 )
             {
-                query += logical_ext ;
+                query += this->logical_testo_esteso ;
             }
 
         }

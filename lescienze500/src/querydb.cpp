@@ -42,6 +42,8 @@ QueryDB::QueryDB()
     autori_n = false  ;
     anno = false  ;
     rubriche = false  ;
+
+    logical_testo_esteso = "and" ;
 }
 
 QueryResult QueryDB::getCategorie()
@@ -106,12 +108,14 @@ void QueryDB::execQuery( const QString& db_path , const QString& query , QueryRe
 
     q_result.clear();
     rc = sqlite3_open( db_path.toAscii().data() , &db );
-    if( rc ){
+    if( rc )
+    {
         return ;
     }
 
     rc = sqlite3_prepare_v2( db, query.toUtf8().data() , -1, &stmt, 0);
-    if( rc ){
+    if( rc )
+    {
         return ;
     }
 
@@ -123,15 +127,14 @@ void QueryDB::execQuery( const QString& db_path , const QString& query , QueryRe
         QString name = QString::fromUtf8( (const char*)sql_buffer ) ;
 
         q_result.appendColumnName( name , col );
-
-        //        qDebug() << QString( (const char*)sqlite3_column_name( stmt, col ) ) ;
     }
 
     QStringList row ;
     cols = sqlite3_column_count(stmt);
     // execute the statement
 
-    do{
+    do
+    {
         rc = sqlite3_step(stmt);
         switch( rc ){
         case SQLITE_DONE:
@@ -139,10 +142,11 @@ void QueryDB::execQuery( const QString& db_path , const QString& query , QueryRe
         case SQLITE_ROW:
             row.clear();
             // print results for this row
-            for( col=0; col<cols; col++){
+            for( col=0; col<cols; col++)
+            {
                 const unsigned char *sql_buffer = NULL ;
                 sql_buffer = sqlite3_column_text( stmt, col ) ;
-                //if ( cols == 1 )
+
                 row.append( QString::fromUtf8( (const char*)sql_buffer ) ) ;
             }
             q_result.appendResultRow( row ) ;
