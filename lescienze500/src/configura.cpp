@@ -35,6 +35,9 @@ Configura::Configura(QWidget *parent) :
     ui->SelectEvice->setDisabled(true) ;
     ui->SelectGV->setDisabled(true) ;
     ui->SelectOkular->setDisabled(true) ;
+    ui->SelectAnyPDFappl->setDisabled(true) ;
+    ui->PdfApplPath->setDisabled(true) ;
+    ui->SearchPdfAppl->setDisabled(true) ;
 #endif
 
 }
@@ -90,13 +93,12 @@ void Configura::setConfigData()
     {
         ui->SelectGV->setChecked( true ) ;
     }
-#endif
     else
     {
         ui->SelectAnyPDFappl->setChecked( true );
         ui->PdfApplPath->setText( QDir::toNativeSeparators(value) );
     }
-
+#endif
 
     value = cfg.getPDFPath1() ;
     ui->Path1->setText( QDir::toNativeSeparators(value) );
