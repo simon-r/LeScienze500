@@ -237,6 +237,11 @@ bool LeScienze500::ExecQuery()
     else
         db.global_and = false ;
 
+    if ( this->menu_AND->isChecked() )
+        db.setLogicalTestoEsteso( true );
+    else if ( this->menu_OR->isChecked() )
+        db.setLogicalTestoEsteso( false );
+
     // Nuovo in sviluppo
     if ( ui->AND_Button->isChecked() )
         query_data.setGobalLogical( QueryData::QUERY_AND );
