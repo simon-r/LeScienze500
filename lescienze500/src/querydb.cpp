@@ -43,7 +43,8 @@ QueryDB::QueryDB()
     anno = false  ;
     rubriche = false  ;
 
-    logical_testo_esteso = "and" ;
+    logical_testo_esteso = " and " ;
+    logical_titolo = " and " ;
 }
 
 QueryResult QueryDB::getCategorie()

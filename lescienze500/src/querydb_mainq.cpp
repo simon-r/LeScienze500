@@ -47,7 +47,7 @@ bool StrIntLessThan(const QString &s1, const QString &s2)
     if ( p_chiave )
     {
         QString logical_at = " OR " ;
-        QString logical = " AND " ;
+        QString logical = this->logical_titolo ;
 
         query.append( " ( " ) ;
 

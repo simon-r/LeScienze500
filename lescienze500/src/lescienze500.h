@@ -115,6 +115,11 @@ private:
     QAction *menu_OR ;
     QActionGroup* set_logical ;
 
+    QMenu *menu_logical_titolo ;
+    QAction *menu_AND_titolo ;
+    QAction *menu_OR_titolo ;
+    QActionGroup* set_logical_titolo ;
+
     void BuildErrorMessage() ;
     void BuildConfigura() ;
     void BuildBookmark() ;
@@ -157,6 +162,9 @@ private slots:
     void on_FiltroAutori_textChanged(QString filtro);
     void on_Cerca_clicked();
     void on_Select_ParoleChiave_toggled(bool checked);
+
+    void on_setTestoEstesoLogical() ;
+    void on_setTitoloLogical() ;
 
     void on_menuFavoritesClicked() ;
 

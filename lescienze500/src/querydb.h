@@ -52,6 +52,14 @@ public:
             this->logical_testo_esteso = " or " ;
     }
 
+    void setLogicalTitolo( bool log )
+    {
+        if ( log )
+            this->logical_titolo = " and " ;
+        else
+            this->logical_titolo = " or " ;
+    }
+
     void setParoleChiave( QStringList pc ) { parole_chiave = pc ; }
 
     void setParoleChiaveAbstract( QStringList pc ) { parole_chiave_abstract = pc ; }
@@ -109,6 +117,7 @@ private:
     QStringList lista_anni ;
 
     QString logical_testo_esteso ;
+    QString logical_titolo ;
 };
 
 bool StrIntLessThan(const QString &s1, const QString &s2) ;

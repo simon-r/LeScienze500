@@ -77,8 +77,8 @@ LeScienze500::LeScienze500(QWidget *parent) :
 
     menu_organize = new QAction( tr("Organizza preferiti ...") , 0 ) ;
     menu_organize->setIcon( QIcon( ":/icons/crystal/bookmark_add-256.png" ) );
-
     connect( menu_organize , SIGNAL(triggered()) , this , SLOT(on_openBookmark()) ) ;
+
 
     menu_logical = new QMenu() ;
     set_logical = new QActionGroup(0) ;
@@ -96,7 +96,34 @@ LeScienze500::LeScienze500(QWidget *parent) :
     set_logical->addAction(menu_OR) ;
     set_logical->setExclusive(true);
 
+    connect(menu_AND,SIGNAL(triggered()),this,SLOT(on_setTestoEstesoLogical())) ;
+    connect(menu_OR,SIGNAL(triggered()),this,SLOT(on_setTestoEstesoLogical())) ;
+
+    ui->SelectLogical->setText("AND");
     ui->SelectLogical->setMenu( menu_logical );
+
+
+    menu_logical_titolo = new QMenu() ;
+    set_logical_titolo = new QActionGroup(0) ;
+
+    menu_AND_titolo = new QAction( tr("AND") , 0 ) ;
+    menu_AND_titolo->setCheckable(true);
+    menu_AND_titolo->setChecked(true);
+    menu_logical_titolo->addAction( menu_AND_titolo ) ;
+
+    menu_OR_titolo = new QAction( tr("OR") , 0 ) ;
+    menu_OR_titolo->setCheckable(true);
+    menu_logical_titolo->addAction( menu_OR_titolo ) ;
+
+    set_logical_titolo->addAction( menu_AND_titolo ) ;
+    set_logical_titolo->addAction( menu_OR_titolo ) ;
+    set_logical_titolo->setExclusive(true);
+
+    connect(menu_AND_titolo,SIGNAL(triggered()),this,SLOT(on_setTitoloLogical())) ;
+    connect(menu_OR_titolo,SIGNAL(triggered()),this,SLOT(on_setTitoloLogical())) ;
+
+    ui->SelectLogicalTitolo->setText("AND");
+    ui->SelectLogicalTitolo->setMenu( menu_logical_titolo );
 }
 
 LeScienze500::~LeScienze500()
@@ -242,6 +269,10 @@ bool LeScienze500::ExecQuery()
     else if ( this->menu_OR->isChecked() )
         db.setLogicalTestoEsteso( false );
 
+    if ( this->menu_AND_titolo->isChecked() )
+        db.setLogicalTitolo( true );
+    else if ( this->menu_OR_titolo->isChecked() )
+        db.setLogicalTitolo( false );
 
     if ( db.p_chiave )
     {
@@ -1019,6 +1050,8 @@ void LeScienze500::on_Select_ParoleChiave_toggled(bool checked)
     ui->ParoleChiaveAbstract->setEnabled( checked );
     ui->CopiaADestra->setEnabled( checked );
     ui->CopiaASinistra->setEnabled( checked );
+
+    ui->SelectLogicalTitolo->setEnabled( checked );
 }
 
 void LeScienze500::on_Cerca_clicked()
@@ -1140,6 +1173,7 @@ void LeScienze500::on_CleanAnni_clicked()
 void LeScienze500::on_Select_RicercaTesto_toggled(bool checked)
 {
     ui->ParoleChiaveTesto->setEnabled( checked );
+    ui->SelectLogical->setEnabled( checked );
 }
 
 void LeScienze500::on_PreviewArticolo_clicked()
@@ -1220,4 +1254,20 @@ void LeScienze500::on_backUpBookmark()
         msgBox2.setText( tr("Backup non riuscito") );
 
     msgBox2.exec();
+}
+
+void LeScienze500::on_setTestoEstesoLogical()
+{
+    if ( this->menu_AND->isChecked() )
+        ui->SelectLogical->setText("AND");
+    else
+        ui->SelectLogical->setText("OR ");
+}
+
+void LeScienze500::on_setTitoloLogical()
+{
+    if ( this->menu_AND_titolo->isChecked() )
+        ui->SelectLogicalTitolo->setText("AND");
+    else
+        ui->SelectLogicalTitolo->setText("OR ");
 }
