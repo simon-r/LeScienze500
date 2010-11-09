@@ -749,14 +749,11 @@ articolo.</string>
              <property name="lineWidth">
               <number>1</number>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_3">
-              <property name="spacing">
-               <number>0</number>
-              </property>
+             <layout class="QGridLayout" name="gridLayout_3">
               <property name="margin">
                <number>0</number>
               </property>
-              <item>
+              <item row="0" column="0">
                <widget class="QCheckBox" name="Select_RicercaTesto">
                 <property name="minimumSize">
                  <size>
@@ -769,7 +766,7 @@ articolo.</string>
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="1" column="0">
                <widget class="QLineEdit" name="ParoleChiaveTesto">
                 <property name="enabled">
                  <bool>false</bool>
@@ -779,6 +776,13 @@ articolo.</string>
                   <width>0</width>
                   <height>24</height>
                  </size>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="SelectLogical">
+                <property name="text">
+                 <string>L</string>
                 </property>
                </widget>
               </item>

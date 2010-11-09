@@ -37,6 +37,7 @@
 #include "querydata.h"
 #include "bookmarkgui.h"
 #include "about.h"
+#include <QActionGroup>
 
 
 namespace Ui {
@@ -108,6 +109,11 @@ private:
     BookmarkGui *bk_gui ;
     About *about_d ;
     QAction *menu_organize ;
+
+    QMenu *menu_logical ;
+    QAction *menu_AND ;
+    QAction *menu_OR ;
+    QActionGroup* set_logical ;
 
     void BuildErrorMessage() ;
     void BuildConfigura() ;

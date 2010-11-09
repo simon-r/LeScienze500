@@ -51,6 +51,7 @@ win32{
     SOURCES += sqlite/sqlite3.c
     INCLUDEPATH += sqlite
  #   LIBS += winmm.lib
+    RC_FILE += myapp_ico.rc
 }
 
 unix{

@@ -79,6 +79,24 @@ LeScienze500::LeScienze500(QWidget *parent) :
     menu_organize->setIcon( QIcon( ":/icons/crystal/bookmark_add-256.png" ) );
 
     connect( menu_organize , SIGNAL(triggered()) , this , SLOT(on_openBookmark()) ) ;
+
+    menu_logical = new QMenu() ;
+    set_logical = new QActionGroup(0) ;
+
+    menu_AND = new QAction( tr("AND") , 0 ) ;
+    menu_AND->setCheckable(true);
+    menu_AND->setChecked(true);
+    menu_logical->addAction( menu_AND ) ;
+
+    menu_OR = new QAction( tr("OR") , 0 ) ;
+    menu_OR->setCheckable(true);
+    menu_logical->addAction( menu_OR ) ;
+
+    set_logical->addAction(menu_AND) ;
+    set_logical->addAction(menu_OR) ;
+    set_logical->setExclusive(true);
+
+    ui->SelectLogical->setMenu( menu_logical );
 }
 
 LeScienze500::~LeScienze500()
