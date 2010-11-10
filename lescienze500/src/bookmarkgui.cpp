@@ -51,6 +51,10 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     ui->treeCategorie->setUpdatesEnabled( true );
     ui->treeStates->setUpdatesEnabled( true );
 
+    ui->treeCategorie->setColumnCount(3);
+    ui->treeCategorie->setColumnHidden( 1 , true ) ;
+    ui->treeCategorie->setColumnHidden( 2 , true ) ;
+
     ui->treeStates->setColumnCount(2);
     ui->treeStates->setColumnHidden( 1 , true );
 
@@ -83,47 +87,55 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
     connect( ui->toolBox , SIGNAL(currentChanged(int)) , this , SLOT(on_currentChanged(int)) ) ;
 }
 
-void BookmarkGui::open()
-{
-    current_favorite = "" ;
-    current_favorites_item = 0 ;
-    current_favorite_id = "" ;
+//void BookmarkGui::open()
+//{
+//    current_favorite = "" ;
+//    current_favorites_item = 0 ;
+//    current_favorite_id = "" ;
 
-    ui->Title->clear();
-    ui->Abstract->clear();
-    ui->Comments->clear();
+//    ui->Title->clear();
+//    ui->Abstract->clear();
+//    ui->Comments->clear();
 
-    fillCategorie() ;
-    fillStates() ;
-    fillEvaluations() ;
+//    fillCategorie() ;
+//    fillStates() ;
+//    fillEvaluations() ;
 
-    ui->SaveComment->setDisabled( true );
+//    ui->SaveComment->setDisabled( true );
 
-    this->disableEntryMenuFavorites( BookmarkGui::cancelCut
-                                     | BookmarkGui::cut
-                                     | BookmarkGui::paste
-                                     | BookmarkGui::renameFold
-                                     | BookmarkGui::remove );
+//    this->disableEntryMenuFavorites( BookmarkGui::cancelCut
+//                                     | BookmarkGui::cut
+//                                     | BookmarkGui::paste
+//                                     | BookmarkGui::renameFold
+//                                     | BookmarkGui::remove );
 
-    setModal( true ) ;
-    show() ;
-    exec() ;
-}
+//    setModal( true ) ;
+//    show() ;
+//    exec() ;
+//}
 
 void BookmarkGui::open( QString id )
 {
-    current_favorites_item = 0 ;
+
     fillCategorie() ;
     fillStates() ;
     fillEvaluations() ;
 
+//    current_favorite = "" ;
+//    current_favorites_item = 0 ;
+//    current_favorite_id = "" ;
 
-    ui->Title->clear();
-    ui->Abstract->clear();
-    ui->Comments->clear();
+//    ui->Title->clear();
+//    ui->Abstract->clear();
+//    ui->Comments->clear();
 
-    current_favorite = id ;
-    this->fillFavoriteInfo( id ) ;
+    this->clearFavoriteInfo();
+
+    if ( !id.isEmpty() )
+    {
+        this->fillFavoriteInfo( id ) ;
+        this->searchItem( id ) ;
+    }
 
     ui->SaveComment->setDisabled( true );
 
@@ -133,9 +145,9 @@ void BookmarkGui::open( QString id )
                                      | BookmarkGui::renameFold
                                      | BookmarkGui::remove );
 
+    ui->toolBox->setCurrentIndex(0);
     setModal( true ) ;
     show() ;
-
     exec() ;
 }
 
@@ -431,6 +443,19 @@ void BookmarkGui::setArticleItemDecorations( QTreeWidgetItem* item , const QStri
     item->setText( 2 , id ) ;
 }
 
+bool BookmarkGui::searchItem( QString id )
+{
+    QList<QTreeWidgetItem *> list_items =
+            ui->treeCategorie->findItems ( id , Qt::MatchExactly | Qt::MatchRecursive , 1 ) ;
+
+    qDebug() << list_items.size() ;
+
+    if ( ! list_items.isEmpty() )
+    {
+        list_items.first()->parent()->setExpanded(true);
+        ui->treeCategorie->setCurrentItem( list_items.first() ) ;
+    }
+}
 
 void BookmarkGui::fillFavoriteInfo( const QString& id )
 {
@@ -439,6 +464,8 @@ void BookmarkGui::fillFavoriteInfo( const QString& id )
     bk.getFavoriteFullData( article , id ) ;
 
     if ( article.size() == 0 ) return ;
+
+    this->current_favorite = id ;
 
     QString query_autori = "SELECT autore FROM autori WHERE id in (SELECT idautore FROM articoli_autori WHERE idarticolo = " ;
     query_autori += id ;
@@ -473,8 +500,6 @@ void BookmarkGui::fillFavoriteInfo( const QString& id )
 
     ui->Title->setHtml( title ) ;
     ui->Abstract->setHtml( abstract ) ;
-
-    this->current_favorite = id ;
 
     if ( bk.isFavoriteBookmarked(id) )
         ui->AddFavorite->setDisabled( true );
@@ -1065,7 +1090,7 @@ void BookmarkGui::on_newFolder()
 
 void BookmarkGui::on_addFavorite()
 {
-    if ( this->current_favorite == "" ) return ;
+    if ( this->current_favorite.isEmpty() ) return ;
     this->appendFavorite( this->current_favorite );
 }
 
@@ -1149,7 +1174,7 @@ void BookmarkGui::on_selectedChanged()
     else
     {
         Bookmark bk ;
-        if ( bk.isFavoriteBookmarked( this->current_favorite_id ) )
+        if ( bk.isFavoriteBookmarked( this->current_favorite ) )
             this->clearFavoriteInfo();
     }
 
@@ -1399,5 +1424,11 @@ void BookmarkGui::clearFavoriteInfo()
     ui->Title->clear();
     ui->Abstract->clear();
     ui->Comments->clear();
+
+    ui->State->setCurrentIndex(0);
+    ui->Evaluation->setCurrentIndex(0);
+
+    this->current_favorite.clear();
+    this->current_favorite_id.clear();
 }
 

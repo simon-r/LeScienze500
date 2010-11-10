@@ -65,8 +65,8 @@ public:
 
     bool renameFolder() ;
 
-    void open() ;
-    void open( QString id ) ;
+   // void open() ;
+    void open( QString id = "" ) ;
 
     void setMenuFavorites( QMenu* menu_f ) { if ( bookmarkMenu == 0 ) bookmarkMenu = menu_f ; }
 
@@ -113,6 +113,8 @@ private:
     void setArticleItemDecorations( QTreeWidgetItem* item , const QString& id_articolo , const QString& id ) ;
 
     void setArticleActionDecorations( QAction* action , const QString& id_articolo , const QString& id ) ;
+
+    bool searchItem( QString id ) ;
 
     void showDataBaseMessage() ;
 
