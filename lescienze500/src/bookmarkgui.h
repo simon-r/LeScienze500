@@ -89,6 +89,8 @@ private:
     QString current_favorite ;
     QString current_favorite_id ;
 
+    bool first_open ;
+
     QHash<QString,QAction*> menu_ptr ;
     QHash<QString,QAction*> menu_states_ptr ;
 

@@ -34,6 +34,8 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 
     ui->setupUi(this);
 
+    first_open = true ;
+
     current_favorites_item = 0 ;
     current_favorite = "" ;
     current_favorite_id = "" ;
@@ -117,9 +119,13 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 void BookmarkGui::open( QString id )
 {
 
-    fillCategorie() ;
-    fillStates() ;
-    fillEvaluations() ;
+    if ( first_open )
+    {
+        fillCategorie() ;
+        fillStates() ;
+        fillEvaluations() ;
+        first_open = false ;
+    }
 
 //    current_favorite = "" ;
 //    current_favorites_item = 0 ;
