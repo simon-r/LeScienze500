@@ -135,13 +135,19 @@ void BookmarkGui::open( QString id )
 //    ui->Abstract->clear();
 //    ui->Comments->clear();
 
-    this->clearFavoriteInfo();
+
 
     if ( !id.isEmpty() )
     {
+        this->clearFavoriteInfo();
+        ui->treeCategorie->clearSelection();
         this->fillFavoriteInfo( id ) ;
         this->searchItem( id ) ;
     }
+//    else
+//    {
+//        ui->treeCategorie->setC
+//    }
 
     ui->SaveComment->setDisabled( true );
 
@@ -151,7 +157,8 @@ void BookmarkGui::open( QString id )
                                      | BookmarkGui::renameFold
                                      | BookmarkGui::remove );
 
-    ui->toolBox->setCurrentIndex(0);
+
+
     setModal( true ) ;
     show() ;
     exec() ;
