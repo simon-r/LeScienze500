@@ -124,6 +124,14 @@ void BookmarkGui::open( QString id )
         fillCategorie() ;
         fillStates() ;
         fillEvaluations() ;
+
+//        this->disableEntryMenuFavorites( BookmarkGui::cancelCut
+//                                         | BookmarkGui::cut
+//                                         | BookmarkGui::paste
+//                                         | BookmarkGui::renameFold
+//                                         | BookmarkGui::remove );
+
+
         first_open = false ;
     }
 
@@ -134,8 +142,6 @@ void BookmarkGui::open( QString id )
 //    ui->Title->clear();
 //    ui->Abstract->clear();
 //    ui->Comments->clear();
-
-
 
     if ( !id.isEmpty() )
     {
@@ -150,13 +156,6 @@ void BookmarkGui::open( QString id )
 //    }
 
     ui->SaveComment->setDisabled( true );
-
-    this->disableEntryMenuFavorites( BookmarkGui::cancelCut
-                                     | BookmarkGui::cut
-                                     | BookmarkGui::paste
-                                     | BookmarkGui::renameFold
-                                     | BookmarkGui::remove );
-
 
 
     setModal( true ) ;
