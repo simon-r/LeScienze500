@@ -100,7 +100,7 @@
               <item>
                <widget class="QPushButton" name="mainFavoritesMenu">
                 <property name="text">
-                 <string>Azioni</string>
+                 <string>Categorie</string>
                 </property>
                </widget>
               </item>
@@ -151,7 +151,7 @@
               <item row="0" column="1">
                <widget class="QPushButton" name="stateMenu">
                 <property name="text">
-                 <string>Azioni</string>
+                 <string>Stato</string>
                 </property>
                </widget>
               </item>
@@ -397,7 +397,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>Visualizza Rivista</string>
+                 <string>Mostra Rivista</string>
                 </property>
                </widget>
               </item>
