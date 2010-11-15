@@ -72,8 +72,6 @@ public:
 
 private:
 
-
-
     Ui::BookmarkGui *ui;
 
     QMenu menuFavorites ;
