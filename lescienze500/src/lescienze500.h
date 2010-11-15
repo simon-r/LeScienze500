@@ -78,7 +78,7 @@ protected:
 
 private:
     Ui::LeScienze500 *ui;
-    bool fillListaCategorie() ;
+    bool fillListaCategorie( QString filtro  = "" ) ;
     bool fillListaAutori(  QString filtro  = "" ) ;
     bool fillListaAnni() ;
     bool fillRubriche() ;

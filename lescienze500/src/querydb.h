@@ -37,7 +37,7 @@ class QueryDB
 public:
     QueryDB();
 
-    QueryResult getCategorie() ;
+    QueryResult getCategorie( QString filtro = "" ) ;
     QueryResult getAutori( QString filtro = "" ) ;
     QueryResult getAnni() ;
     QueryResult getRubriche() ;

@@ -160,7 +160,7 @@ void LeScienze500::changeEvent(QEvent *e)
     }
 }
 
-bool LeScienze500::fillListaCategorie()
+bool LeScienze500::fillListaCategorie( QString filtro )
 {
     QueryDB db ;
     QueryResult lista = db.getCategorie() ;

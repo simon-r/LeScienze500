@@ -47,9 +47,11 @@ QueryDB::QueryDB()
     logical_titolo = " and " ;
 }
 
-QueryResult QueryDB::getCategorie()
+QueryResult QueryDB::getCategorie( QString filtro )
 {
-    QString query = "select Categoria from Categorie order by Categoria" ;
+    QString query = "select Categoria from Categorie where Categoria like \'%" ;
+    query += filtro ;
+    query +=  "%\' order by Categoria" ;
     return execQuery( query ) ;
 }
 
