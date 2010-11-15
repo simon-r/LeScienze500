@@ -19,8 +19,7 @@ SOURCES += main.cpp \
     bookmark.cpp \
     bookmarkgui.cpp \
     about.cpp \
-    setname.cpp \
-    bookmarkbackup.cpp
+    setname.cpp
 HEADERS += lescienze500.h \
     querydb.h \
     queryresult.h \
@@ -35,7 +34,6 @@ HEADERS += lescienze500.h \
     bookmarkgui.h \
     about.h \
     setname.h \
-    bookmarkbackup.h \
 
 FORMS += lescienze500.ui \
     configura.ui \
@@ -44,8 +42,7 @@ FORMS += lescienze500.ui \
     lserrormessage.ui \
     bookmarkgui.ui \
     about.ui \
-    setname.ui \
-    bookmarkbackup.ui
+    setname.ui
 
 win32{
     SOURCES += sqlite/sqlite3.c
