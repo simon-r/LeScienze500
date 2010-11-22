@@ -41,6 +41,7 @@
 #include "bookmark.h"
 #include <QMessageBox>
 #include <QFileInfoList>
+#include <QCursor>
 
 #ifdef Q_WS_WIN
 #include<windows.h>
@@ -1056,7 +1057,15 @@ void LeScienze500::on_Select_ParoleChiave_toggled(bool checked)
 
 void LeScienze500::on_Cerca_clicked()
 {
+    QCursor cursor ;
+
+    cursor.setShape( Qt::WaitCursor ) ;
+    ui->centralWidget->setCursor( cursor );
+
     ExecQuery() ;
+
+    cursor.setShape( Qt::ArrowCursor ) ;
+    ui->centralWidget->setCursor( cursor );
 }
 
 void LeScienze500::on_FiltroAutori_textChanged( QString filtro )
