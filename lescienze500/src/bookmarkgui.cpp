@@ -52,6 +52,7 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 
     ui->treeCategorie->setUpdatesEnabled( true );
     ui->treeStates->setUpdatesEnabled( true );
+    ui->treeCategorie->setAnimated( true );
 
     ui->treeCategorie->setColumnCount(3);
     ui->treeCategorie->setColumnHidden( 1 , true ) ;
@@ -59,9 +60,11 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 
     ui->treeStates->setColumnCount(2);
     ui->treeStates->setColumnHidden( 1 , true );
+    ui->treeStates->setAnimated( true );
 
     ui->treeEvaluations->setColumnCount(2);
     ui->treeEvaluations->setColumnHidden( 1 , true );
+    ui->treeEvaluations->setAnimated( true );
 
     ui->treeCategorie->setContextMenuPolicy( Qt::CustomContextMenu );
     ui->treeStates->setContextMenuPolicy( Qt::CustomContextMenu );
