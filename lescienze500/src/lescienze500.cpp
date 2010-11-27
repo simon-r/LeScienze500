@@ -672,9 +672,6 @@ bool LeScienze500::OpenPDFDvd( QString file_pdf )
 
     QString file_n ;
 
-    configLS500 cfg ;
-
-    QString pdf_appl , command ;
     bool flag , process_strated ;
 
     QProcess process_pdf ;
@@ -706,7 +703,7 @@ bool LeScienze500::startPdfAppl( QString file_path )
     QString pdf_appl , command ;
     bool flag , process_strated ;
 
-     QProcess process_pdf ;
+    QProcess process_pdf ;
 
     configLS500 cfg ;
     pdf_appl = cfg.getPDFAppl() ;
