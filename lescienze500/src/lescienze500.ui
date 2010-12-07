@@ -1431,6 +1431,8 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionBackup_preferiti"/>
     <addaction name="separator"/>
     <addaction name="actionMostra_Copertine"/>
+    <addaction name="actionMostra_Storia"/>
+    <addaction name="separator"/>
     <addaction name="actionAbout_2"/>
     <addaction name="actionEsci_2"/>
    </widget>
@@ -1516,6 +1518,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>&amp;Backup preferiti ...</string>
+   </property>
+  </action>
+  <action name="actionMostra_Storia">
+   <property name="text">
+    <string>Mostra Storia</string>
    </property>
   </action>
  </widget>

@@ -52,6 +52,7 @@ public:
     ~LeScienze500();
 
     bool ExecQuery() ;
+    bool ShowHistory() ;
 
     bool OpenPDF() ;
     bool OpenPDF( int id_articolo ) ;
@@ -172,6 +173,8 @@ private slots:
     void on_menuFavoritesClicked() ;
 
     void on_backUpBookmark() ;
+
+    void on_mostraStoria() ;
 
 public slots:
 

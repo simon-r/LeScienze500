@@ -69,6 +69,7 @@ LeScienze500::LeScienze500(QWidget *parent) :
     connect( ui->actionAbout_2 , SIGNAL(triggered()) , this , SLOT(on_openAbout()) ) ;
     connect( ui->actionMostra_Copertine , SIGNAL(triggered()) , this , SLOT(on_ApriBrowserCopertine_clicked()) ) ;
     connect( ui->actionBackup_preferiti , SIGNAL(triggered()) , this , SLOT(on_backUpBookmark()) ) ;
+    connect( ui->actionMostra_Storia , SIGNAL(triggered()),this,SLOT(on_mostraStoria())) ;
 
     connect( ui->addFavoriti , SIGNAL(clicked()) , this , SLOT(on_addFavoriti()) ) ;
 
@@ -367,6 +368,34 @@ bool LeScienze500::ExecQuery()
     QueryResult  q_result ;
 
     db.execMainQuery( q_result ) ;
+
+    fillResultTable( q_result ) ;
+
+    return true ;
+}
+
+bool LeScienze500::ShowHistory()
+{
+
+    QString query = "SELECT titolo,numero,articoli.id FROM articoli, riviste WHERE articoli.idrivista = riviste.id and articoli.id in (  " ;
+    for ( QList<int>::const_iterator itr = this->history_id_articoli.begin() ; itr <  this->history_id_articoli.end() ; itr++ )
+    {
+        query += QString().setNum( *itr ) ;
+        if ( itr <  this->history_id_articoli.end() - 1 )
+            query += " , " ;
+    }
+
+    query += " ) order by articoli.id " ;
+
+    qDebug() << query ;
+
+    QueryDB db ;
+    QueryResult  q_result ;
+
+    q_result = db.execQuery( query ) ;
+
+    if ( q_result.empty() )
+        return false ;
 
     fillResultTable( q_result ) ;
 
@@ -1276,4 +1305,9 @@ void LeScienze500::on_setTitoloLogical()
         ui->SelectLogicalTitolo->setText("AND");
     else
         ui->SelectLogicalTitolo->setText("OR ");
+}
+
+void LeScienze500::on_mostraStoria()
+{
+    this->ShowHistory() ;
 }
