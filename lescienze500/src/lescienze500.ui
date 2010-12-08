@@ -1308,30 +1308,7 @@ p, li { white-space: pre-wrap; }
                    </layout>
                   </widget>
                  </item>
-                 <item row="2" column="3">
-                  <widget class="QPushButton" name="Configura">
-                   <property name="enabled">
-                    <bool>true</bool>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="contextMenuPolicy">
-                    <enum>Qt::NoContextMenu</enum>
-                   </property>
-                   <property name="text">
-                    <string>Configura</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="crystal.qrc">
-                     <normaloff>:/icons/crystal/configure-256.png</normaloff>:/icons/crystal/configure-256.png</iconset>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="0" colspan="5">
+                 <item row="5" column="0" colspan="4">
                   <widget class="QPushButton" name="Cerca">
                    <property name="enabled">
                     <bool>true</bool>
@@ -1374,7 +1351,7 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </widget>
                  </item>
-                 <item row="4" column="0" colspan="5">
+                 <item row="4" column="0" colspan="4">
                   <widget class="QPushButton" name="ApriBrowserCopertine">
                    <property name="minimumSize">
                     <size>
@@ -1394,6 +1371,17 @@ p, li { white-space: pre-wrap; }
                    <property name="icon">
                     <iconset resource="crystal.qrc">
                      <normaloff>:/icons/crystal/bookmarks-organize.png</normaloff>:/icons/crystal/bookmarks-organize.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="2">
+                  <widget class="QPushButton" name="MostraStoria">
+                   <property name="text">
+                    <string>Storia Articoli</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="crystal.qrc">
+                     <normaloff>:/icons/crystal/view-history.png</normaloff>:/icons/crystal/view-history.png</iconset>
                    </property>
                   </widget>
                  </item>
@@ -1521,6 +1509,10 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="actionMostra_Storia">
+   <property name="icon">
+    <iconset resource="crystal.qrc">
+     <normaloff>:/icons/crystal/view-history.png</normaloff>:/icons/crystal/view-history.png</iconset>
+   </property>
    <property name="text">
     <string>Mostra Storia</string>
    </property>

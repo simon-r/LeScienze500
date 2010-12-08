@@ -133,6 +133,7 @@ private:
 
 private slots:
 
+    void on_MostraStoria_clicked();
     void on_openPDF( int id_articolo ) ;
     void on_errorLinkClicked( const QUrl &url ) ;
     void on_openBookmark() ;

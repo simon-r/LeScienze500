@@ -1311,3 +1311,8 @@ void LeScienze500::on_mostraStoria()
 {
     this->ShowHistory() ;
 }
+
+void LeScienze500::on_MostraStoria_clicked()
+{
+    this->ShowHistory() ;
+}
