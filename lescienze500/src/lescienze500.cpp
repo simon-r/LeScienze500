@@ -377,7 +377,11 @@ bool LeScienze500::ExecQuery()
 bool LeScienze500::ShowHistory()
 {
 
-    QString query = "SELECT titolo,numero,articoli.id FROM articoli, riviste WHERE articoli.idrivista = riviste.id and articoli.id in (  " ;
+    QString query ;
+
+    query = "SELECT titolo,numero,articoli.id FROM articoli, riviste " ;
+    query += " WHERE articoli.idrivista = riviste.id and articoli.id in (  " ;
+
     for ( QList<int>::const_iterator itr = this->history_id_articoli.begin() ; itr <  this->history_id_articoli.end() ; itr++ )
     {
         query += QString().setNum( *itr ) ;
@@ -392,7 +396,7 @@ bool LeScienze500::ShowHistory()
     QueryDB db ;
     QueryResult  q_result ;
 
-    q_result = db.execQuery( query ) ;
+    db.execQuery( configLS500().getDBPath() , query , q_result ) ;
 
     if ( q_result.empty() )
         return false ;
@@ -498,9 +502,16 @@ void LeScienze500::fillInformazioni( QModelIndex index )
 
     //qDebug() << "id a confronto; " << qr.q_result[0][index_id] << "  " << this->id_articolo_attuale  ;
 
+    Bookmark bk ;
+    bool bk_flag = bk.isFavoriteBookmarked( qr.q_result[0][index_id] ) ;
+
     QString titolo ;
     titolo.append( "<h3><b>" ) ;
+    if ( bk_flag )
+        titolo.append( QString::fromUtf8( " <IMG SRC=\":/icons/crystal/bookmark.png\" WIDTH=\"20\" HEIGHT=\"20\"> " ) ) ;
+
     titolo.append( qr.q_result[0][index_titolo] ) ;
+
     titolo.append( "</b></h3>" ) ;
 
     ui->MostraTitolo->setHtml( titolo ) ;
@@ -530,7 +541,10 @@ void LeScienze500::fillInformazioni( QModelIndex index )
     abstract.append( "<br /> <br /> Autori: <br />" ) ;
     abstract.append( lista_autori ) ;
 
-    ui->MostraAbstract->setHtml( abstract );
+    if ( bk_flag )
+        abstract.append( QString::fromUtf8( "<br /> Articolo già presente nei favoroti <br />" ) ) ;
+
+    ui->MostraAbstract->setHtml(  abstract );
 
     QString query_data = "SELECT mese,anno FROM riviste WHERE id = " ;
     query_data.append( qr.q_result[0][index_rivista] ) ;
@@ -655,33 +669,33 @@ bool LeScienze500::ViewPreview()
 QString LeScienze500::getDvdPath()
 {
 #ifdef Q_WS_X11
-        QString path = "/media/LESCIENZE" ;
+    QString path = "/media/LESCIENZE" ;
 
+    QString path_1 = path + "/DVD1" ;
+    QString path_2 = path + "/DVD2" ;
+
+    if ( QFile().exists( path_1 ) || QFile().exists( path_2 ) )
+        return path ;
+    else
+        return QString() ;
+#endif
+
+#ifdef Q_WS_WIN
+    QFileInfoList dev_list ;
+    dev_list = QDir::drives() ;
+    for (  QFileInfoList::iterator itr = dev_list.begin() ; itr < dev_list.end() ; itr++ )
+    {
+        QString path = itr->absolutePath() ;
         QString path_1 = path + "/DVD1" ;
         QString path_2 = path + "/DVD2" ;
 
         if ( QFile().exists( path_1 ) || QFile().exists( path_2 ) )
-            return path ;
-        else
-            return QString() ;
-#endif
-
-#ifdef Q_WS_WIN
-        QFileInfoList dev_list ;
-        dev_list = QDir::drives() ;
-        for (  QFileInfoList::iterator itr = dev_list.begin() ; itr < dev_list.end() ; itr++ )
         {
-            QString path = itr->absolutePath() ;
-            QString path_1 = path + "/DVD1" ;
-            QString path_2 = path + "/DVD2" ;
-
-            if ( QFile().exists( path_1 ) || QFile().exists( path_2 ) )
-            {
-                return path ;
-            }
+            return path ;
         }
+    }
 
-        return QString() ;
+    return QString() ;
 #endif
 
 
@@ -767,12 +781,12 @@ void LeScienze500::ejectDVD( QString dvd_path )
 #endif
 
 #ifdef Q_WS_WIN
-//    QString command ;
-//    if ( dvd_path.isEmpty() )
-//        command = "set cdaudio door open" ;
-//    else
-//        command = "open " + dvd_path ;
-//    mciSendString( (LPCTSTR)command.data()->toAscii() , null, 0, 0) ;
+    //    QString command ;
+    //    if ( dvd_path.isEmpty() )
+    //        command = "set cdaudio door open" ;
+    //    else
+    //        command = "open " + dvd_path ;
+    //    mciSendString( (LPCTSTR)command.data()->toAscii() , null, 0, 0) ;
 #endif
 }
 
@@ -973,13 +987,13 @@ void LeScienze500::BuildBookmark()
     }
 }
 
-  void LeScienze500::BuildAbout()
-  {
-      if ( about_d == 0 )
-      {
-          about_d = new About() ;
-      }
-  }
+void LeScienze500::BuildAbout()
+{
+    if ( about_d == 0 )
+    {
+        about_d = new About() ;
+    }
+}
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -1022,8 +1036,8 @@ void LeScienze500::on_errorLinkClicked( const QUrl &url )
 
     if ( reg.indexIn( error_msg ) > -1 )
     {
-           if ( QDesktopServices::openUrl ( url ) )
-           return ;
+        if ( QDesktopServices::openUrl ( url ) )
+            return ;
     }
     this->error_message->close() ;
     this->cfg_d->setConfigData();
@@ -1229,7 +1243,7 @@ void LeScienze500::on_PreviewArticolo_2_clicked()
 
 void LeScienze500::on_ApriBrowserCopertine_clicked()
 {
-     OpenBrowserCopertine() ;
+    OpenBrowserCopertine() ;
 }
 
 void LeScienze500::on_pushButton_clicked()
@@ -1267,14 +1281,14 @@ void LeScienze500::on_backUpBookmark()
 
     switch (ret) {
     case QMessageBox::Ok:
-          f = bk.backupDatabase() ;
-          break;
-      case QMessageBox::Cancel:
-          return ;
-          break;
-      default:
-          return ;
-          break;
+        f = bk.backupDatabase() ;
+        break;
+    case QMessageBox::Cancel:
+        return ;
+        break;
+    default:
+        return ;
+        break;
     }
 
     QMessageBox msgBox2;

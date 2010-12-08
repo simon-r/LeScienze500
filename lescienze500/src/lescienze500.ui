@@ -1376,8 +1376,14 @@ p, li { white-space: pre-wrap; }
                  </item>
                  <item row="2" column="2">
                   <widget class="QPushButton" name="MostraStoria">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
                    <property name="text">
-                    <string>Storia Articoli</string>
+                    <string>Storia articoli</string>
                    </property>
                    <property name="icon">
                     <iconset resource="crystal.qrc">
@@ -1514,7 +1520,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/icons/crystal/view-history.png</normaloff>:/icons/crystal/view-history.png</iconset>
    </property>
    <property name="text">
-    <string>Mostra Storia</string>
+    <string>Storia articoli</string>
    </property>
   </action>
  </widget>
