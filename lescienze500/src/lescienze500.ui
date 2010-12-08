@@ -1534,7 +1534,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/icons/crystal/bookmark.png</normaloff>:/icons/crystal/bookmark.png</iconset>
    </property>
    <property name="text">
-    <string>Cerca solo nei favoriti</string>
+    <string>Cerca solo nei preferiti</string>
    </property>
   </action>
  </widget>
