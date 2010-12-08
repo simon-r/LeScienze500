@@ -24,6 +24,7 @@
 #include "configls500.h"
 #include <QPair>
 #include <QtAlgorithms>
+#include "bookmark.h"
 
 
 bool StrIntLessThan(const QString &s1, const QString &s2)
@@ -299,6 +300,26 @@ bool StrIntLessThan(const QString &s1, const QString &s2)
         prevq = true ;
     }
     query.append( " ) " ) ;
+
+    if ( fvorites_only  )
+    {
+        Bookmark bk ;
+        QueryResult query_r ;
+
+        bk.getFavorites( query_r );
+
+        if ( !query_r.empty() )
+        {
+            query.append( " and articoli.id in ( " ) ;
+            for( QueryResult::iterator itr = query_r.begin() ; itr < query_r.end() ; itr++ )
+            {
+                query += query_r.getField( "IdEntry" , itr ) ;
+                if ( itr <  query_r.end() - 1 )
+                    query += " , " ;
+            }
+            query.append( " ) " ) ;
+        }
+    }
 
     query.append( " ORDER BY idrivista" ) ;
 

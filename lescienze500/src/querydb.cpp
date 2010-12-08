@@ -42,6 +42,7 @@ QueryDB::QueryDB()
     autori_n = false  ;
     anno = false  ;
     rubriche = false  ;
+    fvorites_only = false ;
 
     logical_testo_esteso = " and " ;
     logical_titolo = " and " ;

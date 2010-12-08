@@ -70,6 +70,7 @@ LeScienze500::LeScienze500(QWidget *parent) :
     connect( ui->actionMostra_Copertine , SIGNAL(triggered()) , this , SLOT(on_ApriBrowserCopertine_clicked()) ) ;
     connect( ui->actionBackup_preferiti , SIGNAL(triggered()) , this , SLOT(on_backUpBookmark()) ) ;
     connect( ui->actionMostra_Storia , SIGNAL(triggered()),this,SLOT(on_mostraStoria())) ;
+    connect( ui->actionCerca_solo_nei_favoriti , SIGNAL(triggered(bool)),this,SLOT(on_cercaSoloNeiFavoriti(bool))) ;
 
     connect( ui->addFavoriti , SIGNAL(clicked()) , this , SLOT(on_addFavoriti()) ) ;
 
@@ -275,6 +276,11 @@ bool LeScienze500::ExecQuery()
         db.setLogicalTitolo( true );
     else if ( this->menu_OR_titolo->isChecked() )
         db.setLogicalTitolo( false );
+
+    if ( ui->actionCerca_solo_nei_favoriti->isChecked() )
+        db.fvorites_only = true ;
+    else
+        db.fvorites_only = false ;
 
     if ( db.p_chiave )
     {
@@ -1329,4 +1335,12 @@ void LeScienze500::on_mostraStoria()
 void LeScienze500::on_MostraStoria_clicked()
 {
     this->ShowHistory() ;
+}
+
+void LeScienze500::on_cercaSoloNeiFavoriti( bool c )
+{
+    if ( c )
+        ui->Cerca->setText( tr("Cerca nei preferiti") );
+    else
+        ui->Cerca->setText( tr("Cerca") );
 }

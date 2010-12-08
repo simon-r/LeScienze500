@@ -176,6 +176,7 @@ private slots:
     void on_backUpBookmark() ;
 
     void on_mostraStoria() ;
+    void on_cercaSoloNeiFavoriti( bool c ) ;
 
 public slots:
 

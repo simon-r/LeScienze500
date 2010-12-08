@@ -101,6 +101,7 @@ public:
     bool anno ;
     bool rubriche ;
     bool global_and ;
+    bool fvorites_only ;
 
     QString dbPath ;
 

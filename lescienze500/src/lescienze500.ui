@@ -1308,7 +1308,7 @@ p, li { white-space: pre-wrap; }
                    </layout>
                   </widget>
                  </item>
-                 <item row="5" column="0" colspan="4">
+                 <item row="5" column="0" colspan="3">
                   <widget class="QPushButton" name="Cerca">
                    <property name="enabled">
                     <bool>true</bool>
@@ -1351,7 +1351,7 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </widget>
                  </item>
-                 <item row="4" column="0" colspan="4">
+                 <item row="4" column="0" colspan="3">
                   <widget class="QPushButton" name="ApriBrowserCopertine">
                    <property name="minimumSize">
                     <size>
@@ -1374,7 +1374,7 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="2">
+                 <item row="2" column="1">
                   <widget class="QPushButton" name="MostraStoria">
                    <property name="minimumSize">
                     <size>
@@ -1426,9 +1426,11 @@ p, li { white-space: pre-wrap; }
     <addaction name="separator"/>
     <addaction name="actionMostra_Copertine"/>
     <addaction name="actionMostra_Storia"/>
+    <addaction name="actionCerca_solo_nei_favoriti"/>
     <addaction name="separator"/>
     <addaction name="actionAbout_2"/>
     <addaction name="actionEsci_2"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuFavoriti">
     <property name="title">
@@ -1521,6 +1523,18 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Storia articoli</string>
+   </property>
+  </action>
+  <action name="actionCerca_solo_nei_favoriti">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="crystal.qrc">
+     <normaloff>:/icons/crystal/bookmark.png</normaloff>:/icons/crystal/bookmark.png</iconset>
+   </property>
+   <property name="text">
+    <string>Cerca solo nei favoriti</string>
    </property>
   </action>
  </widget>
