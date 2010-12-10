@@ -1114,9 +1114,6 @@ articolo.</string>
               <enum>QFrame::Plain</enum>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <property name="spacing">
-               <number>0</number>
-              </property>
               <property name="sizeConstraint">
                <enum>QLayout::SetNoConstraint</enum>
               </property>
@@ -1127,13 +1124,13 @@ articolo.</string>
                <widget class="QFrame" name="FrameRubriche">
                 <property name="minimumSize">
                  <size>
-                  <width>160</width>
+                  <width>200</width>
                   <height>137</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>262</width>
+                  <width>300</width>
                   <height>16777215</height>
                  </size>
                 </property>
@@ -1221,7 +1218,7 @@ articolo.</string>
                <widget class="QFrame" name="frame_4">
                 <property name="minimumSize">
                  <size>
-                  <width>260</width>
+                  <width>287</width>
                   <height>137</height>
                  </size>
                 </property>
@@ -1238,77 +1235,7 @@ articolo.</string>
                  <property name="spacing">
                   <number>0</number>
                  </property>
-                 <item row="2" column="0">
-                  <widget class="QFrame" name="AND_OR_Frame">
-                   <property name="enabled">
-                    <bool>true</bool>
-                   </property>
-                   <property name="minimumSize">
-                    <size>
-                     <width>130</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>50</height>
-                    </size>
-                   </property>
-                   <property name="toolTip">
-                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Selezione&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;AND&lt;/span&gt; [&lt;span style=&quot; text-decoration: underline;&quot;&gt;consigliato&lt;/span&gt;]: tutte le condizioni di ricerca devono essere soddisfatte.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;OR&lt;/span&gt;: almeno una delle condizioni di ricerca deve essere soddisfatta.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
-                   </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_3">
-                    <property name="margin">
-                     <number>1</number>
-                    </property>
-                    <item>
-                     <widget class="QRadioButton" name="AND_Button">
-                      <property name="maximumSize">
-                       <size>
-                        <width>50</width>
-                        <height>50</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>AND</string>
-                      </property>
-                      <property name="checked">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="OR_Button">
-                      <property name="maximumSize">
-                       <size>
-                        <width>50</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>OR</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item row="5" column="0" colspan="3">
+                 <item row="7" column="0" colspan="3">
                   <widget class="QPushButton" name="Cerca">
                    <property name="enabled">
                     <bool>true</bool>
@@ -1351,7 +1278,7 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </widget>
                  </item>
-                 <item row="4" column="0" colspan="3">
+                 <item row="5" column="0" colspan="3">
                   <widget class="QPushButton" name="ApriBrowserCopertine">
                    <property name="minimumSize">
                     <size>
@@ -1374,22 +1301,96 @@ p, li { white-space: pre-wrap; }
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="1">
-                  <widget class="QPushButton" name="MostraStoria">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>30</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>Storia articoli</string>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="crystal.qrc">
-                     <normaloff>:/icons/crystal/view-history.png</normaloff>:/icons/crystal/view-history.png</iconset>
-                   </property>
-                  </widget>
+                 <item row="4" column="0">
+                  <layout class="QHBoxLayout" name="horizontalLayout_6">
+                   <item>
+                    <widget class="QFrame" name="AND_OR_Frame">
+                     <property name="enabled">
+                      <bool>true</bool>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>130</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Selezione&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;AND&lt;/span&gt; [&lt;span style=&quot; text-decoration: underline;&quot;&gt;consigliato&lt;/span&gt;]: tutte le condizioni di ricerca devono essere soddisfatte.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;OR&lt;/span&gt;: almeno una delle condizioni di ricerca deve essere soddisfatta.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::StyledPanel</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Raised</enum>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_3">
+                      <property name="margin">
+                       <number>1</number>
+                      </property>
+                      <item>
+                       <widget class="QRadioButton" name="AND_Button">
+                        <property name="maximumSize">
+                         <size>
+                          <width>50</width>
+                          <height>50</height>
+                         </size>
+                        </property>
+                        <property name="text">
+                         <string>AND</string>
+                        </property>
+                        <property name="checked">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QRadioButton" name="OR_Button">
+                        <property name="maximumSize">
+                         <size>
+                          <width>50</width>
+                          <height>16777215</height>
+                         </size>
+                        </property>
+                        <property name="text">
+                         <string>OR</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="MostraStoria">
+                     <property name="minimumSize">
+                      <size>
+                       <width>150</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string>Storia articoli</string>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="crystal.qrc">
+                       <normaloff>:/icons/crystal/view-history.png</normaloff>:/icons/crystal/view-history.png</iconset>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </widget>
