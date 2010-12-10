@@ -395,7 +395,7 @@ bool LeScienze500::ShowHistory()
             query += " , " ;
     }
 
-    query += " ) order by articoli.id " ;
+    query += " ) order by riviste.numero  " ;
 
     qDebug() << query ;
 
