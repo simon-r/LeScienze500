@@ -1301,7 +1301,7 @@ articolo.</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="4" column="0">
+                 <item row="4" column="0" colspan="3">
                   <layout class="QHBoxLayout" name="horizontalLayout_6">
                    <item>
                     <widget class="QFrame" name="AND_OR_Frame">
@@ -1377,8 +1377,8 @@ p, li { white-space: pre-wrap; }
                     <widget class="QPushButton" name="MostraStoria">
                      <property name="minimumSize">
                       <size>
-                       <width>150</width>
-                       <height>30</height>
+                       <width>0</width>
+                       <height>0</height>
                       </size>
                      </property>
                      <property name="text">
