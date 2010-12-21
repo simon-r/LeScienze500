@@ -209,6 +209,7 @@ void BrowserCopertine::appendArticolo( QString titolo , QString abstract , QStri
 void BrowserCopertine::closeRivista()
 {
     //qDebug() << rivista ;
+
     ui->MostraNumeroRivista->setHtml( this->rivista );
 }
 
