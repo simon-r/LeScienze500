@@ -22,9 +22,13 @@
 #include "bookmark.h"
 #include <QDebug>
 #include "querydb.h"
+#include <QtPlugin>
+#include <QCoreApplication>
 
 int main(int argc, char *argv[])
 {
+
+
     Bookmark bk ;
     if ( bk.initBookmark() )
     {
@@ -39,6 +43,9 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     LeScienze500 w;
+
+    qApp->addLibraryPath( qApp->applicationDirPath() ) ;
+    qDebug() <<  qApp->applicationDirPath() ;
 
     w.show();
     return a.exec();

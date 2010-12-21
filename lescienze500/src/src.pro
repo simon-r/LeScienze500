@@ -51,6 +51,7 @@ win32{
     INCLUDEPATH += sqlite
  #   LIBS += winmm.lib
     RC_FILE += myapp_ico.rc
+    #QTPLUGIN += qjpeg
 }
 
 unix{
