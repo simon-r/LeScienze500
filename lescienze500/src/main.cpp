@@ -44,8 +44,10 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     LeScienze500 w;
 
+#ifdef Q_WS_WIN
     qApp->addLibraryPath( qApp->applicationDirPath() ) ;
     qDebug() <<  qApp->applicationDirPath() ;
+#endif
 
     w.show();
     return a.exec();

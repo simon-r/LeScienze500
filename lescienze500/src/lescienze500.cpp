@@ -458,9 +458,15 @@ void  LeScienze500::fillResultTable( QueryResult& q_res )
     int r = 0 ;
     int c ;
 
+    Bookmark bk ;
+
     for( QueryResult::iterator it_r = q_result.begin() ; it_r < q_result.end() ; it_r++ )
     {
         c = 0 ;
+
+        QString id = q_result.getField( "Id" , it_r ) ;
+        bool bk_flag = bk.isFavoriteBookmarked( id ) ;
+
         for( QueryResult::col_iterator it_c = q_result.colBegin() ; it_c < q_result.colEnd()-1 ; it_c++ )
         {
             QTableWidgetItem item ;
@@ -468,6 +474,11 @@ void  LeScienze500::fillResultTable( QueryResult& q_res )
             item.setText( q_result.getField( it_c , it_r ) );
             item.setFlags( item.flags() & !Qt::ItemIsEditable );
             item.setFlags( item.flags() | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled );
+
+            if ( bk_flag )
+                item.setBackgroundColor( QColor( 255 , 240 , 220 ) );
+            else
+                item.setBackgroundColor( QColor( Qt::white ) );
 
             ui->TabellaRisultati->setItem( r , c , new QTableWidgetItem( item ) );
             c++ ;
