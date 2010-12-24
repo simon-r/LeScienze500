@@ -458,14 +458,26 @@ void  LeScienze500::fillResultTable( QueryResult& q_res )
     int r = 0 ;
     int c ;
 
+    QHash<int,int> bk_id ;
     Bookmark bk ;
+
+    QueryResult query_f ;
+
+    bk.getFavorites( query_f );
+
+    if ( !query_f.empty() )
+    {
+        for( QueryResult::iterator itr = query_f.begin() ; itr < query_f.end() ; itr++ )
+        {
+            int id_f = query_f.getField( "IdEntry" , itr ).toInt() ;
+            bk_id.insert( id_f , id_f  ) ;
+        }
+    }
 
     for( QueryResult::iterator it_r = q_result.begin() ; it_r < q_result.end() ; it_r++ )
     {
         c = 0 ;
-
         QString id = q_result.getField( "Id" , it_r ) ;
-        bool bk_flag = bk.isFavoriteBookmarked( id ) ;
 
         for( QueryResult::col_iterator it_c = q_result.colBegin() ; it_c < q_result.colEnd()-1 ; it_c++ )
         {
@@ -475,7 +487,7 @@ void  LeScienze500::fillResultTable( QueryResult& q_res )
             item.setFlags( item.flags() & !Qt::ItemIsEditable );
             item.setFlags( item.flags() | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled );
 
-            if ( bk_flag )
+            if ( bk_id.value( id.toInt() , -1 ) != -1 )
                 item.setBackgroundColor( QColor( 255 , 240 , 220 ) );
             else
                 item.setBackgroundColor( QColor( Qt::white ) );
