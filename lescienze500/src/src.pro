@@ -64,11 +64,14 @@ RESOURCES += icons.qrc \
     sql.qrc
 OBJECTS_DIR = tmp_files
 MOC_DIR = tmp_files
-target.path = /usr/bin
-icons.path = /usr/share/icons/hicolor/
-icons.files = icons/*
-desktop.path = /usr/share/applications/
-desktop.files = lescienze500.desktop
-INSTALLS += target
-INSTALLS += desktop
-INSTALLS += icons
+
+unix{
+    target.path = /usr/bin
+    icons.path = /usr/share/icons/hicolor/
+    icons.files = icons/*
+    desktop.path = /usr/share/applications/
+    desktop.files = lescienze500.desktop
+    INSTALLS += target
+    INSTALLS += desktop
+    INSTALLS += icons
+}
