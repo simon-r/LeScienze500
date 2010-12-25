@@ -43,4 +43,4 @@ public slots:
     void on_linkMessageClicked( const QUrl& url ) ;
 };
 
-#endif // ABOUT_H
+#endif //// ABOUT_H
