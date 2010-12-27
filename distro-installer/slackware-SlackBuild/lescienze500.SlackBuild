@@ -3,7 +3,7 @@
 # Written by Michele Petrecca michelinux@alice.it
 
 PRGNAM=lescienze500
-VERSION=${VERSION:-1.3.1}
+VERSION=${VERSION:-1.3.3}
 ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
 TAG=${TAG:-sl}
@@ -16,7 +16,7 @@ echo -e "\e[0;32m+-----------------------------------------+"
 echo "| Starting SlackBuild $PRGNAM-$VERSION |"
 echo -e "+-----------------------------------------+\e[0;0m"
 
-SOURCE=http://sourceforge.net/projects/$PRGNAM/files/Nuove_Versioni/$PRGNAM'-'$VERSION.tar.gz/download
+SOURCE=https://github.com/downloads/simon-r/LeScienze500/$PRGNAM'-'$VERSION.tar.gz/download
 
 if [ ! -e $PRGNAM'-'$VERSION.tar.gz ]; then
 echo "+--------------------+"
