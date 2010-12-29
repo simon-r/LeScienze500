@@ -194,7 +194,7 @@ void Configura::on_Ok_clicked()
 
 void Configura::on_SearchDBPath_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Apri Data Base LeScienze.db"), "/", tr("Data Base files (*.db)"));
+    QString fileName = QFileDialog::getOpenFileName(this,tr("Apri Data Base LeScienze.db"), QDir::homePath(), tr("Data Base files (*.db)"));
 
     if ( fileName.size() > 0 )
         ui->DBPath->setText( fileName );
@@ -202,7 +202,7 @@ void Configura::on_SearchDBPath_clicked()
 
 void Configura::on_SearchPDFPath1_clicked()
 {
-    QString dir = QFileDialog::getExistingDirectory(this, tr("Apri Directory: Percorso articoli 1"), "/" ,
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Apri Directory: Percorso articoli 1"), QDir::homePath() ,
                                                     QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
     if ( dir.size() > 0 )
@@ -214,7 +214,7 @@ void Configura::on_SearchPDFPath1_clicked()
 
 void Configura::on_SearchPDFPath2_clicked()
 {
-    QString dir = QFileDialog::getExistingDirectory(this, tr("Apri Directory: Percorso articoli 2"), "/" ,
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Apri Directory: Percorso articoli 2"), QDir::homePath() ,
                                                     QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if ( dir.size() > 0 )
     {
@@ -226,7 +226,7 @@ void Configura::on_SearchPDFPath2_clicked()
 
 void Configura::on_SearchPdfAppl_clicked()
 {
-    QString appl_name = QFileDialog::getOpenFileName(this,tr("Imposta un lettore PDF"), "/", tr("File Eseguibile (*)"));
+    QString appl_name = QFileDialog::getOpenFileName(this,tr("Imposta un lettore PDF"), "/usr/bin" , tr("File Eseguibile (*)"));
 
     if ( appl_name.size() > 0 )
         ui->PdfApplPath->setText( appl_name );
@@ -234,7 +234,7 @@ void Configura::on_SearchPdfAppl_clicked()
 
 void Configura::on_SearchCopertinePath_clicked()
 {
-    QString dir = QFileDialog::getExistingDirectory(this, tr("Apri Directory: Percorso Copertine"), "/" ,
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Apri Directory: Percorso Copertine"), QDir::homePath() ,
                                                     QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if ( dir.size() > 0 )
     {
