@@ -1,8 +1,0 @@
-Per le istruzioni di compilazione e uso
-
-Visitate la home page:
-http://lescienze500.wordpress.com/
-http://lescienze500.wordpress.com/istruzioni-per-lutente/
-
-Source forge:
-http://sourceforge.net/projects/lescienze500/
