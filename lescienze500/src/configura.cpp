@@ -226,7 +226,7 @@ void Configura::on_SearchPDFPath2_clicked()
 
 void Configura::on_SearchPdfAppl_clicked()
 {
-    QString appl_name = QFileDialog::getOpenFileName(this,tr("Imposta un lettore PDF"), "/usr/bin" , tr("File Eseguibile (*)"));
+    QString appl_name = QFileDialog::getOpenFileName(this,tr("Imposta un lettore PDF"), QDir::rootPath() , tr("File Eseguibile (*)"));
 
     if ( appl_name.size() > 0 )
         ui->PdfApplPath->setText( appl_name );
