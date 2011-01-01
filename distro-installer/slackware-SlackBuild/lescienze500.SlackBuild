@@ -12,9 +12,9 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/txz}
 PKG=$TMP/package-$PRGNAM
 
-echo -e "\e[0;32m+-----------------------------------------+"
+echo -e "\e[0;32m+----------------------------------------+"
 echo "| Starting SlackBuild $PRGNAM-$VERSION |"
-echo -e "+-----------------------------------------+\e[0;0m"
+echo -e "+----------------------------------------+\e[0;0m"
 
 SOURCE=https://github.com/downloads/simon-r/LeScienze500/$PRGNAM'-'$VERSION.tar.gz/download
 
@@ -41,7 +41,7 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG
 cd $TMP
-rm -rf $PRGNAM
+rm -rf $PRGNAM-$VERSION
 tar xzvf $CWD/$PRGNAM'-'$VERSION.tar.gz
 cd $PRGNAM'-'$VERSION
 
@@ -86,10 +86,10 @@ cp -a \
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/usr/share/icons/hicolor/
-cp -f -r icons/* $PKG/usr/share/icons/hicolor/
+cp -f -r src/icons/* $PKG/usr/share/icons/hicolor/
 
 mkdir -p $PKG/usr/share/applications
-install -m 644 -p lescienze500.desktop $PKG/usr/share/applications/
+install -m 644 -p src/lescienze500.desktop $PKG/usr/share/applications/
 
 # Copy the slack-desc (and a custom doinst.sh if necessary) into ./install
 mkdir -p $PKG/install
