@@ -336,7 +336,6 @@ QString configLS500::getConfigParameter( QString name )
 
 void configLS500::getAllParameters()
 {
-    //char buf[1024];
     QString result ;
 
     QFile file ;
