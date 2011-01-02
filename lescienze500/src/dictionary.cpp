@@ -11,6 +11,7 @@
 #include <QTime>
 #include <QRegExp>
 #include "querydb.h"
+#include <QHash>
 
 Dictionary::Dictionary()
 {
@@ -114,9 +115,16 @@ bool Dictionary::addText( QString text , QString id_art )
 {
     QRegExp reg_word ;
     reg_word.setPattern( "([a-zA-Z]+)" );
+    QueryDB db ;
+
+    QHash<QString,int> tmp_dict ;
 
     QString word ;
     QStringList article_dict ;
+
+    configLS500 cfg ;
+    QString db_path = cfg.getDictionaryPath() ;
+    db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
 
     int count = 0;
     int pos = 0;
@@ -128,6 +136,37 @@ bool Dictionary::addText( QString text , QString id_art )
         pos += reg_word.matchedLength() ;
     }
 
+    QString query_categoria = "select categoria from categorie where id in ( select idcategoria from articoli_categorie where idarticolo = " ;
+    query_categoria += id_art  ;
+    query_categoria += " )"  ;
+
+    QString query_anno = "SELECT anno FROM riviste WHERE id in ( " ;
+    query_anno += " select  IdRivista from articoli where Id = " ;
+    query_anno += id_art ;
+    query_anno += " ) " ;
+
+    QString query_word ;
+    QString global_insert = "  begin ; " ;
+    for ( QStringList::iterator itr = article_dict.begin() ; itr < article_dict.end() ; itr++ )
+    {
+        QString inser_word = "" ;
+        if( word.getField(0,0).toInt() == 0 )
+        {
+            inser_word =  " insert into Words ( Word ) values (  \"" ;
+            inser_word += *itr ;
+            inser_word += "\" ) ; " ;
+            //qDebug() << inser_word ;
+        }
+        else
+        {
+
+        }
+
+        global_insert += inser_word ;
+    }
+
+    global_insert += " commit ; " ;
+    return QueryDB::execNAQuery( db_path , global_insert ) ;
 
 }
 
