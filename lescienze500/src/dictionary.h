@@ -29,6 +29,9 @@
 // select categoria from categorie where id in ( select idcategoria from Word_Categoria where idword in ( select id from words where word like "mantide" ) );
 // select categoria , cnt from categorie , Word_Categoria where categorie.id = Word_Categoria.IdCategoria and categorie.id in ( select idcategoria from Word_Categoria where idword in ( select id from words where word like "energia" ) ) group by categoria ;
 // select id , categoria from categorie where id in ( select idcategoria from Word_Categoria where idword in ( select id from words where word like "magnete" ) ) group by categoria ;
+// select cnt from Word_Categoria where idword in ( select id from words where word like "magnete" ) and idcategoria in ( 10 ) ;
+// select cnt , categoria from Word_Categoria , categorie where categorie.id = Word_Categoria.idcategoria and idword in ( select id from words where word like "mantide" ) and idcategoria in ( select id from categorie where id in ( select idcategoria from Word_Categoria where idword in ( select id from words where word like "mantide" ) ) ) order by cnt ;
+// select cnt , Anni.anno from Word_Anno , Anni where Anni.Anno = Word_Anno.Anno and idword in ( select id from words where word like "dna" ) and Word_Anno.anno in ( select anno from anni where anno in ( select anno from Word_Anno where idword in ( select id from words where word like "dna" ) ) )  ;
 
 
 class WordInfo
