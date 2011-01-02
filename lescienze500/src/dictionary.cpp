@@ -59,9 +59,10 @@ bool Dictionary::buildDictionary()
 {
     this->initDictionary() ;
     this->addYears() ;
+    this->addCategorie() ;
+    this->addIdArticoli() ;
 
     QString query_art_id = "select Id from Articoli" ;
-
     configLS500 cfg ;
 
     QueryDB db ;
@@ -141,29 +142,70 @@ bool Dictionary::addYears()
     db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
 
     bool ret = true ;
-    QString insert ;
+    QString insert = " begin ; ";
     for ( QueryResult::iterator itr = anni.begin() ; itr < anni.end() ; itr++ )
     {
         insert += " insert into Anni ( Anno ) values (  " ;
         insert += anni.getField( "Anno" , itr ) ;
         insert += " ) ; " ;
-
-
     }
+    insert += " commit ; " ;
 
-    qDebug() <<  db_path << insert ;
+    //qDebug() <<  db_path << insert ;
     ret = ret && QueryDB::execNAQuery( db_path , insert ) ;
     return ret ;
 }
 
 bool Dictionary::addCategorie()
 {
+    QueryDB db ;
+    QueryResult categorie = db.getCategorie() ;
 
+    configLS500 cfg ;
+    QString db_path = cfg.getDictionaryPath() ;
+    db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+
+    bool ret = true ;
+    QString insert = " begin ; ";
+    for ( QueryResult::iterator itr = categorie.begin() ; itr < categorie.end() ; itr++ )
+    {
+        insert += " insert into Categorie ( Categoria ) values ( \"" ;
+        insert += categorie.getField( "Categoria" , itr ) ;
+        insert += "\" ) ; " ;
+    }
+    insert += " commit ; " ;
+
+    //qDebug() <<  db_path << insert ;
+    ret = ret && QueryDB::execNAQuery( db_path , insert ) ;
+    return ret ;
 }
 
 bool Dictionary::addIdArticoli()
 {
+    QString query_art_id = "select Id from Articoli order by Id " ;
+    configLS500 cfg ;
 
+    QueryDB db ;
+    QueryResult id_articoli ;
+
+    db.execQuery( cfg.getDBPath() , query_art_id , id_articoli ) ;
+
+    QString db_path = cfg.getDictionaryPath() ;
+    db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+
+    bool ret = true ;
+    QString insert = " begin ; ";
+    for ( QueryResult::iterator itr = id_articoli.begin() ; itr < id_articoli.end() ; itr++ )
+    {
+        insert += " insert into Articoli ( IdArticolo ) values ( " ;
+        insert += id_articoli.getField( "Id" , itr ) ;
+        insert += " ) ; " ;
+    }
+    insert += " commit ; " ;
+
+    qDebug() <<  db_path << insert ;
+    ret = ret && QueryDB::execNAQuery( db_path , insert ) ;
+    return ret ;
 }
 
 
