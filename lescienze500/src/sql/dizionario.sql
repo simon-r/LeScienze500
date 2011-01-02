@@ -21,18 +21,18 @@ create table Articoli
 create table Anni
 (
 	Id integer primary key autoincrement,
-	Anno integer not null
+	Anno integer not null unique
 ) ;
 
 create table Word_Categoria
 (
-	IdWord integer not null unique,
-	IdCategoria integer not null unique,
+	IdWord integer not null,
+	IdCategoria integer not null,
 	Cnt integer not null default 1,
 	primary key ( IdWord , IdCategoria )
 ) ;
 
-create table Articolo_Anno
+create table Word_Articolo
 (
 	IdWord integer not null unique,
 	IdArticolo integer not null unique,
@@ -43,8 +43,8 @@ create table Articolo_Anno
 
 create table Word_Anno
 (
-	IdWord integer not null unique,
-	IdAnno integer not null unique,
+	IdWord integer not null,
+	Anno integer not null,
 	Cnt integer not null default 1 ,
-	primary key ( IdWord , IdAnno )
+	primary key ( IdWord , Anno )
 ) ;

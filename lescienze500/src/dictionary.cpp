@@ -78,8 +78,8 @@ bool Dictionary::buildDictionary()
     {
 
         QString id = id_articoli.getField( "Id" , itr ) ;
-        qDebug() << id ;
-        qDebug() << this->dictionary.size() ;
+        //qDebug() << id ;
+        //qDebug() << this->dictionary.size() ;
 
         QString query_testo_esteso = "select TestoEsteso from RicercaEstesa where IdArticolo = " ;
         query_testo_esteso += id ;
@@ -109,10 +109,12 @@ bool Dictionary::buildDictionary()
         }
 
         this->addText( full_text , id ) ;
-        this->fillDataBase() ;
 
-        if( e_cnt++ == 100 ) return true ;
+        if( e_cnt++ == 100 ) break ;
     }
+
+
+    this->fillDataBase() ;
 
     this->dictionary.clear();
     return true ;
@@ -133,7 +135,7 @@ bool Dictionary::addText( QString text , QString id_art )
     QString db_path = cfg.getDictionaryPath() ;
     db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
 
-    QString query_categoria = "select Categoria from categorie where id in ( select idcategoria from articoli_categorie where idarticolo = " ;
+    QString query_categoria = "select Categoria, Id from categorie where id in ( select idcategoria from articoli_categorie where idarticolo = " ;
     query_categoria += id_art  ;
     query_categoria += " )"  ;
 
@@ -156,6 +158,7 @@ bool Dictionary::addText( QString text , QString id_art )
     {
         count++;
         word = text.mid( pos , reg_word.matchedLength() ) ;
+        word = word.toLower() ;
 
         WordInfo w_info = this->dictionary.value( word , WordInfo() ) ;
 
@@ -172,7 +175,7 @@ bool Dictionary::addText( QString text , QString id_art )
 
         for( QueryResult::iterator itr = categorie.begin() ; itr < categorie.end() ; itr++ )
         {
-            int cat_id = categorie.getField(0,itr).toInt() ;
+            int cat_id = categorie.getField("Id",itr).toInt() ;
             QPair<int,int> info_cat = w_info.categoriaid_cnt.value( cat_id , QPair<int,int>(0,0) ) ;
             info_cat.first = cat_id ;
             info_cat.second++ ;
@@ -188,6 +191,75 @@ bool Dictionary::addText( QString text , QString id_art )
 
 bool Dictionary::fillDataBase()
 {
+
+    configLS500 cfg ;
+    QString db_path = cfg.getDictionaryPath() ;
+    db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+
+    int w_id = 1 ;
+    QString s_id ;
+    QString cnt ;
+    QString insert_word = " begin ; " ;
+
+    QString anno ;
+    QString str_cnt ;
+    QString id_cat ;
+
+    for( QHash<QString,WordInfo>::iterator itr = dictionary.begin() ; itr != dictionary.end() ; itr++ )
+    {
+        //qDebug() << (*itr).cnt ;
+
+        s_id.setNum( w_id ) ;
+        cnt.setNum( (*itr).cnt ) ;
+
+        insert_word += " insert into Words ( Id , Word , Cnt ) values (  " ;
+        insert_word += s_id ;
+        insert_word += " , \"" ;
+        insert_word += (*itr).word ;
+        insert_word += "\" , " ;
+        insert_word += cnt ;
+        insert_word += " ) ; " ;
+
+        for ( QHash< int , QPair<int,int> >::iterator y_itr = (*itr).year_cnt.begin() ; y_itr != (*itr).year_cnt.end() ; y_itr++ )
+        {
+            anno.setNum( (*y_itr).first ) ;
+            str_cnt.setNum( (*y_itr).second ) ;
+
+            insert_word += " insert into Word_Anno ( IdWord , Anno , Cnt ) values ( " ;
+            insert_word +=  s_id ;
+            insert_word += " , " ;
+            insert_word += anno ;
+            insert_word += " , " ;
+            insert_word += str_cnt ;
+            insert_word += " ) ; " ;
+        }
+
+        for ( QHash< int , QPair<int,int> >::iterator c_itr = (*itr).categoriaid_cnt.begin() ; c_itr != (*itr).categoriaid_cnt.end() ; c_itr++ )
+        {
+            id_cat.setNum( (*c_itr).first ) ;
+            str_cnt.setNum( (*c_itr).second ) ;
+
+            insert_word += " insert into Word_Categoria ( IdWord , IdCategoria , Cnt ) values ( " ;
+            insert_word +=  s_id ;
+            insert_word += " , " ;
+            insert_word += id_cat ;
+            insert_word += " , " ;
+            insert_word += str_cnt ;
+            insert_word += " ) ; " ;
+        }
+
+        if ( w_id % 1000 == 0 )
+        {
+            insert_word += " commit ; " ;
+            QueryDB::execNAQuery( db_path , insert_word ) ;
+            insert_word = " begin ; " ;
+        }
+
+        w_id++ ;
+    }
+
+    insert_word += " commit ; " ;
+    QueryDB::execNAQuery( db_path , insert_word ) ;
 
 }
 
@@ -228,9 +300,11 @@ bool Dictionary::addCategorie()
     QString insert = " begin ; ";
     for ( QueryResult::iterator itr = categorie.begin() ; itr < categorie.end() ; itr++ )
     {
-        insert += " insert into Categorie ( Categoria ) values ( \"" ;
+        insert += " insert into Categorie ( Categoria , Id ) values ( \"" ;
         insert += categorie.getField( "Categoria" , itr ) ;
-        insert += "\" ) ; " ;
+        insert += "\" , " ;
+        insert += categorie.getField( "Id" , itr ) ;
+        insert += " ) ; " ;
     }
     insert += " commit ; " ;
 

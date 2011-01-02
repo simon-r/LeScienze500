@@ -50,7 +50,7 @@ QueryDB::QueryDB()
 
 QueryResult QueryDB::getCategorie( QString filtro )
 {
-    QString query = "select Categoria from Categorie where Categoria like \'%" ;
+    QString query = "select Categoria, Id from Categorie where Categoria like \'%" ;
     query += filtro ;
     query +=  "%\' order by Categoria" ;
     return execQuery( query ) ;

@@ -15,7 +15,7 @@ public:
     int cnt ;
     QHash< int , QPair<int,int> > year_cnt ;
     QHash< int , QPair<int,int> > categoriaid_cnt ;
-    QHash< int , QPair<int,int> > articoloid_cnt ;
+ //   QHash< int , QPair<int,int> > articoloid_cnt ;
 };
 
 class Dictionary : public QObject
