@@ -203,7 +203,7 @@ bool Dictionary::addIdArticoli()
     }
     insert += " commit ; " ;
 
-    qDebug() <<  db_path << insert ;
+    //qDebug() <<  db_path << insert ;
     ret = ret && QueryDB::execNAQuery( db_path , insert ) ;
     return ret ;
 }
