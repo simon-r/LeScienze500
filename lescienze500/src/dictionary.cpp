@@ -117,14 +117,14 @@ bool Dictionary::addText( QString text , QString id_art )
     reg_word.setPattern( "([a-zA-Z]+)" );
     QueryDB db ;
 
-    QHash<QString,int> tmp_dict ;
-
     QString word ;
-    QStringList article_dict ;
+    QHash<QString,int> article_dict ;
 
     configLS500 cfg ;
     QString db_path = cfg.getDictionaryPath() ;
     db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+
+
 
     int count = 0;
     int pos = 0;
@@ -132,7 +132,21 @@ bool Dictionary::addText( QString text , QString id_art )
     {
         count++;
         word = text.mid( pos , reg_word.matchedLength() ) ;
-        article_dict.append( word ) ;
+
+        QString select_wcnt = "select Cnt from words where Word like \"" ;
+        select_wcnt =  word ; select_wcnt =  "\"" ;
+
+        QueryResult qr_word ;
+        db.execQuery( db_path , select_wcnt , qr_word ) ;
+
+        int w_cnt = article_dict.value( word , 0 ) ;
+
+        if( !qr_word.empty() )
+        {
+            w_cnt += qr_word.getField(0,0).toInt() ;
+        }
+
+        article_dict.insert( word , w_cnt+1 ) ;
         pos += reg_word.matchedLength() ;
     }
 
@@ -145,22 +159,19 @@ bool Dictionary::addText( QString text , QString id_art )
     query_anno += id_art ;
     query_anno += " ) " ;
 
-    QString query_word ;
     QString global_insert = "  begin ; " ;
-    for ( QStringList::iterator itr = article_dict.begin() ; itr < article_dict.end() ; itr++ )
+
+    QList<QString> keys =  article_dict.keys() ;
+    for ( QList<QString>::iterator itr = keys.begin() ; itr != keys.end() ; itr++ )
     {
         QString inser_word = "" ;
-        if( word.getField(0,0).toInt() == 0 )
-        {
-            inser_word =  " insert into Words ( Word ) values (  \"" ;
-            inser_word += *itr ;
-            inser_word += "\" ) ; " ;
-            //qDebug() << inser_word ;
-        }
-        else
-        {
 
-        }
+        inser_word =  " insert into Words ( Word , Cnt ) values (  \"" ;
+        inser_word += *itr ;
+        inser_word += "\" , " ;
+        inser_word +=  QString().setNum( article_dict.value( *itr ) ) ;
+        inser_word += " ) ; " ;
+        qDebug() << inser_word ;
 
         global_insert += inser_word ;
     }
