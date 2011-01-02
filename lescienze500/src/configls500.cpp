@@ -85,6 +85,8 @@ QString configLS500::DEFAULT( parName pn )
         return "bookmark_ls500.backup" ;
     case BookmarkBkupCnt:
         return "0" ;
+    case DictionaryPath:
+        return "$HOME/.config/LeScienze500/dictionary_ls500.db" ;
     default:
         break ;
     }
@@ -120,6 +122,8 @@ QString configLS500::DEFAULT( parName pn )
         return "bookmark_ls500.backup" ;
     case BookmarkBkupCnt:
         return "0" ;
+    case DictionaryPath:
+        return "$HOME/AppData/LeScienze500/dictionary_ls500.db" ;
     default:
         break ;
     }
@@ -252,6 +256,23 @@ QString configLS500::getBookmarkDumpPath()
         res = QString( configLS500::DEFAULT( BookmarkBkupPath ) ) ;
         open() ;
         this->setBookmarkDumpPath( res );
+        close() ;
+    }
+    else
+        res = dump ;
+    return res ;
+}
+
+QString configLS500::getDictionaryPath()
+{
+    QString dump = getConfigParameter( configLS500::PARAMETER( DictionaryPath ) ) ;
+    QString res ;
+
+    if ( dump.isEmpty() )
+    {
+        res = QString( configLS500::DEFAULT( DictionaryPath ) ) ;
+        open() ;
+        this->setDictionaryPath( res );
         close() ;
     }
     else
@@ -448,6 +469,11 @@ void configLS500::setBookmarkPath( QString pr )
 void configLS500::setBkUpCnt( QString pr )
 {
     parameters.insert( configLS500::PARAMETER( BookmarkBkupCnt ) , pr ) ;
+}
+
+void configLS500::setDictionaryPath( QString pr )
+{
+    parameters.insert( configLS500::PARAMETER( DictionaryPath ) , pr ) ;
 }
 
 void configLS500::setParamenter( QString name , QString val )

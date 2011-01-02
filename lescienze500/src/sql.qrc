@@ -2,5 +2,6 @@
     <qresource prefix="/sql">
         <file>sql/bookmark.sql</file>
         <file>sql/bookmark_init.sql</file>
+        <file>sql/dizionario.sql</file>
     </qresource>
 </RCC>

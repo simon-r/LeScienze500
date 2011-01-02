@@ -33,7 +33,10 @@ class configLS500
 {
 public:
 
-    enum  parName { Spacing , Endl , PdfAppl , DbDir , ArtPath1 , ArtPath2 , CopertinePath , UseDvd , BookmarkPath , BookmarkBkupPath , BookmarkBkupFile , BookmarkBkupCnt } ;
+    enum  parName { Spacing , Endl , PdfAppl , DbDir ,
+                    ArtPath1 , ArtPath2 , CopertinePath , UseDvd ,
+                    BookmarkPath , BookmarkBkupPath , BookmarkBkupFile ,
+                    BookmarkBkupCnt , DictionaryPath} ;
 
     static QString DEFAULT( parName pn ) ;
     static QString PARAMETER( parName pn ) ;
@@ -50,6 +53,7 @@ public:
     QString getBookmarkDumpPath() ;
     QString getBookmarkBkUpFile() ;
     QString getBkUpCnt() ;
+    QString getDictionaryPath() ;
 
     QString getParameter( QString name ) ;
 
@@ -65,6 +69,7 @@ public:
     void setBookmarkDumpPath( QString pr ) ;
     void setBookmarkBkUpFile( QString pr ) ;
     void setBkUpCnt( QString pr ) ;
+    void setDictionaryPath( QString pr ) ;
 
     void setParamenter( QString name , QString val ) ;
 

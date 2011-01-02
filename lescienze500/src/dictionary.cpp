@@ -17,6 +17,43 @@ Dictionary::Dictionary()
 }
 
 
+bool Dictionary::exists()
+{
+    configLS500 cfg ;
+
+    QString db_path = cfg.getDictionaryPath() ;
+    db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+
+    QFile file ;
+    file.setFileName( db_path );
+
+    return file.exists() ;
+}
+
+ bool Dictionary::initDictionary()
+ {
+     configLS500 cfg ;
+
+     QString db_path = cfg.getDictionaryPath() ;
+     db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+
+     if ( !exists() )
+     {
+         QFile res ;
+         res.setFileName(":/sql/sql/dictionary.sql" );
+         res.open(QIODevice::ReadOnly) ;
+         QString full_sql = QString::fromUtf8( res.readAll() ) ;
+         qDebug() << full_sql ;
+         res.close();
+
+         bool result = QueryDB::execNAQuery( db_path , full_sql ) ;
+
+         return result ;
+     }
+     else
+         return true ;
+ }
+
 bool Dictionary::buildDictionary()
 {
     QString query_art_id = "select Id from Articoli" ;
@@ -64,7 +101,10 @@ bool Dictionary::buildDictionary()
     return true ;
 }
 
+    bool addText( QString text , QString id_art )
+    {
 
+    }
 
 
 
