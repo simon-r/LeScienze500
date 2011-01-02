@@ -76,6 +76,9 @@ bool Dictionary::exists()
 
 bool Dictionary::buildDictionary()
 {
+    if( this->exists() )
+        return false ;
+
     this->initDictionary() ;
     this->addYears() ;
     this->addCategorie() ;
@@ -128,7 +131,7 @@ bool Dictionary::buildDictionary()
 
         this->addText( full_text , id ) ;
 
-        if( e_cnt++ == 100 ) break ;
+      // if( e_cnt++ == 1 ) break ;
     }
 
 

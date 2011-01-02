@@ -42,10 +42,10 @@ int main(int argc, char *argv[])
 
     configLS500 cfg ;
 
-    Dictionary dic ;
-    dic.buildDictionary() ;
+    //Dictionary dic ;
+    //dic.buildDictionary() ;
 
-    return 1 ;
+    //return 1 ;
 
     QApplication a(argc, argv);
     LeScienze500 w;
