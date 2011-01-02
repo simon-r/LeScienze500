@@ -13,6 +13,9 @@ public:
     bool addText( QString text , QString id_art ) ;
     bool exists() ;
 
+    bool addYears() ;
+    bool addCategorie() ;
+    bool addIdArticoli() ;
 private:
 
 };

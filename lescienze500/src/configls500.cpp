@@ -52,6 +52,8 @@ QString configLS500::PARAMETER( parName pn )
         return "bk_db_dump_file" ;
     case BookmarkBkupCnt:
         return "bk_bkup_cnt" ;
+    case DictionaryPath:
+        return "dict_path" ;
     default:
         break ;
     }

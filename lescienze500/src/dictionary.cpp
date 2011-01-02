@@ -33,6 +33,7 @@ bool Dictionary::exists()
  bool Dictionary::initDictionary()
  {
      configLS500 cfg ;
+     bool ret ;
 
      QString db_path = cfg.getDictionaryPath() ;
      db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
@@ -40,22 +41,25 @@ bool Dictionary::exists()
      if ( !exists() )
      {
          QFile res ;
-         res.setFileName(":/sql/sql/dictionary.sql" );
+         res.setFileName(":/sql/sql/dizionario.sql" );
          res.open(QIODevice::ReadOnly) ;
          QString full_sql = QString::fromUtf8( res.readAll() ) ;
          qDebug() << full_sql ;
          res.close();
 
-         bool result = QueryDB::execNAQuery( db_path , full_sql ) ;
-
-         return result ;
+         ret = QueryDB::execNAQuery( db_path , full_sql ) ;
      }
      else
-         return true ;
+         ret = false ;
+
+     return ret ;
  }
 
 bool Dictionary::buildDictionary()
 {
+    this->initDictionary() ;
+    this->addYears() ;
+
     QString query_art_id = "select Id from Articoli" ;
 
     configLS500 cfg ;
@@ -67,7 +71,9 @@ bool Dictionary::buildDictionary()
 
     for ( QueryResult::iterator itr = id_articoli.begin() ; itr < id_articoli.end() ; itr++ )
     {
+
         QString id = id_articoli.getField( "Id" , itr ) ;
+        qDebug() << id ;
 
         QString query_testo_esteso = "select TestoEsteso from RicercaEstesa where IdArticolo = " ;
         query_testo_esteso += id ;
@@ -96,17 +102,68 @@ bool Dictionary::buildDictionary()
             full_text += " " ;
         }
 
+        this->addText( full_text , id ) ;
+        return true ;
     }
 
     return true ;
 }
 
-    bool addText( QString text , QString id_art )
-    {
+bool Dictionary::addText( QString text , QString id_art )
+{
+    QRegExp reg_word ;
+    reg_word.setPattern( "([a-zA-Z]+)" );
 
+    QString word ;
+    QStringList article_dict ;
+
+    int count = 0;
+    int pos = 0;
+    while ( ( pos = reg_word.indexIn(text, pos) ) != -1 )
+    {
+        count++;
+        word = text.mid( pos , reg_word.matchedLength() ) ;
+        article_dict.append( word ) ;
+        pos += reg_word.matchedLength() ;
     }
 
 
+}
 
+
+bool Dictionary::addYears()
+{
+    QueryDB db ;
+    QueryResult anni = db.getAnni() ;
+
+    configLS500 cfg ;
+    QString db_path = cfg.getDictionaryPath() ;
+    db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+
+    bool ret = true ;
+    QString insert ;
+    for ( QueryResult::iterator itr = anni.begin() ; itr < anni.end() ; itr++ )
+    {
+        insert += " insert into Anni ( Anno ) values (  " ;
+        insert += anni.getField( "Anno" , itr ) ;
+        insert += " ) ; " ;
+
+
+    }
+
+    qDebug() <<  db_path << insert ;
+    ret = ret && QueryDB::execNAQuery( db_path , insert ) ;
+    return ret ;
+}
+
+bool Dictionary::addCategorie()
+{
+
+}
+
+bool Dictionary::addIdArticoli()
+{
+
+}
 
 

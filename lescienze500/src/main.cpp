@@ -24,6 +24,7 @@
 #include "querydb.h"
 #include <QtPlugin>
 #include <QCoreApplication>
+#include "dictionary.h"
 
 int main(int argc, char *argv[])
 {
@@ -40,6 +41,11 @@ int main(int argc, char *argv[])
     }
 
     configLS500 cfg ;
+
+    Dictionary dic ;
+    dic.buildDictionary() ;
+
+    return 1 ;
 
     QApplication a(argc, argv);
     LeScienze500 w;
