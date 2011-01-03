@@ -279,6 +279,8 @@ QString configLS500::getDictionaryPath()
     }
     else
         res = dump ;
+
+    res.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
     return res ;
 }
 

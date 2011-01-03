@@ -24,6 +24,7 @@
 #include <QPair>
 #include <QList>
 #include <QObject>
+#include <QBitArray>
 #include "querydb.h"
 
 // select * from words where length(word) > 3 and cnt > 200 and id in ( select idword from Word_Categoria where idcategoria in (select id from categorie where categoria like "biologia") ) order by cnt ;
@@ -43,7 +44,7 @@ public:
     int cnt ;
     QHash< int , QPair<int,int> > year_cnt ;
     QHash< int , QPair<int,int> > categoriaid_cnt ;
- //   QHash< int , QPair<int,int> > articoloid_cnt ;
+ //   QBitArray articoloid ;
 };
 
 class Dictionary : public QObject
@@ -60,6 +61,15 @@ public:
     bool addYears() ;
     bool addCategorie() ;
     bool addIdArticoli() ;
+
+    bool getWord( QueryResult& query_r , const QString& word ) ;
+
+    bool getTopWords( QueryResult& query_r , int top , const QStringList& categorie ) ;
+    bool getTopWords( QueryResult& query_r , int top , const QList<int>& years ) ;
+
+    bool getCategorieFromWord( QueryResult& query_r , const QString& word ) ;
+    bool getYearsFromWord( QueryResult& query_r , const QString& word ) ;
+
 private:
 
     QHash<QString,WordInfo*> dictionary ;
@@ -67,6 +77,8 @@ private:
     bool addText( QString text , QString id_art ) ;
     bool fillDataBase() ;
     void destroyHash() ;
+
+    void execQuery( QString& query , QueryResult& qr ) ;
 
 signals:
     void sig_progress( int cnt , int total ) ;

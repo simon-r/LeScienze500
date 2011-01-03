@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     bookmarkgui.cpp \
     about.cpp \
     setname.cpp \
-    dictionary.cpp
+    dictionary.cpp \
+    dictionary_query.cpp
 HEADERS += lescienze500.h \
     querydb.h \
     queryresult.h \

@@ -47,6 +47,7 @@ void QueryResult::printResult()
     for( QList<QStringList>::iterator it = q_result.begin() ; it < q_result.end() ; it++ )
     {
         int i = 0 ;
+        qDebug() << "------------------------------------------------------" ;
         for( QStringList::iterator it_c = it->begin() ; it_c < it->end() ; it_c++ )
         {
             qDebug() << this->columns_names[i] << ": " << *it_c ;

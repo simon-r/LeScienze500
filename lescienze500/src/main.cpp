@@ -45,6 +45,13 @@ int main(int argc, char *argv[])
     Dictionary dic ;
     dic.buildDictionary() ;
 
+    QueryResult res ;
+    dic.getCategorieFromWord( res  , "forza" ) ;
+    res.printResult();
+
+    dic.getYearsFromWord( res  , "internet" ) ;
+    res.printResult();
+
     return 1 ;
 
     QApplication a(argc, argv);
