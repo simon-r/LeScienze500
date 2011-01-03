@@ -54,8 +54,6 @@ public:
     bool initDictionary() ;
     bool buildDictionary() ;
 
-    bool addText( QString text , QString id_art ) ;
-    bool fillDataBase() ;
     bool exists() ;
 
     bool addYears() ;
@@ -63,7 +61,11 @@ public:
     bool addIdArticoli() ;
 private:
 
-    QHash<QString,WordInfo> dictionary ;
+    QHash<QString,WordInfo*> dictionary ;
+
+    bool addText( QString text , QString id_art ) ;
+    bool fillDataBase() ;
+    void destroyHash() ;
 
 signals:
     void sig_progress( int cnt , int total ) ;

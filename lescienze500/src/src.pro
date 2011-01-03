@@ -20,7 +20,6 @@ SOURCES += main.cpp \
     bookmarkgui.cpp \
     about.cpp \
     setname.cpp \
-    startpdf.cpp \
     dictionary.cpp
 HEADERS += lescienze500.h \
     querydb.h \
@@ -36,7 +35,6 @@ HEADERS += lescienze500.h \
     bookmarkgui.h \
     about.h \
     setname.h \
-    startpdf.h \
     dictionary.h
 
 FORMS += lescienze500.ui \

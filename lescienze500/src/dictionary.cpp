@@ -131,13 +131,12 @@ bool Dictionary::buildDictionary()
 
         this->addText( full_text , id ) ;
 
-      // if( e_cnt++ == 1 ) break ;
+        //if( e_cnt++ == 200 ) break ;
     }
 
 
     this->fillDataBase() ;
-
-    this->dictionary.clear();
+    this->destroyHash() ;
     return true ;
 }
 
@@ -175,35 +174,45 @@ bool Dictionary::addText( QString text , QString id_art )
 
     int count = 0;
     int pos = 0;
+    bool new_element = false ;
     while ( ( pos = reg_word.indexIn(text, pos) ) != -1 )
     {
         count++;
         word = text.mid( pos , reg_word.matchedLength() ) ;
         word = word.toLower() ;
 
-        WordInfo w_info = this->dictionary.value( word , WordInfo() ) ;
+        WordInfo* w_info = this->dictionary.value( word , 0 ) ;
+        if ( w_info == 0 )
+        {
+            w_info = new WordInfo ;
+            new_element = true ;
+        }
 
-        w_info.word = word ;
-        w_info.cnt++ ;
+        w_info->word = word ;
+        w_info->cnt++ ;
 
-        QPair<int,int> info_year = w_info.year_cnt.value( year , QPair<int,int>(0,0) ) ;
+        QPair<int,int> info_year = w_info->year_cnt.value( year , QPair<int,int>(0,0) ) ;
         info_year.first = year ;
         info_year.second++ ;
 
         //qDebug() << word << " " << w_info.cnt << " " << year << " " << info_year.second ;
 
-        w_info.year_cnt.insert( year , info_year ) ;
+        w_info->year_cnt.insert( year , info_year ) ;
 
         for( QueryResult::iterator itr = categorie.begin() ; itr < categorie.end() ; itr++ )
         {
             int cat_id = categorie.getField("Id",itr).toInt() ;
-            QPair<int,int> info_cat = w_info.categoriaid_cnt.value( cat_id , QPair<int,int>(0,0) ) ;
+            QPair<int,int> info_cat = w_info->categoriaid_cnt.value( cat_id , QPair<int,int>(0,0) ) ;
             info_cat.first = cat_id ;
             info_cat.second++ ;
-            w_info.categoriaid_cnt.insert( cat_id , info_cat ) ;
+            w_info->categoriaid_cnt.insert( cat_id , info_cat ) ;
         }
 
-        this->dictionary.insert( word , w_info ) ;
+        if ( new_element )
+        {
+            this->dictionary.insert( word , w_info ) ;
+            new_element = false ;
+        }
         pos += reg_word.matchedLength() ;
     }
 
@@ -226,22 +235,22 @@ bool Dictionary::fillDataBase()
     QString str_cnt ;
     QString id_cat ;
 
-    for( QHash<QString,WordInfo>::iterator itr = dictionary.begin() ; itr != dictionary.end() ; itr++ )
+    for( QHash<QString,WordInfo*>::iterator itr = dictionary.begin() ; itr != dictionary.end() ; itr++ )
     {
         //qDebug() << (*itr).cnt ;
 
         s_id.setNum( w_id ) ;
-        cnt.setNum( (*itr).cnt ) ;
+        cnt.setNum( (*itr)->cnt ) ;
 
         insert_word += " insert into Words ( Id , Word , Cnt ) values (  " ;
         insert_word += s_id ;
         insert_word += " , \"" ;
-        insert_word += (*itr).word ;
+        insert_word += (*itr)->word ;
         insert_word += "\" , " ;
         insert_word += cnt ;
         insert_word += " ) ; " ;
 
-        for ( QHash< int , QPair<int,int> >::iterator y_itr = (*itr).year_cnt.begin() ; y_itr != (*itr).year_cnt.end() ; y_itr++ )
+        for ( QHash< int , QPair<int,int> >::iterator y_itr = (*itr)->year_cnt.begin() ; y_itr != (*itr)->year_cnt.end() ; y_itr++ )
         {
             anno.setNum( (*y_itr).first ) ;
             str_cnt.setNum( (*y_itr).second ) ;
@@ -255,7 +264,7 @@ bool Dictionary::fillDataBase()
             insert_word += " ) ; " ;
         }
 
-        for ( QHash< int , QPair<int,int> >::iterator c_itr = (*itr).categoriaid_cnt.begin() ; c_itr != (*itr).categoriaid_cnt.end() ; c_itr++ )
+        for ( QHash< int , QPair<int,int> >::iterator c_itr = (*itr)->categoriaid_cnt.begin() ; c_itr != (*itr)->categoriaid_cnt.end() ; c_itr++ )
         {
             id_cat.setNum( (*c_itr).first ) ;
             str_cnt.setNum( (*c_itr).second ) ;
@@ -282,6 +291,16 @@ bool Dictionary::fillDataBase()
     insert_word += " commit ; " ;
     QueryDB::execNAQuery( db_path , insert_word ) ;
 
+}
+
+void Dictionary::destroyHash()
+{
+    for( QHash<QString,WordInfo*>::iterator itr = dictionary.begin() ; itr != dictionary.end() ; itr++ )
+    {
+        delete (*itr) ;
+    }
+
+    this->dictionary.clear();
 }
 
 bool Dictionary::addYears()
