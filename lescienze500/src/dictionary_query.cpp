@@ -48,7 +48,7 @@ bool Dictionary::getCategorieFromWord( QueryResult& query_r , QString word )
     QString query = "select cnt , categoria from Word_Categoria , categorie where categorie.id = Word_Categoria.idcategoria and idword in "
                     "( select id from words where word like \"%1\" ) and idcategoria in "
                     "( select id from categorie where id in "
-                    "( select idcategoria from Word_Categoria where idword in ( select id from words where word like \"%1\" ) ) ) order by cnt ; " ;
+                    "( select idcategoria from Word_Categoria where idword in ( select id from words where word like \"%1\" ) ) ) order by cnt desc ; " ;
 
     query = query.arg(word) ;
 

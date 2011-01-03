@@ -44,9 +44,9 @@
              <widget class="QLineEdit" name="lineEdit"/>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QToolButton" name="search">
               <property name="text">
-               <string>PushButton</string>
+               <string>Cerca</string>
               </property>
              </widget>
             </item>
