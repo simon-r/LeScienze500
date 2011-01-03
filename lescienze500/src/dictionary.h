@@ -24,6 +24,7 @@
 #include <QPair>
 #include <QList>
 #include <QObject>
+#include "querydb.h"
 
 // select * from words where length(word) > 3 and cnt > 200 and id in ( select idword from Word_Categoria where idcategoria in (select id from categorie where categoria like "biologia") ) order by cnt ;
 // select categoria from categorie where id in ( select idcategoria from Word_Categoria where idword in ( select id from words where word like "mantide" ) );

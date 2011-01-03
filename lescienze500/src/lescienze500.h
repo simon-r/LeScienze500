@@ -38,7 +38,6 @@
 #include "bookmarkgui.h"
 #include "about.h"
 #include <QActionGroup>
-#include "startpdf.h"
 
 
 namespace Ui {
@@ -128,8 +127,6 @@ private:
     void BuildAbout() ;
 
     QList<int> history_id_articoli ;
-
-    StartPdf start_pdf ;
 
 private slots:
 
