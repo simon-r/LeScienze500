@@ -41,7 +41,7 @@ bool Dictionary::exists()
     configLS500 cfg ;
 
     QString db_path = cfg.getDictionaryPath() ;
-    db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
+    //db_path.replace( QRegExp( "(^\\$HOME)" ) , QDir::homePath() ) ;
 
     QFile file ;
     file.setFileName( db_path );

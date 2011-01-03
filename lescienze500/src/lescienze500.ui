@@ -1427,6 +1427,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionConfigura"/>
     <addaction name="separator"/>
     <addaction name="actionOrganizza_preferiti"/>
+    <addaction name="actionDizionario"/>
     <addaction name="actionBackup_preferiti"/>
     <addaction name="separator"/>
     <addaction name="actionMostra_Copertine"/>
@@ -1540,6 +1541,15 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Cerca solo nei preferiti</string>
+   </property>
+  </action>
+  <action name="actionDizionario">
+   <property name="icon">
+    <iconset resource="crystal.qrc">
+     <normaloff>:/icons/crystal/accessories-dictionary-2.png</normaloff>:/icons/crystal/accessories-dictionary-2.png</iconset>
+   </property>
+   <property name="text">
+    <string>Dizionario ...</string>
    </property>
   </action>
  </widget>

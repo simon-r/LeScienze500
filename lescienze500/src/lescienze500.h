@@ -38,6 +38,7 @@
 #include "bookmarkgui.h"
 #include "about.h"
 #include <QActionGroup>
+#include "dictionarygui.h"
 
 
 namespace Ui {
@@ -109,6 +110,8 @@ private:
     LSErrorMessage *error_message ;
     BookmarkGui *bk_gui ;
     About *about_d ;
+    DictionaryGui *dict_d ;
+
     QAction *menu_organize ;
 
     QMenu *menu_logical ;
@@ -125,6 +128,7 @@ private:
     void BuildConfigura() ;
     void BuildBookmark() ;
     void BuildAbout() ;
+    void BuildDictionary() ;
 
     QList<int> history_id_articoli ;
 
@@ -138,6 +142,7 @@ private slots:
     void on_openAbout() ;
     void on_addFavoriti() ;
     void on_ApriBrowserCopertine( int id ) ;
+    void on_openDictionary() ;
 
     void on_pushButton_clicked();
     void on_ApriBrowserCopertine_clicked();

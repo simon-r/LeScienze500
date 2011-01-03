@@ -61,6 +61,7 @@ LeScienze500::LeScienze500(QWidget *parent) :
     b_copertine_d = 0 ;
     bk_gui = 0 ;
     about_d = 0 ;
+    dict_d = 0 ;
 
     fillLists() ;
 
@@ -71,6 +72,7 @@ LeScienze500::LeScienze500(QWidget *parent) :
     connect( ui->actionBackup_preferiti , SIGNAL(triggered()) , this , SLOT(on_backUpBookmark()) ) ;
     connect( ui->actionMostra_Storia , SIGNAL(triggered()),this,SLOT(on_mostraStoria())) ;
     connect( ui->actionCerca_solo_nei_favoriti , SIGNAL(triggered(bool)),this,SLOT(on_cercaSoloNeiFavoriti(bool))) ;
+    connect( ui->actionDizionario , SIGNAL(triggered()) , this , SLOT(on_openDictionary())  ) ;
 
     connect( ui->addFavoriti , SIGNAL(clicked()) , this , SLOT(on_addFavoriti()) ) ;
 
@@ -1024,6 +1026,14 @@ void LeScienze500::BuildAbout()
     }
 }
 
+void LeScienze500::BuildDictionary()
+{
+    if ( dict_d == 0 )
+    {
+        dict_d = new DictionaryGui() ;
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -1366,4 +1376,10 @@ void LeScienze500::on_cercaSoloNeiFavoriti( bool c )
         ui->Cerca->setText( tr("Cerca nei preferiti") );
     else
         ui->Cerca->setText( tr("Cerca") );
+}
+
+void LeScienze500::on_openDictionary()
+{
+    this->BuildDictionary();
+    this->dict_d->openDictionary();
 }

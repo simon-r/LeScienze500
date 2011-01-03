@@ -43,16 +43,19 @@ int main(int argc, char *argv[])
     configLS500 cfg ;
 
     Dictionary dic ;
-    dic.buildDictionary() ;
+//    dic.buildDictionary() ;
 
-    QueryResult res ;
-    dic.getCategorieFromWord( res  , "forza" ) ;
-    res.printResult();
+//    QueryResult res ;
+//    dic.getCategorieFromWord( res  , "forza" ) ;
+//    res.printResult();
 
-    dic.getYearsFromWord( res  , "internet" ) ;
-    res.printResult();
+//    dic.getYearsFromWord( res  , "internet" ) ;
+//    res.printResult();
 
-    return 1 ;
+//    dic.getWord( res  , "interne." , 10 ) ;
+//    res.printResult();
+
+    //return 1 ;
 
     QApplication a(argc, argv);
     LeScienze500 w;

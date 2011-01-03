@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     about.cpp \
     setname.cpp \
     dictionary.cpp \
-    dictionary_query.cpp
+    dictionary_query.cpp \
+    dictionarygui.cpp
 HEADERS += lescienze500.h \
     querydb.h \
     queryresult.h \
@@ -36,7 +37,8 @@ HEADERS += lescienze500.h \
     bookmarkgui.h \
     about.h \
     setname.h \
-    dictionary.h
+    dictionary.h \
+    dictionarygui.h
 
 FORMS += lescienze500.ui \
     configura.ui \
@@ -45,7 +47,8 @@ FORMS += lescienze500.ui \
     lserrormessage.ui \
     bookmarkgui.ui \
     about.ui \
-    setname.ui
+    setname.ui \
+    dictionarygui.ui
 
 win32{
     SOURCES += sqlite/sqlite3.c

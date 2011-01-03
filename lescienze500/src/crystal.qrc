@@ -23,5 +23,6 @@
         <file>crystal/db_update.png</file>
         <file>crystal/view-history.png</file>
         <file>crystal/bookmark.png</file>
+        <file>crystal/accessories-dictionary-2.png</file>
     </qresource>
 </RCC>

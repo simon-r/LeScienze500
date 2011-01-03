@@ -62,17 +62,19 @@ public:
     bool addCategorie() ;
     bool addIdArticoli() ;
 
-    bool getWord( QueryResult& query_r , const QString& word ) ;
+    bool getWord( QueryResult& query_r , QString word , int limit = 500 ) ;
 
     bool getTopWords( QueryResult& query_r , int top , const QStringList& categorie ) ;
     bool getTopWords( QueryResult& query_r , int top , const QList<int>& years ) ;
 
-    bool getCategorieFromWord( QueryResult& query_r , const QString& word ) ;
-    bool getYearsFromWord( QueryResult& query_r , const QString& word ) ;
+    bool getCategorieFromWord( QueryResult& query_r , QString word ) ;
+    bool getYearsFromWord( QueryResult& query_r , QString word ) ;
 
 private:
 
     QHash<QString,WordInfo*> dictionary ;
+
+    QString convertWildcards( QString word ) ;
 
     bool addText( QString text , QString id_art ) ;
     bool fillDataBase() ;
