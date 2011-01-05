@@ -25,6 +25,8 @@ public:
     void searchWordYear( QString word ) ;
     void searchWordCategoria ( QString word ) ;
 
+    void searchTopWord( const QStringList& categorie ) ;
+
 private:
     Ui::DictionaryGui *ui;
 
@@ -37,6 +39,7 @@ private:
     QAction *menu_search_word ;
     QAction *menu_search_word_year ;
     QAction *menu_search_word_categoria ;
+    QAction *menu_search_top_word ;
 
 
 private slots:

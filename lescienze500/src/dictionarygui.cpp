@@ -24,18 +24,18 @@ DictionaryGui::DictionaryGui(QWidget *parent) :
     menu_search_word_categoria->setCheckable(true) ;
     menu_search->addAction( menu_search_word_categoria ) ;
 
-//    menu_OR = new QAction( tr("OR") , 0 ) ;
-//    menu_OR->setCheckable(true);
-//    menu_logical->addAction( menu_search_word ) ;
+    menu_search_top_word = new QAction( tr("Classifica parole") , 0 ) ;
+    menu_search_top_word->setCheckable(true) ;
+    menu_search->addAction( menu_search_top_word ) ;
+
 
     set_search = new QActionGroup(0) ;
     set_search->addAction(menu_search_word) ;
     set_search->addAction(menu_search_word_year) ;
     set_search->addAction(menu_search_word_categoria) ;
+    set_search->addAction(menu_search_top_word) ;
 
-    //set_search->addAction(menu_OR) ;
     set_search->setExclusive(true);
-
 
     ui->search->setMenu( menu_search );
 
@@ -141,6 +141,37 @@ void DictionaryGui::searchWordCategoria ( QString word )
     ui->textBrowser->setHtml( full_text );
 }
 
+void DictionaryGui::searchTopWord( const QStringList& categorie )
+{
+    QueryResult qr ;
+    dict.getTopWords( qr , 600 , categorie ) ;
+
+    ui->textBrowser->clear();
+    if( qr.empty() )
+    {
+        ui->textBrowser->setHtml( "nessun risultato" );
+        return ;
+    }
+
+    QString text , full_text ;
+    full_text = "<TABLE BORDER=\"1\">" ;
+    full_text += " <TR><td>-----------------------------</td></TR>" ;
+    full_text += " <TR><td> Parola: </td> <td> Conteggio </td></TR>" ;
+    for ( QueryResult::iterator itr = qr.begin() ; itr < qr.end() ; itr++ )
+    {
+        text = " <td>%1</td> <td>%2 </td>" ;
+        full_text += "<TR>" ;
+        full_text += text.arg( qr.getField("Word",itr) ).arg( qr.getField("Cnt",itr) ) ;
+        full_text += "</TR>" ;
+    }
+    full_text += "</TABLE>" ;
+
+    ui->textBrowser->setHtml( full_text );
+
+
+
+}
+
 void DictionaryGui::on_searchClicked()
 {
     if ( this->menu_search_word->isChecked() )
@@ -149,6 +180,8 @@ void DictionaryGui::on_searchClicked()
         this->searchWordYear( ui->lineEdit->text() ) ;
     else if ( this->menu_search_word_categoria->isChecked() )
         this->searchWordCategoria( ui->lineEdit->text() );
+    else if ( this->menu_search_top_word->isChecked() )
+        this->searchTopWord( QStringList() );
 }
 
 void DictionaryGui::on_searchStatusChanged()

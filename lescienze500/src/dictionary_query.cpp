@@ -57,6 +57,23 @@ bool Dictionary::getCategorieFromWord( QueryResult& query_r , QString word )
     return true ;
 }
 
+bool Dictionary::getTopWords( QueryResult& query_r , int top , const QStringList& categorie )
+{
+    QString query ;
+
+    if ( categorie.isEmpty() )
+    {
+        query = " select * from words order by cnt desc limit %1  ; " ;
+        query = query.arg( top ) ;
+    }
+    else
+        return false ;
+
+    query_r.clear();
+    this->execQuery( query , query_r ) ;
+    return true ;
+}
+
 bool Dictionary::getWord( QueryResult& query_r , QString word , int limit )
 {
     word = convertWildcards( word ) ;

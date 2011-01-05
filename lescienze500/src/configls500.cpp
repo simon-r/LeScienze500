@@ -369,12 +369,13 @@ void configLS500::getAllParameters()
 
     file.setFileName( this->config_path );
     file.open(  QIODevice::ReadOnly | QIODevice::Text ) ;
-    while ( !file.atEnd() ) {
+    while ( !file.atEnd() )
+    {
         QString line ;
         line = QString::fromUtf8( file.readLine() ) ;
 
-        if ( line.size() > 0 ) {
-
+        if ( line.size() > 0 )
+        {
             QRegExp reg( this->getLineRegex() ) ;
             int pos = reg.indexIn( line );
             QStringList list = reg.capturedTexts() ;
