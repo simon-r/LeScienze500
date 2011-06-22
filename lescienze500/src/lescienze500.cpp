@@ -1396,7 +1396,7 @@ void LeScienze500::on_SavePDF( int id )
 
     file_name += QString("/") += doc_name += QString(".pdf");
 
-    QString target_file_name = QFileDialog::getSaveFileName(this, tr("Salva Articolo"), file_name , tr("Documento PDF ( *.pdf) ")) ;
+    QString target_file_name = QFileDialog::getSaveFileName(this, tr("Salva Articolo"), file_name , tr("Documento PDF (*.pdf)")) ;
 
 
     // get the original file path.
