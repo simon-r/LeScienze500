@@ -168,7 +168,7 @@ private slots:
     void on_Cerca_clicked();
     void on_Select_ParoleChiave_toggled(bool checked);
 
-    void on_SavePDF() ;
+    void on_SavePDF( int id = -1 ) ;
 
     void on_setTestoEstesoLogical() ;
     void on_setTitoloLogical() ;

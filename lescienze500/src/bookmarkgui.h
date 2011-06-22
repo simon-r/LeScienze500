@@ -127,6 +127,7 @@ public slots:
     void on_addFavorite() ;
     void on_remove() ;
     void on_openPdf() ;
+    void on_savePdf() ;
     void on_contextMenu( const QPoint& pos ) ;
     void on_contextMenuStates( const QPoint& pos ) ;
     void on_saveComment() ;
@@ -151,6 +152,7 @@ public slots:
 
 signals:
     void sig_openPdf( int id ) ;
+    void sig_savePdf( int id ) ;
     void sig_openBrowser( int id ) ;
 };
 

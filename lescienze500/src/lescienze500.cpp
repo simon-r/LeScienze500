@@ -1012,8 +1012,10 @@ void LeScienze500::BuildBookmark()
     if ( bk_gui == 0 )
     {
         bk_gui = new BookmarkGui() ;
+
         connect( bk_gui , SIGNAL(sig_openPdf(int)) , this , SLOT(on_openPDF(int)) ) ;
         connect( bk_gui , SIGNAL(sig_openBrowser(int)) , this , SLOT(on_ApriBrowserCopertine(int)) ) ;
+        connect( bk_gui , SIGNAL(sig_savePdf(int)),this,SLOT(on_SavePDF(int))) ;
 
         bk_gui->setMenuFavorites( ui->menuFavoriti );
         //bk_gui->fillBookmarkMenu() ;
@@ -1372,18 +1374,20 @@ void LeScienze500::on_cercaSoloNeiFavoriti( bool c )
         ui->Cerca->setText( tr("Cerca") );
 }
 
-void LeScienze500::on_SavePDF()
+void LeScienze500::on_SavePDF( int id )
 {
-    if ( this->pdf_file.isEmpty() )
-        return  ;
-
     QueryDB db ;
 
     QString file_name = QDir::homePath() ;
 
-    QString query = "select titolo from Articoli where id = " ;
-    query += QString().setNum( this->history_id_articoli.first() ) ;
+    if ( id == -1 )
+    {
+        id = history_id_articoli.first() ;
+    }
 
+
+    QString query = "select titolo from Articoli where id = " ;
+    query += QString().setNum( id ) ;
     QueryResult qr = db.execQuery( query ) ;
 
     if ( qr.empty() ) return ;
@@ -1405,7 +1409,6 @@ void LeScienze500::on_SavePDF()
         return ;
 
     QString file_pdf = qr_pdf.getField( "FilePDF" , qr_pdf.begin() ) ;
-
 
     configLS500 cfg ;
 
@@ -1446,6 +1449,7 @@ void LeScienze500::on_SavePDF()
     }
 
 
-    QFile::copy( file_path_pdf , target_file_name ) ;
+    if( !target_file_name.isEmpty() )
+        QFile::copy( file_path_pdf , target_file_name ) ;
 }
 

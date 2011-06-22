@@ -76,6 +76,7 @@ BookmarkGui::BookmarkGui(QWidget *parent) :
 
     connect( ui->AddFavorite , SIGNAL(clicked()) , this , SLOT(on_addFavorite()) ) ;
     connect( ui->OpenPDF , SIGNAL(clicked()) , this , SLOT(on_openPdf()) ) ;
+    connect( ui->SavePDF , SIGNAL(clicked()) , this , SLOT(on_savePdf())) ;
 
     connect( ui->SaveComment , SIGNAL(clicked()) , this , SLOT(on_saveComment()) ) ;
 
@@ -1133,7 +1134,15 @@ void BookmarkGui::on_remove()
 
 void BookmarkGui::on_openPdf()
 {
+    if ( this->current_favorite.isEmpty() ) return ;
     emit this->sig_openPdf( this->current_favorite.toInt() );
+}
+
+
+void BookmarkGui::on_savePdf()
+{
+    if ( this->current_favorite.isEmpty() ) return ;
+    emit this->sig_savePdf( this->current_favorite.toInt() );
 }
 
 void BookmarkGui::on_contextMenu( const QPoint& pos )
