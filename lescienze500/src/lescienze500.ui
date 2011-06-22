@@ -60,7 +60,7 @@
          <x>0</x>
          <y>0</y>
          <width>1090</width>
-         <height>712</height>
+         <height>713</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
@@ -1417,7 +1417,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1098</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1426,6 +1426,7 @@ p, li { white-space: pre-wrap; }
     </property>
     <addaction name="actionConfigura"/>
     <addaction name="separator"/>
+    <addaction name="actionSalva_PDF"/>
     <addaction name="actionOrganizza_preferiti"/>
     <addaction name="actionBackup_preferiti"/>
     <addaction name="separator"/>
@@ -1540,6 +1541,18 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Cerca solo nei preferiti</string>
+   </property>
+  </action>
+  <action name="actionSalva_PDF">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="crystal.qrc">
+     <normaloff>:/icons/crystal/document-save-2.png</normaloff>:/icons/crystal/document-save-2.png</iconset>
+   </property>
+   <property name="text">
+    <string>Salva PDF ...</string>
    </property>
   </action>
  </widget>
