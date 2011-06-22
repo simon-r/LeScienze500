@@ -42,6 +42,7 @@
 #include <QMessageBox>
 #include <QFileInfoList>
 #include <QCursor>
+#include <QFileDialog>
 
 #ifdef Q_WS_WIN
 #include<windows.h>
@@ -644,6 +645,8 @@ void LeScienze500::fillInformazioni( QModelIndex index )
         }
     }
     ui->MostraCategoria->setHtml( categoria ) ;
+
+    ui->actionSalva_PDF->setEnabled(true);
 }
 
 bool LeScienze500::ViewPreview()
@@ -1369,7 +1372,16 @@ void LeScienze500::on_cercaSoloNeiFavoriti( bool c )
         ui->Cerca->setText( tr("Cerca") );
 }
 
-void LeScienze500::on_SavePDF() {
+void LeScienze500::on_SavePDF()
+{
+    if ( this->pdf_file.isEmpty() )
+        return  ;
 
+    //QString fileName = QFileDialog::getSaveFileName(this, tr("Salva Articolo"), QDir::homePath() , tr("Documento PDF ( *.pdf) "));
+    QFileDialog save_dialog( this, tr("Salva Articolo"), QDir::homePath() , tr("Documento PDF ( *.pdf ) " ) ) ;
+    save_dialog.setAcceptMode( QFileDialog::AcceptSave );
+
+
+    save_dialog.exec();
 }
 

@@ -1544,6 +1544,9 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
   <action name="actionSalva_PDF">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="crystal.qrc">
      <normaloff>:/icons/crystal/document-save-2.png</normaloff>:/icons/crystal/document-save-2.png</iconset>
