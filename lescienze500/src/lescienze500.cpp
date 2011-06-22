@@ -1377,11 +1377,75 @@ void LeScienze500::on_SavePDF()
     if ( this->pdf_file.isEmpty() )
         return  ;
 
-    //QString fileName = QFileDialog::getSaveFileName(this, tr("Salva Articolo"), QDir::homePath() , tr("Documento PDF ( *.pdf) "));
-    QFileDialog save_dialog( this, tr("Salva Articolo"), QDir::homePath() , tr("Documento PDF ( *.pdf ) " ) ) ;
-    save_dialog.setAcceptMode( QFileDialog::AcceptSave );
+    QueryDB db ;
+
+    QString file_name = QDir::homePath() ;
+
+    QString query = "select titolo from Articoli where id = " ;
+    query += QString().setNum( this->history_id_articoli.first() ) ;
+
+    QueryResult qr = db.execQuery( query ) ;
+
+    if ( qr.empty() ) return ;
+
+    QString doc_name = qr.getField( "Titolo" , qr.begin() ) ;
+
+    file_name += QString("/") += doc_name += QString(".pdf");
+
+    QString target_file_name = QFileDialog::getSaveFileName(this, tr("Salva Articolo"), file_name , tr("Documento PDF ( *.pdf) ")) ;
 
 
-    save_dialog.exec();
+    // get the original file path.
+    query = "select FilePDF from Articoli where id = " ;
+    query += QString().setNum( this->history_id_articoli.first() ) ;
+
+    QueryResult qr_pdf = db.execQuery( query ) ;
+
+    if ( qr_pdf.empty() )
+        return ;
+
+    QString file_pdf = qr_pdf.getField( "FilePDF" , qr_pdf.begin() ) ;
+
+
+    configLS500 cfg ;
+
+    QString file_path_pdf ;
+    QString dvd = cfg.getDVD() ;
+
+    QRegExp reg( "(yes)" ) ;
+    if ( reg.indexIn( dvd ) > -1  ){
+        QString dvd_dir = this->getDvdPath() ;
+
+        if ( dvd_dir.isEmpty() )
+        {
+            ShowDvdNotFoundError() ;
+            ejectDVD() ;
+
+            return ;
+        }
+
+        file_path_pdf += dvd_dir ;
+        file_path_pdf += "/articoli/" ;
+        file_path_pdf += file_pdf ;
+    }
+    else
+    {
+        file_path_pdf.append( cfg.getPDFPath1() ) ;
+        file_path_pdf.append( "/" ) ;
+        file_path_pdf.append( file_pdf ) ;
+
+        QFile file ;
+        file.setFileName( file_path_pdf );
+        if ( !file.exists() )
+        {
+            file_path_pdf = "" ;
+            file_path_pdf.append( cfg.getPDFPath2() ) ;
+            file_path_pdf.append( "/" ) ;
+            file_path_pdf.append( file_pdf ) ;
+        }
+    }
+
+
+    QFile::copy( file_path_pdf , target_file_name ) ;
 }
 
