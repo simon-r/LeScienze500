@@ -71,6 +71,7 @@ LeScienze500::LeScienze500(QWidget *parent) :
     connect( ui->actionBackup_preferiti , SIGNAL(triggered()) , this , SLOT(on_backUpBookmark()) ) ;
     connect( ui->actionMostra_Storia , SIGNAL(triggered()),this,SLOT(on_mostraStoria())) ;
     connect( ui->actionCerca_solo_nei_favoriti , SIGNAL(triggered(bool)),this,SLOT(on_cercaSoloNeiFavoriti(bool))) ;
+    connect( ui->actionSalva_PDF , SIGNAL(triggered()),this,SLOT(on_SavePDF())) ;
 
     connect( ui->addFavoriti , SIGNAL(clicked()) , this , SLOT(on_addFavoriti()) ) ;
 
@@ -1367,3 +1368,8 @@ void LeScienze500::on_cercaSoloNeiFavoriti( bool c )
     else
         ui->Cerca->setText( tr("Cerca") );
 }
+
+void LeScienze500::on_SavePDF() {
+
+}
+
