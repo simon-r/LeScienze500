@@ -560,6 +560,12 @@ void BookmarkGui::fillFavoriteInfo( const QString& id , const QString& Id_f )
     }
     else
         ui->Evaluation->setCurrentIndex( 0 );
+
+    ui->SavePDF->setEnabled( true );
+    ui->OpenReview->setEnabled( true );
+    ui->OpenPDF->setEnabled( true );
+    ui->State->setEnabled( true );
+    ui->Evaluation->setEnabled( true );
 }
 
 
@@ -1454,5 +1460,12 @@ void BookmarkGui::clearFavoriteInfo()
 
     this->current_favorite.clear();
     this->current_favorite_id.clear();
+
+    ui->SavePDF->setEnabled( false );
+    ui->OpenReview->setEnabled( false );
+    ui->SaveComment->setEnabled( false );
+    ui->State->setEnabled( false );
+    ui->Evaluation->setEnabled( false );
+    ui->OpenPDF->setEnabled( false );
 }
 
