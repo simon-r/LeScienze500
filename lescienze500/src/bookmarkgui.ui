@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>741</width>
-    <height>491</height>
+    <width>720</width>
+    <height>538</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,9 +32,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-1</y>
-        <width>718</width>
-        <height>492</height>
+        <y>0</y>
+        <width>712</width>
+        <height>530</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -70,8 +70,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>329</width>
-             <height>390</height>
+             <width>346</width>
+             <height>428</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -131,8 +131,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>329</width>
-             <height>390</height>
+             <width>346</width>
+             <height>428</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -195,8 +195,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>329</width>
-             <height>390</height>
+             <width>346</width>
+             <height>428</height>
             </rect>
            </property>
            <attribute name="icon">
@@ -339,11 +339,20 @@
                    <layout class="QVBoxLayout" name="verticalLayout_4">
                     <item>
                      <widget class="QPushButton" name="AddFavorite">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>25</height>
+                       </size>
+                      </property>
                       <property name="maximumSize">
                        <size>
                         <width>100</width>
-                        <height>16777215</height>
+                        <height>25</height>
                        </size>
+                      </property>
+                      <property name="autoFillBackground">
+                       <bool>true</bool>
                       </property>
                       <property name="text">
                        <string>Aggiungi</string>
@@ -351,6 +360,12 @@
                       <property name="icon">
                        <iconset resource="crystal.qrc">
                         <normaloff>:/icons/crystal/1leftarrow-256.png</normaloff>:/icons/crystal/1leftarrow-256.png</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>20</width>
+                        <height>20</height>
+                       </size>
                       </property>
                      </widget>
                     </item>
@@ -372,7 +387,13 @@
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
-                        <height>23</height>
+                        <height>25</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>25</height>
                        </size>
                       </property>
                       <property name="toolTip">
@@ -391,7 +412,13 @@
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
-                        <height>23</height>
+                        <height>25</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>25</height>
                        </size>
                       </property>
                       <property name="toolTip">
@@ -446,11 +473,24 @@
                      </widget>
                     </item>
                     <item>
+                     <spacer name="verticalSpacer_2">
+                      <property name="orientation">
+                       <enum>Qt::Vertical</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>20</width>
+                        <height>40</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
                      <widget class="QPushButton" name="OpenPDF">
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
-                        <height>60</height>
+                        <height>40</height>
                        </size>
                       </property>
                       <property name="text">
@@ -462,24 +502,11 @@
                       </property>
                       <property name="iconSize">
                        <size>
-                        <width>40</width>
-                        <height>40</height>
+                        <width>30</width>
+                        <height>30</height>
                        </size>
                       </property>
                      </widget>
-                    </item>
-                    <item>
-                     <spacer name="verticalSpacer_2">
-                      <property name="orientation">
-                       <enum>Qt::Vertical</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>20</width>
-                        <height>5</height>
-                       </size>
-                      </property>
-                     </spacer>
                     </item>
                    </layout>
                   </item>
